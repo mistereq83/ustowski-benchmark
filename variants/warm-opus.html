@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ustowski — Profesjonalne mycie i renowacja elewacji w Trójmieście</title>
+<meta name="description" content="Ustowski — profesjonalne mycie i renowacja elewacji, dachów i powierzchni zewnętrznych w Trójmieście. Przywracamy budynkom pierwotny blask.">
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+tailwind.config = {
+  theme: {
+    extend: {
+      colors: {
+        linen: '#FAF7F2',
+        terracotta: '#C4632A',
+        'warm-white': '#FFFDF9',
+        espresso: '#2C2420',
+      },
+      borderRadius: {
+        '2xl': '2rem',
+        '3xl': '3rem',
+      },
+      fontFamily: {
+        heading: ['"General Sans"', 'system-ui', 'sans-serif'],
+        drama: ['"Fraunces"', 'Georgia', 'serif'],
+        data: ['"Source Code Pro"', 'monospace'],
+      }
+    }
+  }
+}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Source+Code+Pro:wght@400;600&display=swap" rel="stylesheet">
+<link href="https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600,700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'General Sans', system-ui, sans-serif; background: #FFFDF9; color: #2C2420; overflow-x: hidden; }
+
+  /* Noise overlay */
+  .noise-overlay {
+    position: fixed; inset: 0; z-index: 9999; pointer-events: none; opacity: 0.05;
+  }
+
+  /* Magnetic button */
+  .magnetic-btn {
+    display: inline-flex; align-items: center; justify-content: center;
+    background: #C4632A; color: #FFFDF9; border: none; cursor: pointer;
+    padding: 1rem 2.5rem; border-radius: 2rem; font-family: 'General Sans', sans-serif;
+    font-weight: 600; font-size: 1.05rem; transition: transform 0.3s cubic-bezier(.25,.46,.45,.94), box-shadow 0.3s;
+    min-height: 44px; min-width: 44px; text-decoration: none;
+  }
+  .magnetic-btn:hover { transform: scale(1.03); box-shadow: 0 8px 30px rgba(196,99,42,0.3); }
+
+  .magnetic-btn-outline {
+    background: transparent; border: 2px solid #C4632A; color: #C4632A;
+  }
+  .magnetic-btn-outline:hover { background: #C4632A; color: #FFFDF9; }
+
+  /* Cards */
+  .card {
+    background: #FFFDF9; border-radius: 2rem; overflow: hidden;
+    border: 1px solid rgba(44,36,32,0.06);
+    box-shadow: 0 2px 20px rgba(44,36,32,0.04);
+  }
+
+  /* Section reveal */
+  .reveal { opacity: 0; transform: translateY(40px); }
+
+  /* Hero stagger items */
+  .hero-stagger { opacity: 0; transform: translateY(30px); }
+
+  /* Protocol stacking cards */
+  .protocol-card {
+    background: #FAF7F2; border-radius: 2.5rem; padding: 3rem;
+    border: 1px solid rgba(44,36,32,0.06);
+  }
+
+  /* Philosophy parallax */
+  .philosophy-bg {
+    background-image: url('https://images.unsplash.com/photo-1558618666-fcd25c85f82e?w=1600&q=80');
+    background-size: cover; background-position: center; background-attachment: fixed;
+  }
+
+  @media (max-width: 768px) {
+    .philosophy-bg { background-attachment: scroll; }
+  }
+
+  /* Hamburger */
+  .hamburger span {
+    display: block; width: 24px; height: 2px; background: #2C2420;
+    transition: all 0.3s; margin: 6px 0;
+  }
+  .hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 6px); }
+  .hamburger.active span:nth-child(2) { opacity: 0; }
+  .hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(5px, -6px); }
+
+  .mobile-menu {
+    transform: translateY(-100%); transition: transform 0.4s cubic-bezier(.25,.46,.45,.94);
+  }
+  .mobile-menu.open { transform: translateY(0); }
+
+  /* Image fallback */
+  img[data-fallback] { background: #FAF7F2; }
+
+  /* Stat number */
+  .stat-num { font-family: 'Source Code Pro', monospace; font-weight: 600; }
+
+  /* Service image */
+  .service-img {
+    width: 100%; height: 240px; object-fit: cover; border-radius: 1.5rem 1.5rem 0 0;
+  }
+
+  /* Scrollbar */
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: #FAF7F2; }
+  ::-webkit-scrollbar-thumb { background: #C4632A; border-radius: 3px; }
+</style>
+</head>
+<body>
+
+<!-- Noise SVG overlay -->
+<svg class="noise-overlay" width="100%" height="100%">
+  <filter id="noise"><feTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch"/></filter>
+  <rect width="100%" height="100%" filter="url(#noise)"/>
+</svg>
+
+<!-- Navigation -->
+<nav class="fixed top-0 left-0 w-full z-50 bg-warm-white/80 backdrop-blur-md border-b border-espresso/5">
+  <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+    <a href="#" class="font-heading font-bold text-2xl text-espresso tracking-tight">Ustowski</a>
+    <div class="hidden md:flex items-center gap-8">
+      <a href="#uslugi" class="text-espresso/70 hover:text-terracotta transition-colors text-sm font-medium">Usługi</a>
+      <a href="#filozofia" class="text-espresso/70 hover:text-terracotta transition-colors text-sm font-medium">Filozofia</a>
+      <a href="#proces" class="text-espresso/70 hover:text-terracotta transition-colors text-sm font-medium">Proces</a>
+      <a href="#kontakt" class="magnetic-btn text-sm !py-3 !px-6">Wyceń za darmo</a>
+    </div>
+    <button class="hamburger md:hidden min-w-[44px] min-h-[44px] flex flex-col items-center justify-center" onclick="toggleMenu()">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- Mobile menu -->
+<div class="mobile-menu fixed inset-0 z-40 bg-warm-white pt-24 px-8 md:hidden">
+  <div class="flex flex-col gap-6">
+    <a href="#uslugi" onclick="toggleMenu()" class="text-2xl font-heading font-semibold text-espresso">Usługi</a>
+    <a href="#filozofia" onclick="toggleMenu()" class="text-2xl font-heading font-semibold text-espresso">Filozofia</a>
+    <a href="#proces" onclick="toggleMenu()" class="text-2xl font-heading font-semibold text-espresso">Proces</a>
+    <a href="#kontakt" onclick="toggleMenu()" class="magnetic-btn text-center mt-4">Wyceń swoją realizację za darmo</a>
+  </div>
+</div>
+
+<!-- Hero -->
+<section class="min-h-screen flex items-center relative overflow-hidden pt-20">
+  <div class="absolute inset-0">
+    <img src="https://images.unsplash.com/photo-1613545325278-f24b0cae1224?w=1800&q=80" alt="Czysta elewacja budynku" class="w-full h-full object-cover opacity-15" data-fallback onerror="this.style.background='linear-gradient(135deg,#FAF7F2,#e8e0d4)';this.style.opacity='1';">
+  </div>
+  <div class="max-w-7xl mx-auto px-6 py-20 relative z-10">
+    <div class="max-w-3xl">
+      <p class="hero-stagger font-data text-terracotta text-sm tracking-wider uppercase mb-6">Trójmiasto · od 2011 roku</p>
+      <h1 class="hero-stagger font-heading text-5xl md:text-7xl font-bold text-espresso leading-[1.05] mb-6">
+        Przywracamy budynkom<br>
+        <span class="font-drama italic text-terracotta font-normal">pierwotny blask</span>
+      </h1>
+      <p class="hero-stagger text-espresso/70 text-lg md:text-xl max-w-xl mb-10 leading-relaxed">
+        Profesjonalne mycie i renowacja elewacji, dachów i powierzchni zewnętrznych. Dobieramy metodę do materiału — bez ryzyka uszkodzeń.
+      </p>
+      <div class="hero-stagger flex flex-wrap gap-4">
+        <a href="#kontakt" class="magnetic-btn text-lg">Wyceń swoją realizację za darmo</a>
+        <a href="#uslugi" class="magnetic-btn magnetic-btn-outline text-lg">Zobacz usługi</a>
+      </div>
+    </div>
+
+    <!-- Stats bar -->
+    <div class="hero-stagger mt-20 grid grid-cols-2 md:grid-cols-4 gap-6">
+      <div class="card p-6 text-center">
+        <p class="stat-num text-3xl text-terracotta">500+</p>
+        <p class="text-espresso/60 text-sm mt-1">zrealizowanych projektów</p>
+      </div>
+      <div class="card p-6 text-center">
+        <p class="stat-num text-3xl text-terracotta">4.9★</p>
+        <p class="text-espresso/60 text-sm mt-1">opinie Google</p>
+      </div>
+      <div class="card p-6 text-center">
+        <p class="stat-num text-3xl text-terracotta">15 lat</p>
+        <p class="text-espresso/60 text-sm mt-1">doświadczenia</p>
+      </div>
+      <div class="card p-6 text-center">
+        <p class="stat-num text-3xl text-terracotta">100%</p>
+        <p class="text-espresso/60 text-sm mt-1">gwarancja na każdą usługę</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Value Props -->
+<section class="py-20 bg-linen">
+  <div class="max-w-7xl mx-auto px-6">
+    <div class="grid md:grid-cols-3 gap-8">
+      <div class="reveal card p-8">
+        <div class="w-14 h-14 bg-terracotta/10 rounded-2xl flex items-center justify-center mb-6">
+          <svg width="28" height="28" fill="none" stroke="#C4632A" stroke-width="2" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        <h3 class="font-heading font-semibold text-xl text-espresso mb-3">Bezpieczne mycie bez uszkodzeń</h3>
+        <p class="text-espresso/60 leading-relaxed">Dobieramy metodę i ciśnienie do każdego typu powierzchni. Tynk, cegła, drewno — każdy materiał wymaga innego podejścia.</p>
+      </div>
+      <div class="reveal card p-8">
+        <div class="w-14 h-14 bg-terracotta/10 rounded-2xl flex items-center justify-center mb-6">
+          <svg width="28" height="28" fill="none" stroke="#C4632A" stroke-width="2" viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+        </div>
+        <h3 class="font-heading font-semibold text-xl text-espresso mb-3">Efekt widoczny natychmiast</h3>
+        <p class="text-espresso/60 leading-relaxed">Realizacje before/after mówią same za siebie. Każdy projekt dokumentujemy — zobaczysz różnicę od razu.</p>
+      </div>
+      <div class="reveal card p-8">
+        <div class="w-14 h-14 bg-terracotta/10 rounded-2xl flex items-center justify-center mb-6">
+          <svg width="28" height="28" fill="none" stroke="#C4632A" stroke-width="2" viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+        </div>
+        <h3 class="font-heading font-semibold text-xl text-espresso mb-3">Kompleksowa ochrona</h3>
+        <p class="text-espresso/60 leading-relaxed">Mycie + impregnacja + konserwacja w jednym zleceniu. Nie zostawiamy budynku bez ochrony.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Services -->
+<section id="uslugi" class="py-24 bg-warm-white">
+  <div class="max-w-7xl mx-auto px-6">
+    <div class="reveal text-center mb-16">
+      <p class="font-data text-terracotta text-sm tracking-wider uppercase mb-4">Co robimy</p>
+      <h2 class="font-heading text-4xl md:text-5xl font-bold text-espresso">Nasze <span class="font-drama italic text-terracotta font-normal">usługi</span></h2>
+    </div>
+    <div class="grid md:grid-cols-2 gap-8">
+      <div class="reveal card group">
+        <img src="https://images.unsplash.com/photo-1625244724120-1fd1d34d00f6?w=800&q=80" alt="Mycie elewacji" class="service-img group-hover:scale-105 transition-transform duration-500" data-fallback onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22800%22 height=%22240%22><rect fill=%22%23FAF7F2%22 width=%22800%22 height=%22240%22/><text x=%2250%25%22 y=%2250%25%22 fill=%22%23C4632A%22 font-size=%2220%22 text-anchor=%22middle%22 dy=%22.3em%22>Mycie elewacji</text></svg>'">
+        <div class="p-8">
+          <h3 class="font-heading font-semibold text-2xl text-espresso mb-3">Mycie elewacji i dachów</h3>
+          <p class="text-espresso/60 leading-relaxed">Usuwamy zabrudzenia, glony, mchy i naloty z każdego typu elewacji. Stosujemy mycie ciśnieniowe i chemiczne — w zależności od podłoża.</p>
+        </div>
+      </div>
+      <div class="reveal card group">
+        <img src="https://images.unsplash.com/photo-1589939705384-5185137a7f0f?w=800&q=80" alt="Malowanie elewacji" class="service-img group-hover:scale-105 transition-transform duration-500" data-fallback onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22800%22 height=%22240%22><rect fill=%22%23FAF7F2%22 width=%22800%22 height=%22240%22/><text x=%2250%25%22 y=%2250%25%22 fill=%22%23C4632A%22 font-size=%2220%22 text-anchor=%22middle%22 dy=%22.3em%22>Malowanie elewacji</text></svg>'">
+        <div class="p-8">
+          <h3 class="font-heading font-semibold text-2xl text-espresso mb-3">Malowanie elewacji i dachów</h3>
+          <p class="text-espresso/60 leading-relaxed">Profesjonalne malowanie natryskowe i ręczne. Farby silikonowe, akrylowe i siloksanowe — dobieramy do warunków i podłoża.</p>
+        </div>
+      </div>
+      <div class="reveal card group">
+        <img src="https://images.unsplash.com/photo-1558618666-fcd25c85f82e?w=800&q=80" alt="Impregnacja" class="service-img group-hover:scale-105 transition-transform duration-500" data-fallback onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22800%22 height=%22240%22><rect fill=%22%23FAF7F2%22 width=%22800%22 height=%22240%22/><text x=%2250%25%22 y=%2250%25%22 fill=%22%23C4632A%22 font-size=%2220%22 text-anchor=%22middle%22 dy=%22.3em%22>Impregnacja</text></svg>'">
+        <div class="p-8">
+          <h3 class="font-heading font-semibold text-2xl text-espresso mb-3">Impregnacja powierzchni</h3>
+          <p class="text-espresso/60 leading-relaxed">Chronimy elewacje, kostki brukowe i dachy przed wilgocią, algami i zabrudzeniami. Impregnaty hydrofobowe przedłużają żywotność na lata.</p>
+        </div>
+      </div>
+      <div class="reveal card group">
+        <img src="https://images.unsplash.com/photo-1509391366360-2e959784a276?w=800&q=80" alt="Mycie paneli fotowoltaicznych" class="service-img group-hover:scale-105 transition-transform duration-500" data-fallback onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22800%22 height=%22240%22><rect fill=%22%23FAF7F2%22 width=%22800%22 height=%22240%22/><text x=%2250%25%22 y=%2250%25%22 fill=%22%23C4632A%22 font-size=%2220%22 text-anchor=%22middle%22 dy=%22.3em%22>Panele fotowoltaiczne</text></svg>'">
+        <div class="p-8">
+          <h3 class="font-heading font-semibold text-2xl text-espresso mb-3">Mycie paneli fotowoltaicznych</h3>
+          <p class="text-espresso/60 leading-relaxed">Brudne panele tracą nawet 30% wydajności. Czyścimy delikatnie, bez ryzyka uszkodzenia — przywracamy pełną moc instalacji.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Philosophy / Parallax -->
+<section id="filozofia" class="relative overflow-hidden">
+  <div class="philosophy-bg absolute inset-0 opacity-20"></div>
+  <div class="relative z-10 py-32 bg-gradient-to-b from-espresso/90 to-espresso/95">
+    <div class="max-w-5xl mx-auto px-6">
+      <div class="reveal text-center mb-16">
+        <p class="font-data text-terracotta text-sm tracking-wider uppercase mb-4">Nasza filozofia</p>
+        <h2 class="font-heading text-4xl md:text-5xl font-bold text-warm-white">Dlaczego <span class="font-drama italic text-terracotta font-normal">my?</span></h2>
+      </div>
+      <div class="grid md:grid-cols-2 gap-12 items-center">
+        <div class="reveal">
+          <div class="card bg-warm-white/5 border-warm-white/10 p-8 backdrop-blur-sm">
+            <p class="font-drama italic text-2xl text-warm-white/40 leading-relaxed mb-4">„Większość firm myje na szybko i&nbsp;znika."</p>
+            <p class="text-warm-white/30 text-sm">— Standardowe podejście na rynku</p>
+          </div>
+        </div>
+        <div class="reveal">
+          <div class="card bg-terracotta/10 border-terracotta/20 p-8 backdrop-blur-sm">
+            <p class="font-drama italic text-2xl text-warm-white leading-relaxed mb-4">„My diagnozujemy, dobieramy metodę, myjemy z&nbsp;gwarancją i&nbsp;chronimy na&nbsp;lata."</p>
+            <p class="text-terracotta text-sm font-semibold">— Podejście Ustowski</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Process / Stacking Cards -->
+<section id="proces" class="py-24 bg-linen">
+  <div class="max-w-7xl mx-auto px-6">
+    <div class="reveal text-center mb-16">
+      <p class="font-data text-terracotta text-sm tracking-wider uppercase mb-4">Jak pracujemy</p>
+      <h2 class="font-heading text-4xl md:text-5xl font-bold text-espresso">Prosty <span class="font-drama italic text-terracotta font-normal">proces</span></h2>
+    </div>
+    <div class="process-stack max-w-3xl mx-auto space-y-8">
+      <div class="protocol-card reveal">
+        <div class="flex items-start gap-6">
+          <div class="stat-num text-5xl text-terracotta/20 shrink-0">01</div>
+          <div>
+            <h3 class="font-heading font-semibold text-2xl text-espresso mb-3">Wizja lokalna</h3>
+            <p class="text-espresso/60 leading-relaxed">Przyjeżdżamy, oceniamy stan powierzchni, typ materiału i stopień zabrudzenia. Dobieramy metodę i przygotowujemy bezpłatną wycenę — bez zobowiązań.</p>
+          </div>
+        </div>
+      </div>
+      <div class="protocol-card reveal">
+        <div class="flex items-start gap-6">
+          <div class="stat-num text-5xl text-terracotta/20 shrink-0">02</div>
+          <div>
+            <h3 class="font-heading font-semibold text-2xl text-espresso mb-3">Czyszczenie</h3>
+            <p class="text-espresso/60 leading-relaxed">Realizujemy usługę dobraną metodą — ciśnieniowo, chemicznie lub mieszanie. Dokumentujemy efekt before/after. Pracujemy czysto i terminowo.</p>
+          </div>
+        </div>
+      </div>
+      <div class="protocol-card reveal">
+        <div class="flex items-start gap-6">
+          <div class="stat-num text-5xl text-terracotta/20 shrink-0">03</div>
+          <div>
+            <h3 class="font-heading font-semibold text-2xl text-espresso mb-3">Ochrona + gwarancja</h3>
+            <p class="text-espresso/60 leading-relaxed">Po czyszczeniu zabezpieczamy powierzchnię impregnatem. Wystawiamy gwarancję na wykonaną usługę. Jeden telefon — i wracamy sprawdzić stan po sezonie.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section id="kontakt" class="py-24 bg-warm-white">
+  <div class="max-w-4xl mx-auto px-6 text-center">
+    <div class="reveal card bg-linen p-12 md:p-16">
+      <p class="font-data text-terracotta text-sm tracking-wider uppercase mb-4">Bezpłatna wycena</p>
+      <h2 class="font-heading text-4xl md:text-5xl font-bold text-espresso mb-6">Wyceń swoją<br><span class="font-drama italic text-terracotta font-normal">realizację za darmo</span></h2>
+      <p class="text-espresso/60 text-lg max-w-xl mx-auto mb-10 leading-relaxed">Opisz nam swój budynek — materiał elewacji, powierzchnię i problem. Wrócimy z wyceną w ciągu 24 godzin.</p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a href="tel:+48500000000" class="magnetic-btn text-lg">
+          <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          Zadzwoń teraz
+        </a>
+        <a href="mailto:kontakt@ustowski.pl" class="magnetic-btn magnetic-btn-outline text-lg">
+          <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          Napisz do nas
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="bg-espresso py-16">
+  <div class="max-w-7xl mx-auto px-6">
+    <div class="flex flex-col md:flex-row justify-between items-start gap-10">
+      <div>
+        <p class="font-heading font-bold text-2xl text-warm-white mb-2">Ustowski</p>
+        <p class="text-warm-white/40 max-w-sm leading-relaxed">Profesjonalne mycie i renowacja elewacji, dachów i powierzchni zewnętrznych w Trójmieście.</p>
+      </div>
+      <div class="flex flex-col gap-2">
+        <p class="font-data text-terracotta text-xs tracking-wider uppercase mb-2">Nawigacja</p>
+        <a href="#uslugi" class="text-warm-white/50 hover:text-terracotta transition-colors text-sm min-h-[44px] flex items-center">Usługi</a>
+        <a href="#filozofia" class="text-warm-white/50 hover:text-terracotta transition-colors text-sm min-h-[44px] flex items-center">Filozofia</a>
+        <a href="#proces" class="text-warm-white/50 hover:text-terracotta transition-colors text-sm min-h-[44px] flex items-center">Proces</a>
+        <a href="#kontakt" class="text-warm-white/50 hover:text-terracotta transition-colors text-sm min-h-[44px] flex items-center">Kontakt</a>
+      </div>
+      <div class="flex flex-col gap-2">
+        <p class="font-data text-terracotta text-xs tracking-wider uppercase mb-2">Lokalizacja</p>
+        <p class="text-warm-white/50 text-sm">Trójmiasto</p>
+        <p class="text-warm-white/50 text-sm">Gdańsk · Gdynia · Sopot</p>
+        <p class="text-warm-white/50 text-sm">i okolice</p>
+      </div>
+    </div>
+    <div class="border-t border-warm-white/10 mt-12 pt-8 text-center">
+      <p class="text-warm-white/30 text-sm">© 2025 Ustowski. Wszelkie prawa zastrzeżone.</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+// Mobile menu toggle
+function toggleMenu() {
+  document.querySelector('.hamburger').classList.toggle('active');
+  document.querySelector('.mobile-menu').classList.toggle('open');
+  document.body.style.overflow = document.querySelector('.mobile-menu').classList.contains('open') ? 'hidden' : '';
+}
+
+// GSAP
+gsap.registerPlugin(ScrollTrigger);
+
+// Hero stagger
+gsap.to('.hero-stagger', {
+  opacity: 1, y: 0, duration: 0.9, stagger: 0.15,
+  ease: 'power3.out', delay: 0.3
+});
+
+// Scroll reveals
+gsap.utils.toArray('.reveal').forEach(el => {
+  gsap.to(el, {
+    opacity: 1, y: 0, duration: 0.8, ease: 'power2.out',
+    scrollTrigger: { trigger: el, start: 'top 85%', once: true }
+  });
+});
+
+// Stacking protocol cards on desktop
+if (window.innerWidth >= 768) {
+  const cards = gsap.utils.toArray('.protocol-card');
+  cards.forEach((card, i) => {
+    if (i < cards.length - 1) {
+      ScrollTrigger.create({
+        trigger: card,
+        start: 'top 20%',
+        end: 'bottom 20%',
+        pin: true,
+        pinSpacing: false,
+      });
+    }
+  });
+}
+
+// Parallax philosophy
+gsap.to('.philosophy-bg', {
+  yPercent: 20,
+  scrollTrigger: {
+    trigger: '#filozofia',
+    start: 'top bottom',
+    end: 'bottom top',
+    scrub: 1,
+  }
+});
+</script>
+</body>
+</html>

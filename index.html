@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ustowski.pl — Porównanie wariantów</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Inter', sans-serif; background: #0a0a0a; color: #e0e0e0; min-height: 100vh; }
+  
+  .header { 
+    position: sticky; top: 0; z-index: 100; 
+    background: rgba(10,10,10,0.92); backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+    padding: 16px 24px;
+  }
+  .header h1 { font-size: 18px; font-weight: 600; margin-bottom: 12px; color: #fff; }
+  .header p { font-size: 13px; color: #888; margin-bottom: 16px; }
+  
+  .tabs-row { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 8px; }
+  .tabs-row .label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.05em; color: #666; padding: 6px 0; min-width: 60px; }
+  
+  .tab { 
+    padding: 6px 14px; border-radius: 20px; font-size: 12px; font-weight: 500;
+    cursor: pointer; transition: all 0.2s; border: 1px solid rgba(255,255,255,0.1);
+    background: transparent; color: #999;
+  }
+  .tab:hover { border-color: rgba(255,255,255,0.25); color: #ccc; }
+  .tab.active { background: #fff; color: #000; border-color: #fff; }
+  
+  .tab.model-sonnet.active { background: #7c6ef0; color: #fff; border-color: #7c6ef0; }
+  .tab.model-opus.active { background: #e8853d; color: #fff; border-color: #e8853d; }
+  .tab.model-gemini25.active { background: #4285f4; color: #fff; border-color: #4285f4; }
+  .tab.model-gemini31.active { background: #34a853; color: #fff; border-color: #34a853; }
+  
+  .controls { display: flex; gap: 16px; align-items: center; flex-wrap: wrap; }
+  
+  .view-toggle { display: flex; gap: 4px; margin-left: auto; }
+  .view-btn { 
+    padding: 6px 12px; border-radius: 8px; font-size: 12px; cursor: pointer;
+    background: transparent; border: 1px solid rgba(255,255,255,0.1); color: #999;
+  }
+  .view-btn.active { background: rgba(255,255,255,0.1); color: #fff; }
+  
+  .frame-container { padding: 0; }
+  
+  .single-view iframe {
+    width: 100%; height: calc(100vh - 140px); border: none;
+    background: #fff; display: block;
+  }
+  
+  .split-view { display: grid; grid-template-columns: 1fr 1fr; height: calc(100vh - 140px); }
+  .split-view .pane { position: relative; border-right: 1px solid rgba(255,255,255,0.1); }
+  .split-view .pane:last-child { border-right: none; }
+  .split-view .pane-label { 
+    position: absolute; top: 8px; left: 8px; z-index: 10;
+    background: rgba(0,0,0,0.8); color: #fff; padding: 4px 10px; 
+    border-radius: 12px; font-size: 11px; font-weight: 600;
+    backdrop-filter: blur(10px);
+  }
+  .split-view iframe { width: 100%; height: 100%; border: none; background: #fff; }
+  
+  .info-bar {
+    position: fixed; bottom: 0; left: 0; right: 0;
+    background: rgba(10,10,10,0.95); backdrop-filter: blur(20px);
+    border-top: 1px solid rgba(255,255,255,0.08);
+    padding: 8px 24px; display: flex; gap: 24px; font-size: 12px; color: #666;
+  }
+  .info-bar span { display: flex; align-items: center; gap: 6px; }
+  .dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; }
+  .dot-sonnet { background: #7c6ef0; }
+  .dot-opus { background: #e8853d; }
+  .dot-gemini25 { background: #4285f4; }
+  .dot-gemini31 { background: #34a853; }
+  
+  @media (max-width: 768px) {
+    .split-view { grid-template-columns: 1fr; }
+    .tabs-row { gap: 4px; }
+    .tab { padding: 5px 10px; font-size: 11px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>🏗️ Ustowski.pl — Model Benchmark</h1>
+  <p>9 wariantów strony głównej: 3 presety × 3 modele AI. Porównaj jakość kodu, design i animacje.</p>
+  
+  <div class="controls">
+    <div class="tabs-row">
+      <span class="label">Preset:</span>
+      <div class="tab active" data-preset="warm" onclick="setPreset('warm')">🏠 Warm Studio</div>
+      <div class="tab" data-preset="brutalist" onclick="setPreset('brutalist')">🏗️ Brutalist Signal</div>
+      <div class="tab" data-preset="organic" onclick="setPreset('organic')">🌿 Organic Tech</div>
+    </div>
+    
+    <div class="tabs-row">
+      <span class="label">Model:</span>
+      <div class="tab model-sonnet active" data-model="sonnet" onclick="setModel('sonnet')">Sonnet 4</div>
+      <div class="tab model-opus" data-model="opus" onclick="setModel('opus')">Opus 4.6</div>
+      <div class="tab model-gemini25" data-model="gemini25" onclick="setModel('gemini25')">Gemini 2.5 Pro</div>
+      <div class="tab model-gemini31" data-model="gemini31" onclick="setModel('gemini31')">Gemini 3.1 Pro</div>
+    </div>
+    
+    <div class="view-toggle">
+      <div class="view-btn active" onclick="setView('single')">Single</div>
+      <div class="view-btn" onclick="setView('split')">Split</div>
+    </div>
+  </div>
+</div>
+
+<div class="frame-container" id="frame-container">
+  <div class="single-view" id="single-view">
+    <iframe id="main-frame" src=""></iframe>
+  </div>
+  <div class="split-view" id="split-view" style="display:none;">
+    <div class="pane">
+      <div class="pane-label" id="left-label">Left</div>
+      <iframe id="left-frame" src=""></iframe>
+    </div>
+    <div class="pane">
+      <div class="pane-label" id="right-label">Right</div>
+      <iframe id="right-frame" src=""></iframe>
+    </div>
+  </div>
+</div>
+
+<div class="info-bar">
+  <span><span class="dot dot-sonnet"></span> Sonnet 4 (Claude)</span>
+  <span><span class="dot dot-opus"></span> Opus 4.6 (Claude)</span>
+  <span><span class="dot dot-gemini25"></span> Gemini 2.5 Pro</span>
+  <span><span class="dot dot-gemini31"></span> Gemini 3.1 Pro</span>
+</div>
+
+<script>
+const variants = {
+  'warm-sonnet': 'variants/warm-sonnet.html',
+  'warm-opus': 'variants/warm-opus.html',
+  'warm-gemini25': 'variants/warm-gemini25.html',
+  'warm-gemini31': 'variants/warm-gemini31.html',
+  'brutalist-sonnet': 'variants/brutalist-sonnet.html',
+  'brutalist-opus': 'variants/brutalist-opus.html',
+  'brutalist-gemini25': 'variants/brutalist-gemini25.html',
+  'brutalist-gemini31': 'variants/brutalist-gemini31.html',
+  'organic-sonnet': 'variants/organic-sonnet.html',
+  'organic-opus': 'variants/organic-opus.html',
+  'organic-gemini25': 'variants/organic-gemini25.html',
+  'organic-gemini31': 'variants/organic-gemini31.html',
+};
+
+const modelNames = { sonnet: 'Sonnet 4', opus: 'Opus 4.6', gemini25: 'Gemini 2.5 Pro', gemini31: 'Gemini 3.1 Pro' };
+const presetNames = { warm: 'Warm Studio', brutalist: 'Brutalist Signal', organic: 'Organic Tech' };
+
+let currentPreset = 'warm';
+let currentModel = 'sonnet';
+let currentView = 'single';
+let splitLeft = { preset: 'warm', model: 'sonnet' };
+let splitRight = { preset: 'warm', model: 'opus' };
+
+function setPreset(p) {
+  currentPreset = p;
+  document.querySelectorAll('[data-preset]').forEach(t => t.classList.toggle('active', t.dataset.preset === p));
+  updateFrames();
+}
+
+function setModel(m) {
+  currentModel = m;
+  document.querySelectorAll('[data-model]').forEach(t => t.classList.toggle('active', t.dataset.model === m));
+  updateFrames();
+}
+
+function setView(v) {
+  currentView = v;
+  document.querySelectorAll('.view-btn').forEach(b => b.classList.toggle('active', b.textContent.toLowerCase() === v));
+  document.getElementById('single-view').style.display = v === 'single' ? 'block' : 'none';
+  document.getElementById('split-view').style.display = v === 'split' ? 'grid' : 'none';
+  if (v === 'split') {
+    splitLeft = { preset: currentPreset, model: currentModel };
+    // Auto-pick next model for right pane
+    const models = ['sonnet', 'opus', 'gemini25', 'gemini31'];
+    const nextIdx = (models.indexOf(currentModel) + 1) % models.length;
+    splitRight = { preset: currentPreset, model: models[nextIdx] };
+  }
+  updateFrames();
+}
+
+function updateFrames() {
+  if (currentView === 'single') {
+    const key = `${currentPreset}-${currentModel}`;
+    const src = variants[key] || '';
+    document.getElementById('main-frame').src = src;
+  } else {
+    const leftKey = `${splitLeft.preset}-${splitLeft.model}`;
+    const rightKey = `${splitRight.preset}-${splitRight.model}`;
+    document.getElementById('left-frame').src = variants[leftKey] || '';
+    document.getElementById('right-frame').src = variants[rightKey] || '';
+    document.getElementById('left-label').textContent = `${presetNames[splitLeft.preset]} × ${modelNames[splitLeft.model]}`;
+    document.getElementById('right-label').textContent = `${presetNames[splitRight.preset]} × ${modelNames[splitRight.model]}`;
+  }
+}
+
+// Init
+updateFrames();
+</script>
+</body>
+</html>
