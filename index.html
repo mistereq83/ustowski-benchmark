@@ -85,7 +85,7 @@
 
 <div class="header">
   <h1>🏗️ Ustowski.pl — Model Benchmark</h1>
-  <p>9 wariantów strony głównej: 3 presety × 3 modele AI. Porównaj jakość kodu, design i animacje.</p>
+  <p>15 wariantów strony głównej: 3 generyczne presety × 4 modele + 3 custom presety (oparte na logo). Porównaj jakość.</p>
   
   <div class="controls">
     <div class="tabs-row">
@@ -93,9 +93,12 @@
       <div class="tab active" data-preset="warm" onclick="setPreset('warm')">🏠 Warm Studio</div>
       <div class="tab" data-preset="brutalist" onclick="setPreset('brutalist')">🏗️ Brutalist Signal</div>
       <div class="tab" data-preset="organic" onclick="setPreset('organic')">🌿 Organic Tech</div>
+      <div class="tab" data-preset="cleanslate" onclick="setPreset('cleanslate')" style="border-color:#F06820;color:#F06820">🔥 Clean Slate</div>
+      <div class="tab" data-preset="balticcraft" onclick="setPreset('balticcraft')" style="border-color:#F06820;color:#F06820">🏗️ Baltic Craft</div>
+      <div class="tab" data-preset="powerwash" onclick="setPreset('powerwash')" style="border-color:#F06820;color:#F06820">⚡ Power Wash</div>
     </div>
     
-    <div class="tabs-row">
+    <div class="tabs-row" id="model-row">
       <span class="label">Model:</span>
       <div class="tab model-sonnet active" data-model="sonnet" onclick="setModel('sonnet')">Sonnet 4</div>
       <div class="tab model-opus" data-model="opus" onclick="setModel('opus')">Opus 4.6</div>
@@ -131,6 +134,7 @@
   <span><span class="dot dot-opus"></span> Opus 4.6 (Claude)</span>
   <span><span class="dot dot-gemini25"></span> Gemini 2.5 Pro</span>
   <span><span class="dot dot-gemini31"></span> Gemini 3.1 Pro</span>
+  <span style="margin-left:16px;color:#F06820">🔥 = Custom (logo-based)</span>
 </div>
 
 <script>
@@ -147,10 +151,15 @@ const variants = {
   'organic-opus': 'variants/organic-opus.html',
   'organic-gemini25': 'variants/organic-gemini25.html',
   'organic-gemini31': 'variants/organic-gemini31.html',
+  // Custom presets (logo-based, Gemini 3.1 Pro only)
+  'cleanslate-gemini31': 'variants/custom-cleanslate.html',
+  'balticcraft-gemini31': 'variants/custom-balticcraft.html',
+  'powerwash-gemini31': 'variants/custom-powerwash.html',
 };
 
+const customPresets = ['cleanslate', 'balticcraft', 'powerwash'];
 const modelNames = { sonnet: 'Sonnet 4', opus: 'Opus 4.6', gemini25: 'Gemini 2.5 Pro', gemini31: 'Gemini 3.1 Pro' };
-const presetNames = { warm: 'Warm Studio', brutalist: 'Brutalist Signal', organic: 'Organic Tech' };
+const presetNames = { warm: 'Warm Studio', brutalist: 'Brutalist Signal', organic: 'Organic Tech', cleanslate: 'Clean Slate', balticcraft: 'Baltic Craft', powerwash: 'Power Wash' };
 
 let currentPreset = 'warm';
 let currentModel = 'sonnet';
@@ -161,6 +170,10 @@ let splitRight = { preset: 'warm', model: 'opus' };
 function setPreset(p) {
   currentPreset = p;
   document.querySelectorAll('[data-preset]').forEach(t => t.classList.toggle('active', t.dataset.preset === p));
+  // Custom presets only have Gemini 3.1 Pro — auto-select and hide model row
+  const isCustom = customPresets.includes(p);
+  document.getElementById('model-row').style.display = isCustom ? 'none' : 'flex';
+  if (isCustom) { currentModel = 'gemini31'; }
   updateFrames();
 }
 

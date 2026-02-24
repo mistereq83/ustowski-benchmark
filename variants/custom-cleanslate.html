@@ -1,0 +1,844 @@
+<!DOCTYPE html>
+<html lang="pl" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ustowski.pl - Przywracamy blask Twojej nieruchomości | Trójmiasto</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&family=Outfit:wght@400;700;900&family=Space+Mono:wght@700&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        bgLight: '#FAFAFA',
+                        primary: '#2B2B2B',
+                        accent: '#F06820',
+                        dark: '#1A1A1A',
+                        secondary: '#EDEDED'
+                    },
+                    fontFamily: {
+                        heading: ['Outfit', 'sans-serif'],
+                        body: ['DM Sans', 'sans-serif'],
+                        mono: ['Space Mono', 'monospace']
+                    },
+                    borderRadius: {
+                        '4xl': '2rem',
+                        '5xl': '3rem',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- GSAP -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <!-- Lenis for smooth scrolling -->
+    <script src="https://unpkg.com/@studio-freight/lenis@1.0.32/dist/lenis.min.js"></script>
+
+    <style>
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background-color: #FAFAFA;
+            color: #2B2B2B;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4, h5, h6, .font-heading {
+            font-family: 'Outfit', sans-serif;
+        }
+
+        .font-mono {
+            font-family: 'Space Mono', monospace;
+        }
+
+        /* Noise Overlay */
+        .noise {
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            pointer-events: none;
+            z-index: 9999;
+            opacity: 0.05;
+            mix-blend-mode: overlay;
+        }
+
+        /* Navbar pill */
+        .nav-pill {
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            background: rgba(250, 250, 250, 0.1);
+        }
+        .nav-pill.scrolled {
+            background: rgba(250, 250, 250, 0.85);
+            backdrop-filter: blur(16px);
+            box-shadow: 0 10px 40px rgba(0,0,0,0.05);
+        }
+        .nav-link {
+            position: relative;
+            display: inline-block;
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0; height: 2px;
+            bottom: -2px; left: 0;
+            background-color: #F06820;
+            transition: width 0.3s ease;
+        }
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        /* Magnetic Button */
+        .btn-magnetic {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            border-radius: 999px;
+            transition: all 0.3s ease;
+            transform-style: preserve-3d;
+        }
+        .btn-magnetic::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: #F06820;
+            z-index: -1;
+            transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+            transform: scale(1);
+        }
+        .btn-magnetic:hover {
+            box-shadow: 0 0 30px rgba(240, 104, 32, 0.4);
+            transform: scale(1.03);
+        }
+
+        /* Hero Split Screen */
+        .hero-container {
+            position: relative;
+            width: 100%;
+            height: 100dvh;
+            overflow: hidden;
+            display: flex;
+        }
+        .hero-half {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            overflow: hidden;
+        }
+        .hero-left {
+            z-index: 1;
+            clip-path: polygon(0 0, 50% 0, 50% 100%, 0 100%);
+        }
+        .hero-right {
+            z-index: 2;
+            clip-path: polygon(50% 0, 100% 0, 100% 100%, 50% 100%);
+        }
+        .hero-img {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            object-fit: cover;
+        }
+        /* Overlays for dark/light feel */
+        .hero-left::after {
+            content: ''; position: absolute; top:0; left:0; right:0; bottom:0;
+            background: linear-gradient(to right, rgba(26,26,26,0.9) 0%, rgba(26,26,26,0.6) 100%);
+            mix-blend-mode: multiply;
+        }
+        .hero-right::after {
+            content: ''; position: absolute; top:0; left:0; right:0; bottom:0;
+            background: linear-gradient(to right, rgba(250,250,250,0.3) 0%, rgba(250,250,250,0.6) 100%);
+        }
+        .divider-line {
+            position: absolute;
+            top: 0; bottom: 0;
+            left: 50%;
+            width: 4px;
+            background: #F06820;
+            z-index: 10;
+            transform: translateX(-50%);
+            box-shadow: 0 0 20px #F06820;
+            cursor: ew-resize;
+        }
+        .slider-handle {
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            width: 48px; height: 48px;
+            background: #F06820;
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            z-index: 11;
+            box-shadow: 0 0 20px rgba(240, 104, 32, 0.6);
+            cursor: ew-resize;
+            color: white;
+        }
+
+        .hero-content-wrapper {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: 20;
+            display: flex; flex-direction: column;
+            justify-content: center; align-items: center;
+            pointer-events: none; /* Let clicks pass to slider */
+            text-align: center;
+        }
+
+        .hero-text-dirty {
+            color: #FAFAFA;
+            clip-path: polygon(0 0, 50% 0, 50% 100%, 0 100%);
+            position: absolute;
+        }
+        .hero-text-clean {
+            color: #2B2B2B;
+            clip-path: polygon(50% 0, 100% 0, 100% 100%, 50% 100%);
+            position: absolute;
+        }
+
+        /* Service Cards: Grayscale to Color */
+        .service-card {
+            overflow: hidden;
+            position: relative;
+            cursor: pointer;
+        }
+        .service-img {
+            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+            filter: grayscale(100%) brightness(0.7);
+            transform: scale(1.05);
+        }
+        .service-card:hover .service-img {
+            filter: grayscale(0%) brightness(1);
+            transform: scale(1);
+        }
+        .service-overlay {
+            background: linear-gradient(to top, rgba(26,26,26,0.9), transparent);
+            transition: opacity 0.5s;
+        }
+        .service-card:hover .service-overlay {
+            opacity: 0.7;
+        }
+
+        /* Curve Separator */
+        .curve-separator {
+            position: relative;
+            width: 100%;
+            height: 120px;
+            overflow: hidden;
+            background: #FAFAFA;
+        }
+        .curve-svg {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: 100%;
+            transform: scaleX(2);
+        }
+        
+        .curve-separator-dark {
+            background: #1A1A1A;
+        }
+
+        /* Stats Circle */
+        .stat-circle {
+            width: 160px; height: 160px;
+            border-radius: 50%;
+            border: 2px solid #F06820;
+            display: flex; flex-direction: column;
+            align-items: center; justify-content: center;
+            position: relative;
+            transition: all 0.3s;
+        }
+        .stat-circle::after {
+            content: ''; position: absolute;
+            top: 8px; left: 8px; right: 8px; bottom: 8px;
+            border-radius: 50%;
+            background: rgba(240, 104, 32, 0.1);
+            z-index: -1;
+            transform: scale(0);
+            transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .stat-item:hover .stat-circle::after {
+            transform: scale(1);
+        }
+
+        /* Loader */
+        .loader {
+            position: fixed; inset: 0;
+            background: #1A1A1A;
+            z-index: 10000;
+            display: flex; justify-content: center; align-items: center;
+            color: #F06820;
+            font-family: 'Outfit', sans-serif;
+            font-size: 3rem;
+            font-weight: 900;
+            font-style: italic;
+        }
+
+        .text-outline {
+            -webkit-text-stroke: 1px rgba(250,250,250,0.2);
+            color: transparent;
+        }
+        
+        /* Mobile menu */
+        #mobile-menu {
+            clip-path: circle(0% at 100% 0);
+            transition: clip-path 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        #mobile-menu.open {
+            clip-path: circle(150% at 100% 0);
+        }
+    </style>
+</head>
+<body class="antialiased selection:bg-accent selection:text-white">
+
+    <!-- Preloader -->
+    <div class="loader" id="loader">Ustowski.</div>
+
+    <!-- Noise SVG -->
+    <svg class="noise">
+        <filter id="noiseFilter">
+            <feTurbulence type="fractalNoise" baseFrequency="0.6" numOctaves="3" stitchTiles="stitch"/>
+        </filter>
+        <rect width="100%" height="100%" filter="url(#noiseFilter)"/>
+    </svg>
+
+    <!-- Navbar -->
+    <nav id="navbar" class="fixed top-6 left-1/2 -translate-x-1/2 z-50 w-[90%] max-w-6xl nav-pill rounded-full px-6 py-4 flex justify-between items-center text-primary border border-white/20">
+        <div class="text-2xl font-heading font-black italic tracking-tighter cursor-pointer">
+            Ustowski<span class="text-accent">.</span>
+        </div>
+        
+        <div class="hidden md:flex items-center space-x-8 text-sm font-medium tracking-wide">
+            <a href="#uslugi" class="nav-link">Usługi</a>
+            <a href="#filozofia" class="nav-link">Filozofia</a>
+            <a href="#proces" class="nav-link">Proces</a>
+            <a href="#kontakt" class="btn-magnetic text-white px-6 py-2.5 font-bold tracking-wider uppercase text-xs">
+                <span class="relative z-10">Darmowa wycena</span>
+            </a>
+        </div>
+
+        <button id="menu-btn" class="md:hidden flex flex-col space-y-1.5 z-50 p-2">
+            <span class="block w-6 h-0.5 bg-primary transition-transform duration-300 origin-right" id="bar1"></span>
+            <span class="block w-6 h-0.5 bg-primary transition-opacity duration-300" id="bar2"></span>
+            <span class="block w-6 h-0.5 bg-primary transition-transform duration-300 origin-right" id="bar3"></span>
+        </button>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="fixed inset-0 bg-bgLight z-40 flex flex-col justify-center items-center space-y-8 text-2xl font-heading font-bold">
+        <a href="#uslugi" class="mobile-link text-primary hover:text-accent transition-colors">Usługi</a>
+        <a href="#filozofia" class="mobile-link text-primary hover:text-accent transition-colors">Filozofia</a>
+        <a href="#proces" class="mobile-link text-primary hover:text-accent transition-colors">Proces</a>
+        <a href="#kontakt" class="mobile-link text-accent">Darmowa wycena</a>
+    </div>
+
+    <!-- Hero Section (Split Screen) -->
+    <section class="hero-container" id="hero">
+        <!-- Left: Dirty -->
+        <div class="hero-half hero-left" id="hero-left">
+            <img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&q=80&w=2000" alt="Brudna elewacja" class="hero-img" onerror="this.src='https://images.unsplash.com/photo-1605810230434-7631ac76ec81?auto=format&fit=crop&q=80'">
+        </div>
+        
+        <!-- Right: Clean -->
+        <div class="hero-half hero-right" id="hero-right">
+            <img src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&q=80&w=2000" alt="Czysta elewacja" class="hero-img" onerror="this.src='https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&q=80'">
+        </div>
+
+        <!-- Slider UI -->
+        <div class="divider-line" id="divider"></div>
+        <div class="slider-handle" id="slider-handle">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 12h8M12 8v8M4 12l4-4m-4 4l4 4m12-4l-4-4m4 4l-4 4"/></svg>
+        </div>
+
+        <!-- Text Overlays -->
+        <div class="hero-content-wrapper">
+            <!-- Dirty Text -->
+            <div class="hero-text-dirty w-full flex flex-col items-center justify-center pointer-events-none" id="text-dirty">
+                <h1 class="text-[5rem] md:text-[8rem] lg:text-[10rem] font-heading leading-none uppercase tracking-tighter">
+                    <span class="block font-black opacity-80">Przywracamy</span>
+                    <span class="block font-black italic text-transparent" style="-webkit-text-stroke: 2px #FAFAFA;">blask.</span>
+                </h1>
+                <p class="mt-6 text-xl md:text-2xl font-light opacity-70 max-w-xl px-4">Usuwamy lata zabrudzeń w jeden dzień.</p>
+            </div>
+            
+            <!-- Clean Text -->
+            <div class="hero-text-clean w-full flex flex-col items-center justify-center pointer-events-none" id="text-clean">
+                <h1 class="text-[5rem] md:text-[8rem] lg:text-[10rem] font-heading leading-none uppercase tracking-tighter">
+                    <span class="block font-black text-primary">Przywracamy</span>
+                    <span class="block font-black italic text-accent drop-shadow-lg">blask.</span>
+                </h1>
+                <p class="mt-6 text-xl md:text-2xl font-medium text-primary max-w-xl px-4 drop-shadow-sm">Profesjonalne mycie i malowanie w Trójmieście.</p>
+            </div>
+        </div>
+        
+        <!-- Scroll indicator -->
+        <div class="absolute bottom-10 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center animate-bounce text-white mix-blend-difference pointer-events-none">
+            <span class="text-xs font-mono uppercase tracking-widest mb-2">Przesuń lub scrolluj</span>
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+        </div>
+    </section>
+
+    <!-- Social Proof Stats -->
+    <section class="py-24 bg-bgLight relative z-10 rounded-t-4xl md:rounded-t-5xl -mt-10 overflow-hidden" id="stats">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-12 md:gap-8 justify-items-center">
+                
+                <div class="stat-item flex flex-col items-center text-center gs-reveal">
+                    <div class="stat-circle mb-6">
+                        <span class="text-4xl md:text-5xl font-mono text-accent font-bold"><span class="counter" data-target="500">0</span>+</span>
+                    </div>
+                    <h3 class="font-heading font-bold text-lg text-primary uppercase tracking-wider">Projektów</h3>
+                    <p class="text-sm text-gray-500 mt-2">Zrealizowanych w Trójmieście</p>
+                </div>
+
+                <div class="stat-item flex flex-col items-center text-center gs-reveal" style="transition-delay: 100ms;">
+                    <div class="stat-circle mb-6">
+                        <span class="text-4xl md:text-5xl font-mono text-accent font-bold"><span class="counter" data-target="4.9">0</span>★</span>
+                    </div>
+                    <h3 class="font-heading font-bold text-lg text-primary uppercase tracking-wider">Średnia ocen</h3>
+                    <p class="text-sm text-gray-500 mt-2">Od zadowolonych klientów</p>
+                </div>
+
+                <div class="stat-item flex flex-col items-center text-center gs-reveal" style="transition-delay: 200ms;">
+                    <div class="stat-circle mb-6">
+                        <span class="text-4xl md:text-5xl font-mono text-accent font-bold"><span class="counter" data-target="15">0</span></span>
+                    </div>
+                    <h3 class="font-heading font-bold text-lg text-primary uppercase tracking-wider">Lat na rynku</h3>
+                    <p class="text-sm text-gray-500 mt-2">Doświadczenia w branży</p>
+                </div>
+
+                <div class="stat-item flex flex-col items-center text-center gs-reveal" style="transition-delay: 300ms;">
+                    <div class="stat-circle mb-6">
+                        <span class="text-4xl md:text-5xl font-mono text-accent font-bold">100%</span>
+                    </div>
+                    <h3 class="font-heading font-bold text-lg text-primary uppercase tracking-wider">Gwarancji</h3>
+                    <p class="text-sm text-gray-500 mt-2">Na wykonane usługi</p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="py-24 bg-secondary" id="uslugi">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="flex flex-col md:flex-row justify-between items-end mb-16 gs-reveal">
+                <div class="max-w-2xl">
+                    <span class="text-accent font-mono uppercase tracking-widest text-sm font-bold block mb-4">// Nasze Usługi</span>
+                    <h2 class="text-4xl md:text-6xl font-heading font-black text-primary leading-tight">Kompleksowa <br><span class="italic text-accent">transformacja.</span></h2>
+                </div>
+                <p class="text-gray-600 max-w-md mt-6 md:mt-0 text-lg">Specjalizujemy się w czyszczeniu i renowacji trudnych powierzchni. Zobacz, co możemy dla Ciebie zrobić.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Service 1 -->
+                <div class="service-card group rounded-4xl h-[400px] gs-reveal">
+                    <img src="https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&q=80&w=800" alt="Mycie elewacji" class="service-img absolute inset-0 w-full h-full object-cover">
+                    <div class="service-overlay absolute inset-0"></div>
+                    <div class="absolute bottom-0 left-0 p-8 w-full transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
+                        <div class="w-12 h-12 bg-accent rounded-full flex items-center justify-center text-white mb-4 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                        </div>
+                        <h3 class="text-2xl font-heading font-bold text-white mb-2">Mycie Elewacji</h3>
+                        <p class="text-gray-300 text-sm opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100">Usuwamy glony, grzyby i zabrudzenia atmosferyczne.</p>
+                    </div>
+                </div>
+
+                <!-- Service 2 -->
+                <div class="service-card group rounded-4xl h-[400px] gs-reveal">
+                    <img src="https://images.unsplash.com/photo-1632154939523-288219af63da?auto=format&fit=crop&q=80&w=800" alt="Mycie dachów" class="service-img absolute inset-0 w-full h-full object-cover">
+                    <div class="service-overlay absolute inset-0"></div>
+                    <div class="absolute bottom-0 left-0 p-8 w-full transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
+                        <div class="w-12 h-12 bg-accent rounded-full flex items-center justify-center text-white mb-4 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                        </div>
+                        <h3 class="text-2xl font-heading font-bold text-white mb-2">Mycie Dachów</h3>
+                        <p class="text-gray-300 text-sm opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100">Bezpieczne czyszczenie dachówek z mchu i sadzy.</p>
+                    </div>
+                </div>
+
+                <!-- Service 3 -->
+                <div class="service-card group rounded-4xl h-[400px] gs-reveal">
+                    <img src="https://images.unsplash.com/photo-1589939705384-5185137a7f0f?auto=format&fit=crop&q=80&w=800" alt="Malowanie elewacji" class="service-img absolute inset-0 w-full h-full object-cover">
+                    <div class="service-overlay absolute inset-0"></div>
+                    <div class="absolute bottom-0 left-0 p-8 w-full transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
+                        <div class="w-12 h-12 bg-accent rounded-full flex items-center justify-center text-white mb-4 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                        </div>
+                        <h3 class="text-2xl font-heading font-bold text-white mb-2">Malowanie Elewacji</h3>
+                        <p class="text-gray-300 text-sm opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100">Odświeżenie koloru z użyciem farb premium.</p>
+                    </div>
+                </div>
+
+                <!-- Service 4 -->
+                <div class="service-card group rounded-4xl h-[400px] gs-reveal">
+                    <img src="https://images.unsplash.com/photo-1618392180026-6815eeb8e805?auto=format&fit=crop&q=80&w=800" alt="Malowanie dachów" class="service-img absolute inset-0 w-full h-full object-cover">
+                    <div class="service-overlay absolute inset-0"></div>
+                    <div class="absolute bottom-0 left-0 p-8 w-full transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
+                        <div class="w-12 h-12 bg-accent rounded-full flex items-center justify-center text-white mb-4 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                        </div>
+                        <h3 class="text-2xl font-heading font-bold text-white mb-2">Malowanie Dachów</h3>
+                        <p class="text-gray-300 text-sm opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100">Zabezpieczenie antykorozyjne i nowy wygląd.</p>
+                    </div>
+                </div>
+
+                <!-- Service 5 -->
+                <div class="service-card group rounded-4xl h-[400px] gs-reveal">
+                    <img src="https://images.unsplash.com/photo-1621217604510-48f863e41b36?auto=format&fit=crop&q=80&w=800" alt="Impregnacja" class="service-img absolute inset-0 w-full h-full object-cover">
+                    <div class="service-overlay absolute inset-0"></div>
+                    <div class="absolute bottom-0 left-0 p-8 w-full transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
+                        <div class="w-12 h-12 bg-accent rounded-full flex items-center justify-center text-white mb-4 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                        </div>
+                        <h3 class="text-2xl font-heading font-bold text-white mb-2">Impregnacja</h3>
+                        <p class="text-gray-300 text-sm opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100">Hydrofobowa ochrona przed ponownym brudzeniem.</p>
+                    </div>
+                </div>
+
+                <!-- Service 6 -->
+                <div class="service-card group rounded-4xl h-[400px] gs-reveal">
+                    <img src="https://images.unsplash.com/photo-1509391366360-2e959784a276?auto=format&fit=crop&q=80&w=800" alt="Panele fotowoltaiczne" class="service-img absolute inset-0 w-full h-full object-cover">
+                    <div class="service-overlay absolute inset-0"></div>
+                    <div class="absolute bottom-0 left-0 p-8 w-full transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
+                        <div class="w-12 h-12 bg-accent rounded-full flex items-center justify-center text-white mb-4 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                        </div>
+                        <h3 class="text-2xl font-heading font-bold text-white mb-2">Czyszczenie PV</h3>
+                        <p class="text-gray-300 text-sm opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100">Mycie wodą demineralizowaną dla wyższej wydajności.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Transition Curve -->
+    <div class="curve-separator curve-separator-dark">
+        <svg class="curve-svg" viewBox="0 0 1440 120" preserveAspectRatio="none">
+            <path d="M0,0 C480,120 960,120 1440,0 L1440,120 L0,120 Z" fill="#1A1A1A"></path>
+        </svg>
+    </div>
+
+    <!-- Philosophy Manifesto -->
+    <section class="py-32 bg-dark text-white relative overflow-hidden" id="filozofia">
+        <!-- Abstract orange glow -->
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-accent/10 rounded-full blur-[120px] pointer-events-none"></div>
+        
+        <div class="max-w-5xl mx-auto px-6 relative z-10 text-center">
+            <span class="text-accent font-mono uppercase tracking-widest text-sm font-bold block mb-8 gs-reveal">// Nasza Filozofia</span>
+            
+            <h2 class="text-3xl md:text-5xl lg:text-6xl font-heading font-bold leading-tight gs-reveal">
+                <span class="text-gray-500 line-through decoration-accent decoration-4">Większość firm myje na szybko i znika.</span>
+            </h2>
+            
+            <h2 class="text-4xl md:text-6xl lg:text-7xl font-heading font-black italic mt-8 leading-tight gs-reveal">
+                My diagnozujemy, dobieramy metodę, myjemy z <span class="text-accent">gwarancją efektu</span> i chronimy na lata.
+            </h2>
+            
+            <div class="mt-16 flex justify-center gs-reveal">
+                <a href="#kontakt" class="btn-magnetic bg-white text-dark px-10 py-5 font-bold tracking-wider uppercase text-sm">
+                    <span class="relative z-10">Sprawdź różnicę</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Transition Curve out -->
+    <div class="curve-separator" style="transform: rotate(180deg); background: #1A1A1A;">
+        <svg class="curve-svg" viewBox="0 0 1440 120" preserveAspectRatio="none">
+            <path d="M0,0 C480,120 960,120 1440,0 L1440,120 L0,120 Z" fill="#FAFAFA"></path>
+        </svg>
+    </div>
+
+    <!-- Process Section -->
+    <section class="py-24 bg-bgLight" id="proces">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-20 gs-reveal">
+                <span class="text-accent font-mono uppercase tracking-widest text-sm font-bold block mb-4">// Jak pracujemy</span>
+                <h2 class="text-4xl md:text-6xl font-heading font-black text-primary">Prosty proces.<br><span class="italic text-accent">Trwały efekt.</span></h2>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-12 relative">
+                <!-- Connecting line on desktop -->
+                <div class="hidden md:block absolute top-12 left-20 right-20 h-0.5 bg-gray-200 z-0"></div>
+
+                <!-- Step 1 -->
+                <div class="relative z-10 flex flex-col items-center text-center gs-reveal">
+                    <div class="w-24 h-24 bg-bgLight border-4 border-accent rounded-full flex items-center justify-center text-3xl font-heading font-black text-primary mb-8 shadow-xl">1</div>
+                    <h3 class="text-2xl font-heading font-bold text-primary mb-4">Wizja lokalna i wycena</h3>
+                    <p class="text-gray-600">Oceniamy stan powierzchni, rodzaj zabrudzeń i dobieramy odpowiednią chemię oraz ciśnienie. Wycena jest zawsze darmowa.</p>
+                </div>
+
+                <!-- Step 2 -->
+                <div class="relative z-10 flex flex-col items-center text-center gs-reveal" style="transition-delay: 100ms;">
+                    <div class="w-24 h-24 bg-accent rounded-full flex items-center justify-center text-3xl font-heading font-black text-white mb-8 shadow-xl shadow-accent/40 scale-110">2</div>
+                    <h3 class="text-2xl font-heading font-bold text-primary mb-4">Właściwe czyszczenie</h3>
+                    <p class="text-gray-600">Zmywamy lata brudu, grzybów i smogu. Pracujemy na profesjonalnym sprzęcie, zabezpieczając otoczenie budynku.</p>
+                </div>
+
+                <!-- Step 3 -->
+                <div class="relative z-10 flex flex-col items-center text-center gs-reveal" style="transition-delay: 200ms;">
+                    <div class="w-24 h-24 bg-primary rounded-full flex items-center justify-center text-3xl font-heading font-black text-white mb-8 shadow-xl">3</div>
+                    <h3 class="text-2xl font-heading font-bold text-primary mb-4">Ochrona i gwarancja</h3>
+                    <p class="text-gray-600">Nakładamy preparaty impregnujące, które tworzą powłokę samoczyszczącą. Oddajemy gotowy, zabezpieczony obiekt.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-24 bg-secondary" id="kontakt">
+        <div class="max-w-5xl mx-auto px-6">
+            <div class="bg-primary rounded-5xl p-10 md:p-20 text-center relative overflow-hidden shadow-2xl">
+                <!-- Decorative element -->
+                <div class="absolute -top-24 -right-24 w-64 h-64 bg-accent/20 rounded-full blur-[50px]"></div>
+                <div class="absolute -bottom-24 -left-24 w-64 h-64 bg-white/10 rounded-full blur-[50px]"></div>
+
+                <div class="relative z-10">
+                    <h2 class="text-4xl md:text-6xl font-heading font-black text-white mb-6">Gotowy na <span class="text-accent italic">zmianę?</span></h2>
+                    <p class="text-gray-300 text-lg md:text-xl max-w-2xl mx-auto mb-10">Skontaktuj się z nami. Odezwiemy się w ciągu 24h, przyjedziemy na darmową wizję lokalną i podamy dokładną wycenę.</p>
+                    
+                    <form class="max-w-md mx-auto flex flex-col space-y-4">
+                        <input type="text" placeholder="Imię i nazwisko" class="px-6 py-4 bg-white/10 border border-white/20 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:border-accent transition-colors font-body">
+                        <input type="tel" placeholder="Numer telefonu" class="px-6 py-4 bg-white/10 border border-white/20 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:border-accent transition-colors font-body">
+                        <button type="button" class="btn-magnetic mt-4 px-8 py-5 text-white font-bold tracking-wider uppercase text-sm w-full rounded-xl">
+                            <span class="relative z-10">Wyceń moją realizację za darmo</span>
+                        </button>
+                    </form>
+                    
+                    <p class="mt-6 text-sm text-gray-400 font-mono">Działamy na terenie całego Trójmiasta i okolic.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white pt-20 pb-10">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
+                <div class="col-span-1 md:col-span-2">
+                    <div class="text-3xl font-heading font-black italic tracking-tighter mb-6">
+                        Ustowski<span class="text-accent">.</span>
+                    </div>
+                    <p class="text-gray-400 max-w-sm mb-8">Eksperci od trudnych zabrudzeń. Przywracamy świetność elewacjom i dachom w Trójmieście od 15 lat.</p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-accent transition-colors">
+                            <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"/></svg>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-accent transition-colors">
+                            <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+                        </a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h4 class="font-heading font-bold text-lg mb-4">Kontakt</h4>
+                    <ul class="space-y-3 text-gray-400 font-body">
+                        <li><a href="tel:+48123456789" class="hover:text-accent transition-colors">+48 123 456 789</a></li>
+                        <li><a href="mailto:kontakt@ustowski.pl" class="hover:text-accent transition-colors">kontakt@ustowski.pl</a></li>
+                        <li class="pt-2 text-sm font-mono text-gray-500">Gdańsk, Gdynia, Sopot<br>i okolice</li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="font-heading font-bold text-lg mb-4">Na skróty</h4>
+                    <ul class="space-y-3 text-gray-400 font-body">
+                        <li><a href="#uslugi" class="hover:text-accent transition-colors">Usługi</a></li>
+                        <li><a href="#filozofia" class="hover:text-accent transition-colors">O nas</a></li>
+                        <li><a href="#proces" class="hover:text-accent transition-colors">Jak pracujemy</a></li>
+                        <li><a href="#" class="hover:text-accent transition-colors">Polityka prywatności</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center text-sm text-gray-500">
+                <p>&copy; 2024 Ustowski.pl. Wszelkie prawa zastrzeżone.</p>
+                <p class="mt-2 md:mt-0 font-mono text-xs tracking-wider">Designed by Molab</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script>
+        // Preloader
+        window.addEventListener('load', () => {
+            gsap.to('#loader', {
+                yPercent: -100,
+                duration: 1,
+                ease: 'power4.inOut',
+                delay: 0.5
+            });
+        });
+
+        // Initialize Lenis (Smooth Scroll)
+        const lenis = new Lenis({
+            duration: 1.2,
+            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+            direction: 'vertical',
+            gestureDirection: 'vertical',
+            smooth: true,
+            mouseMultiplier: 1,
+            smoothTouch: false,
+            touchMultiplier: 2,
+        });
+
+        function raf(time) {
+            lenis.raf(time);
+            requestAnimationFrame(raf);
+        }
+        requestAnimationFrame(raf);
+
+        // GSAP ScrollTrigger Integration
+        gsap.registerPlugin(ScrollTrigger);
+
+        // Navbar blur on scroll
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Mobile Menu Toggle
+        const menuBtn = document.getElementById('menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const bar1 = document.getElementById('bar1');
+        const bar2 = document.getElementById('bar2');
+        const bar3 = document.getElementById('bar3');
+        const mobileLinks = document.querySelectorAll('.mobile-link');
+        let isMenuOpen = false;
+
+        function toggleMenu() {
+            isMenuOpen = !isMenuOpen;
+            if(isMenuOpen) {
+                mobileMenu.classList.add('open');
+                bar1.style.transform = 'rotate(-45deg)';
+                bar2.style.opacity = '0';
+                bar3.style.transform = 'rotate(45deg)';
+            } else {
+                mobileMenu.classList.remove('open');
+                bar1.style.transform = 'rotate(0)';
+                bar2.style.opacity = '1';
+                bar3.style.transform = 'rotate(0)';
+            }
+        }
+
+        menuBtn.addEventListener('click', toggleMenu);
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', toggleMenu);
+        });
+
+        // Hero Split Screen Interaction
+        const heroContainer = document.querySelector('.hero-container');
+        const heroRight = document.getElementById('hero-right');
+        const divider = document.getElementById('divider');
+        const sliderHandle = document.getElementById('slider-handle');
+        const textClean = document.getElementById('text-clean');
+        const textDirty = document.getElementById('text-dirty');
+
+        let isDragging = false;
+
+        function updateSlider(xPos) {
+            const containerRect = heroContainer.getBoundingClientRect();
+            let x = xPos - containerRect.left;
+            
+            // Constrain
+            if(x < 0) x = 0;
+            if(x > containerRect.width) x = containerRect.width;
+
+            const percentage = (x / containerRect.width) * 100;
+            
+            // Update visual elements
+            heroRight.style.clipPath = `polygon(${percentage}% 0, 100% 0, 100% 100%, ${percentage}% 100%)`;
+            document.getElementById('hero-left').style.clipPath = `polygon(0 0, ${percentage}% 0, ${percentage}% 100%, 0 100%)`;
+            
+            divider.style.left = `${percentage}%`;
+            sliderHandle.style.left = `${percentage}%`;
+            
+            textClean.style.clipPath = `polygon(${percentage}% 0, 100% 0, 100% 100%, ${percentage}% 100%)`;
+            textDirty.style.clipPath = `polygon(0 0, ${percentage}% 0, ${percentage}% 100%, 0 100%)`;
+        }
+
+        // Mouse Events
+        heroContainer.addEventListener('mousemove', (e) => {
+            if (!isDragging) return;
+            updateSlider(e.clientX);
+        });
+
+        sliderHandle.addEventListener('mousedown', () => isDragging = true);
+        window.addEventListener('mouseup', () => isDragging = false);
+
+        // Touch Events
+        heroContainer.addEventListener('touchmove', (e) => {
+            if (!isDragging) return;
+            updateSlider(e.touches[0].clientX);
+            // Prevent scrolling while dragging slider on mobile if starting on handle
+            e.preventDefault();
+        }, { passive: false });
+
+        sliderHandle.addEventListener('touchstart', () => isDragging = true);
+        window.addEventListener('touchend', () => isDragging = false);
+
+        // Initial bounce animation for slider hint
+        gsap.to(sliderHandle, {
+            x: '+=15',
+            duration: 0.8,
+            yoyo: true,
+            repeat: 3,
+            ease: "power1.inOut",
+            delay: 2
+        });
+
+        // General GSAP Reveals
+        const revealElements = document.querySelectorAll('.gs-reveal');
+        revealElements.forEach(el => {
+            gsap.fromTo(el, 
+                { y: 50, autoAlpha: 0 },
+                {
+                    scrollTrigger: {
+                        trigger: el,
+                        start: "top 85%",
+                        toggleActions: "play none none reverse"
+                    },
+                    y: 0,
+                    autoAlpha: 1,
+                    duration: 0.8,
+                    ease: "power3.out"
+                }
+            );
+        });
+
+        // Counter Animation
+        const counters = document.querySelectorAll('.counter');
+        counters.forEach(counter => {
+            const target = parseFloat(counter.getAttribute('data-target'));
+            const isFloat = target % 1 !== 0;
+            
+            ScrollTrigger.create({
+                trigger: counter,
+                start: "top 90%",
+                once: true,
+                onEnter: () => {
+                    gsap.to(counter, {
+                        innerHTML: target,
+                        duration: 2,
+                        snap: { innerHTML: isFloat ? 0.1 : 1 },
+                        ease: "power2.out"
+                    });
+                }
+            });
+        });
+
+    </script>
+</body>
+</html>
