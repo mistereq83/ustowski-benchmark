@@ -210,29 +210,33 @@
     <!-- 2. Stats Section -->
     <section class="py-20 bg-base">
         <div class="max-w-7xl mx-auto px-4 sm:px-6">
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <!-- Stat 1 -->
-                <div class="bg-dark text-white rounded-[2rem] p-10 flex flex-col justify-between aspect-square md:aspect-auto hover:-translate-y-2 transition-transform duration-300">
-                    <h3 class="font-black uppercase tracking-widest text-white/40 text-sm">Doświadczenie</h3>
-                    <div class="mt-12">
-                        <span class="block text-6xl md:text-8xl font-black text-accent tracking-tighter"><span class="count-up" data-target="12">0</span></span>
-                        <span class="block text-xl font-bold mt-2">Lat doświadczenia</span>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <div class="bg-dark text-white rounded-[2rem] p-8 flex flex-col justify-between hover:-translate-y-2 transition-transform duration-300">
+                    <h3 class="font-black uppercase tracking-widest text-white/40 text-xs">Projekty</h3>
+                    <div class="mt-8">
+                        <span class="block text-5xl md:text-6xl font-black text-accent tracking-tighter"><span class="count-up" data-target="500">0</span>+</span>
+                        <span class="block text-sm font-bold mt-2">Zrealizowanych projektów</span>
                     </div>
                 </div>
-                <!-- Stat 2 -->
-                <div class="bg-dark text-white rounded-[2rem] p-10 flex flex-col justify-between aspect-square md:aspect-auto hover:-translate-y-2 transition-transform duration-300">
-                    <h3 class="font-black uppercase tracking-widest text-white/40 text-sm">Skuteczność</h3>
-                    <div class="mt-12">
-                        <span class="block text-6xl md:text-8xl font-black text-accent tracking-tighter"><span class="count-up" data-target="500">0</span>+</span>
-                        <span class="block text-xl font-bold mt-2">Zrealizowanych projektów</span>
+                <div class="bg-dark text-white rounded-[2rem] p-8 flex flex-col justify-between hover:-translate-y-2 transition-transform duration-300">
+                    <h3 class="font-black uppercase tracking-widest text-white/40 text-xs">Ocena</h3>
+                    <div class="mt-8">
+                        <span class="block text-5xl md:text-6xl font-black text-accent tracking-tighter"><span class="count-up" data-target="4.9" data-decimals="1">0</span></span>
+                        <span class="block text-sm font-bold mt-2">Średnia ocen klientów</span>
                     </div>
                 </div>
-                <!-- Stat 3 -->
-                <div class="bg-dark text-white rounded-[2rem] p-10 flex flex-col justify-between aspect-square md:aspect-auto hover:-translate-y-2 transition-transform duration-300">
-                    <h3 class="font-black uppercase tracking-widest text-white/40 text-sm">Technologia</h3>
-                    <div class="mt-12">
-                        <span class="block text-6xl md:text-8xl font-black text-accent tracking-tighter"><span class="count-up" data-target="100">0</span>%</span>
-                        <span class="block text-xl font-bold mt-2">Gwarancja satysfakcji</span>
+                <div class="bg-dark text-white rounded-[2rem] p-8 flex flex-col justify-between hover:-translate-y-2 transition-transform duration-300">
+                    <h3 class="font-black uppercase tracking-widest text-white/40 text-xs">Doświadczenie</h3>
+                    <div class="mt-8">
+                        <span class="block text-5xl md:text-6xl font-black text-accent tracking-tighter"><span class="count-up" data-target="12">0</span></span>
+                        <span class="block text-sm font-bold mt-2">Lat doświadczenia</span>
+                    </div>
+                </div>
+                <div class="bg-dark text-white rounded-[2rem] p-8 flex flex-col justify-between hover:-translate-y-2 transition-transform duration-300">
+                    <h3 class="font-black uppercase tracking-widest text-white/40 text-xs">Gwarancja</h3>
+                    <div class="mt-8">
+                        <span class="block text-5xl md:text-6xl font-black text-accent tracking-tighter"><span class="count-up" data-target="100">0</span>%</span>
+                        <span class="block text-sm font-bold mt-2">Gwarancja satysfakcji</span>
                     </div>
                 </div>
             </div>
@@ -471,6 +475,9 @@
                 <a href="#" class="hover:text-white transition-colors">Kontakt</a>
             </div>
         </div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 mt-8 pt-6 border-t border-white/5 text-center text-xs text-white/30">
+            &copy; 2026 Ustowski. Wszystkie prawa zastrzeżone. Projekt i wykonanie: <span class="text-white/50 font-bold">Molab</span>
+        </div>
     </footer>
 
     <!-- Scripts -->
@@ -554,17 +561,21 @@
         // Stats Count Up
         const countElements = document.querySelectorAll('.count-up');
         countElements.forEach(el => {
-            const target = parseInt(el.getAttribute('data-target'));
+            const target = parseFloat(el.getAttribute('data-target'));
             ScrollTrigger.create({
                 trigger: el,
                 start: "top 90%",
                 once: true,
                 onEnter: () => {
-                    gsap.to(el, {
-                        innerHTML: target,
+                    const decimals = parseInt(el.getAttribute('data-decimals')) || 0;
+                    const obj = {val: 0};
+                    gsap.to(obj, {
+                        val: target,
                         duration: 2.5,
-                        snap: { innerHTML: 1 },
-                        ease: "power3.out"
+                        ease: "power3.out",
+                        onUpdate: () => {
+                            el.innerHTML = decimals > 0 ? obj.val.toFixed(decimals) : Math.round(obj.val);
+                        }
                     });
                 }
             });
