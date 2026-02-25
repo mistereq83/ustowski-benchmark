@@ -1,19 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 220">
-  <defs>
-    <linearGradient id="d17" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#444"/><stop offset="100%" stop-color="#2d2d2d"/>
-    </linearGradient>
-    <linearGradient id="o17" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#f26b1d"/><stop offset="100%" stop-color="#e85a0a"/>
-    </linearGradient>
-  </defs>
+  
   <rect width="600" height="220" fill="#fff"/>
-  <rect x="105.0" y="75" width="6" height="55" rx="2" fill="#f26b1d"/>
-  <text x="300.0" y="125" text-anchor="middle" font-family="'Anton', sans-serif"
-        font-weight="400" font-size="80" letter-spacing="5"
-        ><tspan fill="url(#d17)">USTO</tspan><tspan fill="url(#o17)">WSKI</tspan></text>
-  <text x="300.0" y="157" text-anchor="middle" font-family="'Anton', Arial, sans-serif"
-        font-weight="400" font-size="14" fill="#888" letter-spacing="4"
-        >czyszczenie · malowanie</text>
+  <text x="115" y="121.4" text-anchor="middle" font-family="'Montserrat', sans-serif" font-weight="900" font-size="57" fill="#f26b1d">U</text><line x1="92.2" y1="129.0" x2="137.8" y2="129.0" stroke="#f26b1d" stroke-width="3" stroke-linecap="round"/>
+  <line x1="168" y1="82.0" x2="168" y2="138.0" stroke="#ddd" stroke-width="1"/>
+  <text x="330" y="116.0" text-anchor="middle" font-family="'Montserrat', sans-serif" font-weight="900" font-size="42" letter-spacing="3"><tspan fill="#2d2d2d">USTO</tspan><tspan fill="#f26b1d">WSKI</tspan></text><text x="330" y="138.0" text-anchor="middle" font-family="'Montserrat', sans-serif" font-weight="400" font-size="13" fill="#777" letter-spacing="2">czyszczenie · malowanie</text>
 </svg>

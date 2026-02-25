@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 220">
+  
   <rect width="600" height="220" fill="#fff"/>
-  <circle cx="300.0" cy="115.0" r="90" fill="none" stroke="#2d2d2d" stroke-width="3"/><circle cx="300.0" cy="115.0" r="84" fill="none" stroke="#2d2d2d" stroke-width="1"/>
-  <defs><path id="arc12" d="M 226.0,115.0 A 74,74 0 0,1 374.0,115.0"/><path id="barc12" d="M 364.0,125.0 A 69,69 0 0,0 236.0,125.0"/></defs><text font-family="'Montserrat', sans-serif" font-weight="900" font-size="18" fill="#2d2d2d" letter-spacing="6"><textPath href="#arc12" startOffset="50%" text-anchor="middle">USTOWSKI</textPath></text><text font-family="'Helvetica Neue', sans-serif" font-weight="400" font-size="11" fill="#f26b1d" letter-spacing="3"><textPath href="#barc12" startOffset="50%" text-anchor="middle">CZYSZCZENIE · MALOWANIE</textPath></text>
-  <rect x="288.0" y="110.0" width="24" height="8" rx="2" fill="#f26b1d"/><rect x="297.0" y="118.0" width="6" height="16" rx="1" fill="#2d2d2d"/><line x1="290.0" y1="116.0" x2="310.0" y2="116.0" stroke="#2d2d2d" stroke-width="0.5"/>
+  <rect x="77" y="72.0" width="76" height="76" rx="6" fill="none" stroke="#f26b1d" stroke-width="3"/><text x="115" y="127.1" text-anchor="middle" font-family="'Bebas Neue', sans-serif" font-weight="400" font-size="49" fill="#f26b1d">U</text>
+  <line x1="168" y1="82.0" x2="168" y2="138.0" stroke="#ddd" stroke-width="1"/>
+  <text x="330" y="116.0" text-anchor="middle" font-family="'Bebas Neue', sans-serif" font-weight="400" font-size="58" letter-spacing="3"><tspan fill="#2d2d2d">USTO</tspan><tspan fill="#f26b1d">WSKI</tspan></text><text x="330" y="138.0" text-anchor="middle" font-family="'Bebas Neue', sans-serif" font-weight="400" font-size="13" fill="#777" letter-spacing="2">czyszczenie · malowanie</text>
 </svg>

@@ -1,19 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 220">
   <defs>
-    <linearGradient id="d25" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#444"/><stop offset="100%" stop-color="#2d2d2d"/>
-    </linearGradient>
-    <linearGradient id="o25" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#f26b1d"/><stop offset="100%" stop-color="#e85a0a"/>
-    </linearGradient>
+    <linearGradient id="d25" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#444"/><stop offset="100%" stop-color="#2d2d2d"/></linearGradient>
+    <linearGradient id="o25" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#f26b1d"/><stop offset="100%" stop-color="#e85a0a"/></linearGradient>
   </defs>
   <rect width="600" height="220" fill="#fff"/>
-  <path d="M 100.0,130 Q 150.0,126 220.0,132 Q 300.0,128 380.0,134 Q 460.0,129 500.0,131" stroke="#f26b1d" stroke-width="12" fill="none" stroke-linecap="round" opacity="0.8"/><path d="M 120.0,132 Q 200.0,136 300.0,130 Q 420.0,135 490.0,133" stroke="#f26b1d" stroke-width="4" fill="none" stroke-linecap="round" opacity="0.3"/>
-  <text x="300.0" y="120" text-anchor="middle" font-family="'Oswald', sans-serif"
-        font-weight="700" font-size="82" letter-spacing="4"
-         transform="skewX(-6)"><tspan fill="url(#d25)">USTO</tspan><tspan fill="url(#o25)">WSKI</tspan></text>
-  <text x="300.0" y="155" text-anchor="middle" font-family="'Oswald', Arial, sans-serif"
-        font-weight="400" font-size="15" fill="#777" letter-spacing="3"
-         transform="skewX(-6)">czyszczenie · malowanie</text>
+  <path d="M 305.0,128 Q 360.0,125 400.0,131 Q 440.0,127 480.0,129" stroke="#f26b1d" stroke-width="10" fill="none" stroke-linecap="round" opacity="0.75"/>
+  <text x="300.0" y="120" text-anchor="middle" font-family="'Montserrat', sans-serif" font-weight="900" font-size="68" letter-spacing="4" ><tspan fill="url(#d25)">USTO</tspan><tspan fill="url(#o25)">WSKI</tspan></text>
+  <text x="300.0" y="155" text-anchor="middle" font-family="'Montserrat', sans-serif" font-weight="400" font-size="15" fill="#777" letter-spacing="3" >czyszczenie · malowanie</text>
 </svg>

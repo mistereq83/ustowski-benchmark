@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 220">
+  
   <rect width="600" height="220" fill="#fff"/>
-  <rect x="90.0" y="80.0" width="60.0" height="60.0" rx="4" fill="#f26b1d" transform="rotate(45 120 110.0)"/><text x="120" y="124.0" text-anchor="middle" font-family="'Kanit', sans-serif" font-weight="800" font-size="40" fill="#fff">U</text>
-  <line x1="175" y1="80.0" x2="175" y2="140.0" stroke="#ddd" stroke-width="1"/>
-  <text x="330" y="115.0" text-anchor="middle" font-family="'Kanit', sans-serif" font-weight="800" font-size="46" letter-spacing="3"><tspan fill="#2d2d2d">USTO</tspan><tspan fill="#f26b1d">WSKI</tspan></text><text x="330" y="137.0" text-anchor="middle" font-family="'Kanit', Arial, sans-serif" font-weight="400" font-size="13" fill="#888" letter-spacing="2">czyszczenie · malowanie</text>
+  <rect x="77" y="72.0" width="76" height="76" rx="8" fill="#f26b1d"/><text x="115" y="127.1" text-anchor="middle" font-family="'Montserrat', sans-serif" font-weight="900" font-size="49" fill="#fff">UW</text>
+  <line x1="168" y1="82.0" x2="168" y2="138.0" stroke="#ddd" stroke-width="1"/>
+  <text x="330" y="116.0" text-anchor="middle" font-family="'Montserrat', sans-serif" font-weight="900" font-size="38" letter-spacing="3"><tspan fill="#2d2d2d">USTO</tspan><tspan fill="#f26b1d">WSKI</tspan></text><text x="330" y="138.0" text-anchor="middle" font-family="'Montserrat', sans-serif" font-weight="400" font-size="13" fill="#777" letter-spacing="2">czyszczenie · malowanie</text>
 </svg>

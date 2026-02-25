@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 220">
+  <defs>
+    <linearGradient id="d07" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#444"/><stop offset="100%" stop-color="#2d2d2d"/></linearGradient>
+    <linearGradient id="o07" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#f26b1d"/><stop offset="100%" stop-color="#e85a0a"/></linearGradient>
+  </defs>
   <rect width="600" height="220" fill="#fff"/>
-  <circle cx="300.0" cy="115.0" r="90" fill="none" stroke="#2d2d2d" stroke-width="3"/><circle cx="300.0" cy="115.0" r="84" fill="none" stroke="#2d2d2d" stroke-width="1"/>
-  <defs><path id="arc07" d="M 226.0,115.0 A 74,74 0 0,1 374.0,115.0"/><path id="barc07" d="M 364.0,125.0 A 69,69 0 0,0 236.0,125.0"/></defs><text font-family="'Oswald', sans-serif" font-weight="700" font-size="22" fill="#2d2d2d" letter-spacing="6"><textPath href="#arc07" startOffset="50%" text-anchor="middle">USTOWSKI</textPath></text><text font-family="'Helvetica Neue', sans-serif" font-weight="400" font-size="11" fill="#f26b1d" letter-spacing="3"><textPath href="#barc07" startOffset="50%" text-anchor="middle">CZYSZCZENIE · MALOWANIE</textPath></text>
-  <rect x="285.0" y="107.0" width="30" height="16" rx="3" fill="#f26b1d"/><rect x="298.0" y="123.0" width="4" height="14" rx="1" fill="#2d2d2d"/>
+  <circle cx="480.0" cy="63" r="5" fill="#f26b1d"/>
+  <text x="300.0" y="125" text-anchor="middle" font-family="'Bebas Neue', sans-serif" font-weight="400" font-size="90" letter-spacing="5" ><tspan fill="url(#d07)">USTO</tspan><tspan fill="url(#o07)">WSKI</tspan></text>
+  <text x="300.0" y="157" text-anchor="middle" font-family="'Bebas Neue', sans-serif" font-weight="400" font-size="14" fill="#888" letter-spacing="4" >czyszczenie · malowanie</text>
 </svg>

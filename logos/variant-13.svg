@@ -1,19 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 220">
-  <defs>
-    <linearGradient id="d13" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#444"/><stop offset="100%" stop-color="#2d2d2d"/>
-    </linearGradient>
-    <linearGradient id="o13" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#f26b1d"/><stop offset="100%" stop-color="#e85a0a"/>
-    </linearGradient>
-  </defs>
+  
   <rect width="600" height="220" fill="#fff"/>
-  <path d="M 310.0,70 Q 330.0,95 350.0,115 Q 365.0,130 375.0,140" stroke="#f26b1d" stroke-width="8" fill="none" stroke-linecap="round" opacity="0.85"/>
-  <text x="300.0" y="125" text-anchor="middle" font-family="'Oswald', sans-serif"
-        font-weight="700" font-size="82" letter-spacing="5"
-         transform="skewX(-6)"><tspan fill="url(#d13)">USTO</tspan><tspan fill="url(#o13)">WSKI</tspan></text>
-  <text x="300.0" y="157" text-anchor="middle" font-family="'Oswald', Arial, sans-serif"
-        font-weight="400" font-size="14" fill="#888" letter-spacing="4"
-         transform="skewX(-6)">czyszczenie · malowanie</text>
+  <circle cx="115" cy="110.0" r="38" fill="none" stroke="#f26b1d" stroke-width="3"/><text x="115" y="125.2" text-anchor="middle" font-family="'Poppins', sans-serif" font-weight="900" font-size="45" fill="#f26b1d">U</text>
+  <line x1="168" y1="82.0" x2="168" y2="138.0" stroke="#ddd" stroke-width="1"/>
+  <text x="330" y="116.0" text-anchor="middle" font-family="'Poppins', sans-serif" font-weight="900" font-size="40" letter-spacing="3"><tspan fill="#2d2d2d">USTO</tspan><tspan fill="#f26b1d">WSKI</tspan></text><text x="330" y="138.0" text-anchor="middle" font-family="'Poppins', sans-serif" font-weight="400" font-size="13" fill="#777" letter-spacing="2">czyszczenie · malowanie</text>
 </svg>
