@@ -2,11 +2,11 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 210">
   <defs>
     
-    <linearGradient id="d11" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#bbb"/>
-      <stop offset="100%" stop-color="#999"/>
+    <linearGradient id="d24" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#ddd"/>
+      <stop offset="100%" stop-color="#bbb"/>
     </linearGradient>
-    <linearGradient id="o11" x1="0" y1="0" x2="0" y2="1">
+    <linearGradient id="o24" x1="0" y1="0" x2="0" y2="1">
       <stop offset="0%" stop-color="#f26b1d"/>
       <stop offset="100%" stop-color="#e85a0a"/>
     </linearGradient>
@@ -16,13 +16,13 @@
   <path d="M 125.5,140 L 474.5,140 Q 484.5,140 484.5,150 L 484.5,172 Q 484.5,182 474.5,182 L 125.5,182 Q 115.5,182 115.5,172 L 115.5,150 Q 115.5,140 125.5,140 Z" fill="#333"/>
 
   <text x="300.0" y="125" text-anchor="middle"
-        font-family="'Montserrat', sans-serif" font-weight="900"
-        font-style="italic" font-size="72" letter-spacing="3"
-         transform="skewX(-6)"><tspan fill="url(#d11)">USTO</tspan><tspan fill="url(#o11)">WSKI</tspan></text>
+        font-family="'Kanit', sans-serif" font-weight="800"
+        font-style="normal" font-size="78" letter-spacing="3"
+        ><tspan fill="url(#d24)">USTO</tspan><tspan fill="url(#o24)">WSKI</tspan></text>
 
   <text x="300.0" y="167.3" text-anchor="middle"
-        font-family="'Montserrat', Arial, sans-serif"
-        font-weight="400" font-style="italic" font-size="16"
+        font-family="'Kanit', Arial, sans-serif"
+        font-weight="400" font-style="normal" font-size="16"
         fill="#fff" letter-spacing="2"
-         transform="skewX(-6)">czyszczenie · malowanie</text>
+        >czyszczenie · malowanie</text>
 </svg>

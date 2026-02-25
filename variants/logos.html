@@ -1,120 +1,115 @@
 <!DOCTYPE html>
-<html lang="pl">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>USTOWSKI — Warianty logotypu</title>
+<html lang="pl"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>USTOWSKI — Logo Rebrand</title>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo+Black&family=Barlow+Condensed:ital,wght@0,800;1,800&family=Bebas+Neue&family=Kanit:ital,wght@0,800;1,800&family=Montserrat:ital,wght@0,900;1,900&family=Oswald:ital,wght@0,700;1,700&family=Poppins:ital,wght@0,900;1,900&family=Rajdhani:wght@700&family=Russo+One&family=Teko:wght@700&display=swap" rel="stylesheet">
 <style>
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-  body { background: #f2f2f2; font-family: -apple-system, 'Segoe UI', sans-serif; padding: 32px 20px; }
-  
-  .header { text-align: center; margin-bottom: 36px; }
-  .header h1 { font-size: 24px; font-weight: 800; color: #1a1a1a; margin-bottom: 4px; }
-  .header p { font-size: 13px; color: #888; }
-  
-  .original { 
-    max-width: 400px; margin: 0 auto 40px; text-align: center;
-    background: #fff; border-radius: 12px; padding: 24px; 
-    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
-  }
-  .original img { max-width: 100%; border-radius: 6px; }
-  .original .caption { margin-top: 10px; font-size: 11px; color: #aaa; text-transform: uppercase; letter-spacing: 0.1em; }
-  
-  .grid {
-    display: grid; grid-template-columns: repeat(2, 1fr);
-    gap: 20px; max-width: 1000px; margin: 0 auto;
-  }
-  
-  .card {
-    background: #fff; border-radius: 10px; padding: 20px;
-    box-shadow: 0 1px 6px rgba(0,0,0,0.06);
-    transition: transform 0.15s, box-shadow 0.15s;
-    cursor: pointer; position: relative;
-  }
-  .card:hover { transform: translateY(-2px); box-shadow: 0 4px 20px rgba(0,0,0,0.1); }
-  .card.dark { background: #111; }
-  
-  .card img { width: 100%; height: auto; display: block; }
-  
-  .card .info {
-    margin-top: 10px; display: flex; justify-content: space-between; align-items: center;
-  }
-  .card .num { font-weight: 800; color: #f26b1d; font-size: 13px; }
-  .card .desc { font-size: 11px; color: #888; }
-  
-  .section-title {
-    font-size: 10px; text-transform: uppercase; letter-spacing: 0.12em;
-    color: #f26b1d; font-weight: 700; margin: 32px 0 14px; padding-left: 4px;
-    max-width: 1000px; margin-left: auto; margin-right: auto;
-  }
-  
-  /* Fullscreen overlay on click */
-  .overlay {
-    display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.85);
-    z-index: 100; justify-content: center; align-items: center; cursor: pointer;
-  }
-  .overlay.active { display: flex; }
-  .overlay img { max-width: 90%; max-height: 85vh; background: #fff; padding: 32px; border-radius: 12px; }
-  
-  @media (max-width: 600px) { .grid { grid-template-columns: 1fr; } }
-</style>
-</head>
-<body>
-
-<div class="header">
-  <h1>🎨 USTOWSKI — Warianty logotypu</h1>
-  <p>20 wariantów SVG · kliknij aby powiększyć</p>
-</div>
-
-<div class="section-title">Warianty kolorystyczne</div>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#f2f2f2;font-family:-apple-system,sans-serif;padding:32px 16px}
+h1{text-align:center;margin-bottom:4px;font-size:22px}
+.sub{text-align:center;color:#888;margin-bottom:24px;font-size:13px}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;max-width:1100px;margin:0 auto}
+.section{grid-column:span 3;font-size:10px;text-transform:uppercase;letter-spacing:.12em;
+  color:#f26b1d;font-weight:700;margin:18px 0 4px;padding-left:2px}
+.section:first-child{margin-top:0}
+.card{background:#fff;border-radius:8px;padding:14px;box-shadow:0 1px 4px rgba(0,0,0,.05);
+  cursor:pointer;transition:transform .15s}
+.card:hover{transform:translateY(-2px);box-shadow:0 4px 16px rgba(0,0,0,.1)}
+.card.dark{background:#111}
+.card svg{width:100%;height:auto;display:block}
+.svg-container{min-height:70px}
+.info{margin-top:6px;display:flex;justify-content:space-between;align-items:center;gap:6px}
+.num{font-weight:800;color:#f26b1d;font-size:11px;flex-shrink:0}
+.info span:last-child{font-size:9px;color:#888;text-align:right}
+.overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.88);z-index:100;
+  justify-content:center;align-items:center;cursor:pointer;padding:20px}
+.overlay.active{display:flex}
+.overlay .zoom-svg{max-width:85%;max-height:80vh;background:#fff;padding:40px;border-radius:12px}
+.overlay.dark-zoom .zoom-svg{background:#111}
+@media(max-width:900px){.grid{grid-template-columns:repeat(2,1fr)} .section{grid-column:span 2}}
+@media(max-width:500px){.grid{grid-template-columns:1fr} .section{grid-column:span 1}}
+</style></head><body>
+<h1>🎨 USTOWSKI — Logo Rebrand</h1>
+<p class="sub">30 wariantów · różne typografie · kliknij aby powiększyć</p>
 <div class="grid">
-  <div class="card" onclick="zoom('variant-01')"><img src="../logos/variant-01.svg"><div class="info"><span class="num">#01</span><span class="desc">Oryginał — USTO szary / WSKI pomarańcz</span></div></div>
-  <div class="card" onclick="zoom('variant-02')"><img src="../logos/variant-02.svg"><div class="info"><span class="num">#02</span><span class="desc">Cieplejszy szary + głębszy pomarańcz</span></div></div>
-  <div class="card" onclick="zoom('variant-03')"><img src="../logos/variant-03.svg"><div class="info"><span class="num">#03</span><span class="desc">Chłodny antracyt + pomarańcz</span></div></div>
-  <div class="card" onclick="zoom('variant-07')"><img src="../logos/variant-07.svg"><div class="info"><span class="num">#07</span><span class="desc">Amber / złoty odcień</span></div></div>
-  <div class="card" onclick="zoom('variant-08')"><img src="../logos/variant-08.svg"><div class="info"><span class="num">#08</span><span class="desc">Czerwono-pomarańczowy</span></div></div>
-  <div class="card" onclick="zoom('variant-14')"><img src="../logos/variant-14.svg"><div class="info"><span class="num">#14</span><span class="desc">Granatowy + pomarańcz</span></div></div>
-  <div class="card" onclick="zoom('variant-19')"><img src="../logos/variant-19.svg"><div class="info"><span class="num">#19</span><span class="desc">Zielony ciemny + pomarańcz</span></div></div>
+
+<div class="section">Klasyczny refresh</div>
+<div class="card" data-v="01"><div class="svg-container" data-src="../logos/variant-01.svg"></div><div class="info"><span class="num">#01</span><span>Oswald Bold — klasyczny refresh</span></div></div>
+<div class="card" data-v="02"><div class="svg-container" data-src="../logos/variant-02.svg"></div><div class="info"><span class="num">#02</span><span>Oswald — zaokrąglony banner</span></div></div>
+<div class="card" data-v="03"><div class="svg-container" data-src="../logos/variant-03.svg"></div><div class="info"><span class="num">#03</span><span>Barlow Condensed — ostrzejszy</span></div></div>
+<div class="card" data-v="04"><div class="svg-container" data-src="../logos/variant-04.svg"></div><div class="info"><span class="num">#04</span><span>Barlow — pill banner</span></div></div>
+<div class="card" data-v="05"><div class="svg-container" data-src="../logos/variant-05.svg"></div><div class="info"><span class="num">#05</span><span>Impact — cieplejszy szary</span></div></div>
+<div class="card" data-v="06"><div class="svg-container" data-src="../logos/variant-06.svg"></div><div class="info"><span class="num">#06</span><span>Impact — antracyt</span></div></div>
+
+<div class="section">Nowoczesny minimalizm</div>
+<div class="card" data-v="07"><div class="svg-container" data-src="../logos/variant-07.svg"></div><div class="info"><span class="num">#07</span><span>Montserrat Black — czysty</span></div></div>
+<div class="card" data-v="08"><div class="svg-container" data-src="../logos/variant-08.svg"></div><div class="info"><span class="num">#08</span><span>Montserrat — podkreślenie</span></div></div>
+<div class="card" data-v="09"><div class="svg-container" data-src="../logos/variant-09.svg"></div><div class="info"><span class="num">#09</span><span>Poppins — zaokrąglony</span></div></div>
+<div class="card" data-v="10"><div class="svg-container" data-src="../logos/variant-10.svg"></div><div class="info"><span class="num">#10</span><span>Poppins — bez italic</span></div></div>
+<div class="card dark" data-v="11"><div class="svg-container" data-src="../logos/variant-11.svg"></div><div class="info"><span class="num">#11</span><span>Montserrat — ciemne tło</span></div></div>
+<div class="card dark" data-v="12"><div class="svg-container" data-src="../logos/variant-12.svg"></div><div class="info"><span class="num">#12</span><span>Poppins — biały + pomarańcz</span></div></div>
+
+<div class="section">Geometryczny / Techniczny</div>
+<div class="card" data-v="13"><div class="svg-container" data-src="../logos/variant-13.svg"></div><div class="info"><span class="num">#13</span><span>Teko — wysoki, techniczny</span></div></div>
+<div class="card" data-v="14"><div class="svg-container" data-src="../logos/variant-14.svg"></div><div class="info"><span class="num">#14</span><span>Teko — italic</span></div></div>
+<div class="card" data-v="15"><div class="svg-container" data-src="../logos/variant-15.svg"></div><div class="info"><span class="num">#15</span><span>Bebas Neue — elegancki</span></div></div>
+<div class="card" data-v="16"><div class="svg-container" data-src="../logos/variant-16.svg"></div><div class="info"><span class="num">#16</span><span>Bebas Neue — pochylony</span></div></div>
+<div class="card" data-v="17"><div class="svg-container" data-src="../logos/variant-17.svg"></div><div class="info"><span class="num">#17</span><span>Rajdhani — futurystyczny</span></div></div>
+<div class="card dark" data-v="18"><div class="svg-container" data-src="../logos/variant-18.svg"></div><div class="info"><span class="num">#18</span><span>Rajdhani — ciemne tło</span></div></div>
+
+<div class="section">Industrialny / Mocny</div>
+<div class="card" data-v="19"><div class="svg-container" data-src="../logos/variant-19.svg"></div><div class="info"><span class="num">#19</span><span>Anton — masywny</span></div></div>
+<div class="card" data-v="20"><div class="svg-container" data-src="../logos/variant-20.svg"></div><div class="info"><span class="num">#20</span><span>Anton — pochylony</span></div></div>
+<div class="card" data-v="21"><div class="svg-container" data-src="../logos/variant-21.svg"></div><div class="info"><span class="num">#21</span><span>Archivo Black — brutalny</span></div></div>
+<div class="card" data-v="22"><div class="svg-container" data-src="../logos/variant-22.svg"></div><div class="info"><span class="num">#22</span><span>Archivo — prosty</span></div></div>
+<div class="card" data-v="23"><div class="svg-container" data-src="../logos/variant-23.svg"></div><div class="info"><span class="num">#23</span><span>Kanit — italic</span></div></div>
+<div class="card dark" data-v="24"><div class="svg-container" data-src="../logos/variant-24.svg"></div><div class="info"><span class="num">#24</span><span>Kanit — ciemne tło</span></div></div>
+
+<div class="section">Specjalne warianty</div>
+<div class="card" data-v="25"><div class="svg-container" data-src="../logos/variant-25.svg"></div><div class="info"><span class="num">#25</span><span>Russo One — retro</span></div></div>
+<div class="card" data-v="26"><div class="svg-container" data-src="../logos/variant-26.svg"></div><div class="info"><span class="num">#26</span><span>Russo One — pochylony</span></div></div>
+<div class="card" data-v="27"><div class="svg-container" data-src="../logos/variant-27.svg"></div><div class="info"><span class="num">#27</span><span>Oswald — USTOW/SKI</span></div></div>
+<div class="card" data-v="28"><div class="svg-container" data-src="../logos/variant-28.svg"></div><div class="info"><span class="num">#28</span><span>Barlow — cały pomarańcz</span></div></div>
+<div class="card" data-v="29"><div class="svg-container" data-src="../logos/variant-29.svg"></div><div class="info"><span class="num">#29</span><span>Bebas — granatowy</span></div></div>
+<div class="card dark" data-v="30"><div class="svg-container" data-src="../logos/variant-30.svg"></div><div class="info"><span class="num">#30</span><span>Montserrat — premium</span></div></div>
+
 </div>
 
-<div class="section-title">Podział kolorów</div>
-<div class="grid">
-  <div class="card" onclick="zoom('variant-04')"><img src="../logos/variant-04.svg"><div class="info"><span class="num">#04</span><span class="desc">Podział USTOW / SKI</span></div></div>
-  <div class="card" onclick="zoom('variant-05')"><img src="../logos/variant-05.svg"><div class="info"><span class="num">#05</span><span class="desc">Podział UST / OWSKI</span></div></div>
-  <div class="card" onclick="zoom('variant-15')"><img src="../logos/variant-15.svg"><div class="info"><span class="num">#15</span><span class="desc">Monochromatyczny ciemny</span></div></div>
-  <div class="card" onclick="zoom('variant-16')"><img src="../logos/variant-16.svg"><div class="info"><span class="num">#16</span><span class="desc">Monochromatyczny pomarańcz</span></div></div>
-</div>
-
-<div class="section-title">Warianty bannera</div>
-<div class="grid">
-  <div class="card" onclick="zoom('variant-09')"><img src="../logos/variant-09.svg"><div class="info"><span class="num">#09</span><span class="desc">Banner — trapez</span></div></div>
-  <div class="card" onclick="zoom('variant-10')"><img src="../logos/variant-10.svg"><div class="info"><span class="num">#10</span><span class="desc">Banner — wstążka z wycięciami</span></div></div>
-  <div class="card" onclick="zoom('variant-11')"><img src="../logos/variant-11.svg"><div class="info"><span class="num">#11</span><span class="desc">Banner — zaokrąglony prostokąt</span></div></div>
-  <div class="card" onclick="zoom('variant-17')"><img src="../logos/variant-17.svg"><div class="info"><span class="num">#17</span><span class="desc">Banner — chevron / V-shape</span></div></div>
-  <div class="card" onclick="zoom('variant-18')"><img src="../logos/variant-18.svg"><div class="info"><span class="num">#18</span><span class="desc">Bez bannera — podkreślenie</span></div></div>
-</div>
-
-<div class="section-title">Specjalne</div>
-<div class="grid">
-  <div class="card" onclick="zoom('variant-06')"><img src="../logos/variant-06.svg"><div class="info"><span class="num">#06</span><span class="desc">Mniej italic (-4°)</span></div></div>
-  <div class="card dark" onclick="zoom('variant-12')"><img src="../logos/variant-12.svg"><div class="info"><span class="num">#12</span><span class="desc">Wersja na ciemnym tle</span></div></div>
-  <div class="card" onclick="zoom('variant-13')"><img src="../logos/variant-13.svg"><div class="info"><span class="num">#13</span><span class="desc">Pomarańczowy napis w bannerze</span></div></div>
-  <div class="card dark" onclick="zoom('variant-20')"><img src="../logos/variant-20.svg"><div class="info"><span class="num">#20</span><span class="desc">Biały na czarnym + pomarańcz accent</span></div></div>
-</div>
-
-<div class="overlay" id="overlay" onclick="this.classList.remove('active')">
-  <img id="overlay-img" src="">
+<div class="overlay" id="overlay" onclick="this.classList.remove('active');this.classList.remove('dark-zoom')">
+  <div class="zoom-svg" id="zoom-svg"></div>
 </div>
 
 <script>
+// Load SVGs inline
+document.querySelectorAll('.svg-container').forEach(async el => {
+  try {
+    const resp = await fetch(el.dataset.src);
+    let text = await resp.text();
+    text = text.replace(/<\?xml[^?]*\?>/, '');
+    el.innerHTML = text;
+  } catch(e) { el.textContent = '⚠️'; }
+});
+
+// Zoom
 function zoom(name) {
-  const overlay = document.getElementById('overlay');
-  document.getElementById('overlay-img').src = '../logos/' + name + '.svg';
-  overlay.classList.add('active');
+  // not used directly, click handled by card
 }
+document.querySelectorAll('.card').forEach(card => {
+  card.addEventListener('click', () => {
+    const svg = card.querySelector('svg');
+    if (!svg) return;
+    const o = document.getElementById('overlay');
+    document.getElementById('zoom-svg').innerHTML = svg.outerHTML;
+    o.classList.add('active');
+    if (card.classList.contains('dark')) o.classList.add('dark-zoom');
+  });
+});
+
 document.addEventListener('keydown', e => {
-  if (e.key === 'Escape') document.getElementById('overlay').classList.remove('active');
+  if (e.key === 'Escape') {
+    const o = document.getElementById('overlay');
+    o.classList.remove('active'); o.classList.remove('dark-zoom');
+  }
 });
 </script>
-</body>
-</html>
+</body></html>

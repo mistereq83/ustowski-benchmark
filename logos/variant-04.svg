@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 200">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 210">
   <defs>
+    
     <linearGradient id="d04" x1="0" y1="0" x2="0" y2="1">
       <stop offset="0%" stop-color="#555"/>
-      <stop offset="100%" stop-color="#3a3a3a"/>
+      <stop offset="100%" stop-color="#2d2d2d"/>
     </linearGradient>
     <linearGradient id="o04" x1="0" y1="0" x2="0" y2="1">
       <stop offset="0%" stop-color="#f26b1d"/>
@@ -11,18 +12,17 @@
     </linearGradient>
   </defs>
 
-  <rect width="600" height="200" fill="#fff"/>
-  <path d="M 70.0,150.9 L 162.0,132 L 300.0,130 L 438.0,132 L 530.0,150.9 L 415.0,174 Q 300.0,179 185.0,174 Z" fill="#1c1c1c"/>
+  <rect width="600" height="210" fill="#fff"/>
+  <path d="M 145.5,140 L 454.5,140 Q 475.5,140 475.5,161.0 Q 475.5,182 454.5,182 L 145.5,182 Q 124.5,182 124.5,161.0 Q 124.5,140 145.5,140 Z" fill="#222"/>
 
-  <text x="300.0" y="118" text-anchor="middle"
-        font-family="Impact, 'Arial Black', 'Helvetica Inserat', sans-serif" font-weight="900" font-style="italic"
-        font-size="92" letter-spacing="3"
-        transform="skewX(-8)"
-        ><tspan fill="url(#d04)">USTOW</tspan><tspan fill="url(#o04)">SKI</tspan></text>
+  <text x="300.0" y="125" text-anchor="middle"
+        font-family="'Barlow Condensed', sans-serif" font-weight="800"
+        font-style="italic" font-size="85" letter-spacing="3"
+         transform="skewX(-4)"><tspan fill="url(#d04)">USTO</tspan><tspan fill="url(#o04)">WSKI</tspan></text>
 
-  <text x="300.0" y="159.3" text-anchor="middle"
-        font-family="'Helvetica Neue', Arial, sans-serif"
-        font-weight="400" font-style="italic" font-size="17"
+  <text x="300.0" y="167.3" text-anchor="middle"
+        font-family="'Barlow Condensed', Arial, sans-serif"
+        font-weight="400" font-style="italic" font-size="16"
         fill="#fff" letter-spacing="2"
-        transform="skewX(-8)">czyszczenie · malowanie</text>
+         transform="skewX(-4)">czyszczenie · malowanie</text>
 </svg>

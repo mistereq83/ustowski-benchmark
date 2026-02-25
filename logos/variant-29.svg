@@ -2,27 +2,27 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 210">
   <defs>
     
-    <linearGradient id="d16" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#555"/>
-      <stop offset="100%" stop-color="#2d2d2d"/>
+    <linearGradient id="d29" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#2a3a65"/>
+      <stop offset="100%" stop-color="#1a2a50"/>
     </linearGradient>
-    <linearGradient id="o16" x1="0" y1="0" x2="0" y2="1">
+    <linearGradient id="o29" x1="0" y1="0" x2="0" y2="1">
       <stop offset="0%" stop-color="#f26b1d"/>
       <stop offset="100%" stop-color="#e85a0a"/>
     </linearGradient>
   </defs>
 
   <rect width="600" height="210" fill="#fff"/>
-  <path d="M 75.0,158.9 L 165.0,140 L 300.0,138 L 435.0,140 L 525.0,158.9 L 412.5,182 Q 300.0,187 187.5,182 Z" fill="#1c1c1c"/>
+  <path d="M 75.0,158.9 L 165.0,140 L 300.0,138 L 435.0,140 L 525.0,158.9 L 412.5,182 Q 300.0,187 187.5,182 Z" fill="#0f1a35"/>
 
   <text x="300.0" y="125" text-anchor="middle"
         font-family="'Bebas Neue', sans-serif" font-weight="400"
         font-style="normal" font-size="95" letter-spacing="3"
-         transform="skewX(-8)"><tspan fill="url(#d16)">USTO</tspan><tspan fill="url(#o16)">WSKI</tspan></text>
+         transform="skewX(-6)"><tspan fill="url(#d29)">USTO</tspan><tspan fill="url(#o29)">WSKI</tspan></text>
 
   <text x="300.0" y="167.3" text-anchor="middle"
         font-family="'Bebas Neue', Arial, sans-serif"
         font-weight="400" font-style="normal" font-size="16"
         fill="#fff" letter-spacing="2"
-         transform="skewX(-8)">czyszczenie · malowanie</text>
+         transform="skewX(-6)">czyszczenie · malowanie</text>
 </svg>
