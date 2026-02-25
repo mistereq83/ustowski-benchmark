@@ -1,28 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 210">
-  <defs>
-    
-    <linearGradient id="d11" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#bbb"/>
-      <stop offset="100%" stop-color="#999"/>
-    </linearGradient>
-    <linearGradient id="o11" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#f26b1d"/>
-      <stop offset="100%" stop-color="#e85a0a"/>
-    </linearGradient>
-  </defs>
-
-  <rect width="600" height="210" fill="#111"/>
-  <path d="M 125.5,140 L 474.5,140 Q 484.5,140 484.5,150 L 484.5,172 Q 484.5,182 474.5,182 L 125.5,182 Q 115.5,182 115.5,172 L 115.5,150 Q 115.5,140 125.5,140 Z" fill="#333"/>
-
-  <text x="300.0" y="125" text-anchor="middle"
-        font-family="'Montserrat', sans-serif" font-weight="900"
-        font-style="italic" font-size="72" letter-spacing="3"
-         transform="skewX(-6)"><tspan fill="url(#d11)">USTO</tspan><tspan fill="url(#o11)">WSKI</tspan></text>
-
-  <text x="300.0" y="167.3" text-anchor="middle"
-        font-family="'Montserrat', Arial, sans-serif"
-        font-weight="400" font-style="italic" font-size="16"
-        fill="#fff" letter-spacing="2"
-         transform="skewX(-6)">czyszczenie · malowanie</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 220">
+  <rect width="600" height="220" fill="#fff"/>
+  <polygon points="395.0,115.0 347.5,197.27241335952166 252.5,197.2724133595217 205.0,115.00000000000001 252.49999999999994,32.72758664047835 347.5,32.727586640478336" fill="none" stroke="#2d2d2d" stroke-width="3"/>
+  <text x="300.0" y="95.0" text-anchor="middle" font-family="'Teko', sans-serif" font-weight="700" font-size="24" fill="#2d2d2d" letter-spacing="2">USTOWSKI</text><text x="300.0" y="165.0" text-anchor="middle" font-family="'Helvetica Neue', sans-serif" font-weight="400" font-size="9" fill="#f26b1d" letter-spacing="2">CZYSZCZENIE · MALOWANIE</text>
+  <rect x="285.0" y="107.0" width="30" height="16" rx="3" fill="#f26b1d"/><rect x="298.0" y="123.0" width="4" height="14" rx="1" fill="#2d2d2d"/>
 </svg>

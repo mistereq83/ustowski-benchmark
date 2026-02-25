@@ -1,28 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 210">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 220">
   <defs>
-    
     <linearGradient id="d30" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#aaa"/>
-      <stop offset="100%" stop-color="#888"/>
+      <stop offset="0%" stop-color="#444"/><stop offset="100%" stop-color="#2d2d2d"/>
     </linearGradient>
     <linearGradient id="o30" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#e8842a"/>
-      <stop offset="100%" stop-color="#d06a15"/>
+      <stop offset="0%" stop-color="#f26b1d"/><stop offset="100%" stop-color="#e85a0a"/>
     </linearGradient>
   </defs>
-
-  <rect width="600" height="210" fill="#0d0d0d"/>
-  <path d="M 145.5,140 L 454.5,140 Q 475.5,140 475.5,161.0 Q 475.5,182 454.5,182 L 145.5,182 Q 124.5,182 124.5,161.0 Q 124.5,140 145.5,140 Z" fill="#2a2a2a"/>
-
-  <text x="300.0" y="125" text-anchor="middle"
-        font-family="'Montserrat', sans-serif" font-weight="900"
-        font-style="italic" font-size="70" letter-spacing="3"
-         transform="skewX(-4)"><tspan fill="url(#d30)">USTO</tspan><tspan fill="url(#o30)">WSKI</tspan></text>
-
-  <text x="300.0" y="167.3" text-anchor="middle"
-        font-family="'Montserrat', Arial, sans-serif"
-        font-weight="400" font-style="italic" font-size="16"
-        fill="#e8842a" letter-spacing="2"
-         transform="skewX(-4)">czyszczenie · malowanie</text>
+  <rect width="600" height="220" fill="#fff"/>
+  <rect x="90.0" y="55" width="18" height="95" rx="4" fill="#f26b1d" opacity="0.2"/><rect x="90.0" y="55" width="18" height="95" rx="4" fill="none" stroke="#f26b1d" stroke-width="1" opacity="0.4"/>
+  <text x="300.0" y="120" text-anchor="middle" font-family="'Kanit', sans-serif"
+        font-weight="800" font-size="78" letter-spacing="4"
+         transform="skewX(-5)"><tspan fill="url(#d30)">USTO</tspan><tspan fill="url(#o30)">WSKI</tspan></text>
+  <text x="300.0" y="155" text-anchor="middle" font-family="'Kanit', Arial, sans-serif"
+        font-weight="400" font-size="15" fill="#777" letter-spacing="3"
+         transform="skewX(-5)">czyszczenie · malowanie</text>
 </svg>

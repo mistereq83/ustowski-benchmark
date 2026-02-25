@@ -1,28 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 210">
-  <defs>
-    
-    <linearGradient id="d23" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#444"/>
-      <stop offset="100%" stop-color="#2d2d2d"/>
-    </linearGradient>
-    <linearGradient id="o23" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#f26b1d"/>
-      <stop offset="100%" stop-color="#e85a0a"/>
-    </linearGradient>
-  </defs>
-
-  <rect width="600" height="210" fill="#fff"/>
-  <path d="M 75.0,158.9 L 165.0,140 L 300.0,138 L 435.0,140 L 525.0,158.9 L 412.5,182 Q 300.0,187 187.5,182 Z" fill="#1c1c1c"/>
-
-  <text x="300.0" y="125" text-anchor="middle"
-        font-family="'Kanit', sans-serif" font-weight="800"
-        font-style="italic" font-size="78" letter-spacing="3"
-         transform="skewX(-6)"><tspan fill="url(#d23)">USTO</tspan><tspan fill="url(#o23)">WSKI</tspan></text>
-
-  <text x="300.0" y="167.3" text-anchor="middle"
-        font-family="'Kanit', Arial, sans-serif"
-        font-weight="400" font-style="italic" font-size="16"
-        fill="#fff" letter-spacing="2"
-         transform="skewX(-6)">czyszczenie · malowanie</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 220">
+  <rect width="600" height="220" fill="#fff"/>
+  <rect x="90.0" y="80.0" width="60.0" height="60.0" rx="4" fill="#f26b1d" transform="rotate(45 120 110.0)"/><text x="120" y="124.0" text-anchor="middle" font-family="'Kanit', sans-serif" font-weight="800" font-size="40" fill="#fff">U</text>
+  <line x1="175" y1="80.0" x2="175" y2="140.0" stroke="#ddd" stroke-width="1"/>
+  <text x="330" y="115.0" text-anchor="middle" font-family="'Kanit', sans-serif" font-weight="800" font-size="46" letter-spacing="3"><tspan fill="#2d2d2d">USTO</tspan><tspan fill="#f26b1d">WSKI</tspan></text><text x="330" y="137.0" text-anchor="middle" font-family="'Kanit', Arial, sans-serif" font-weight="400" font-size="13" fill="#888" letter-spacing="2">czyszczenie · malowanie</text>
 </svg>

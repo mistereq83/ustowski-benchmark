@@ -1,28 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 210">
-  <defs>
-    
-    <linearGradient id="d10" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#555"/>
-      <stop offset="100%" stop-color="#2d2d2d"/>
-    </linearGradient>
-    <linearGradient id="o10" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#f26b1d"/>
-      <stop offset="100%" stop-color="#e85a0a"/>
-    </linearGradient>
-  </defs>
-
-  <rect width="600" height="210" fill="#fff"/>
-  <path d="M 125.5,140 L 474.5,140 Q 484.5,140 484.5,150 L 484.5,172 Q 484.5,182 474.5,182 L 125.5,182 Q 115.5,182 115.5,172 L 115.5,150 Q 115.5,140 125.5,140 Z" fill="#1c1c1c"/>
-
-  <text x="300.0" y="125" text-anchor="middle"
-        font-family="'Poppins', sans-serif" font-weight="900"
-        font-style="normal" font-size="68" letter-spacing="3"
-        ><tspan fill="url(#d10)">USTO</tspan><tspan fill="url(#o10)">WSKI</tspan></text>
-
-  <text x="300.0" y="167.3" text-anchor="middle"
-        font-family="'Poppins', Arial, sans-serif"
-        font-weight="400" font-style="normal" font-size="16"
-        fill="#fff" letter-spacing="2"
-        >czyszczenie · malowanie</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 220">
+  <rect width="600" height="220" fill="#fff"/>
+  <rect x="80.0" y="35.0" width="440" height="160" rx="6" fill="none" stroke="#2d2d2d" stroke-width="3"/><rect x="85.0" y="40.0" width="430" height="150" rx="3" fill="none" stroke="#2d2d2d" stroke-width="1"/>
+  <text x="300.0" y="100.0" text-anchor="middle" font-family="'Barlow Condensed', sans-serif" font-weight="800" font-size="42" fill="#2d2d2d" letter-spacing="6">USTOWSKI</text><text x="300.0" y="155.0" text-anchor="middle" font-family="'Helvetica Neue', sans-serif" font-weight="400" font-size="12" fill="#f26b1d" letter-spacing="3">CZYSZCZENIE · MALOWANIE</text>
+  
 </svg>

@@ -1,28 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 210">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 220">
   <defs>
-    
     <linearGradient id="d18" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#ccc"/>
-      <stop offset="100%" stop-color="#aaa"/>
+      <stop offset="0%" stop-color="#444"/><stop offset="100%" stop-color="#2d2d2d"/>
     </linearGradient>
     <linearGradient id="o18" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#f26b1d"/>
-      <stop offset="100%" stop-color="#e85a0a"/>
+      <stop offset="0%" stop-color="#f26b1d"/><stop offset="100%" stop-color="#e85a0a"/>
     </linearGradient>
   </defs>
-
-  <rect width="600" height="210" fill="#111"/>
-  <path d="M 145.5,140 L 454.5,140 Q 475.5,140 475.5,161.0 Q 475.5,182 454.5,182 L 145.5,182 Q 124.5,182 124.5,161.0 Q 124.5,140 145.5,140 Z" fill="#333"/>
-
-  <text x="300.0" y="125" text-anchor="middle"
-        font-family="'Rajdhani', sans-serif" font-weight="700"
-        font-style="normal" font-size="82" letter-spacing="3"
+  <rect width="600" height="220" fill="#fff"/>
+  <line x1="100.0" y1="70" x2="500.0" y2="70" stroke="#f26b1d" stroke-width="1" opacity="0.2"/><line x1="100.0" y1="82" x2="500.0" y2="82" stroke="#f26b1d" stroke-width="1" opacity="0.2"/><line x1="100.0" y1="94" x2="500.0" y2="94" stroke="#f26b1d" stroke-width="1" opacity="0.2"/><line x1="100.0" y1="106" x2="500.0" y2="106" stroke="#f26b1d" stroke-width="1" opacity="0.2"/><line x1="100.0" y1="118" x2="500.0" y2="118" stroke="#f26b1d" stroke-width="1" opacity="0.2"/><line x1="100.0" y1="130" x2="500.0" y2="130" stroke="#f26b1d" stroke-width="1" opacity="0.2"/><line x1="100.0" y1="142" x2="500.0" y2="142" stroke="#f26b1d" stroke-width="1" opacity="0.2"/>
+  <text x="300.0" y="125" text-anchor="middle" font-family="'Teko', sans-serif"
+        font-weight="700" font-size="95" letter-spacing="5"
         ><tspan fill="url(#d18)">USTO</tspan><tspan fill="url(#o18)">WSKI</tspan></text>
-
-  <text x="300.0" y="167.3" text-anchor="middle"
-        font-family="'Rajdhani', Arial, sans-serif"
-        font-weight="400" font-style="normal" font-size="16"
-        fill="#fff" letter-spacing="2"
+  <text x="300.0" y="157" text-anchor="middle" font-family="'Teko', Arial, sans-serif"
+        font-weight="400" font-size="14" fill="#888" letter-spacing="4"
         >czyszczenie · malowanie</text>
 </svg>

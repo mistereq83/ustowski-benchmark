@@ -1,28 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 210">
-  <defs>
-    
-    <linearGradient id="d20" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#555"/>
-      <stop offset="100%" stop-color="#2d2d2d"/>
-    </linearGradient>
-    <linearGradient id="o20" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#f26b1d"/>
-      <stop offset="100%" stop-color="#e85a0a"/>
-    </linearGradient>
-  </defs>
-
-  <rect width="600" height="210" fill="#fff"/>
-  <path d="M 145.5,140 L 454.5,140 Q 475.5,140 475.5,161.0 Q 475.5,182 454.5,182 L 145.5,182 Q 124.5,182 124.5,161.0 Q 124.5,140 145.5,140 Z" fill="#222"/>
-
-  <text x="300.0" y="125" text-anchor="middle"
-        font-family="'Anton', sans-serif" font-weight="400"
-        font-style="normal" font-size="90" letter-spacing="3"
-         transform="skewX(-8)"><tspan fill="url(#d20)">USTO</tspan><tspan fill="url(#o20)">WSKI</tspan></text>
-
-  <text x="300.0" y="167.3" text-anchor="middle"
-        font-family="'Anton', Arial, sans-serif"
-        font-weight="400" font-style="normal" font-size="16"
-        fill="#fff" letter-spacing="2"
-         transform="skewX(-8)">czyszczenie · malowanie</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 220">
+  <rect width="600" height="220" fill="#fff"/>
+  <circle cx="120" cy="110.0" r="40" fill="#f26b1d"/><text x="120" y="128.0" text-anchor="middle" font-family="'Montserrat', sans-serif" font-weight="900" font-size="48" fill="#fff">U</text>
+  <line x1="175" y1="80.0" x2="175" y2="140.0" stroke="#ddd" stroke-width="1"/>
+  <text x="330" y="115.0" text-anchor="middle" font-family="'Montserrat', sans-serif" font-weight="900" font-size="42" letter-spacing="3"><tspan fill="#2d2d2d">USTO</tspan><tspan fill="#f26b1d">WSKI</tspan></text><text x="330" y="137.0" text-anchor="middle" font-family="'Montserrat', Arial, sans-serif" font-weight="400" font-size="13" fill="#888" letter-spacing="2">czyszczenie · malowanie</text>
 </svg>

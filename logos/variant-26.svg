@@ -1,28 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 210">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 220">
   <defs>
-    
     <linearGradient id="d26" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#555"/>
-      <stop offset="100%" stop-color="#2d2d2d"/>
+      <stop offset="0%" stop-color="#444"/><stop offset="100%" stop-color="#2d2d2d"/>
     </linearGradient>
     <linearGradient id="o26" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#f26b1d"/>
-      <stop offset="100%" stop-color="#e85a0a"/>
+      <stop offset="0%" stop-color="#f26b1d"/><stop offset="100%" stop-color="#e85a0a"/>
     </linearGradient>
   </defs>
-
-  <rect width="600" height="210" fill="#fff"/>
-  <path d="M 145.5,140 L 454.5,140 Q 475.5,140 475.5,161.0 Q 475.5,182 454.5,182 L 145.5,182 Q 124.5,182 124.5,161.0 Q 124.5,140 145.5,140 Z" fill="#222"/>
-
-  <text x="300.0" y="125" text-anchor="middle"
-        font-family="'Russo One', sans-serif" font-weight="400"
-        font-style="normal" font-size="75" letter-spacing="3"
-         transform="skewX(-8)"><tspan fill="url(#d26)">USTO</tspan><tspan fill="url(#o26)">WSKI</tspan></text>
-
-  <text x="300.0" y="167.3" text-anchor="middle"
-        font-family="'Russo One', Arial, sans-serif"
-        font-weight="400" font-style="normal" font-size="16"
-        fill="#fff" letter-spacing="2"
-         transform="skewX(-8)">czyszczenie · malowanie</text>
+  <rect width="600" height="220" fill="#fff"/>
+  <path d="M 305.0,128 Q 360.0,125 400.0,131 Q 440.0,127 480.0,129" stroke="#f26b1d" stroke-width="10" fill="none" stroke-linecap="round" opacity="0.75"/>
+  <text x="300.0" y="120" text-anchor="middle" font-family="'Montserrat', sans-serif"
+        font-weight="900" font-size="68" letter-spacing="4"
+        ><tspan fill="url(#d26)">USTO</tspan><tspan fill="url(#o26)">WSKI</tspan></text>
+  <text x="300.0" y="155" text-anchor="middle" font-family="'Montserrat', Arial, sans-serif"
+        font-weight="400" font-size="15" fill="#777" letter-spacing="3"
+        >czyszczenie · malowanie</text>
 </svg>
