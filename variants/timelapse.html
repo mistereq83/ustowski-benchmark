@@ -1,0 +1,741 @@
+<!DOCTYPE html>
+<html lang="pl" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ustowski | Profesjonalne Mycie Elewacji Trójmiasto</title>
+    <meta name="description" content="Czas na zmianę. Profesjonalne mycie elewacji, dachów i kostki brukowej w Trójmieście. Zobacz różnicę przed i po.">
+    
+    <!-- Preconnect dla fontów -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    
+    <!-- Skrypty zewnętrzne (GSAP i Tailwind) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Konfiguracja Tailwind -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        base: '#0F0F0F',     /* Głęboka czerń na tło */
+                        primary: '#1A1A1A',  /* Główne tło elementów */
+                        accent: '#F06820',   /* Pomarańczowy akcent osi czasu */
+                        secondary: '#2B2B2B',/* Karty i obramowania */
+                        light: '#E0E0E0',    /* Tekst podstawowy */
+                        muted: '#8A8A8A',    /* Tekst przyciszony */
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    spacing: {
+                        '128': '32rem',
+                        '144': '36rem',
+                    },
+                    backgroundImage: {
+                        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- Niestandardowe style CSS -->
+    <style>
+        /* Płynne przewijanie i ukrycie natywnego scrollbara na osi Y (lub jego stylizacja) */
+        html {
+            scrollbar-width: thin;
+            scrollbar-color: #F06820 #0F0F0F;
+        }
+        
+        body::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        body::-webkit-scrollbar-track {
+            background: #0F0F0F;
+        }
+        
+        body::-webkit-scrollbar-thumb {
+            background: #F06820;
+            border-radius: 4px;
+        }
+        
+        /* Hero Clip-Path dla efektu Przed/Po */
+        .hero-clip-right {
+            clip-path: polygon(50% 0, 100% 0, 100% 100%, 50% 100%);
+        }
+        
+        /* Klasy pomocnicze dla kart Przed/Po (Hover Reveal) */
+        .b-a-card {
+            cursor: ew-resize;
+            touch-action: pan-y;
+        }
+        
+        .b-a-before {
+            clip-path: polygon(0 0, 50% 0, 50% 100%, 0 100%);
+            /* Brak transition dla płynnego śledzenia kursora */
+        }
+        
+        .b-a-line {
+            left: 50%;
+            transform: translateX(-50%);
+            pointer-events: none;
+        }
+        
+        .b-a-handle {
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+        }
+        
+        /* Usunięcie domyślnego focus outline, zamiana na customowy */
+        *:focus-visible {
+            outline: 2px solid #F06820;
+            outline-offset: 2px;
+        }
+        
+        /* Subtelny szum tła */
+        .bg-noise {
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.03'/%3E%3C/svg%3E");
+            pointer-events: none;
+        }
+        
+        /* Oś czasu - animowana linia */
+        #progress-line {
+            transform-origin: top center;
+        }
+    </style>
+</head>
+
+<body class="bg-base text-light font-sans antialiased overflow-x-hidden relative selection:bg-accent selection:text-white">
+
+    <!-- Warstwa szumu pokrywająca całą stronę -->
+    <div class="fixed inset-0 bg-noise z-0 pointer-events-none"></div>
+
+    <!-- Nawigacja -->
+    <nav class="fixed top-0 left-0 w-full z-50 transition-all duration-300 bg-base/80 backdrop-blur-md border-b border-secondary/50">
+        <div class="container mx-auto px-6 h-20 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <!-- Logo z animacją na hover -->
+                <a href="#" class="text-2xl font-extrabold tracking-tighter text-white group flex items-center gap-2">
+                    <div class="w-8 h-8 bg-accent rounded-sm flex items-center justify-center transform group-hover:rotate-12 transition-transform duration-300">
+                        <span class="text-base text-white font-mono leading-none">U</span>
+                    </div>
+                    Ustowski<span class="text-accent">.</span>
+                </a>
+            </div>
+            
+            <div class="hidden md:flex items-center gap-8 font-mono text-sm tracking-widest text-muted">
+                <a href="#proces" class="hover:text-white transition-colors">PROCES</a>
+                <a href="#uslugi" class="hover:text-white transition-colors">USŁUGI</a>
+                <a href="#efekty" class="hover:text-white transition-colors">EFEKTY</a>
+                <a href="#opinie" class="hover:text-white transition-colors">OPINIE</a>
+            </div>
+            
+            <div>
+                <a href="#kontakt" class="px-6 py-3 bg-white text-base font-bold rounded-sm hover:bg-accent hover:text-white transition-colors duration-300 text-black">
+                    Wyceń za darmo
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Sekcja Hero (Split Screen) -->
+    <header class="relative w-full h-screen overflow-hidden z-10">
+        <!-- Lewa strona - Brudna -->
+        <div class="absolute inset-0 w-full h-full bg-primary flex items-center justify-center">
+            <img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&q=80&w=2000" 
+                 alt="Zabrudzona elewacja" 
+                 class="absolute inset-0 w-full h-full object-cover opacity-40 grayscale-[50%] blur-[2px] hero-img-left">
+            <div class="absolute inset-0 bg-gradient-to-r from-base/90 to-base/20"></div>
+        </div>
+        
+        <!-- Prawa strona - Czysta (Clip-path) -->
+        <div class="absolute inset-0 w-full h-full bg-base hero-clip-right flex items-center justify-center border-l-2 border-accent/50 z-10" id="hero-right">
+            <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&q=80&w=2000" 
+                 alt="Czysta elewacja" 
+                 class="absolute inset-0 w-full h-full object-cover opacity-60 hero-img-right">
+            <div class="absolute inset-0 bg-gradient-to-l from-base/90 to-transparent"></div>
+        </div>
+
+        <!-- Centralny Content Hero -->
+        <div class="absolute inset-0 z-20 flex flex-col items-center justify-center pointer-events-none">
+            <p class="font-mono text-accent tracking-[0.3em] uppercase text-sm mb-6 bg-base/80 px-4 py-2 rounded-sm backdrop-blur-sm">
+                Trójmiasto i okolice
+            </p>
+            <h1 class="text-5xl md:text-7xl lg:text-8xl font-extrabold text-center leading-tight tracking-tighter px-4 text-white drop-shadow-2xl hero-title">
+                Czas przywrócić<br>
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-white via-light to-accent">pierwotny blask.</span>
+            </h1>
+            <p class="mt-8 text-lg text-muted max-w-xl text-center font-light hero-subtitle">
+                Zmywamy lata zaniedbań w kilka godzin. Profesjonalne mycie elewacji, dachów i kostki brukowej.
+            </p>
+            
+            <!-- Hero Scroll Indicator -->
+            <div class="absolute bottom-12 flex flex-col items-center gap-4 hero-scroll">
+                <span class="font-mono text-xs tracking-widest text-muted uppercase">Zacznij odliczanie</span>
+                <div class="w-px h-16 bg-gradient-to-b from-accent to-transparent"></div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Główny Kontener (Oś czasu + Sekcje) -->
+    <div class="relative w-full max-w-[1600px] mx-auto flex flex-col lg:flex-row z-10">
+        
+        <!-- Pływający pasek boczny (Oś czasu) -->
+        <aside class="hidden lg:flex w-[300px] shrink-0 sticky top-0 h-screen flex-col items-end pr-16 py-32 justify-center z-20 border-r border-secondary/30">
+            <!-- Linia postępu bazowa -->
+            <div class="absolute right-[63px] top-32 bottom-32 w-px bg-secondary">
+                <!-- Linia postępu aktywna -->
+                <div id="progress-line" class="w-full bg-accent absolute top-0 left-0 h-full scale-y-0"></div>
+                <!-- Kropka pulsująca -->
+                <div id="progress-dot" class="absolute left-1/2 -translate-x-1/2 w-3 h-3 bg-accent rounded-full top-0 shadow-[0_0_15px_rgba(240,104,32,0.6)]"></div>
+            </div>
+            
+            <!-- Dynamiczne Timestamps -->
+            <div class="relative w-full text-right">
+                <div class="font-mono text-muted text-sm tracking-widest mb-2 opacity-50">CZAS OPERACYJNY</div>
+                <div id="active-timestamp" class="font-mono text-accent text-5xl font-bold tracking-tighter drop-shadow-lg">
+                    00:00:00
+                </div>
+                <div id="active-title" class="text-white text-xl font-bold mt-2 uppercase tracking-wide">
+                    Start
+                </div>
+            </div>
+        </aside>
+
+        <!-- Główna zawartość z sekcjami ułożonymi chronologicznie -->
+        <main class="w-full lg:w-[calc(100%-300px)] flex flex-col">
+            
+            <!-- Sekcja 1: T0 / Diagnoza -->
+            <section id="proces" class="time-section relative py-32 lg:py-48 px-6 lg:px-16 lg:pr-32 border-b border-secondary/30" 
+                     data-time="00:00:00" data-title="Ząb Czasu">
+                
+                <div class="max-w-3xl">
+                    <h2 class="text-4xl lg:text-5xl font-extrabold mb-8 text-white tracking-tight">
+                        Problem, którego <span class="text-muted">nie zauważasz</span> z dnia na dzień.
+                    </h2>
+                    <p class="text-lg text-muted mb-12 leading-relaxed">
+                        Mech, grzyby, algi i miejskie spaliny osadzają się na Twojej elewacji latami. To nie tylko defekt wizualny, ale realne zagrożenie dla struktury budynku. Mikroszczeliny zatrzymują wilgoć, powodując pękanie tynków zimą.
+                    </p>
+                    
+                    <!-- Obraz z paralaksą -->
+                    <div class="relative h-[400px] w-full overflow-hidden rounded-sm border border-secondary bg-primary">
+                        <img src="https://images.unsplash.com/photo-1518730518541-d0843268c287?auto=format&fit=crop&q=80&w=1600" 
+                             alt="Zabrudzona tekstura ściany" 
+                             class="parallax-img absolute inset-0 w-full h-[130%] object-cover opacity-60">
+                        <div class="absolute bottom-6 left-6 bg-base/80 backdrop-blur-md px-4 py-2 border border-secondary/50 font-mono text-sm">
+                            <span class="text-accent">Wykryto:</span> Zanieczyszczenia organiczne i smogowe.
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Sekcja 2: T1 / Technologia -->
+            <section class="time-section relative py-32 lg:py-48 px-6 lg:px-16 lg:pr-32 border-b border-secondary/30" 
+                     data-time="03:30:00" data-title="Proces">
+                
+                <div class="max-w-4xl">
+                    <h2 class="text-4xl lg:text-5xl font-extrabold mb-8 text-white tracking-tight">
+                        Nasza odpowiedź: <span class="text-accent">Gorąca woda + 150 barów.</span>
+                    </h2>
+                    <p class="text-lg text-muted mb-16 leading-relaxed max-w-2xl">
+                        Nie malujemy brudu. Usuwamy go od podstaw. Stosujemy biodegradowalną aktywną pianę, myjki ciśnieniowe z funkcją podgrzewania wody oraz impregnację, która zabezpiecza powierzchnię na kolejne lata.
+                    </p>
+                    
+                    <!-- Kafelki technologiczne -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="bg-primary p-8 border border-secondary hover:border-accent/50 transition-colors duration-300 group">
+                            <div class="w-12 h-12 mb-6 text-accent">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                  <path stroke-linecap="round" stroke-linejoin="round" d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25z" />
+                                  <path stroke-linecap="round" stroke-linejoin="round" d="M12 8.25v3.75m0 3.75h.008v.008H12v-.008z" />
+                                </svg>
+                            </div>
+                            <h3 class="text-xl font-bold mb-3 text-white">Ciśnienie dopasowane do materiału</h3>
+                            <p class="text-muted text-sm leading-relaxed">Inaczej traktujemy delikatny tynk akrylowy, inaczej twardą cegłę klinkierową. Zero uszkodzeń.</p>
+                        </div>
+                        
+                        <div class="bg-primary p-8 border border-secondary hover:border-accent/50 transition-colors duration-300 group">
+                            <div class="w-12 h-12 mb-6 text-accent">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                  <path stroke-linecap="round" stroke-linejoin="round" d="M9.75 3.104v5.714a2.25 2.25 0 01-.659 1.591L5 14.5M9.75 3.104c-.251.023-.501.05-.75.082m.75-.082a24.301 24.301 0 014.5 0m0 0v5.714c0 .597.237 1.17.659 1.591L19.8 15.3M14.25 3.104c.251.023.501.05.75.082M19.8 15.3l-1.57.393A9.065 9.065 0 0112 15a9.065 9.065 0 00-6.23-.693L5 14.5m14.8.8l1.402 1.402c1.232 1.232.65 3.318-1.067 3.611A48.309 48.309 0 0112 21c-2.773 0-5.491-.235-8.135-.687-1.718-.293-2.3-2.379-1.067-3.61L5 14.5" />
+                                </svg>
+                            </div>
+                            <h3 class="text-xl font-bold mb-3 text-white">Chemia biodegradowalna</h3>
+                            <p class="text-muted text-sm leading-relaxed">Bezpieczna dla roślin, zwierząt i domowników. Aktywnie rozpuszcza brud organiczny.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Sekcja 3: Usługi -->
+            <section id="uslugi" class="time-section relative py-32 lg:py-48 px-6 lg:px-16 lg:pr-32 border-b border-secondary/30" 
+                     data-time="05:15:00" data-title="Usługi">
+                
+                <h2 class="text-4xl lg:text-5xl font-extrabold mb-16 text-white tracking-tight">
+                    Przywracamy do życia <br><span class="text-muted">każdą powierzchnię.</span>
+                </h2>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <!-- Usługa 1 -->
+                    <div class="group relative overflow-hidden bg-primary border border-secondary p-8 hover:border-accent transition-all duration-500">
+                        <div class="absolute top-0 right-0 w-24 h-24 bg-accent/10 rounded-bl-full -mr-4 -mt-4 transition-transform group-hover:scale-150 duration-500"></div>
+                        <div class="relative z-10">
+                            <div class="font-mono text-accent text-lg mb-6">01</div>
+                            <h3 class="text-2xl font-bold text-white mb-4">Mycie Elewacji</h3>
+                            <p class="text-muted text-sm mb-6 leading-relaxed">Tynki, cegła, blacha, piaskowiec. Usuwamy mchy, algi, sadzę i pył uliczny, zapobiegając degradacji materiału.</p>
+                            <ul class="text-sm font-mono text-light/80 space-y-2">
+                                <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 bg-accent rounded-full"></span> Mycie ciśnieniowe</li>
+                                <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 bg-accent rounded-full"></span> Odgrzybianie</li>
+                                <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 bg-accent rounded-full"></span> Impregnacja</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Usługa 2 -->
+                    <div class="group relative overflow-hidden bg-primary border border-secondary p-8 hover:border-accent transition-all duration-500">
+                        <div class="absolute top-0 right-0 w-24 h-24 bg-accent/10 rounded-bl-full -mr-4 -mt-4 transition-transform group-hover:scale-150 duration-500"></div>
+                        <div class="relative z-10">
+                            <div class="font-mono text-accent text-lg mb-6">02</div>
+                            <h3 class="text-2xl font-bold text-white mb-4">Mycie Dachów</h3>
+                            <p class="text-muted text-sm mb-6 leading-relaxed">Dachówka ceramiczna, betonowa, blachodachówka. Usuwamy porosty zagrażające szczelności poszycia dachowego.</p>
+                            <ul class="text-sm font-mono text-light/80 space-y-2">
+                                <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 bg-accent rounded-full"></span> Praca na wysokości</li>
+                                <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 bg-accent rounded-full"></span> Gorąca woda 90°C</li>
+                                <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 bg-accent rounded-full"></span> Oprysk biobójczy</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Usługa 3 -->
+                    <div class="group relative overflow-hidden bg-primary border border-secondary p-8 hover:border-accent transition-all duration-500">
+                        <div class="absolute top-0 right-0 w-24 h-24 bg-accent/10 rounded-bl-full -mr-4 -mt-4 transition-transform group-hover:scale-150 duration-500"></div>
+                        <div class="relative z-10">
+                            <div class="font-mono text-accent text-lg mb-6">03</div>
+                            <h3 class="text-2xl font-bold text-white mb-4">Kostka Brukowa</h3>
+                            <p class="text-muted text-sm mb-6 leading-relaxed">Wypłukujemy brud z porów kostki, usuwamy plamy z oleju, rdzę i chwasty wyrastające ze spoin.</p>
+                            <ul class="text-sm font-mono text-light/80 space-y-2">
+                                <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 bg-accent rounded-full"></span> Talerze czyszczące T-Racer</li>
+                                <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 bg-accent rounded-full"></span> Usuwanie plam ropopochodnych</li>
+                                <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 bg-accent rounded-full"></span> Ponowne spoinowanie piaskiem</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Sekcja 4: Efekty (Hover Reveal) -->
+            <section id="efekty" class="time-section relative py-32 lg:py-48 px-6 lg:px-16 lg:pr-32 border-b border-secondary/30" 
+                     data-time="08:45:00" data-title="Transformacja">
+                
+                <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-16 gap-6">
+                    <h2 class="text-4xl lg:text-5xl font-extrabold text-white tracking-tight">
+                        Zanim zapłacisz, <br><span class="text-accent">zobacz różnicę.</span>
+                    </h2>
+                    <div class="flex font-mono text-sm text-muted items-center gap-2 bg-primary px-4 py-2 border border-secondary rounded-full">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
+                          <path stroke-linecap="round" stroke-linejoin="round" d="M10.05 4.575a1.575 1.575 0 10-3.15 0v3m3.15-3v-1.5a1.575 1.575 0 013.15 0v1.5m-3.15 0l.075 5.925m3.075.75V4.575m0 0a1.575 1.575 0 013.15 0V15M6.9 7.575a1.575 1.575 0 10-3.15 0v8.175a6.75 6.75 0 006.75 6.75h2.018a5.25 5.25 0 003.712-1.538l1.732-1.732a5.25 5.25 0 001.538-3.712l.003-2.024a.668.668 0 01.198-.471 1.575 1.575 0 10-2.228-2.228 3.818 3.818 0 00-1.12 2.687M6.9 7.575V12m6.27 4.318A4.49 4.49 0 0116.35 15m.002 0h-.002" />
+                        </svg>
+                        Przesuń kursorem po zdjęciu
+                    </div>
+                </div>
+
+                <div class="flex flex-col gap-12">
+                    
+                    <!-- Karta 1 -->
+                    <div class="b-a-card relative w-full h-[300px] md:h-[500px] bg-primary border border-secondary overflow-hidden rounded-sm select-none">
+                        <!-- Obraz Czysty (Tło) -->
+                        <img src="https://images.unsplash.com/photo-1600566753086-00f18efc2291?auto=format&fit=crop&q=80&w=1600" 
+                             alt="Czysta jasna elewacja" class="absolute inset-0 w-full h-full object-cover">
+                        <div class="absolute top-6 right-6 bg-accent text-white px-3 py-1 font-mono text-sm shadow-lg z-0 rounded-sm">PO</div>
+                        
+                        <!-- Obraz Brudny (Pierwszy plan - przycięty) -->
+                        <div class="b-a-before absolute inset-0 w-full h-full z-10">
+                            <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&q=80&w=1600" 
+                                 alt="Brudna elewacja" class="absolute inset-0 w-full h-full object-cover grayscale-[30%] blur-[1px]">
+                            <div class="absolute top-6 left-6 bg-base text-white px-3 py-1 font-mono text-sm shadow-lg border border-secondary rounded-sm">PRZED</div>
+                        </div>
+                        
+                        <!-- Linia oddzielająca i uchwyt -->
+                        <div class="b-a-line absolute top-0 bottom-0 w-1 bg-white z-20 shadow-[0_0_10px_rgba(0,0,0,0.5)]"></div>
+                        <div class="b-a-handle absolute w-10 h-10 bg-white rounded-full z-20 shadow-xl flex items-center justify-center border-4 border-accent">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="#F06820" class="w-5 h-5">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 15L12 18.75 15.75 15m-7.5-6L12 5.25 15.75 9" transform="rotate(90 12 12)" />
+                            </svg>
+                        </div>
+                    </div>
+
+                    <!-- Karta 2 -->
+                    <div class="b-a-card relative w-full h-[300px] md:h-[500px] bg-primary border border-secondary overflow-hidden rounded-sm select-none">
+                        <img src="https://images.unsplash.com/photo-1574362848149-11496d93a7c7?auto=format&fit=crop&q=80&w=1600" 
+                             alt="Czysta kostka" class="absolute inset-0 w-full h-full object-cover">
+                        <div class="absolute top-6 right-6 bg-accent text-white px-3 py-1 font-mono text-sm shadow-lg z-0 rounded-sm">PO</div>
+                        
+                        <div class="b-a-before absolute inset-0 w-full h-full z-10">
+                            <img src="https://images.unsplash.com/photo-1599619351208-3e6c839d6828?auto=format&fit=crop&q=80&w=1600" 
+                                 alt="Zabrudzona kostka i mech" class="absolute inset-0 w-full h-full object-cover grayscale-[10%]">
+                            <div class="absolute top-6 left-6 bg-base text-white px-3 py-1 font-mono text-sm shadow-lg border border-secondary rounded-sm">PRZED</div>
+                        </div>
+                        
+                        <div class="b-a-line absolute top-0 bottom-0 w-1 bg-white z-20 shadow-[0_0_10px_rgba(0,0,0,0.5)]"></div>
+                        <div class="b-a-handle absolute w-10 h-10 bg-white rounded-full z-20 shadow-xl flex items-center justify-center border-4 border-accent">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="#F06820" class="w-5 h-5">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 15L12 18.75 15.75 15m-7.5-6L12 5.25 15.75 9" transform="rotate(90 12 12)" />
+                            </svg>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+
+            <!-- Sekcja 5: Statystyki i Opinie -->
+            <section id="opinie" class="time-section relative py-32 lg:py-48 px-6 lg:px-16 lg:pr-32 border-b border-secondary/30" 
+                     data-time="14:00:00" data-title="Wiarygodność">
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-24 text-center divide-y md:divide-y-0 md:divide-x divide-secondary">
+                    <div class="p-6">
+                        <div class="text-6xl font-extrabold text-white mb-2 font-mono flex items-center justify-center">
+                            <span class="stat-counter" data-target="10">0</span>+
+                        </div>
+                        <div class="text-muted tracking-widest uppercase text-sm">Lat na rynku</div>
+                    </div>
+                    <div class="p-6">
+                        <div class="text-6xl font-extrabold text-accent mb-2 font-mono flex items-center justify-center">
+                            <span class="stat-counter" data-target="500">0</span>+
+                        </div>
+                        <div class="text-muted tracking-widest uppercase text-sm">Umytych elewacji</div>
+                    </div>
+                    <div class="p-6">
+                        <div class="text-6xl font-extrabold text-white mb-2 font-mono flex items-center justify-center">
+                            <span class="stat-counter" data-target="4.9">0.0</span>★
+                        </div>
+                        <div class="text-muted tracking-widest uppercase text-sm">Średnia ocen</div>
+                    </div>
+                </div>
+
+                <div class="bg-primary border border-secondary p-10 relative rounded-sm">
+                    <svg class="absolute top-6 left-6 text-secondary w-16 h-16 opacity-30" fill="currentColor" viewBox="0 0 24 24"><path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"/></svg>
+                    <div class="relative z-10 pl-8 md:pl-16">
+                        <p class="text-xl md:text-2xl text-light italic leading-relaxed mb-6">
+                            "Ekipa Ustowski zjawiła się punktualnie. Dom zyskał drugie życie. Kostka brukowa wygląda jak ułożona wczoraj, a z dachu zniknął ten okropny mech. Pełen profesjonalizm od wyceny aż po posprzątanie po sobie. Polecam każdemu w Trójmieście!"
+                        </p>
+                        <div class="flex items-center gap-4">
+                            <div class="w-12 h-12 bg-secondary rounded-full flex items-center justify-center text-white font-bold">AK</div>
+                            <div>
+                                <div class="font-bold text-white">Adam Kowalski</div>
+                                <div class="text-accent text-sm font-mono">Gdańsk Osowa</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Sekcja 6: Finał (CTA / Formularz) -->
+            <section id="kontakt" class="time-section relative py-32 lg:py-48 px-6 lg:px-16 lg:pr-32" 
+                     data-time="23:59:59" data-title="Twój Ruch">
+                
+                <div class="bg-accent text-base p-10 md:p-16 rounded-sm relative overflow-hidden">
+                    <div class="absolute -right-20 -top-20 w-64 h-64 bg-white opacity-10 rounded-full blur-3xl pointer-events-none"></div>
+                    
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 relative z-10">
+                        <div>
+                            <h2 class="text-4xl lg:text-5xl font-extrabold mb-6 tracking-tight text-white">
+                                Czas na bezpłatną wycenę.
+                            </h2>
+                            <p class="text-lg text-white/80 mb-8 leading-relaxed">
+                                Działamy na terenie całego Trójmiasta (Gdańsk, Gdynia, Sopot) i okolic. Zostaw numer, a oddzwonimy z propozycją. Bez ukrytych kosztów, bez zobowiązań.
+                            </p>
+                            
+                            <ul class="space-y-4 font-mono text-sm text-white/90 mb-8 md:mb-0">
+                                <li class="flex items-center gap-3">
+                                    <div class="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center">
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5 text-white"><path stroke-linecap="round" stroke-linejoin="round" d="M10.5 1.5H8.25A2.25 2.25 0 006 3.75v16.5a2.25 2.25 0 002.25 2.25h7.5A2.25 2.25 0 0018 20.25V3.75a2.25 2.25 0 00-2.25-2.25H13.5m-3 0V3h3V1.5m-3 0h3m-3 18.75h3" /></svg>
+                                    </div>
+                                    <span class="text-lg font-bold">+48 500 600 700</span>
+                                </li>
+                                <li class="flex items-center gap-3">
+                                    <div class="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center">
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5 text-white"><path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75" /></svg>
+                                    </div>
+                                    <span class="text-lg">kontakt@ustowski.pl</span>
+                                </li>
+                            </ul>
+                        </div>
+                        
+                        <!-- Prosty Formularz -->
+                        <form class="bg-base p-8 border border-secondary flex flex-col gap-4 rounded-sm shadow-2xl" onsubmit="event.preventDefault(); alert('Formularz testowy.');">
+                            <div>
+                                <label for="name" class="block text-xs font-mono text-muted mb-2 uppercase">Imię i nazwisko</label>
+                                <input type="text" id="name" required class="w-full bg-primary border border-secondary px-4 py-3 text-white focus:border-accent focus:outline-none transition-colors rounded-sm" placeholder="Jan Kowalski">
+                            </div>
+                            <div>
+                                <label for="phone" class="block text-xs font-mono text-muted mb-2 uppercase">Numer telefonu</label>
+                                <input type="tel" id="phone" required class="w-full bg-primary border border-secondary px-4 py-3 text-white focus:border-accent focus:outline-none transition-colors rounded-sm" placeholder="+48 ___ ___ ___">
+                            </div>
+                            <div>
+                                <label for="service" class="block text-xs font-mono text-muted mb-2 uppercase">Co do mycia?</label>
+                                <select id="service" class="w-full bg-primary border border-secondary px-4 py-3 text-white focus:border-accent focus:outline-none transition-colors rounded-sm appearance-none">
+                                    <option value="elewacja">Elewacja budynku</option>
+                                    <option value="dach">Mycie Dachu</option>
+                                    <option value="kostka">Kostka brukowa</option>
+                                    <option value="inne">Kompleksowo / Inne</option>
+                                </select>
+                            </div>
+                            <button type="submit" class="w-full bg-white text-base font-bold py-4 mt-4 rounded-sm hover:bg-black hover:text-white transition-colors duration-300">
+                                Wyślij zapytanie
+                            </button>
+                            <p class="text-[10px] text-muted text-center mt-2 font-mono uppercase tracking-wider">Twoje dane są u nas bezpieczne.</p>
+                        </form>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <!-- Stopka -->
+    <footer class="bg-black py-16 border-t border-secondary/50 z-20 relative">
+        <div class="container mx-auto px-6 grid grid-cols-1 md:grid-cols-4 gap-12">
+            <div class="col-span-1 md:col-span-2">
+                <a href="#" class="text-2xl font-extrabold tracking-tighter text-white flex items-center gap-2 mb-4">
+                    <div class="w-8 h-8 bg-accent rounded-sm flex items-center justify-center">
+                        <span class="text-sm text-white font-mono leading-none">U</span>
+                    </div>
+                    Ustowski<span class="text-accent">.</span>
+                </a>
+                <p class="text-sm text-muted max-w-sm leading-relaxed mt-4">Profesjonalne czyszczenie zewnętrznych powierzchni użytkowych. Wieloletnie doświadczenie, sprzęt klasy premium i absolutna gwarancja satysfakcji klienta na terenie Pomorza.</p>
+            </div>
+            
+            <div>
+                <h4 class="font-mono text-white text-sm mb-6 tracking-widest uppercase">Mapa Strony</h4>
+                <ul class="text-muted text-sm space-y-3">
+                    <li><a href="#proces" class="hover:text-accent transition-colors">Proces czyszczenia</a></li>
+                    <li><a href="#uslugi" class="hover:text-accent transition-colors">Nasze usługi</a></li>
+                    <li><a href="#efekty" class="hover:text-accent transition-colors">Galeria przed i po</a></li>
+                    <li><a href="#opinie" class="hover:text-accent transition-colors">Opinie klientów</a></li>
+                    <li><a href="#kontakt" class="hover:text-accent transition-colors">Darmowa wycena</a></li>
+                </ul>
+            </div>
+            
+            <div>
+                <h4 class="font-mono text-white text-sm mb-6 tracking-widest uppercase">Zasięg</h4>
+                <ul class="text-muted text-sm space-y-3">
+                    <li class="flex items-center gap-2"><div class="w-1.5 h-1.5 rounded-full bg-accent"></div> Gdańsk</li>
+                    <li class="flex items-center gap-2"><div class="w-1.5 h-1.5 rounded-full bg-accent"></div> Gdynia</li>
+                    <li class="flex items-center gap-2"><div class="w-1.5 h-1.5 rounded-full bg-accent"></div> Sopot</li>
+                    <li class="flex items-center gap-2"><div class="w-1.5 h-1.5 rounded-full bg-accent"></div> Okolice Trójmiasta (do 50km)</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="container mx-auto px-6 mt-16 pt-8 border-t border-secondary/30 flex flex-col md:flex-row items-center justify-between text-xs text-muted font-mono uppercase tracking-widest">
+            <p>&copy; 2026 Ustowski. Wszelkie prawa zastrzeżone.</p>
+            <p class="mt-4 md:mt-0 flex items-center gap-2">
+                Realizacja: <span class="text-accent">Ustowski Team</span>
+            </p>
+        </div>
+    </footer>
+
+    <!-- Skrypty Logiki, GSAP i Animacji -->
+    <script>
+        // 1. Rejestracja ScrollTrigger
+        gsap.registerPlugin(ScrollTrigger);
+
+        // 2. Animacja paska nawigacyjnego (od ukrytego / przezroczystego do pełnego)
+        const nav = document.querySelector('nav');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                nav.classList.add('shadow-lg', 'bg-base/95');
+                nav.classList.remove('bg-base/80');
+            } else {
+                nav.classList.add('bg-base/80');
+                nav.classList.remove('shadow-lg', 'bg-base/95');
+            }
+        });
+
+        // 3. Efekt Parallax w Hero
+        gsap.to('.hero-img-left', {
+            yPercent: 15,
+            ease: 'none',
+            scrollTrigger: {
+                trigger: 'header',
+                start: 'top top',
+                end: 'bottom top',
+                scrub: true
+            }
+        });
+        
+        gsap.to('.hero-img-right', {
+            yPercent: 15,
+            ease: 'none',
+            scrollTrigger: {
+                trigger: 'header',
+                start: 'top top',
+                end: 'bottom top',
+                scrub: true
+            }
+        });
+        
+        // 4. Parallax dla obrazów w sekcjach
+        gsap.utils.toArray('.parallax-img').forEach(img => {
+            gsap.to(img, {
+                yPercent: 20,
+                ease: "none",
+                scrollTrigger: {
+                    trigger: img.parentElement,
+                    start: "top bottom",
+                    end: "bottom top",
+                    scrub: true
+                }
+            });
+        });
+
+        // 5. Animacja Osi Czasu (Pasek boczny na Desktopie)
+        const sections = document.querySelectorAll('.time-section');
+        const activeTime = document.getElementById('active-timestamp');
+        const activeTitle = document.getElementById('active-title');
+        const progressLine = document.getElementById('progress-line');
+        const progressDot = document.getElementById('progress-dot');
+        
+        // Funkcja uaktualniająca oś czasu
+        function updateTimeline(section, index) {
+            const time = section.getAttribute('data-time');
+            const title = section.getAttribute('data-title');
+            
+            // Animowana zamiana tekstu
+            if (activeTime && activeTitle) {
+                gsap.to([activeTime, activeTitle], {
+                    opacity: 0,
+                    y: -10,
+                    duration: 0.2,
+                    onComplete: () => {
+                        activeTime.innerText = time;
+                        activeTitle.innerText = title;
+                        gsap.to([activeTime, activeTitle], {
+                            opacity: 1,
+                            y: 0,
+                            duration: 0.2
+                        });
+                    }
+                });
+            }
+            
+            // Kalkulacja postępu do animacji linii z użyciem skali (0 - 1)
+            const progressRatio = index / (sections.length - 1);
+            
+            if (progressLine) {
+                gsap.to(progressLine, {
+                    scaleY: progressRatio,
+                    duration: 0.5,
+                    ease: "power2.out"
+                });
+            }
+            
+            // Animacja przesuwania kropki
+            if (progressDot) {
+                gsap.to(progressDot, {
+                    top: `${progressRatio * 100}%`,
+                    duration: 0.5,
+                    ease: "power2.out"
+                });
+            }
+        }
+
+        // Podpinanie ScrollTrigger do sekcji
+        sections.forEach((sec, index) => {
+            ScrollTrigger.create({
+                trigger: sec,
+                start: "top center",
+                end: "bottom center",
+                onEnter: () => updateTimeline(sec, index),
+                onEnterBack: () => updateTimeline(sec, index)
+            });
+        });
+
+        // 6. Mechanika Kart "Przed i Po" (Hover / Mouse Move Reveal)
+        document.querySelectorAll('.b-a-card').forEach(card => {
+            const beforeImg = card.querySelector('.b-a-before');
+            const line = card.querySelector('.b-a-line');
+            const handle = card.querySelector('.b-a-handle');
+
+            const moveDivider = (xPos, cardWidth) => {
+                // Zabezpieczenie przed wyjściem poza krawędzie
+                let percent = (xPos / cardWidth) * 100;
+                percent = Math.max(0, Math.min(percent, 100));
+                
+                // Aktualizacja CSS
+                beforeImg.style.clipPath = `polygon(0 0, ${percent}% 0, ${percent}% 100%, 0 100%)`;
+                line.style.left = `${percent}%`;
+                handle.style.left = `${percent}%`;
+            };
+
+            // Eventy na myszkę
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                moveDivider(e.clientX - rect.left, rect.width);
+            });
+            
+            // Eventy dotykowe (mobile)
+            card.addEventListener('touchmove', (e) => {
+                const rect = card.getBoundingClientRect();
+                moveDivider(e.touches[0].clientX - rect.left, rect.width);
+            }, { passive: true });
+            
+            // Inicjalnie ustawione na 50%
+            beforeImg.style.clipPath = `polygon(0 0, 50% 0, 50% 100%, 0 100%)`;
+        });
+
+        // 7. Animacja Liczników
+        const counters = document.querySelectorAll('.stat-counter');
+        counters.forEach(counter => {
+            const target = parseFloat(counter.getAttribute('data-target'));
+            const isFloat = !Number.isInteger(target);
+            
+            ScrollTrigger.create({
+                trigger: counter,
+                start: "top 85%",
+                once: true,
+                onEnter: () => {
+                    gsap.to(counter, {
+                        innerHTML: target,
+                        duration: 2.5,
+                        snap: { innerHTML: isFloat ? 0.1 : 1 },
+                        ease: "power2.out",
+                        onUpdate: function() {
+                            if(isFloat) {
+                                counter.innerHTML = Number(this.targets()[0].innerHTML).toFixed(1);
+                            } else {
+                                counter.innerHTML = Math.round(this.targets()[0].innerHTML);
+                            }
+                        }
+                    });
+                }
+            });
+        });
+        
+        // 8. Elementy pojawiające się (Fade-in z dołu)
+        gsap.utils.toArray('.time-section > div, .time-section > h2').forEach(elem => {
+            gsap.from(elem, {
+                y: 50,
+                opacity: 0,
+                duration: 1,
+                ease: "power3.out",
+                scrollTrigger: {
+                    trigger: elem,
+                    start: "top 90%",
+                    toggleActions: "play none none reverse"
+                }
+            });
+        });
+        
+    </script>
+</body>
+</html>

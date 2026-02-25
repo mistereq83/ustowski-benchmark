@@ -1,0 +1,870 @@
+<!DOCTYPE html>
+<html lang="pl" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <title>Ustowski | Mycie Elewacji Trójmiasto</title>
+    <meta name="description" content="Profesjonalne mycie elewacji, dachów i kostki brukowej w Trójmieście. Ponad 10 lat doświadczenia. Natychmiastowy efekt, darmowa wycena.">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;700&family=Oswald:wght@500;700&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Tailwind Config -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        beton: '#E8E4DD',
+                        grafit: '#2B2B2B',
+                        accent: '#F06820',
+                        dark: '#1A1A1A',
+                    },
+                    fontFamily: {
+                        oswald: ['"Oswald"', 'sans-serif'],
+                        inter: ['"Inter"', 'sans-serif'],
+                        mono: ['"JetBrains Mono"', 'monospace'],
+                    },
+                    borderRadius: {
+                        '4xl': '2rem',
+                        '5xl': '3rem',
+                    },
+                    spacing: {
+                        '112': '28rem',
+                        '128': '32rem',
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- GSAP & ScrollTrigger CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    
+    <style>
+        /* Base & Resets */
+        body {
+            background-color: #E8E4DD;
+            color: #2B2B2B;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        ::selection {
+            background-color: #F06820;
+            color: #E8E4DD;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 12px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #E8E4DD;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #2B2B2B;
+            border-radius: 10px;
+            border: 3px solid #E8E4DD;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #F06820;
+        }
+
+        /* SVG Noise Overlay */
+        .noise-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            z-index: 9999;
+            opacity: 0.05;
+            mix-blend-mode: multiply;
+        }
+
+        /* Typography Utilities */
+        .text-outline {
+            color: transparent;
+            -webkit-text-stroke: 1px #2B2B2B;
+        }
+        
+        @media (min-width: 768px) {
+            .text-outline {
+                -webkit-text-stroke: 2px #2B2B2B;
+            }
+        }
+
+        .text-outline-accent {
+            color: transparent;
+            -webkit-text-stroke: 2px #F06820;
+        }
+
+        .heading-massive {
+            font-size: clamp(3.5rem, 12vw, 10rem);
+            line-height: 0.85;
+            text-transform: uppercase;
+        }
+
+        .heading-section {
+            font-size: clamp(3rem, 8vw, 6rem);
+            line-height: 0.9;
+            text-transform: uppercase;
+        }
+
+        .num-massive {
+            font-size: clamp(4rem, 10vw, 8rem);
+            line-height: 1;
+        }
+
+        .text-balanced {
+            text-wrap: balanced;
+        }
+
+        /* Buttons & Interactions */
+        .btn-solid {
+            background-color: #F06820;
+            color: #E8E4DD;
+            text-transform: uppercase;
+            font-family: 'Oswald', sans-serif;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative;
+            overflow: hidden;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 60px; /* > 44px */
+            min-width: 60px; /* > 44px */
+            padding: 0 2rem;
+            border-radius: 3rem;
+            z-index: 1;
+        }
+
+        .btn-solid::before {
+            content: '';
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #1A1A1A;
+            transition: top 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            z-index: -1;
+            border-radius: 3rem;
+        }
+
+        .btn-solid:hover::before {
+            top: 0;
+        }
+        
+        .btn-solid:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px -5px rgba(240, 104, 32, 0.4);
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            color: #2B2B2B;
+            border: 2px solid #2B2B2B;
+            text-transform: uppercase;
+            font-family: 'Oswald', sans-serif;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 60px;
+            padding: 0 2rem;
+            border-radius: 3rem;
+        }
+
+        .btn-outline:hover {
+            background-color: #2B2B2B;
+            color: #E8E4DD;
+        }
+
+        /* Image Before/After Slider */
+        .ba-container {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 4/3;
+            overflow: hidden;
+            border-radius: 2rem;
+            background: #1A1A1A;
+            transform: translateZ(0); /* Hardware accel */
+        }
+        
+        @media (min-width: 768px) {
+            .ba-container {
+                aspect-ratio: 16/9;
+                border-radius: 3rem;
+            }
+        }
+
+        .ba-img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+            user-select: none;
+            pointer-events: none;
+        }
+
+        .ba-img-after {
+            z-index: 1;
+        }
+
+        .ba-img-before {
+            z-index: 2;
+            clip-path: polygon(0 0, 50% 0, 50% 100%, 0 100%);
+        }
+
+        .ba-slider-input {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            opacity: 0;
+            cursor: ew-resize;
+            z-index: 10;
+        }
+
+        .ba-handle {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            width: 4px;
+            height: 100%;
+            background: #F06820;
+            z-index: 5;
+            pointer-events: none;
+            transform: translateX(-50%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .ba-handle-btn {
+            width: 48px;
+            height: 48px;
+            background: #F06820;
+            border: 4px solid #E8E4DD;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #E8E4DD;
+            box-shadow: 0 0 20px rgba(0,0,0,0.3);
+            transition: transform 0.1s ease;
+        }
+
+        .ba-slider-input:active ~ .ba-handle .ba-handle-btn {
+            transform: scale(0.9);
+        }
+
+        .ba-label {
+            position: absolute;
+            top: 1rem;
+            padding: 0.5rem 1rem;
+            background: rgba(26, 26, 26, 0.8);
+            backdrop-filter: blur(4px);
+            color: #E8E4DD;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.875rem;
+            border-radius: 2rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .ba-label-before { left: 1rem; z-index: 3; }
+        .ba-label-after { right: 1rem; z-index: 1; }
+
+        /* Animation Classes */
+        .reveal-wrap {
+            overflow: hidden;
+            display: inline-block;
+            vertical-align: top;
+        }
+        
+        .reveal-text {
+            display: inline-block;
+            transform: translateY(110%);
+        }
+
+        /* Form Inputs */
+        .input-brutal {
+            width: 100%;
+            min-height: 60px;
+            background: transparent;
+            border: 2px solid #2B2B2B;
+            border-radius: 2rem;
+            padding: 0 1.5rem;
+            font-family: 'Inter', sans-serif;
+            color: #2B2B2B;
+            outline: none;
+            transition: border-color 0.3s ease;
+        }
+        
+        .input-brutal:focus {
+            border-color: #F06820;
+        }
+        
+        .input-brutal::placeholder {
+            color: rgba(43, 43, 43, 0.5);
+        }
+        
+        textarea.input-brutal {
+            padding-top: 1rem;
+            resize: vertical;
+            min-height: 150px;
+        }
+
+    </style>
+</head>
+<body class="antialiased font-inter selection:bg-accent selection:text-white relative">
+
+    <!-- Global Noise Overlay -->
+    <svg class="noise-overlay" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+        <filter id="noiseFilter">
+            <feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="3" stitchTiles="stitch"/>
+        </filter>
+        <rect width="100%" height="100%" filter="url(#noiseFilter)"/>
+    </svg>
+
+    <!-- Navigation -->
+    <header class="fixed top-0 left-0 w-full z-50 px-4 py-4 md:px-8 md:py-6 mix-blend-difference pointer-events-none">
+        <div class="max-w-7xl mx-auto flex justify-between items-center pointer-events-auto">
+            <a href="#" class="font-oswald font-bold text-3xl md:text-4xl text-beton uppercase tracking-tight flex items-center gap-2">
+                <span class="w-4 h-4 bg-accent rounded-full block"></span>
+                Ustowski
+            </a>
+            
+            <div class="hidden md:flex items-center gap-8">
+                <a href="#uslugi" class="font-mono text-sm text-beton hover:text-accent transition">/USŁUGI</a>
+                <a href="#realizacje" class="font-mono text-sm text-beton hover:text-accent transition">/REALIZACJE</a>
+                <a href="#cennik" class="font-mono text-sm text-beton hover:text-accent transition">/CENNIK</a>
+            </div>
+            
+            <a href="#kontakt" class="btn-solid min-h-[44px] px-6 py-2 text-sm rounded-full bg-beton text-grafit pointer-events-auto hover:bg-accent hover:text-beton before:bg-accent">
+                <span>Wyceń za darmo</span>
+            </a>
+        </div>
+    </header>
+
+    <main>
+        <!-- HERO SECTION (01/) -->
+        <section id="hero" class="relative min-h-[100dvh] w-full flex flex-col justify-center px-4 md:px-8 pt-24 pb-12 overflow-hidden">
+            <div class="max-w-7xl mx-auto w-full relative z-10">
+                
+                <div class="font-mono text-accent text-3xl md:text-5xl lg:text-7xl font-bold mb-4 gs-reveal">01/</div>
+                
+                <h1 class="font-oswald font-bold heading-massive text-grafit tracking-tighter flex flex-col -ml-1 md:-ml-2">
+                    <span class="reveal-wrap"><span class="reveal-text block">MYCIE</span></span>
+                    <span class="reveal-wrap"><span class="reveal-text block">ELEWACJI.</span></span>
+                    <span class="reveal-wrap"><span class="reveal-text block text-outline">TRÓJMIASTO.</span></span>
+                </h1>
+                
+                <div class="mt-8 md:mt-12 flex flex-col md:flex-row gap-8 items-start justify-between w-full max-w-4xl gs-reveal">
+                    <p class="font-inter text-lg md:text-xl text-grafit max-w-md font-medium text-balanced leading-relaxed">
+                        Przywracamy fabryczny wygląd budynkom. Surowe podejście, profesjonalny sprzęt premium i natychmiastowy efekt. 10 lat dominacji w Trójmieście.
+                    </p>
+                    
+                    <div class="flex flex-col sm:flex-row gap-4">
+                        <a href="#kontakt" class="btn-solid text-lg"><span>ZAMÓW WYCENĘ</span></a>
+                        <a href="#realizacje" class="btn-outline text-lg">ZOBACZ EFEKTY</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Background Image Pill -->
+            <div class="absolute right-0 top-1/2 -translate-y-1/2 w-[80%] md:w-[50%] h-[70dvh] md:h-[85dvh] rounded-l-[3rem] overflow-hidden z-0 gs-image-wrap opacity-20 md:opacity-100 mix-blend-luminosity md:mix-blend-normal">
+                <img src="https://images.unsplash.com/photo-1518005020951-eccb494ad742?q=80&w=2000&auto=format&fit=crop" 
+                     alt="Betonowy budynek brutalistyczny" 
+                     class="w-full h-full object-cover gs-image scale-110"
+                     onerror="this.src='https://images.unsplash.com/photo-1541888086925-15a0c10f85ce?q=80&w=2000&auto=format&fit=crop'">
+                <div class="absolute inset-0 bg-grafit/30 mix-blend-multiply"></div>
+            </div>
+            
+            <!-- Floating element -->
+            <div class="absolute bottom-10 right-10 z-20 hidden md:flex items-center gap-4 bg-beton p-4 rounded-[2rem] border-2 border-grafit gs-reveal">
+                <div class="w-12 h-12 bg-accent rounded-full flex items-center justify-center">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#E8E4DD" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                </div>
+                <div>
+                    <div class="font-mono text-xs uppercase text-grafit/60 font-bold">Ceny od</div>
+                    <div class="font-oswald text-2xl font-bold text-grafit">4 PLN / M²</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- USŁUGI SECTION (02/) -->
+        <section id="uslugi" class="py-24 md:py-32 px-4 md:px-8 border-t-2 border-grafit/10">
+            <div class="max-w-7xl mx-auto">
+                <div class="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-8 gs-fade-up">
+                    <div>
+                        <div class="font-mono text-accent text-2xl md:text-3xl font-bold mb-2">02/</div>
+                        <h2 class="font-oswald font-bold heading-section text-grafit">NASZE USŁUGI</h2>
+                    </div>
+                    <p class="font-inter text-lg max-w-sm text-balanced pb-2 font-medium">
+                        Kompleksowe czyszczenie i zabezpieczanie powierzchni zewnętrznych. Używamy chemii premium.
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+                    
+                    <!-- Card 1 -->
+                    <div class="bg-white rounded-[2rem] p-8 md:p-10 border-2 border-transparent hover:border-accent transition-colors duration-300 group gs-fade-up">
+                        <div class="flex justify-between items-start mb-12">
+                            <div class="w-16 h-16 rounded-[1.5rem] bg-beton flex items-center justify-center group-hover:bg-accent group-hover:text-beton transition-colors">
+                                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18"/><path d="M5 21V7l8-4v18"/><path d="M19 21V11l-6-4"/><path d="M9 11v2"/><path d="M9 15v2"/></svg>
+                            </div>
+                            <span class="font-mono text-sm px-3 py-1 bg-beton rounded-full font-bold">4-15 zł/m²</span>
+                        </div>
+                        <h3 class="font-oswald text-3xl font-bold uppercase mb-4">Mycie elewacji</h3>
+                        <p class="font-inter text-grafit/80 mb-6">Usuwanie glonów, grzybów, kurzu i smogu z każdego rodzaju tynku. Bezpiecznie, metodą niskociśnieniową lub gorącą wodą.</p>
+                    </div>
+
+                    <!-- Card 2 -->
+                    <div class="bg-white rounded-[2rem] p-8 md:p-10 border-2 border-transparent hover:border-accent transition-colors duration-300 group gs-fade-up" style="transition-delay: 100ms;">
+                        <div class="flex justify-between items-start mb-12">
+                            <div class="w-16 h-16 rounded-[1.5rem] bg-beton flex items-center justify-center group-hover:bg-accent group-hover:text-beton transition-colors">
+                                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m2 10 10-5 10 5-10 5z"/><path d="m2 14 10 5 10-5"/><path d="m2 18 10 5 10-5"/></svg>
+                            </div>
+                            <span class="font-mono text-sm px-3 py-1 bg-beton rounded-full font-bold">8-25 zł/m²</span>
+                        </div>
+                        <h3 class="font-oswald text-3xl font-bold uppercase mb-4">Mycie dachów</h3>
+                        <p class="font-inter text-grafit/80 mb-6">Likwidacja mchu i porostów z dachówki ceramicznej, betonowej oraz blachodachówki. Zabezpieczenie przed ponownym porastaniem.</p>
+                    </div>
+
+                    <!-- Card 3 -->
+                    <div class="bg-white rounded-[2rem] p-8 md:p-10 border-2 border-transparent hover:border-accent transition-colors duration-300 group gs-fade-up" style="transition-delay: 200ms;">
+                        <div class="flex justify-between items-start mb-12">
+                            <div class="w-16 h-16 rounded-[1.5rem] bg-beton flex items-center justify-center group-hover:bg-accent group-hover:text-beton transition-colors">
+                                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m19 11-8-8-8.6 8.6a2 2 0 0 0 0 2.8l5.2 5.2c.8.8 2 .8 2.8 0L19 11Z"/><path d="m5 2 5 5"/><path d="M2 13h15"/><path d="M22 20a2 2 0 1 1-4 0c0-1.6 1.7-2.4 2-4 .3 1.6 2 2.4 2 4Z"/></svg>
+                            </div>
+                            <span class="font-mono text-sm px-3 py-1 bg-beton rounded-full font-bold">25-60 zł/m²</span>
+                        </div>
+                        <h3 class="font-oswald text-3xl font-bold uppercase mb-4">Malowanie elewacji</h3>
+                        <p class="font-inter text-grafit/80 mb-6">Mycie, gruntowanie i natryskowe lub wałkowe malowanie elewacji farbami silikonowymi najwyższej klasy.</p>
+                    </div>
+
+                    <!-- Card 4 -->
+                    <div class="bg-white rounded-[2rem] p-8 md:p-10 border-2 border-transparent hover:border-accent transition-colors duration-300 group gs-fade-up">
+                        <div class="flex justify-between items-start mb-12">
+                            <div class="w-16 h-16 rounded-[1.5rem] bg-beton flex items-center justify-center group-hover:bg-accent group-hover:text-beton transition-colors">
+                                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M3 9h18"/><path d="M3 15h18"/><path d="M9 3v18"/><path d="M15 3v18"/></svg>
+                            </div>
+                            <span class="font-mono text-sm px-3 py-1 bg-beton rounded-full font-bold">Wycena Ind.</span>
+                        </div>
+                        <h3 class="font-oswald text-3xl font-bold uppercase mb-4">Mycie paneli PV</h3>
+                        <p class="font-inter text-grafit/80 mb-6">Czyszczenie fotowoltaiki wodą demineralizowaną za pomocą szczotek karbonowych. Zwiększa uzysk energetyczny.</p>
+                    </div>
+
+                    <!-- Card 5 -->
+                    <div class="bg-white rounded-[2rem] p-8 md:p-10 border-2 border-transparent hover:border-accent transition-colors duration-300 group gs-fade-up" style="transition-delay: 100ms;">
+                        <div class="flex justify-between items-start mb-12">
+                            <div class="w-16 h-16 rounded-[1.5rem] bg-beton flex items-center justify-center group-hover:bg-accent group-hover:text-beton transition-colors">
+                                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 4c0-1.1.9-2 2-2"/><path d="M20 2c1.1 0 2 .9 2 2"/><path d="M22 8c0 1.1-.9 2-2 2"/><path d="M16 10c-1.1 0-2-.9-2-2"/><path d="m8.2 11.5.8-.8"/><path d="m3.1 16.6 4.9-4.9"/><path d="m11.5 8.2-.8.8"/><path d="m16.6 3.1-4.9 4.9"/><path d="m6 18 6-6"/><path d="m18 6-6 6"/><path d="M2 22 22 2"/></svg>
+                            </div>
+                            <span class="font-mono text-sm px-3 py-1 bg-beton rounded-full font-bold">Wycena Ind.</span>
+                        </div>
+                        <h3 class="font-oswald text-3xl font-bold uppercase mb-4">Pranie tapicerki</h3>
+                        <p class="font-inter text-grafit/80 mb-6">Dogłębne pranie ekstrakcyjne mebli tapicerowanych, dywanów oraz tapicerki samochodowej.</p>
+                    </div>
+                    
+                    <!-- Card 6 -->
+                    <div class="bg-grafit rounded-[2rem] p-8 md:p-10 flex flex-col justify-center items-center text-center gs-fade-up" style="transition-delay: 200ms;">
+                        <h3 class="font-oswald text-3xl font-bold uppercase text-beton mb-4">Inny problem?</h3>
+                        <p class="font-inter text-beton/70 mb-8">Czyścimy również kostkę brukową i wykonujemy profesjonalną impregnację.</p>
+                        <a href="#kontakt" class="btn-solid min-w-[200px]"><span>ZAPYTAJ</span></a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- DLACZEGO MY (03/) -->
+        <section id="dlaczego-my" class="py-24 md:py-32 bg-grafit text-beton relative overflow-hidden rounded-[3rem] mx-4 md:mx-8">
+            <div class="max-w-7xl mx-auto px-4 md:px-8 relative z-10">
+                
+                <div class="font-mono text-accent text-2xl md:text-3xl font-bold mb-2 gs-fade-up">03/</div>
+                <h2 class="font-oswald font-bold heading-section text-beton mb-16 gs-fade-up">BEZ KOMPROMISÓW</h2>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-8 mt-20">
+                    
+                    <div class="gs-fade-up">
+                        <div class="font-mono num-massive text-accent font-bold mb-4">10+</div>
+                        <h4 class="font-oswald text-2xl md:text-3xl font-bold uppercase mb-4">Lat w branży</h4>
+                        <p class="font-inter text-beton/70">Znamy trójmiejskie warunki. Wiemy, jak morskie powietrze wpływa na elewacje. Dobieramy chemię perfekcyjnie.</p>
+                    </div>
+                    
+                    <div class="gs-fade-up" style="transition-delay: 100ms;">
+                        <div class="font-mono num-massive text-accent font-bold mb-4">500+</div>
+                        <h4 class="font-oswald text-2xl md:text-3xl font-bold uppercase mb-4">Realizacji</h4>
+                        <p class="font-inter text-beton/70">Domy jednorodzinne, bloki, hale magazynowe, hotele. Setki czystych metrów kwadratowych na koncie.</p>
+                    </div>
+                    
+                    <div class="gs-fade-up" style="transition-delay: 200ms;">
+                        <div class="font-mono num-massive text-accent font-bold mb-4">4.9<span class="text-4xl">★</span></div>
+                        <h4 class="font-oswald text-2xl md:text-3xl font-bold uppercase mb-4">Ocena w Google</h4>
+                        <p class="font-inter text-beton/70">Nasza wizytówka to opinie klientów. Nie robimy fuszerek, sprzęt spalinowy i gorąca woda robią różnicę.</p>
+                    </div>
+                    
+                </div>
+            </div>
+            
+            <!-- Large background text -->
+            <div class="absolute top-1/2 left-0 -translate-y-1/2 w-full overflow-hidden pointer-events-none opacity-5 flex">
+                <div class="font-oswald heading-massive whitespace-nowrap text-beton">
+                    SPRZĘT PREMIUM • GORĄCA WODA • NATYCHMIASTOWY EFEKT • 
+                </div>
+            </div>
+        </section>
+
+        <!-- REALIZACJE / BEFORE-AFTER (04/) -->
+        <section id="realizacje" class="py-24 md:py-32 px-4 md:px-8">
+            <div class="max-w-7xl mx-auto">
+                <div class="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-8 gs-fade-up">
+                    <div>
+                        <div class="font-mono text-accent text-2xl md:text-3xl font-bold mb-2">04/</div>
+                        <h2 class="font-oswald font-bold heading-section text-grafit">PRZED & PO</h2>
+                    </div>
+                    <p class="font-inter text-lg max-w-sm text-balanced pb-2 font-medium">
+                        Efekt, którego nie da się zignorować. Przeciągnij suwak, by zobaczyć różnicę.
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    
+                    <!-- Slider 1 -->
+                    <div class="ba-container gs-fade-up shadow-2xl">
+                        <div class="ba-label ba-label-before">PRZED</div>
+                        <div class="ba-label ba-label-after">PO</div>
+                        
+                        <!-- After Image (Bottom) -->
+                        <img src="https://images.unsplash.com/photo-1600607688969-a5bfcd646154?q=80&w=1200&auto=format&fit=crop" 
+                             class="ba-img ba-img-after" alt="Po umyciu"
+                             onerror="this.src='https://images.unsplash.com/photo-1541888086925-15a0c10f85ce?q=80&w=1200&auto=format&fit=crop'">
+                        
+                        <!-- Before Image (Top, clipped) -->
+                        <img src="https://images.unsplash.com/photo-1518005020951-eccb494ad742?q=80&w=1200&auto=format&fit=crop" 
+                             class="ba-img ba-img-before grayscale contrast-125" alt="Przed umyciem"
+                             onerror="this.src='https://images.unsplash.com/photo-1622473590773-f588134b6ce7?q=80&w=1200&auto=format&fit=crop'">
+                        
+                        <!-- Input Control -->
+                        <input type="range" min="0" max="100" value="50" class="ba-slider-input" aria-label="Porównanie przed i po">
+                        
+                        <!-- Visual Handle -->
+                        <div class="ba-handle">
+                            <div class="ba-handle-btn">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18 6-6-6-6"/><path d="m9 18-6-6 6-6"/></svg>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Slider 2 -->
+                    <div class="ba-container gs-fade-up shadow-2xl" style="transition-delay: 100ms;">
+                        <div class="ba-label ba-label-before">PRZED</div>
+                        <div class="ba-label ba-label-after">PO</div>
+                        
+                        <!-- After Image (Bottom) -->
+                        <img src="https://images.unsplash.com/photo-1622473590773-f588134b6ce7?q=80&w=1200&auto=format&fit=crop" 
+                             class="ba-img ba-img-after" alt="Po umyciu dachu"
+                             onerror="this.src='https://images.unsplash.com/photo-1541888086925-15a0c10f85ce?q=80&w=1200&auto=format&fit=crop'">
+                        
+                        <!-- Before Image (Top, clipped) - Added some filter for demo -->
+                        <img src="https://images.unsplash.com/photo-1622473590773-f588134b6ce7?q=80&w=1200&auto=format&fit=crop" 
+                             class="ba-img ba-img-before brightness-50 sepia-[.3]" alt="Przed umyciem dachu"
+                             onerror="this.src='https://images.unsplash.com/photo-1518005020951-eccb494ad742?q=80&w=1200&auto=format&fit=crop'">
+                        
+                        <!-- Input Control -->
+                        <input type="range" min="0" max="100" value="50" class="ba-slider-input" aria-label="Porównanie przed i po">
+                        
+                        <!-- Visual Handle -->
+                        <div class="ba-handle">
+                            <div class="ba-handle-btn">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18 6-6-6-6"/><path d="m9 18-6-6 6-6"/></svg>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- OPINIE (05/) -->
+        <section id="opinie" class="py-24 md:py-32 bg-white border-y-2 border-grafit/10">
+            <div class="max-w-7xl mx-auto px-4 md:px-8">
+                <div class="text-center mb-16 gs-fade-up">
+                    <div class="font-mono text-accent text-2xl md:text-3xl font-bold mb-2">05/</div>
+                    <h2 class="font-oswald font-bold heading-section text-grafit">REPUTACJA</h2>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    
+                    <!-- Review 1 -->
+                    <div class="bg-beton rounded-[2rem] p-10 flex flex-col gs-fade-up">
+                        <div class="flex gap-1 text-accent mb-6">
+                            <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+                        </div>
+                        <p class="font-inter text-lg italic mb-8 flex-grow">"Znakomita robota. Kostka przed domem wygląda jak nowa, a elewacja odzyskała kolor po 15 latach. Ekipa konkretna, sprzęt potężny. Warto."</p>
+                        <div class="font-mono font-bold uppercase">~ Piotr Z. (Gdynia)</div>
+                    </div>
+
+                    <!-- Review 2 -->
+                    <div class="bg-grafit text-beton rounded-[2rem] p-10 flex flex-col gs-fade-up" style="transition-delay: 100ms;">
+                        <div class="flex gap-1 text-accent mb-6">
+                            <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+                        </div>
+                        <p class="font-inter text-lg italic mb-8 flex-grow">"Mycie dachu przebiegło błyskawicznie. Bardzo doceniam, że po sobie dokładnie posprzątali (okna, rynny, opaski). Pełen profesjonalizm."</p>
+                        <div class="font-mono font-bold uppercase text-accent">~ Anna W. (Gdańsk)</div>
+                    </div>
+
+                    <!-- Review 3 -->
+                    <div class="bg-beton rounded-[2rem] p-10 flex flex-col gs-fade-up" style="transition-delay: 200ms;">
+                        <div class="flex gap-1 text-accent mb-6">
+                            <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+                        </div>
+                        <p class="font-inter text-lg italic mb-8 flex-grow">"Najlepsza firma od mycia elewacji w Trójmieście. Zero uszkodzeń struktury tynku, wszystko wymyte idealnie. Polecam."</p>
+                        <div class="font-mono font-bold uppercase">~ Tomasz K. (Rumia)</div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- CENNIK (06/) -->
+        <section id="cennik" class="py-24 md:py-32 px-4 md:px-8">
+            <div class="max-w-4xl mx-auto">
+                <div class="text-center mb-16 gs-fade-up">
+                    <div class="font-mono text-accent text-2xl md:text-3xl font-bold mb-2">06/</div>
+                    <h2 class="font-oswald font-bold heading-section text-grafit">TARYFIKATOR</h2>
+                    <p class="mt-4 font-mono text-sm uppercase">Ceny orientacyjne netto. Ostateczna wycena po darmowych oględzinach.</p>
+                </div>
+
+                <div class="flex flex-col gap-4 gs-fade-up">
+                    
+                    <!-- Row -->
+                    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center p-6 border-b-2 border-grafit/20 hover:border-accent hover:bg-white rounded-xl transition-colors duration-300">
+                        <div class="font-oswald text-2xl md:text-3xl font-bold uppercase">Mycie Elewacji</div>
+                        <div class="flex items-center gap-4 mt-2 sm:mt-0 w-full sm:w-auto justify-between sm:justify-end">
+                            <span class="hidden md:block w-16 border-b-2 border-dashed border-grafit/30"></span>
+                            <span class="font-mono text-xl md:text-2xl font-bold bg-grafit text-beton px-4 py-1 rounded-lg">4 - 15 zł / m²</span>
+                        </div>
+                    </div>
+
+                    <!-- Row -->
+                    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center p-6 border-b-2 border-grafit/20 hover:border-accent hover:bg-white rounded-xl transition-colors duration-300">
+                        <div class="font-oswald text-2xl md:text-3xl font-bold uppercase">Mycie Dachów</div>
+                        <div class="flex items-center gap-4 mt-2 sm:mt-0 w-full sm:w-auto justify-between sm:justify-end">
+                            <span class="hidden md:block w-16 border-b-2 border-dashed border-grafit/30"></span>
+                            <span class="font-mono text-xl md:text-2xl font-bold bg-grafit text-beton px-4 py-1 rounded-lg">8 - 25 zł / m²</span>
+                        </div>
+                    </div>
+
+                    <!-- Row -->
+                    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center p-6 border-b-2 border-grafit/20 hover:border-accent hover:bg-white rounded-xl transition-colors duration-300">
+                        <div class="font-oswald text-2xl md:text-3xl font-bold uppercase">Malowanie Elewacji</div>
+                        <div class="flex items-center gap-4 mt-2 sm:mt-0 w-full sm:w-auto justify-between sm:justify-end">
+                            <span class="hidden md:block w-16 border-b-2 border-dashed border-grafit/30"></span>
+                            <span class="font-mono text-xl md:text-2xl font-bold bg-accent text-beton px-4 py-1 rounded-lg">25 - 60 zł / m²</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Row -->
+                    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center p-6 border-b-2 border-grafit/20 hover:border-accent hover:bg-white rounded-xl transition-colors duration-300">
+                        <div class="font-oswald text-2xl md:text-3xl font-bold uppercase">Czyszczenie Kostki</div>
+                        <div class="flex items-center gap-4 mt-2 sm:mt-0 w-full sm:w-auto justify-between sm:justify-end">
+                            <span class="hidden md:block w-16 border-b-2 border-dashed border-grafit/30"></span>
+                            <span class="font-mono text-xl md:text-2xl font-bold bg-grafit text-beton px-4 py-1 rounded-lg">8 - 18 zł / m²</span>
+                        </div>
+                    </div>
+
+                </div>
+                
+                <div class="mt-12 text-center gs-fade-up">
+                    <a href="#kontakt" class="btn-solid text-xl"><span>ZAMÓW DARMOWĄ WYCENĘ NA MIEJSCU</span></a>
+                </div>
+            </div>
+        </section>
+
+        <!-- KONTAKT (07/) -->
+        <section id="kontakt" class="py-24 md:py-32 bg-grafit text-beton rounded-t-[3rem] mt-12 px-4 md:px-8">
+            <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-8 items-center">
+                
+                <div class="gs-fade-up">
+                    <div class="font-mono text-accent text-2xl md:text-3xl font-bold mb-2">07/</div>
+                    <h2 class="font-oswald font-bold heading-section text-beton mb-12">BAZA</h2>
+                    
+                    <p class="font-inter text-xl mb-12 max-w-md text-beton/80">
+                        Działamy na terenie całego Trójmiasta (Gdańsk, Gdynia, Sopot) oraz okolic (Rumia, Reda, Wejherowo).
+                    </p>
+                    
+                    <div class="space-y-8">
+                        <div>
+                            <div class="font-mono text-accent uppercase text-sm mb-2 font-bold tracking-widest">Infolinia</div>
+                            <a href="tel:123456789" class="font-oswald font-bold text-5xl md:text-7xl hover:text-accent transition-colors block">123-456-789</a>
+                        </div>
+                        <div>
+                            <div class="font-mono text-accent uppercase text-sm mb-2 font-bold tracking-widest">Mail</div>
+                            <a href="mailto:kontakt@ustowski.pl" class="font-oswald font-bold text-3xl md:text-4xl hover:text-accent transition-colors block">kontakt@ustowski.pl</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Form -->
+                <div class="bg-beton rounded-[3rem] p-8 md:p-12 gs-fade-up">
+                    <h3 class="font-oswald text-4xl text-grafit font-bold uppercase mb-8">Napisz do nas</h3>
+                    <form id="contactForm" class="space-y-6">
+                        <div>
+                            <input type="text" placeholder="Imię i nazwisko" required class="input-brutal">
+                        </div>
+                        <div>
+                            <input type="tel" placeholder="Numer telefonu" required class="input-brutal">
+                        </div>
+                        <div>
+                            <textarea placeholder="Co jest do umycia? (orientacyjny metraż, lokalizacja)" required class="input-brutal"></textarea>
+                        </div>
+                        <button type="submit" class="btn-solid w-full text-xl mt-4">
+                            <span>WYŚLIJ ZAPYTANIE</span>
+                        </button>
+                    </form>
+                    <div id="formSuccess" class="hidden mt-6 p-4 bg-green-500/20 text-green-800 border-2 border-green-500 rounded-2xl font-mono text-center font-bold">
+                        Wiadomość wysłana! Oddzwonimy wkrótce.
+                    </div>
+                </div>
+
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-[#1A1A1A] text-beton/50 py-12 px-4 text-center font-mono text-sm border-t border-beton/10">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
+            <div>&copy; 2026 Ustowski. Wszelkie prawa zastrzeżone.</div>
+            <div class="flex gap-6">
+                <a href="#" class="hover:text-accent transition">Polityka Prywatności</a>
+                <a href="#" class="hover:text-accent transition">Regulamin</a>
+            </div>
+            <div class="font-oswald text-xl text-beton/80 uppercase tracking-widest">Trójmiasto</div>
+        </div>
+    </footer>
+
+    <!-- GSAP & Scripts -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            
+            gsap.registerPlugin(ScrollTrigger);
+
+            // 1. Hero Text Reveal Animation
+            const heroTexts = document.querySelectorAll('.reveal-text');
+            gsap.to(heroTexts, {
+                y: "0%",
+                duration: 1.2,
+                stagger: 0.15,
+                ease: "power4.out",
+                delay: 0.2
+            });
+
+            // 2. Hero Image Parallax & Scale
+            gsap.fromTo('.gs-image', 
+                { scale: 1.2 },
+                { 
+                    scale: 1, 
+                    duration: 2, 
+                    ease: "power3.out",
+                    delay: 0.5
+                }
+            );
+            
+            gsap.to('.gs-image-wrap', {
+                yPercent: 20,
+                ease: "none",
+                scrollTrigger: {
+                    trigger: "#hero",
+                    start: "top top",
+                    end: "bottom top",
+                    scrub: true
+                }
+            });
+
+            // 3. Fade Up Elements
+            const fadeElements = document.querySelectorAll('.gs-fade-up');
+            fadeElements.forEach(el => {
+                gsap.fromTo(el, 
+                    { y: 50, opacity: 0 },
+                    {
+                        y: 0,
+                        opacity: 1,
+                        duration: 0.8,
+                        ease: "power3.out",
+                        scrollTrigger: {
+                            trigger: el,
+                            start: "top 85%",
+                            toggleActions: "play none none reverse"
+                        }
+                    }
+                );
+            });
+
+            // 4. Before/After Sliders Logic
+            const baContainers = document.querySelectorAll('.ba-container');
+            
+            baContainers.forEach(container => {
+                const input = container.querySelector('.ba-slider-input');
+                const clipImg = container.querySelector('.ba-img-before');
+                const handle = container.querySelector('.ba-handle');
+                
+                // Initialize positions
+                const initVal = input.value;
+                updateSlider(initVal);
+
+                // Update on input
+                input.addEventListener('input', (e) => {
+                    updateSlider(e.target.value);
+                });
+
+                function updateSlider(val) {
+                    clipImg.style.clipPath = `polygon(0 0, ${val}% 0, ${val}% 100%, 0 100%)`;
+                    handle.style.left = `${val}%`;
+                }
+            });
+
+            // 5. Form Submission Simulation
+            const form = document.getElementById('contactForm');
+            const successMsg = document.getElementById('formSuccess');
+            const submitBtn = form.querySelector('button[type="submit"] span');
+
+            form.addEventListener('submit', (e) => {
+                e.preventDefault();
+                
+                // Loading state
+                const originalText = submitBtn.textContent;
+                submitBtn.textContent = "WYSYŁANIE...";
+                
+                // Simulate API call
+                setTimeout(() => {
+                    form.reset();
+                    form.style.display = 'none';
+                    successMsg.classList.remove('hidden');
+                }, 1000);
+            });
+            
+        });
+    </script>
+</body>
+</html>

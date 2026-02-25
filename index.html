@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Ustowski.pl — Porównanie wariantów</title>
+<title>Ustowski.pl — Porównanie wariantów (Gemini 3.1 Pro)</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -27,12 +27,7 @@
     background: transparent; color: #999;
   }
   .tab:hover { border-color: rgba(255,255,255,0.25); color: #ccc; }
-  .tab.active { background: #fff; color: #000; border-color: #fff; }
-  
-  .tab.model-sonnet.active { background: #7c6ef0; color: #fff; border-color: #7c6ef0; }
-  .tab.model-opus.active { background: #e8853d; color: #fff; border-color: #e8853d; }
-  .tab.model-gemini25.active { background: #4285f4; color: #fff; border-color: #4285f4; }
-  .tab.model-gemini31.active { background: #34a853; color: #fff; border-color: #34a853; }
+  .tab.active { background: #34a853; color: #fff; border-color: #34a853; }
   
   .controls { display: flex; gap: 16px; align-items: center; flex-wrap: wrap; }
   
@@ -69,9 +64,6 @@
   }
   .info-bar span { display: flex; align-items: center; gap: 6px; }
   .dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; }
-  .dot-sonnet { background: #7c6ef0; }
-  .dot-opus { background: #e8853d; }
-  .dot-gemini25 { background: #4285f4; }
   .dot-gemini31 { background: #34a853; }
   
   @media (max-width: 768px) {
@@ -84,26 +76,42 @@
 <body>
 
 <div class="header">
-  <h1>🏗️ Ustowski.pl — Model Benchmark</h1>
-  <p>15 wariantów strony głównej: 3 generyczne presety × 4 modele + 3 custom presety (oparte na logo). Porównaj jakość.</p>
+  <h1>🏗️ Ustowski.pl — Design Variants (Gemini 3.1 Pro)</h1>
+  <p>22 warianty: 3 generic (A/B/C Gemini31) + 6 custom (F,F2,F3,F4,G,H) + 13 new design concepts. All powered by Gemini 3.1 Pro.</p>
   
   <div class="controls">
     <div class="tabs-row">
-      <span class="label">Preset:</span>
-      <div class="tab active" data-preset="warm" onclick="setPreset('warm')">🏠 Warm Studio</div>
-      <div class="tab" data-preset="brutalist" onclick="setPreset('brutalist')">🏗️ Brutalist Signal</div>
-      <div class="tab" data-preset="organic" onclick="setPreset('organic')">🌿 Organic Tech</div>
-      <div class="tab" data-preset="cleanslate" onclick="setPreset('cleanslate')" style="border-color:#F06820;color:#F06820">🔥 Clean Slate</div>
-      <div class="tab" data-preset="balticcraft" onclick="setPreset('balticcraft')" style="border-color:#F06820;color:#F06820">🏗️ Baltic Craft</div>
-      <div class="tab" data-preset="powerwash" onclick="setPreset('powerwash')" style="border-color:#F06820;color:#F06820">⚡ Power Wash</div>
+      <span class="label">Generic:</span>
+      <div class="tab active" data-preset="a-warm" onclick="setPreset('a-warm')">🏠 Warm Studio</div>
+      <div class="tab" data-preset="b-brutalist" onclick="setPreset('b-brutalist')">🏗️ Brutalist Signal</div>
+      <div class="tab" data-preset="c-organic" onclick="setPreset('c-organic')">🌿 Organic Tech</div>
     </div>
     
-    <div class="tabs-row" id="model-row">
-      <span class="label">Model:</span>
-      <div class="tab model-sonnet active" data-model="sonnet" onclick="setModel('sonnet')">Sonnet 4</div>
-      <div class="tab model-opus" data-model="opus" onclick="setModel('opus')">Opus 4.6</div>
-      <div class="tab model-gemini25" data-model="gemini25" onclick="setModel('gemini25')">Gemini 2.5 Pro</div>
-      <div class="tab model-gemini31" data-model="gemini31" onclick="setModel('gemini31')">Gemini 3.1 Pro</div>
+    <div class="tabs-row">
+      <span class="label">Custom:</span>
+      <div class="tab" data-preset="f" onclick="setPreset('f')">🔥 Clean Slate</div>
+      <div class="tab" data-preset="f2" onclick="setPreset('f2')">🎯 Clean Slate Fixed</div>
+      <div class="tab" data-preset="f3" onclick="setPreset('f3')">📜 Scroll Reveal</div>
+      <div class="tab" data-preset="f4" onclick="setPreset('f4')">✨ Auto-Animate</div>
+      <div class="tab" data-preset="g" onclick="setPreset('g')">🏗️ Baltic Craft</div>
+      <div class="tab" data-preset="h" onclick="setPreset('h')">⚡ Power Wash</div>
+    </div>
+    
+    <div class="tabs-row">
+      <span class="label">New (10+3):</span>
+      <div class="tab" data-preset="concrete-jungle" onclick="setPreset('concrete-jungle')">🏢 Concrete Jungle</div>
+      <div class="tab" data-preset="ba-cinema" onclick="setPreset('ba-cinema')">🎬 Before & After</div>
+      <div class="tab" data-preset="pressure-gauge" onclick="setPreset('pressure-gauge')">🔧 Pressure Gauge</div>
+      <div class="tab" data-preset="street-level" onclick="setPreset('street-level')">🛣️ Street Level</div>
+      <div class="tab" data-preset="water-cannon" onclick="setPreset('water-cannon')">💧 Water Cannon</div>
+      <div class="tab" data-preset="safety-stripe" onclick="setPreset('safety-stripe')">⚠️ Safety Stripe</div>
+      <div class="tab" data-preset="modular-blocks" onclick="setPreset('modular-blocks')">🧱 Modular Blocks</div>
+      <div class="tab" data-preset="timelapse" onclick="setPreset('timelapse')">⏱️ Timelapse</div>
+      <div class="tab" data-preset="noir-prestige" onclick="setPreset('noir-prestige')">🎭 Noir Prestige</div>
+      <div class="tab" data-preset="aqua-flow" onclick="setPreset('aqua-flow')">💦 Aqua Flow</div>
+      <div class="tab" data-preset="blueprint" onclick="setPreset('blueprint')">📐 Blueprint</div>
+      <div class="tab" data-preset="grid-iron" onclick="setPreset('grid-iron')">⚙️ Grid Iron</div>
+      <div class="tab" data-preset="spot-clean" onclick="setPreset('spot-clean')">✨ Spot Clean</div>
     </div>
     
     <div class="view-toggle">
@@ -130,56 +138,72 @@
 </div>
 
 <div class="info-bar">
-  <span><span class="dot dot-sonnet"></span> Sonnet 4 (Claude)</span>
-  <span><span class="dot dot-opus"></span> Opus 4.6 (Claude)</span>
-  <span><span class="dot dot-gemini25"></span> Gemini 2.5 Pro</span>
-  <span><span class="dot dot-gemini31"></span> Gemini 3.1 Pro</span>
-  <span style="margin-left:16px;color:#F06820">🔥 = Custom (logo-based)</span>
+  <span><span class="dot dot-gemini31"></span> Gemini 3.1 Pro — All variants</span>
+  <span>22 total | 3 generic + 6 custom + 13 new</span>
 </div>
 
 <script>
 const variants = {
-  'warm-sonnet': 'variants/warm-sonnet.html',
-  'warm-opus': 'variants/warm-opus.html',
-  'warm-gemini25': 'variants/warm-gemini25.html',
-  'warm-gemini31': 'variants/warm-gemini31.html',
-  'brutalist-sonnet': 'variants/brutalist-sonnet.html',
-  'brutalist-opus': 'variants/brutalist-opus.html',
-  'brutalist-gemini25': 'variants/brutalist-gemini25.html',
-  'brutalist-gemini31': 'variants/brutalist-gemini31.html',
-  'organic-sonnet': 'variants/organic-sonnet.html',
-  'organic-opus': 'variants/organic-opus.html',
-  'organic-gemini25': 'variants/organic-gemini25.html',
-  'organic-gemini31': 'variants/organic-gemini31.html',
-  // Custom presets (logo-based, Gemini 3.1 Pro only)
-  'cleanslate-gemini31': 'variants/custom-cleanslate.html',
-  'balticcraft-gemini31': 'variants/custom-balticcraft.html',
-  'powerwash-gemini31': 'variants/custom-powerwash.html',
+  // Generic (Gemini 3.1 Pro)
+  'a-warm': 'variants/warm-gemini31.html',
+  'b-brutalist': 'variants/brutalist-gemini31.html',
+  'c-organic': 'variants/organic-gemini31.html',
+  // Custom (all Gemini 3.1 Pro)
+  'f': 'variants/custom-cleanslate.html',
+  'f2': 'variants/custom-cleanslate-fixed.html',
+  'f3': 'variants/custom-scrollreveal.html',
+  'f4': 'variants/custom-autoanimate.html',
+  'g': 'variants/custom-balticcraft.html',
+  'h': 'variants/custom-powerwash.html',
+  // New variants (all Gemini 3.1 Pro)
+  'concrete-jungle': 'variants/concrete-jungle.html',
+  'ba-cinema': 'variants/ba-cinema.html',
+  'pressure-gauge': 'variants/pressure-gauge.html',
+  'street-level': 'variants/street-level.html',
+  'water-cannon': 'variants/water-cannon.html',
+  'safety-stripe': 'variants/safety-stripe.html',
+  'modular-blocks': 'variants/modular-blocks.html',
+  'timelapse': 'variants/timelapse.html',
+  'noir-prestige': 'variants/noir-prestige.html',
+  'aqua-flow': 'variants/aqua-flow.html',
+  'blueprint': 'variants/blueprint.html',
+  'grid-iron': 'variants/grid-iron.html',
+  'spot-clean': 'variants/spot-clean.html',
 };
 
-const customPresets = ['cleanslate', 'balticcraft', 'powerwash'];
-const modelNames = { sonnet: 'Sonnet 4', opus: 'Opus 4.6', gemini25: 'Gemini 2.5 Pro', gemini31: 'Gemini 3.1 Pro' };
-const presetNames = { warm: 'Warm Studio', brutalist: 'Brutalist Signal', organic: 'Organic Tech', cleanslate: 'Clean Slate', balticcraft: 'Baltic Craft', powerwash: 'Power Wash' };
+const presetNames = { 
+  'a-warm': 'Warm Studio', 
+  'b-brutalist': 'Brutalist Signal', 
+  'c-organic': 'Organic Tech',
+  'f': 'Clean Slate',
+  'f2': 'Clean Slate Fixed',
+  'f3': 'Scroll Reveal',
+  'f4': 'Auto-Animate',
+  'g': 'Baltic Craft',
+  'h': 'Power Wash',
+  'concrete-jungle': 'Concrete Jungle',
+  'ba-cinema': 'Before & After Cinema',
+  'pressure-gauge': 'Pressure Gauge',
+  'street-level': 'Street Level',
+  'water-cannon': 'Water Cannon',
+  'safety-stripe': 'Safety Stripe',
+  'modular-blocks': 'Modular Blocks',
+  'timelapse': 'Timelapse',
+  'noir-prestige': 'Noir Prestige',
+  'aqua-flow': 'Aqua Flow',
+  'blueprint': 'Blueprint',
+  'grid-iron': 'Grid Iron',
+  'spot-clean': 'Spot Clean',
+};
 
-let currentPreset = 'warm';
-let currentModel = 'sonnet';
+let currentPreset = 'a-warm';
 let currentView = 'single';
-let splitLeft = { preset: 'warm', model: 'sonnet' };
-let splitRight = { preset: 'warm', model: 'opus' };
+let splitLeft = { preset: 'a-warm' };
+let splitRight = { preset: 'b-brutalist' };
 
 function setPreset(p) {
   currentPreset = p;
   document.querySelectorAll('[data-preset]').forEach(t => t.classList.toggle('active', t.dataset.preset === p));
-  // Custom presets only have Gemini 3.1 Pro — auto-select and hide model row
-  const isCustom = customPresets.includes(p);
-  document.getElementById('model-row').style.display = isCustom ? 'none' : 'flex';
-  if (isCustom) { currentModel = 'gemini31'; }
-  updateFrames();
-}
-
-function setModel(m) {
-  currentModel = m;
-  document.querySelectorAll('[data-model]').forEach(t => t.classList.toggle('active', t.dataset.model === m));
   updateFrames();
 }
 
@@ -189,27 +213,25 @@ function setView(v) {
   document.getElementById('single-view').style.display = v === 'single' ? 'block' : 'none';
   document.getElementById('split-view').style.display = v === 'split' ? 'grid' : 'none';
   if (v === 'split') {
-    splitLeft = { preset: currentPreset, model: currentModel };
-    // Auto-pick next model for right pane
-    const models = ['sonnet', 'opus', 'gemini25', 'gemini31'];
-    const nextIdx = (models.indexOf(currentModel) + 1) % models.length;
-    splitRight = { preset: currentPreset, model: models[nextIdx] };
+    splitLeft = { preset: currentPreset };
+    const presets = Object.keys(variants);
+    const nextIdx = (presets.indexOf(currentPreset) + 1) % presets.length;
+    splitRight = { preset: presets[nextIdx] };
   }
   updateFrames();
 }
 
 function updateFrames() {
   if (currentView === 'single') {
-    const key = `${currentPreset}-${currentModel}`;
-    const src = variants[key] || '';
+    const src = variants[currentPreset] || '';
     document.getElementById('main-frame').src = src;
   } else {
-    const leftKey = `${splitLeft.preset}-${splitLeft.model}`;
-    const rightKey = `${splitRight.preset}-${splitRight.model}`;
-    document.getElementById('left-frame').src = variants[leftKey] || '';
-    document.getElementById('right-frame').src = variants[rightKey] || '';
-    document.getElementById('left-label').textContent = `${presetNames[splitLeft.preset]} × ${modelNames[splitLeft.model]}`;
-    document.getElementById('right-label').textContent = `${presetNames[splitRight.preset]} × ${modelNames[splitRight.model]}`;
+    const leftSrc = variants[splitLeft.preset] || '';
+    const rightSrc = variants[splitRight.preset] || '';
+    document.getElementById('left-frame').src = leftSrc;
+    document.getElementById('right-frame').src = rightSrc;
+    document.getElementById('left-label').textContent = presetNames[splitLeft.preset] || 'Left';
+    document.getElementById('right-label').textContent = presetNames[splitRight.preset] || 'Right';
   }
 }
 
