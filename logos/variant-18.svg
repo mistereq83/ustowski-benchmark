@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 200">
+  <defs>
+    <linearGradient id="d18" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#555"/>
+      <stop offset="100%" stop-color="#3a3a3a"/>
+    </linearGradient>
+    <linearGradient id="o18" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#f26b1d"/>
+      <stop offset="100%" stop-color="#e85a0a"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="600" height="200" fill="#fff"/>
+  <line x1="120.0" y1="135" x2="480.0" y2="135" stroke="#f26b1d" stroke-width="3"/>
+
+  <text x="300.0" y="118" text-anchor="middle"
+        font-family="Impact, 'Arial Black', 'Helvetica Inserat', sans-serif" font-weight="900" font-style="italic"
+        font-size="92" letter-spacing="3"
+        transform="skewX(-8)"
+        ><tspan fill="url(#d18)">USTO</tspan><tspan fill="url(#o18)">WSKI</tspan></text>
+
+  <text x="300.0" y="154" text-anchor="middle"
+        font-family="'Helvetica Neue', Arial, sans-serif"
+        font-weight="400" font-style="italic" font-size="17"
+        fill="#555" letter-spacing="2"
+        transform="skewX(-8)">czyszczenie · malowanie</text>
+</svg>

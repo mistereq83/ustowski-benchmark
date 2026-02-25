@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>USTOWSKI — Warianty logotypu</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: #f2f2f2; font-family: -apple-system, 'Segoe UI', sans-serif; padding: 32px 20px; }
+  
+  .header { text-align: center; margin-bottom: 36px; }
+  .header h1 { font-size: 24px; font-weight: 800; color: #1a1a1a; margin-bottom: 4px; }
+  .header p { font-size: 13px; color: #888; }
+  
+  .original { 
+    max-width: 400px; margin: 0 auto 40px; text-align: center;
+    background: #fff; border-radius: 12px; padding: 24px; 
+    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+  }
+  .original img { max-width: 100%; border-radius: 6px; }
+  .original .caption { margin-top: 10px; font-size: 11px; color: #aaa; text-transform: uppercase; letter-spacing: 0.1em; }
+  
+  .grid {
+    display: grid; grid-template-columns: repeat(2, 1fr);
+    gap: 20px; max-width: 1000px; margin: 0 auto;
+  }
+  
+  .card {
+    background: #fff; border-radius: 10px; padding: 20px;
+    box-shadow: 0 1px 6px rgba(0,0,0,0.06);
+    transition: transform 0.15s, box-shadow 0.15s;
+    cursor: pointer; position: relative;
+  }
+  .card:hover { transform: translateY(-2px); box-shadow: 0 4px 20px rgba(0,0,0,0.1); }
+  .card.dark { background: #111; }
+  
+  .card img { width: 100%; height: auto; display: block; }
+  
+  .card .info {
+    margin-top: 10px; display: flex; justify-content: space-between; align-items: center;
+  }
+  .card .num { font-weight: 800; color: #f26b1d; font-size: 13px; }
+  .card .desc { font-size: 11px; color: #888; }
+  
+  .section-title {
+    font-size: 10px; text-transform: uppercase; letter-spacing: 0.12em;
+    color: #f26b1d; font-weight: 700; margin: 32px 0 14px; padding-left: 4px;
+    max-width: 1000px; margin-left: auto; margin-right: auto;
+  }
+  
+  /* Fullscreen overlay on click */
+  .overlay {
+    display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.85);
+    z-index: 100; justify-content: center; align-items: center; cursor: pointer;
+  }
+  .overlay.active { display: flex; }
+  .overlay img { max-width: 90%; max-height: 85vh; background: #fff; padding: 32px; border-radius: 12px; }
+  
+  @media (max-width: 600px) { .grid { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>🎨 USTOWSKI — Warianty logotypu</h1>
+  <p>20 wariantów SVG · kliknij aby powiększyć</p>
+</div>
+
+<div class="section-title">Warianty kolorystyczne</div>
+<div class="grid">
+  <div class="card" onclick="zoom('variant-01')"><img src="../logos/variant-01.svg"><div class="info"><span class="num">#01</span><span class="desc">Oryginał — USTO szary / WSKI pomarańcz</span></div></div>
+  <div class="card" onclick="zoom('variant-02')"><img src="../logos/variant-02.svg"><div class="info"><span class="num">#02</span><span class="desc">Cieplejszy szary + głębszy pomarańcz</span></div></div>
+  <div class="card" onclick="zoom('variant-03')"><img src="../logos/variant-03.svg"><div class="info"><span class="num">#03</span><span class="desc">Chłodny antracyt + pomarańcz</span></div></div>
+  <div class="card" onclick="zoom('variant-07')"><img src="../logos/variant-07.svg"><div class="info"><span class="num">#07</span><span class="desc">Amber / złoty odcień</span></div></div>
+  <div class="card" onclick="zoom('variant-08')"><img src="../logos/variant-08.svg"><div class="info"><span class="num">#08</span><span class="desc">Czerwono-pomarańczowy</span></div></div>
+  <div class="card" onclick="zoom('variant-14')"><img src="../logos/variant-14.svg"><div class="info"><span class="num">#14</span><span class="desc">Granatowy + pomarańcz</span></div></div>
+  <div class="card" onclick="zoom('variant-19')"><img src="../logos/variant-19.svg"><div class="info"><span class="num">#19</span><span class="desc">Zielony ciemny + pomarańcz</span></div></div>
+</div>
+
+<div class="section-title">Podział kolorów</div>
+<div class="grid">
+  <div class="card" onclick="zoom('variant-04')"><img src="../logos/variant-04.svg"><div class="info"><span class="num">#04</span><span class="desc">Podział USTOW / SKI</span></div></div>
+  <div class="card" onclick="zoom('variant-05')"><img src="../logos/variant-05.svg"><div class="info"><span class="num">#05</span><span class="desc">Podział UST / OWSKI</span></div></div>
+  <div class="card" onclick="zoom('variant-15')"><img src="../logos/variant-15.svg"><div class="info"><span class="num">#15</span><span class="desc">Monochromatyczny ciemny</span></div></div>
+  <div class="card" onclick="zoom('variant-16')"><img src="../logos/variant-16.svg"><div class="info"><span class="num">#16</span><span class="desc">Monochromatyczny pomarańcz</span></div></div>
+</div>
+
+<div class="section-title">Warianty bannera</div>
+<div class="grid">
+  <div class="card" onclick="zoom('variant-09')"><img src="../logos/variant-09.svg"><div class="info"><span class="num">#09</span><span class="desc">Banner — trapez</span></div></div>
+  <div class="card" onclick="zoom('variant-10')"><img src="../logos/variant-10.svg"><div class="info"><span class="num">#10</span><span class="desc">Banner — wstążka z wycięciami</span></div></div>
+  <div class="card" onclick="zoom('variant-11')"><img src="../logos/variant-11.svg"><div class="info"><span class="num">#11</span><span class="desc">Banner — zaokrąglony prostokąt</span></div></div>
+  <div class="card" onclick="zoom('variant-17')"><img src="../logos/variant-17.svg"><div class="info"><span class="num">#17</span><span class="desc">Banner — chevron / V-shape</span></div></div>
+  <div class="card" onclick="zoom('variant-18')"><img src="../logos/variant-18.svg"><div class="info"><span class="num">#18</span><span class="desc">Bez bannera — podkreślenie</span></div></div>
+</div>
+
+<div class="section-title">Specjalne</div>
+<div class="grid">
+  <div class="card" onclick="zoom('variant-06')"><img src="../logos/variant-06.svg"><div class="info"><span class="num">#06</span><span class="desc">Mniej italic (-4°)</span></div></div>
+  <div class="card dark" onclick="zoom('variant-12')"><img src="../logos/variant-12.svg"><div class="info"><span class="num">#12</span><span class="desc">Wersja na ciemnym tle</span></div></div>
+  <div class="card" onclick="zoom('variant-13')"><img src="../logos/variant-13.svg"><div class="info"><span class="num">#13</span><span class="desc">Pomarańczowy napis w bannerze</span></div></div>
+  <div class="card dark" onclick="zoom('variant-20')"><img src="../logos/variant-20.svg"><div class="info"><span class="num">#20</span><span class="desc">Biały na czarnym + pomarańcz accent</span></div></div>
+</div>
+
+<div class="overlay" id="overlay" onclick="this.classList.remove('active')">
+  <img id="overlay-img" src="">
+</div>
+
+<script>
+function zoom(name) {
+  const overlay = document.getElementById('overlay');
+  document.getElementById('overlay-img').src = '../logos/' + name + '.svg';
+  overlay.classList.add('active');
+}
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') document.getElementById('overlay').classList.remove('active');
+});
+</script>
+</body>
+</html>
