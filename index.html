@@ -3,162 +3,259 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Ustowski.pl — Porównanie wariantów (Gemini 3.1 Pro)</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<title>Ustowski.pl — Design Variants</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
-  body { font-family: 'Inter', sans-serif; background: #0a0a0a; color: #e0e0e0; min-height: 100vh; }
+  body { font-family: 'Inter', sans-serif; background: #0a0a0a; color: #e0e0e0; }
 
-  /* ─── Compact sticky toolbar ─── */
-  .toolbar {
-    position: sticky; top: 0; z-index: 100;
-    background: rgba(10,10,10,0.95); backdrop-filter: blur(20px);
-    border-bottom: 1px solid rgba(255,255,255,0.08);
-    padding: 8px 12px;
-    display: flex; align-items: center; gap: 8px;
+  /* ─── Gallery screen ─── */
+  .gallery {
+    min-height: 100vh; padding: 24px 16px 40px;
+    transition: opacity 0.2s;
+  }
+  .gallery.hidden { display: none; }
+
+  .gallery-header {
+    text-align: center; padding: 24px 0 32px;
+  }
+  .gallery-header h1 {
+    font-size: 22px; font-weight: 800; color: #fff; margin-bottom: 6px;
+    letter-spacing: -0.02em;
+  }
+  .gallery-header p { font-size: 13px; color: #666; }
+
+  .section-label {
+    font-size: 10px; text-transform: uppercase; letter-spacing: 0.1em;
+    color: #34a853; font-weight: 700; margin: 24px 0 12px; padding-left: 4px;
+  }
+  .section-label:first-of-type { margin-top: 0; }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 10px;
   }
 
-  .nav-btn {
-    width: 36px; height: 36px; border-radius: 8px;
-    background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1);
-    color: #ccc; font-size: 16px; cursor: pointer;
-    display: flex; align-items: center; justify-content: center;
-    transition: all 0.15s; flex-shrink: 0;
+  .card {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 12px; padding: 16px 14px;
+    cursor: pointer; transition: all 0.15s;
+    display: flex; flex-direction: column; gap: 6px;
   }
-  .nav-btn:hover { background: rgba(255,255,255,0.12); color: #fff; }
-  .nav-btn:active { transform: scale(0.95); }
-
-  .variant-select {
-    flex: 1; min-width: 0;
-    background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12);
-    color: #fff; font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 500;
-    padding: 8px 12px; border-radius: 8px;
-    appearance: none; -webkit-appearance: none;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath d='M3 5l3 3 3-3' stroke='%23999' stroke-width='1.5' fill='none'/%3E%3C/svg%3E");
-    background-repeat: no-repeat; background-position: right 10px center;
-    cursor: pointer; transition: border-color 0.15s;
+  .card:hover {
+    background: rgba(255,255,255,0.08);
+    border-color: rgba(255,255,255,0.15);
+    transform: translateY(-2px);
   }
-  .variant-select:focus { outline: none; border-color: #34a853; }
-  .variant-select option { background: #1a1a1a; color: #e0e0e0; }
-  .variant-select optgroup { color: #34a853; font-weight: 600; }
-
-  .counter {
-    font-size: 11px; color: #666; white-space: nowrap; flex-shrink: 0;
-    font-variant-numeric: tabular-nums;
+  .card:active { transform: scale(0.98); }
+  .card .emoji { font-size: 24px; }
+  .card .name { font-size: 13px; font-weight: 600; color: #fff; line-height: 1.3; }
+  .card .tag {
+    font-size: 10px; color: #555; margin-top: auto;
   }
 
-  .view-toggle { display: flex; gap: 2px; flex-shrink: 0; }
-  .view-btn {
-    padding: 6px 10px; border-radius: 6px; font-size: 11px; cursor: pointer;
-    background: transparent; border: 1px solid rgba(255,255,255,0.08); color: #666;
+  /* ─── Viewer (fullscreen iframe) ─── */
+  .viewer {
+    position: fixed; inset: 0; z-index: 1000;
+    background: #fff;
+  }
+  .viewer.hidden { display: none; }
+  .viewer iframe { width: 100%; height: 100%; border: none; }
+
+  /* Back button — small floating pill */
+  .back-btn {
+    position: fixed; top: 12px; left: 12px; z-index: 1001;
+    background: rgba(0,0,0,0.7); backdrop-filter: blur(12px);
+    color: #fff; border: none; border-radius: 20px;
+    padding: 8px 14px; font-size: 12px; font-weight: 600;
+    font-family: 'Inter', sans-serif;
+    cursor: pointer; transition: all 0.15s;
+    display: none; /* hidden until viewer active */
+    box-shadow: 0 2px 12px rgba(0,0,0,0.3);
+  }
+  .back-btn:hover { background: rgba(0,0,0,0.85); transform: scale(1.05); }
+  .back-btn.visible { display: flex; align-items: center; gap: 6px; }
+
+  /* Nav arrows in viewer */
+  .viewer-nav {
+    position: fixed; top: 12px; right: 12px; z-index: 1001;
+    display: none; gap: 4px;
+  }
+  .viewer-nav.visible { display: flex; }
+  .viewer-nav button {
+    width: 34px; height: 34px; border-radius: 50%;
+    background: rgba(0,0,0,0.7); backdrop-filter: blur(12px);
+    color: #fff; border: none; font-size: 16px; cursor: pointer;
     transition: all 0.15s;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.3);
   }
-  .view-btn.active { background: rgba(255,255,255,0.1); color: #fff; border-color: rgba(255,255,255,0.15); }
-
-  /* ─── Frames ─── */
-  .frame-container { position: relative; }
-
-  .single-view iframe {
-    width: 100%; height: calc(100vh - 54px); border: none;
-    background: #fff; display: block;
-  }
-
-  .split-view { display: grid; grid-template-columns: 1fr 1fr; height: calc(100vh - 54px); }
-  .split-view .pane { position: relative; overflow: hidden; }
-  .split-view .pane + .pane { border-left: 1px solid rgba(255,255,255,0.1); }
-  .split-view .pane-label {
-    position: absolute; top: 6px; left: 6px; z-index: 10;
-    background: rgba(0,0,0,0.75); color: #fff; padding: 3px 8px;
-    border-radius: 10px; font-size: 10px; font-weight: 600;
-    backdrop-filter: blur(8px);
-  }
-  .split-view iframe { width: 100%; height: 100%; border: none; background: #fff; }
-
-  /* ─── Keyboard hint (desktop only) ─── */
-  .kbd-hint {
-    position: fixed; bottom: 12px; right: 12px; z-index: 90;
-    background: rgba(0,0,0,0.7); backdrop-filter: blur(10px);
-    padding: 6px 10px; border-radius: 8px; font-size: 10px; color: #555;
-    display: none;
-  }
-  kbd { background: rgba(255,255,255,0.08); padding: 1px 5px; border-radius: 3px; font-family: inherit; color: #888; }
-
-  @media (min-width: 769px) {
-    .kbd-hint { display: block; }
-    .toolbar { padding: 8px 16px; }
+  .viewer-nav button:hover { background: rgba(0,0,0,0.85); }
+  .viewer-nav .counter {
+    display: flex; align-items: center; padding: 0 8px;
+    font-size: 11px; color: #fff; font-weight: 600;
+    background: rgba(0,0,0,0.5); border-radius: 12px;
+    backdrop-filter: blur(12px);
   }
 
-  @media (max-width: 768px) {
-    .split-view { grid-template-columns: 1fr; }
-    .view-toggle { display: none; }
-    .single-view iframe { height: calc(100vh - 54px); }
+  @media (min-width: 600px) {
+    .gallery { padding: 32px 24px 48px; }
+    .gallery-header h1 { font-size: 28px; }
+    .grid { grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 12px; }
+  }
+
+  @media (min-width: 900px) {
+    .gallery { padding: 40px 48px 64px; max-width: 1100px; margin: 0 auto; }
+    .grid { grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); }
   }
 </style>
 </head>
 <body>
 
-<div class="toolbar">
-  <button class="nav-btn" id="prev-btn" onclick="navigate(-1)" title="Poprzedni (←)">‹</button>
+<!-- ═══ GALLERY ═══ -->
+<div class="gallery" id="gallery">
+  <div class="gallery-header">
+    <h1>Ustowski.pl</h1>
+    <p>22 warianty · Gemini 3.1 Pro</p>
+  </div>
 
-  <select class="variant-select" id="variant-select" onchange="setPreset(this.value)">
-    <optgroup label="Generic">
-      <option value="a-warm">🏠 Warm Studio</option>
-      <option value="b-brutalist">🏗️ Brutalist Signal</option>
-      <option value="c-organic">🌿 Organic Tech</option>
-    </optgroup>
-    <optgroup label="Custom">
-      <option value="f">🔥 Clean Slate</option>
-      <option value="f2">🎯 Clean Slate Fixed</option>
-      <option value="f3">📜 Scroll Reveal</option>
-      <option value="f4">✨ Auto-Animate</option>
-      <option value="g">🏗️ Baltic Craft</option>
-      <option value="h">⚡ Power Wash</option>
-    </optgroup>
-    <optgroup label="Nowe koncepty">
-      <option value="concrete-jungle">🏢 Concrete Jungle</option>
-      <option value="ba-cinema">🎬 Before & After</option>
-      <option value="pressure-gauge">🔧 Pressure Gauge</option>
-      <option value="street-level">🛣️ Street Level</option>
-      <option value="water-cannon">💧 Water Cannon</option>
-      <option value="safety-stripe">⚠️ Safety Stripe</option>
-      <option value="modular-blocks">🧱 Modular Blocks</option>
-      <option value="timelapse">⏱️ Timelapse</option>
-      <option value="noir-prestige">🎭 Noir Prestige</option>
-      <option value="aqua-flow">💦 Aqua Flow</option>
-      <option value="blueprint">📐 Blueprint</option>
-      <option value="grid-iron">⚙️ Grid Iron</option>
-      <option value="spot-clean">✨ Spot Clean</option>
-    </optgroup>
-  </select>
+  <div class="section-label">Generic</div>
+  <div class="grid">
+    <div class="card" onclick="openVariant('a-warm')">
+      <span class="emoji">🏠</span>
+      <span class="name">Warm Studio</span>
+      <span class="tag">ciepły, przytulny</span>
+    </div>
+    <div class="card" onclick="openVariant('b-brutalist')">
+      <span class="emoji">🏗️</span>
+      <span class="name">Brutalist Signal</span>
+      <span class="tag">surowy, mocny</span>
+    </div>
+    <div class="card" onclick="openVariant('c-organic')">
+      <span class="emoji">🌿</span>
+      <span class="name">Organic Tech</span>
+      <span class="tag">naturalny, nowoczesny</span>
+    </div>
+  </div>
 
-  <button class="nav-btn" id="next-btn" onclick="navigate(1)" title="Następny (→)">›</button>
+  <div class="section-label">Custom</div>
+  <div class="grid">
+    <div class="card" onclick="openVariant('f')">
+      <span class="emoji">🔥</span>
+      <span class="name">Clean Slate</span>
+      <span class="tag">before/after hero</span>
+    </div>
+    <div class="card" onclick="openVariant('f2')">
+      <span class="emoji">🎯</span>
+      <span class="name">Clean Slate Fixed</span>
+      <span class="tag">slider, naprawiony scroll</span>
+    </div>
+    <div class="card" onclick="openVariant('f3')">
+      <span class="emoji">📜</span>
+      <span class="name">Scroll Reveal</span>
+      <span class="tag">odsłanianie przy scrollu</span>
+    </div>
+    <div class="card" onclick="openVariant('f4')">
+      <span class="emoji">✨</span>
+      <span class="name">Auto-Animate</span>
+      <span class="tag">automatyczne animacje</span>
+    </div>
+    <div class="card" onclick="openVariant('g')">
+      <span class="emoji">⚓</span>
+      <span class="name">Baltic Craft</span>
+      <span class="tag">lokalny, bałtycki</span>
+    </div>
+    <div class="card" onclick="openVariant('h')">
+      <span class="emoji">⚡</span>
+      <span class="name">Power Wash</span>
+      <span class="tag">ciemny, agresywny</span>
+    </div>
+  </div>
 
-  <span class="counter" id="counter">1/22</span>
-
-  <div class="view-toggle">
-    <div class="view-btn active" onclick="setView('single')">Single</div>
-    <div class="view-btn" onclick="setView('split')">Split</div>
+  <div class="section-label">Nowe koncepty</div>
+  <div class="grid">
+    <div class="card" onclick="openVariant('concrete-jungle')">
+      <span class="emoji">🏢</span>
+      <span class="name">Concrete Jungle</span>
+      <span class="tag">miejski beton</span>
+    </div>
+    <div class="card" onclick="openVariant('ba-cinema')">
+      <span class="emoji">🎬</span>
+      <span class="name">Before & After</span>
+      <span class="tag">efekt kina</span>
+    </div>
+    <div class="card" onclick="openVariant('pressure-gauge')">
+      <span class="emoji">🔧</span>
+      <span class="name">Pressure Gauge</span>
+      <span class="tag">techniczny, dane</span>
+    </div>
+    <div class="card" onclick="openVariant('street-level')">
+      <span class="emoji">🛣️</span>
+      <span class="name">Street Level</span>
+      <span class="tag">uliczny, surowy</span>
+    </div>
+    <div class="card" onclick="openVariant('water-cannon')">
+      <span class="emoji">💧</span>
+      <span class="name">Water Cannon</span>
+      <span class="tag">woda, dynamika</span>
+    </div>
+    <div class="card" onclick="openVariant('safety-stripe')">
+      <span class="emoji">⚠️</span>
+      <span class="name">Safety Stripe</span>
+      <span class="tag">ostrzegawczy, budowa</span>
+    </div>
+    <div class="card" onclick="openVariant('modular-blocks')">
+      <span class="emoji">🧱</span>
+      <span class="name">Modular Blocks</span>
+      <span class="tag">grid zero-gap</span>
+    </div>
+    <div class="card" onclick="openVariant('timelapse')">
+      <span class="emoji">⏱️</span>
+      <span class="name">Timelapse</span>
+      <span class="tag">upływ czasu</span>
+    </div>
+    <div class="card" onclick="openVariant('noir-prestige')">
+      <span class="emoji">🎭</span>
+      <span class="name">Noir Prestige</span>
+      <span class="tag">luksusowy, ciemny</span>
+    </div>
+    <div class="card" onclick="openVariant('aqua-flow')">
+      <span class="emoji">💦</span>
+      <span class="name">Aqua Flow</span>
+      <span class="tag">ripple, woda</span>
+    </div>
+    <div class="card" onclick="openVariant('blueprint')">
+      <span class="emoji">📐</span>
+      <span class="name">Blueprint</span>
+      <span class="tag">techniczny rysunek</span>
+    </div>
+    <div class="card" onclick="openVariant('grid-iron')">
+      <span class="emoji">⚙️</span>
+      <span class="name">Grid Iron</span>
+      <span class="tag">przemysłowy, kratownica</span>
+    </div>
+    <div class="card" onclick="openVariant('spot-clean')">
+      <span class="emoji">✨</span>
+      <span class="name">Spot Clean</span>
+      <span class="tag">minimalistyczny, czysty</span>
+    </div>
   </div>
 </div>
 
-<div class="frame-container" id="frame-container">
-  <div class="single-view" id="single-view">
-    <iframe id="main-frame" src=""></iframe>
-  </div>
-  <div class="split-view" id="split-view" style="display:none;">
-    <div class="pane">
-      <div class="pane-label" id="left-label">Left</div>
-      <iframe id="left-frame" src=""></iframe>
-    </div>
-    <div class="pane">
-      <div class="pane-label" id="right-label">Right</div>
-      <iframe id="right-frame" src=""></iframe>
-    </div>
-  </div>
+<!-- ═══ VIEWER ═══ -->
+<div class="viewer hidden" id="viewer">
+  <iframe id="viewer-frame" src=""></iframe>
 </div>
 
-<div class="kbd-hint">
-  <kbd>←</kbd> <kbd>→</kbd> nawigacja &nbsp;·&nbsp; <kbd>S</kbd> split view
+<button class="back-btn" id="back-btn" onclick="closeViewer()">
+  ← Galeria
+</button>
+
+<div class="viewer-nav" id="viewer-nav">
+  <button onclick="navigateViewer(-1)" title="Poprzedni">‹</button>
+  <span class="counter" id="viewer-counter">1/22</span>
+  <button onclick="navigateViewer(1)" title="Następny">›</button>
 </div>
 
 <script>
@@ -187,75 +284,44 @@ const variantMap = {
   'spot-clean': 'variants/spot-clean.html',
 };
 
-const presetNames = {
-  'a-warm': 'Warm Studio', 'b-brutalist': 'Brutalist Signal', 'c-organic': 'Organic Tech',
-  'f': 'Clean Slate', 'f2': 'Clean Slate Fixed', 'f3': 'Scroll Reveal', 'f4': 'Auto-Animate',
-  'g': 'Baltic Craft', 'h': 'Power Wash',
-  'concrete-jungle': 'Concrete Jungle', 'ba-cinema': 'Before & After Cinema',
-  'pressure-gauge': 'Pressure Gauge', 'street-level': 'Street Level',
-  'water-cannon': 'Water Cannon', 'safety-stripe': 'Safety Stripe',
-  'modular-blocks': 'Modular Blocks', 'timelapse': 'Timelapse',
-  'noir-prestige': 'Noir Prestige', 'aqua-flow': 'Aqua Flow',
-  'blueprint': 'Blueprint', 'grid-iron': 'Grid Iron', 'spot-clean': 'Spot Clean',
-};
-
 const keys = Object.keys(variantMap);
-let currentPreset = 'a-warm';
-let currentView = 'single';
+let currentIdx = 0;
 
-function setPreset(p) {
-  currentPreset = p;
-  document.getElementById('variant-select').value = p;
-  const idx = keys.indexOf(p);
-  document.getElementById('counter').textContent = `${idx + 1}/${keys.length}`;
-  updateFrames();
+function openVariant(key) {
+  currentIdx = keys.indexOf(key);
+  document.getElementById('viewer-frame').src = variantMap[key];
+  document.getElementById('gallery').classList.add('hidden');
+  document.getElementById('viewer').classList.remove('hidden');
+  document.getElementById('back-btn').classList.add('visible');
+  document.getElementById('viewer-nav').classList.add('visible');
+  updateCounter();
 }
 
-function navigate(dir) {
-  const idx = keys.indexOf(currentPreset);
-  const next = (idx + dir + keys.length) % keys.length;
-  setPreset(keys[next]);
+function closeViewer() {
+  document.getElementById('viewer').classList.add('hidden');
+  document.getElementById('gallery').classList.remove('hidden');
+  document.getElementById('back-btn').classList.remove('visible');
+  document.getElementById('viewer-nav').classList.remove('visible');
+  document.getElementById('viewer-frame').src = '';
 }
 
-function setView(v) {
-  currentView = v;
-  document.querySelectorAll('.view-btn').forEach(b => b.classList.toggle('active', b.textContent.toLowerCase() === v));
-  document.getElementById('single-view').style.display = v === 'single' ? 'block' : 'none';
-  document.getElementById('split-view').style.display = v === 'split' ? 'grid' : 'none';
-  updateFrames();
+function navigateViewer(dir) {
+  currentIdx = (currentIdx + dir + keys.length) % keys.length;
+  document.getElementById('viewer-frame').src = variantMap[keys[currentIdx]];
+  updateCounter();
 }
 
-function updateFrames() {
-  if (currentView === 'single') {
-    document.getElementById('main-frame').src = variantMap[currentPreset] || '';
-  } else {
-    const idx = keys.indexOf(currentPreset);
-    const nextIdx = (idx + 1) % keys.length;
-    document.getElementById('left-frame').src = variantMap[currentPreset] || '';
-    document.getElementById('right-frame').src = variantMap[keys[nextIdx]] || '';
-    document.getElementById('left-label').textContent = presetNames[currentPreset] || '';
-    document.getElementById('right-label').textContent = presetNames[keys[nextIdx]] || '';
-  }
+function updateCounter() {
+  document.getElementById('viewer-counter').textContent = `${currentIdx + 1}/${keys.length}`;
 }
 
-// Keyboard nav
+// Keyboard
 document.addEventListener('keydown', (e) => {
-  if (e.target.tagName === 'SELECT') return;
-  if (e.key === 'ArrowLeft') { navigate(-1); e.preventDefault(); }
-  if (e.key === 'ArrowRight') { navigate(1); e.preventDefault(); }
-  if (e.key === 's' || e.key === 'S') { setView(currentView === 'single' ? 'split' : 'single'); }
+  if (document.getElementById('viewer').classList.contains('hidden')) return;
+  if (e.key === 'ArrowLeft') { navigateViewer(-1); e.preventDefault(); }
+  if (e.key === 'ArrowRight') { navigateViewer(1); e.preventDefault(); }
+  if (e.key === 'Escape') { closeViewer(); e.preventDefault(); }
 });
-
-// Swipe support (mobile)
-let touchStartX = 0;
-document.querySelector('.toolbar').addEventListener('touchstart', (e) => { touchStartX = e.touches[0].clientX; }, { passive: true });
-document.querySelector('.toolbar').addEventListener('touchend', (e) => {
-  const diff = e.changedTouches[0].clientX - touchStartX;
-  if (Math.abs(diff) > 50) navigate(diff < 0 ? 1 : -1);
-}, { passive: true });
-
-// Init
-updateFrames();
 </script>
 </body>
 </html>
