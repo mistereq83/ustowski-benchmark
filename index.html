@@ -8,116 +8,136 @@
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
   body { font-family: 'Inter', sans-serif; background: #0a0a0a; color: #e0e0e0; min-height: 100vh; }
-  
-  .header { 
-    position: sticky; top: 0; z-index: 100; 
-    background: rgba(10,10,10,0.92); backdrop-filter: blur(20px);
+
+  /* ─── Compact sticky toolbar ─── */
+  .toolbar {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(10,10,10,0.95); backdrop-filter: blur(20px);
     border-bottom: 1px solid rgba(255,255,255,0.08);
-    padding: 16px 24px;
+    padding: 8px 12px;
+    display: flex; align-items: center; gap: 8px;
   }
-  .header h1 { font-size: 18px; font-weight: 600; margin-bottom: 12px; color: #fff; }
-  .header p { font-size: 13px; color: #888; margin-bottom: 16px; }
-  
-  .tabs-row { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 8px; }
-  .tabs-row .label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.05em; color: #666; padding: 6px 0; min-width: 60px; }
-  
-  .tab { 
-    padding: 6px 14px; border-radius: 20px; font-size: 12px; font-weight: 500;
-    cursor: pointer; transition: all 0.2s; border: 1px solid rgba(255,255,255,0.1);
-    background: transparent; color: #999;
+
+  .nav-btn {
+    width: 36px; height: 36px; border-radius: 8px;
+    background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1);
+    color: #ccc; font-size: 16px; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: all 0.15s; flex-shrink: 0;
   }
-  .tab:hover { border-color: rgba(255,255,255,0.25); color: #ccc; }
-  .tab.active { background: #34a853; color: #fff; border-color: #34a853; }
-  
-  .controls { display: flex; gap: 16px; align-items: center; flex-wrap: wrap; }
-  
-  .view-toggle { display: flex; gap: 4px; margin-left: auto; }
-  .view-btn { 
-    padding: 6px 12px; border-radius: 8px; font-size: 12px; cursor: pointer;
-    background: transparent; border: 1px solid rgba(255,255,255,0.1); color: #999;
+  .nav-btn:hover { background: rgba(255,255,255,0.12); color: #fff; }
+  .nav-btn:active { transform: scale(0.95); }
+
+  .variant-select {
+    flex: 1; min-width: 0;
+    background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12);
+    color: #fff; font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 500;
+    padding: 8px 12px; border-radius: 8px;
+    appearance: none; -webkit-appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath d='M3 5l3 3 3-3' stroke='%23999' stroke-width='1.5' fill='none'/%3E%3C/svg%3E");
+    background-repeat: no-repeat; background-position: right 10px center;
+    cursor: pointer; transition: border-color 0.15s;
   }
-  .view-btn.active { background: rgba(255,255,255,0.1); color: #fff; }
-  
-  .frame-container { padding: 0; }
-  
+  .variant-select:focus { outline: none; border-color: #34a853; }
+  .variant-select option { background: #1a1a1a; color: #e0e0e0; }
+  .variant-select optgroup { color: #34a853; font-weight: 600; }
+
+  .counter {
+    font-size: 11px; color: #666; white-space: nowrap; flex-shrink: 0;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .view-toggle { display: flex; gap: 2px; flex-shrink: 0; }
+  .view-btn {
+    padding: 6px 10px; border-radius: 6px; font-size: 11px; cursor: pointer;
+    background: transparent; border: 1px solid rgba(255,255,255,0.08); color: #666;
+    transition: all 0.15s;
+  }
+  .view-btn.active { background: rgba(255,255,255,0.1); color: #fff; border-color: rgba(255,255,255,0.15); }
+
+  /* ─── Frames ─── */
+  .frame-container { position: relative; }
+
   .single-view iframe {
-    width: 100%; height: calc(100vh - 140px); border: none;
+    width: 100%; height: calc(100vh - 54px); border: none;
     background: #fff; display: block;
   }
-  
-  .split-view { display: grid; grid-template-columns: 1fr 1fr; height: calc(100vh - 140px); }
-  .split-view .pane { position: relative; border-right: 1px solid rgba(255,255,255,0.1); }
-  .split-view .pane:last-child { border-right: none; }
-  .split-view .pane-label { 
-    position: absolute; top: 8px; left: 8px; z-index: 10;
-    background: rgba(0,0,0,0.8); color: #fff; padding: 4px 10px; 
-    border-radius: 12px; font-size: 11px; font-weight: 600;
-    backdrop-filter: blur(10px);
+
+  .split-view { display: grid; grid-template-columns: 1fr 1fr; height: calc(100vh - 54px); }
+  .split-view .pane { position: relative; overflow: hidden; }
+  .split-view .pane + .pane { border-left: 1px solid rgba(255,255,255,0.1); }
+  .split-view .pane-label {
+    position: absolute; top: 6px; left: 6px; z-index: 10;
+    background: rgba(0,0,0,0.75); color: #fff; padding: 3px 8px;
+    border-radius: 10px; font-size: 10px; font-weight: 600;
+    backdrop-filter: blur(8px);
   }
   .split-view iframe { width: 100%; height: 100%; border: none; background: #fff; }
-  
-  .info-bar {
-    position: fixed; bottom: 0; left: 0; right: 0;
-    background: rgba(10,10,10,0.95); backdrop-filter: blur(20px);
-    border-top: 1px solid rgba(255,255,255,0.08);
-    padding: 8px 24px; display: flex; gap: 24px; font-size: 12px; color: #666;
+
+  /* ─── Keyboard hint (desktop only) ─── */
+  .kbd-hint {
+    position: fixed; bottom: 12px; right: 12px; z-index: 90;
+    background: rgba(0,0,0,0.7); backdrop-filter: blur(10px);
+    padding: 6px 10px; border-radius: 8px; font-size: 10px; color: #555;
+    display: none;
   }
-  .info-bar span { display: flex; align-items: center; gap: 6px; }
-  .dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; }
-  .dot-gemini31 { background: #34a853; }
-  
+  kbd { background: rgba(255,255,255,0.08); padding: 1px 5px; border-radius: 3px; font-family: inherit; color: #888; }
+
+  @media (min-width: 769px) {
+    .kbd-hint { display: block; }
+    .toolbar { padding: 8px 16px; }
+  }
+
   @media (max-width: 768px) {
     .split-view { grid-template-columns: 1fr; }
-    .tabs-row { gap: 4px; }
-    .tab { padding: 5px 10px; font-size: 11px; }
+    .view-toggle { display: none; }
+    .single-view iframe { height: calc(100vh - 54px); }
   }
 </style>
 </head>
 <body>
 
-<div class="header">
-  <h1>🏗️ Ustowski.pl — Design Variants (Gemini 3.1 Pro)</h1>
-  <p>22 warianty: 3 generic (A/B/C Gemini31) + 6 custom (F,F2,F3,F4,G,H) + 13 new design concepts. All powered by Gemini 3.1 Pro.</p>
-  
-  <div class="controls">
-    <div class="tabs-row">
-      <span class="label">Generic:</span>
-      <div class="tab active" data-preset="a-warm" onclick="setPreset('a-warm')">🏠 Warm Studio</div>
-      <div class="tab" data-preset="b-brutalist" onclick="setPreset('b-brutalist')">🏗️ Brutalist Signal</div>
-      <div class="tab" data-preset="c-organic" onclick="setPreset('c-organic')">🌿 Organic Tech</div>
-    </div>
-    
-    <div class="tabs-row">
-      <span class="label">Custom:</span>
-      <div class="tab" data-preset="f" onclick="setPreset('f')">🔥 Clean Slate</div>
-      <div class="tab" data-preset="f2" onclick="setPreset('f2')">🎯 Clean Slate Fixed</div>
-      <div class="tab" data-preset="f3" onclick="setPreset('f3')">📜 Scroll Reveal</div>
-      <div class="tab" data-preset="f4" onclick="setPreset('f4')">✨ Auto-Animate</div>
-      <div class="tab" data-preset="g" onclick="setPreset('g')">🏗️ Baltic Craft</div>
-      <div class="tab" data-preset="h" onclick="setPreset('h')">⚡ Power Wash</div>
-    </div>
-    
-    <div class="tabs-row">
-      <span class="label">New (10+3):</span>
-      <div class="tab" data-preset="concrete-jungle" onclick="setPreset('concrete-jungle')">🏢 Concrete Jungle</div>
-      <div class="tab" data-preset="ba-cinema" onclick="setPreset('ba-cinema')">🎬 Before & After</div>
-      <div class="tab" data-preset="pressure-gauge" onclick="setPreset('pressure-gauge')">🔧 Pressure Gauge</div>
-      <div class="tab" data-preset="street-level" onclick="setPreset('street-level')">🛣️ Street Level</div>
-      <div class="tab" data-preset="water-cannon" onclick="setPreset('water-cannon')">💧 Water Cannon</div>
-      <div class="tab" data-preset="safety-stripe" onclick="setPreset('safety-stripe')">⚠️ Safety Stripe</div>
-      <div class="tab" data-preset="modular-blocks" onclick="setPreset('modular-blocks')">🧱 Modular Blocks</div>
-      <div class="tab" data-preset="timelapse" onclick="setPreset('timelapse')">⏱️ Timelapse</div>
-      <div class="tab" data-preset="noir-prestige" onclick="setPreset('noir-prestige')">🎭 Noir Prestige</div>
-      <div class="tab" data-preset="aqua-flow" onclick="setPreset('aqua-flow')">💦 Aqua Flow</div>
-      <div class="tab" data-preset="blueprint" onclick="setPreset('blueprint')">📐 Blueprint</div>
-      <div class="tab" data-preset="grid-iron" onclick="setPreset('grid-iron')">⚙️ Grid Iron</div>
-      <div class="tab" data-preset="spot-clean" onclick="setPreset('spot-clean')">✨ Spot Clean</div>
-    </div>
-    
-    <div class="view-toggle">
-      <div class="view-btn active" onclick="setView('single')">Single</div>
-      <div class="view-btn" onclick="setView('split')">Split</div>
-    </div>
+<div class="toolbar">
+  <button class="nav-btn" id="prev-btn" onclick="navigate(-1)" title="Poprzedni (←)">‹</button>
+
+  <select class="variant-select" id="variant-select" onchange="setPreset(this.value)">
+    <optgroup label="Generic">
+      <option value="a-warm">🏠 Warm Studio</option>
+      <option value="b-brutalist">🏗️ Brutalist Signal</option>
+      <option value="c-organic">🌿 Organic Tech</option>
+    </optgroup>
+    <optgroup label="Custom">
+      <option value="f">🔥 Clean Slate</option>
+      <option value="f2">🎯 Clean Slate Fixed</option>
+      <option value="f3">📜 Scroll Reveal</option>
+      <option value="f4">✨ Auto-Animate</option>
+      <option value="g">🏗️ Baltic Craft</option>
+      <option value="h">⚡ Power Wash</option>
+    </optgroup>
+    <optgroup label="Nowe koncepty">
+      <option value="concrete-jungle">🏢 Concrete Jungle</option>
+      <option value="ba-cinema">🎬 Before & After</option>
+      <option value="pressure-gauge">🔧 Pressure Gauge</option>
+      <option value="street-level">🛣️ Street Level</option>
+      <option value="water-cannon">💧 Water Cannon</option>
+      <option value="safety-stripe">⚠️ Safety Stripe</option>
+      <option value="modular-blocks">🧱 Modular Blocks</option>
+      <option value="timelapse">⏱️ Timelapse</option>
+      <option value="noir-prestige">🎭 Noir Prestige</option>
+      <option value="aqua-flow">💦 Aqua Flow</option>
+      <option value="blueprint">📐 Blueprint</option>
+      <option value="grid-iron">⚙️ Grid Iron</option>
+      <option value="spot-clean">✨ Spot Clean</option>
+    </optgroup>
+  </select>
+
+  <button class="nav-btn" id="next-btn" onclick="navigate(1)" title="Następny (→)">›</button>
+
+  <span class="counter" id="counter">1/22</span>
+
+  <div class="view-toggle">
+    <div class="view-btn active" onclick="setView('single')">Single</div>
+    <div class="view-btn" onclick="setView('split')">Split</div>
   </div>
 </div>
 
@@ -137,25 +157,21 @@
   </div>
 </div>
 
-<div class="info-bar">
-  <span><span class="dot dot-gemini31"></span> Gemini 3.1 Pro — All variants</span>
-  <span>22 total | 3 generic + 6 custom + 13 new</span>
+<div class="kbd-hint">
+  <kbd>←</kbd> <kbd>→</kbd> nawigacja &nbsp;·&nbsp; <kbd>S</kbd> split view
 </div>
 
 <script>
-const variants = {
-  // Generic (Gemini 3.1 Pro)
+const variantMap = {
   'a-warm': 'variants/warm-gemini31.html',
   'b-brutalist': 'variants/brutalist-gemini31.html',
   'c-organic': 'variants/organic-gemini31.html',
-  // Custom (all Gemini 3.1 Pro)
   'f': 'variants/custom-cleanslate.html',
   'f2': 'variants/custom-cleanslate-fixed.html',
   'f3': 'variants/custom-scrollreveal.html',
   'f4': 'variants/custom-autoanimate.html',
   'g': 'variants/custom-balticcraft.html',
   'h': 'variants/custom-powerwash.html',
-  // New variants (all Gemini 3.1 Pro)
   'concrete-jungle': 'variants/concrete-jungle.html',
   'ba-cinema': 'variants/ba-cinema.html',
   'pressure-gauge': 'variants/pressure-gauge.html',
@@ -171,40 +187,34 @@ const variants = {
   'spot-clean': 'variants/spot-clean.html',
 };
 
-const presetNames = { 
-  'a-warm': 'Warm Studio', 
-  'b-brutalist': 'Brutalist Signal', 
-  'c-organic': 'Organic Tech',
-  'f': 'Clean Slate',
-  'f2': 'Clean Slate Fixed',
-  'f3': 'Scroll Reveal',
-  'f4': 'Auto-Animate',
-  'g': 'Baltic Craft',
-  'h': 'Power Wash',
-  'concrete-jungle': 'Concrete Jungle',
-  'ba-cinema': 'Before & After Cinema',
-  'pressure-gauge': 'Pressure Gauge',
-  'street-level': 'Street Level',
-  'water-cannon': 'Water Cannon',
-  'safety-stripe': 'Safety Stripe',
-  'modular-blocks': 'Modular Blocks',
-  'timelapse': 'Timelapse',
-  'noir-prestige': 'Noir Prestige',
-  'aqua-flow': 'Aqua Flow',
-  'blueprint': 'Blueprint',
-  'grid-iron': 'Grid Iron',
-  'spot-clean': 'Spot Clean',
+const presetNames = {
+  'a-warm': 'Warm Studio', 'b-brutalist': 'Brutalist Signal', 'c-organic': 'Organic Tech',
+  'f': 'Clean Slate', 'f2': 'Clean Slate Fixed', 'f3': 'Scroll Reveal', 'f4': 'Auto-Animate',
+  'g': 'Baltic Craft', 'h': 'Power Wash',
+  'concrete-jungle': 'Concrete Jungle', 'ba-cinema': 'Before & After Cinema',
+  'pressure-gauge': 'Pressure Gauge', 'street-level': 'Street Level',
+  'water-cannon': 'Water Cannon', 'safety-stripe': 'Safety Stripe',
+  'modular-blocks': 'Modular Blocks', 'timelapse': 'Timelapse',
+  'noir-prestige': 'Noir Prestige', 'aqua-flow': 'Aqua Flow',
+  'blueprint': 'Blueprint', 'grid-iron': 'Grid Iron', 'spot-clean': 'Spot Clean',
 };
 
+const keys = Object.keys(variantMap);
 let currentPreset = 'a-warm';
 let currentView = 'single';
-let splitLeft = { preset: 'a-warm' };
-let splitRight = { preset: 'b-brutalist' };
 
 function setPreset(p) {
   currentPreset = p;
-  document.querySelectorAll('[data-preset]').forEach(t => t.classList.toggle('active', t.dataset.preset === p));
+  document.getElementById('variant-select').value = p;
+  const idx = keys.indexOf(p);
+  document.getElementById('counter').textContent = `${idx + 1}/${keys.length}`;
   updateFrames();
+}
+
+function navigate(dir) {
+  const idx = keys.indexOf(currentPreset);
+  const next = (idx + dir + keys.length) % keys.length;
+  setPreset(keys[next]);
 }
 
 function setView(v) {
@@ -212,28 +222,37 @@ function setView(v) {
   document.querySelectorAll('.view-btn').forEach(b => b.classList.toggle('active', b.textContent.toLowerCase() === v));
   document.getElementById('single-view').style.display = v === 'single' ? 'block' : 'none';
   document.getElementById('split-view').style.display = v === 'split' ? 'grid' : 'none';
-  if (v === 'split') {
-    splitLeft = { preset: currentPreset };
-    const presets = Object.keys(variants);
-    const nextIdx = (presets.indexOf(currentPreset) + 1) % presets.length;
-    splitRight = { preset: presets[nextIdx] };
-  }
   updateFrames();
 }
 
 function updateFrames() {
   if (currentView === 'single') {
-    const src = variants[currentPreset] || '';
-    document.getElementById('main-frame').src = src;
+    document.getElementById('main-frame').src = variantMap[currentPreset] || '';
   } else {
-    const leftSrc = variants[splitLeft.preset] || '';
-    const rightSrc = variants[splitRight.preset] || '';
-    document.getElementById('left-frame').src = leftSrc;
-    document.getElementById('right-frame').src = rightSrc;
-    document.getElementById('left-label').textContent = presetNames[splitLeft.preset] || 'Left';
-    document.getElementById('right-label').textContent = presetNames[splitRight.preset] || 'Right';
+    const idx = keys.indexOf(currentPreset);
+    const nextIdx = (idx + 1) % keys.length;
+    document.getElementById('left-frame').src = variantMap[currentPreset] || '';
+    document.getElementById('right-frame').src = variantMap[keys[nextIdx]] || '';
+    document.getElementById('left-label').textContent = presetNames[currentPreset] || '';
+    document.getElementById('right-label').textContent = presetNames[keys[nextIdx]] || '';
   }
 }
+
+// Keyboard nav
+document.addEventListener('keydown', (e) => {
+  if (e.target.tagName === 'SELECT') return;
+  if (e.key === 'ArrowLeft') { navigate(-1); e.preventDefault(); }
+  if (e.key === 'ArrowRight') { navigate(1); e.preventDefault(); }
+  if (e.key === 's' || e.key === 'S') { setView(currentView === 'single' ? 'split' : 'single'); }
+});
+
+// Swipe support (mobile)
+let touchStartX = 0;
+document.querySelector('.toolbar').addEventListener('touchstart', (e) => { touchStartX = e.touches[0].clientX; }, { passive: true });
+document.querySelector('.toolbar').addEventListener('touchend', (e) => {
+  const diff = e.changedTouches[0].clientX - touchStartX;
+  if (Math.abs(diff) > 50) navigate(diff < 0 ? 1 : -1);
+}, { passive: true });
 
 // Init
 updateFrames();
