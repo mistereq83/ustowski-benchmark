@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html lang="pl"><head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>USTOWSKI — Logo v12 — lifting oryginału</title>
+<title>USTOWSKI — Logo v13 — krzywe (paths)</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 body{background:#f0f0f0;font-family:-apple-system,sans-serif;padding:32px 16px}
 h1{text-align:center;margin-bottom:4px;font-size:22px}
 .sub{text-align:center;color:#888;margin-bottom:28px;font-size:12px;max-width:600px;margin-left:auto;margin-right:auto}
-.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;max-width:1200px;margin:0 auto}
-.section{grid-column:span 3;font-size:11px;letter-spacing:.08em;color:#f26b1d;font-weight:700;margin:24px 0 6px;padding:8px 12px;background:#fff;border-radius:6px;border-left:3px solid #f26b1d}
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;max-width:1000px;margin:0 auto}
+.section{grid-column:span 2;font-size:11px;letter-spacing:.08em;color:#f26b1d;font-weight:700;margin:24px 0 6px;padding:8px 12px;background:#fff;border-radius:6px;border-left:3px solid #f26b1d}
 .section:first-child{margin-top:0}
 .card{background:#fff;border-radius:8px;padding:14px;box-shadow:0 1px 4px rgba(0,0,0,.05);cursor:pointer;transition:transform .15s}
 .card:hover{transform:translateY(-2px);box-shadow:0 4px 16px rgba(0,0,0,.1)}
-.card.dark{background:#111}
+.card.dark{background:#2b2b2b}
 .card svg{width:100%;height:auto;display:block}
 .svg-container{min-height:70px}
 .info{margin-top:6px;display:flex;justify-content:space-between;align-items:center;gap:6px}
@@ -20,55 +20,42 @@ h1{text-align:center;margin-bottom:4px;font-size:22px}
 .info span:last-child{font-size:9px;color:#888;text-align:right}
 .overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.88);z-index:100;justify-content:center;align-items:center;cursor:pointer;padding:20px}
 .overlay.active{display:flex;flex-direction:column;gap:16px}
-.overlay .zoom-svg{width:85%;max-width:800px;background:#fff;padding:40px;border-radius:12px}
-.overlay .zoom-svg iframe{width:100%;height:320px;border:none}
-.overlay.dark-zoom .zoom-svg{background:#111}
+.overlay .zoom-svg{width:90%;max-width:900px;background:#fff;padding:40px;border-radius:12px}
+.overlay .zoom-svg iframe{width:100%;height:300px;border:none}
+.overlay.dark-zoom .zoom-svg{background:#2b2b2b}
 .overlay .label{color:#fff;font-size:13px;opacity:.7;text-align:center}
-@media(max-width:900px){.grid{grid-template-columns:repeat(2,1fr)} .section{grid-column:span 2}}
-@media(max-width:500px){.grid{grid-template-columns:1fr} .section{grid-column:span 1}}
+@media(max-width:600px){.grid{grid-template-columns:1fr} .section{grid-column:span 1}}
 </style></head><body>
-<h1>USTOWSKI — Lifting oryginału v12 🎯</h1>
-<p class="sub">30 wariantów · ten sam font, gradient, italic · subtelne różnice: kąt, kolory, banner, spacing</p>
+<h1>USTOWSKI — Na krzywych v13 🎯</h1>
+<p class="sub">20 wariantów · litery jako SVG paths (krzywe) · bez fontów · gotowe do druku</p>
 <div class="grid">
-<div class="section">🎯 Referencja bazowa</div>
-<div class="card"><div class="svg-container" data-src="../logos/variant-01.svg"></div><div class="info"><span class="num">#01</span><span>Oryginał — referencja bazowa</span></div></div>
-<div class="card"><div class="svg-container" data-src="../logos/variant-02.svg"></div><div class="info"><span class="num">#02</span><span>Oryginał — lekko jaśniejszy szary</span></div></div>
-<div class="card"><div class="svg-container" data-src="../logos/variant-03.svg"></div><div class="info"><span class="num">#03</span><span>Oryginał — głębszy szary</span></div></div>
+<div class="section">🎯 Baza referencja</div>
+<div class="card"><div class="svg-container" data-src="../logos/variant-01.svg"></div><div class="info"><span class="num">#01</span><span>Referencja — białe tło</span></div></div>
+<div class="card dark"><div class="svg-container" data-src="../logos/variant-02.svg"></div><div class="info"><span class="num">#02</span><span>Referencja — ciemne tło</span></div></div>
+<div class="card"><div class="svg-container" data-src="../logos/variant-03.svg"></div><div class="info"><span class="num">#03</span><span>Delikatnie jaśniejszy szary</span></div></div>
+<div class="card"><div class="svg-container" data-src="../logos/variant-04.svg"></div><div class="info"><span class="num">#04</span><span>Głębsza czerń</span></div></div>
+<div class="card"><div class="svg-container" data-src="../logos/variant-05.svg"></div><div class="info"><span class="num">#05</span><span>Czysty czarny</span></div></div>
 <div class="section">📐 Kąt pochylenia</div>
-<div class="card"><div class="svg-container" data-src="../logos/variant-04.svg"></div><div class="info"><span class="num">#04</span><span>Pochylenie -8° (lżejsze)</span></div></div>
-<div class="card"><div class="svg-container" data-src="../logos/variant-05.svg"></div><div class="info"><span class="num">#05</span><span>Pochylenie -12° (mocniejsze)</span></div></div>
-<div class="card"><div class="svg-container" data-src="../logos/variant-06.svg"></div><div class="info"><span class="num">#06</span><span>Pochylenie -6° (subtelne)</span></div></div>
+<div class="card"><div class="svg-container" data-src="../logos/variant-06.svg"></div><div class="info"><span class="num">#06</span><span>Pochylenie -6°</span></div></div>
+<div class="card"><div class="svg-container" data-src="../logos/variant-07.svg"></div><div class="info"><span class="num">#07</span><span>Pochylenie -10°</span></div></div>
+<div class="card"><div class="svg-container" data-src="../logos/variant-08.svg"></div><div class="info"><span class="num">#08</span><span>Pochylenie -12°</span></div></div>
 <div class="section">🟠 Odcienie pomarańczu</div>
-<div class="card"><div class="svg-container" data-src="../logos/variant-07.svg"></div><div class="info"><span class="num">#07</span><span>Cieplejszy pomarańcz</span></div></div>
-<div class="card"><div class="svg-container" data-src="../logos/variant-08.svg"></div><div class="info"><span class="num">#08</span><span>Głębszy pomarańcz (bardziej rudy)</span></div></div>
-<div class="card"><div class="svg-container" data-src="../logos/variant-09.svg"></div><div class="info"><span class="num">#09</span><span>Jaśniejszy pomarańcz</span></div></div>
-<div class="section">🦅 Kształt bannera (wing)</div>
-<div class="card"><div class="svg-container" data-src="../logos/variant-10.svg"></div><div class="info"><span class="num">#10</span><span>Wing węższy</span></div></div>
-<div class="card"><div class="svg-container" data-src="../logos/variant-11.svg"></div><div class="info"><span class="num">#11</span><span>Wing szerszy</span></div></div>
-<div class="card"><div class="svg-container" data-src="../logos/variant-12.svg"></div><div class="info"><span class="num">#12</span><span>Wing wyższy</span></div></div>
-<div class="card"><div class="svg-container" data-src="../logos/variant-13.svg"></div><div class="info"><span class="num">#13</span><span>Wing niższy, kompaktowy</span></div></div>
-<div class="card"><div class="svg-container" data-src="../logos/variant-14.svg"></div><div class="info"><span class="num">#14</span><span>Wing ostrzejszy (notch 0.55)</span></div></div>
-<div class="card"><div class="svg-container" data-src="../logos/variant-15.svg"></div><div class="info"><span class="num">#15</span><span>Wing łagodniejszy (notch 0.35)</span></div></div>
-<div class="section">📦 Typ bannera</div>
-<div class="card"><div class="svg-container" data-src="../logos/variant-16.svg"></div><div class="info"><span class="num">#16</span><span>Trapez (szerszy u góry)</span></div></div>
-<div class="card"><div class="svg-container" data-src="../logos/variant-17.svg"></div><div class="info"><span class="num">#17</span><span>Trapez odwrócony (szerszy na dole)</span></div></div>
-<div class="card"><div class="svg-container" data-src="../logos/variant-18.svg"></div><div class="info"><span class="num">#18</span><span>Prostokąt prosty</span></div></div>
-<div class="card"><div class="svg-container" data-src="../logos/variant-19.svg"></div><div class="info"><span class="num">#19</span><span>Prostokąt zaokrąglony</span></div></div>
-<div class="section">🎨 Kolor bannera</div>
-<div class="card"><div class="svg-container" data-src="../logos/variant-20.svg"></div><div class="info"><span class="num">#20</span><span>Banner ciemnoszary #333</span></div></div>
-<div class="card"><div class="svg-container" data-src="../logos/variant-21.svg"></div><div class="info"><span class="num">#21</span><span>Banner antracyt #2a3540</span></div></div>
-<div class="card"><div class="svg-container" data-src="../logos/variant-22.svg"></div><div class="info"><span class="num">#22</span><span>Banner ciepły ciemny #2a2218</span></div></div>
+<div class="card"><div class="svg-container" data-src="../logos/variant-09.svg"></div><div class="info"><span class="num">#09</span><span>Cieplejszy pomarańcz</span></div></div>
+<div class="card"><div class="svg-container" data-src="../logos/variant-10.svg"></div><div class="info"><span class="num">#10</span><span>Głębszy pomarańcz</span></div></div>
+<div class="card"><div class="svg-container" data-src="../logos/variant-11.svg"></div><div class="info"><span class="num">#11</span><span>Jaśniejszy pomarańcz</span></div></div>
 <div class="section">↔️ Letter spacing</div>
-<div class="card"><div class="svg-container" data-src="../logos/variant-23.svg"></div><div class="info"><span class="num">#23</span><span>Spacing węższy (ls=2)</span></div></div>
-<div class="card"><div class="svg-container" data-src="../logos/variant-24.svg"></div><div class="info"><span class="num">#24</span><span>Spacing szerszy (ls=6)</span></div></div>
-<div class="card"><div class="svg-container" data-src="../logos/variant-25.svg"></div><div class="info"><span class="num">#25</span><span>Spacing szeroki (ls=8)</span></div></div>
-<div class="section">💬 Subtitle</div>
-<div class="card"><div class="svg-container" data-src="../logos/variant-26.svg"></div><div class="info"><span class="num">#26</span><span>Subtitle — pipe separator</span></div></div>
-<div class="card"><div class="svg-container" data-src="../logos/variant-27.svg"></div><div class="info"><span class="num">#27</span><span>Subtitle — bez italic</span></div></div>
-<div class="card"><div class="svg-container" data-src="../logos/variant-28.svg"></div><div class="info"><span class="num">#28</span><span>Subtitle — szerszy spacing</span></div></div>
-<div class="section">✨ Subtelne efekty</div>
-<div class="card"><div class="svg-container" data-src="../logos/variant-29.svg"></div><div class="info"><span class="num">#29</span><span>Delikatny cień</span></div></div>
-<div class="card"><div class="svg-container" data-src="../logos/variant-30.svg"></div><div class="info"><span class="num">#30</span><span>Subtle stroke (kontur)</span></div></div>
+<div class="card"><div class="svg-container" data-src="../logos/variant-12.svg"></div><div class="info"><span class="num">#12</span><span>Spacing +2px</span></div></div>
+<div class="card"><div class="svg-container" data-src="../logos/variant-13.svg"></div><div class="info"><span class="num">#13</span><span>Spacing +4px</span></div></div>
+<div class="section">💬 Separator</div>
+<div class="card"><div class="svg-container" data-src="../logos/variant-14.svg"></div><div class="info"><span class="num">#14</span><span>Subtitle z kropką ·</span></div></div>
+<div class="card"><div class="svg-container" data-src="../logos/variant-15.svg"></div><div class="info"><span class="num">#15</span><span>Subtitle z bullet •</span></div></div>
+<div class="card"><div class="svg-container" data-src="../logos/variant-16.svg"></div><div class="info"><span class="num">#16</span><span>Subtitle z kreską —</span></div></div>
+<div class="section">📏 Z linią</div>
+<div class="card"><div class="svg-container" data-src="../logos/variant-17.svg"></div><div class="info"><span class="num">#17</span><span>Linia pod USTOWSKI</span></div></div>
+<div class="card dark"><div class="svg-container" data-src="../logos/variant-18.svg"></div><div class="info"><span class="num">#18</span><span>Linia pod + ciemne tło</span></div></div>
+<div class="section">🌑 Ciemne tło</div>
+<div class="card dark"><div class="svg-container" data-src="../logos/variant-19.svg"></div><div class="info"><span class="num">#19</span><span>Ciemne tło — antracyt</span></div></div>
+<div class="card dark"><div class="svg-container" data-src="../logos/variant-20.svg"></div><div class="info"><span class="num">#20</span><span>Ciemne tło — głęboka czerń</span></div></div>
 </div>
 <div class="overlay" id="overlay" onclick="this.classList.remove('active');this.classList.remove('dark-zoom')">
   <div class="zoom-svg" id="zoom-svg"></div>
