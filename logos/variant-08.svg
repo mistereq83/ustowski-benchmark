@@ -1,19 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 240">
-  <defs>
-    <linearGradient id="d08" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#555"/><stop offset="100%" stop-color="#3a3a3a"/>
-    </linearGradient>
-    <linearGradient id="o08" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#f26b1d"/><stop offset="100%" stop-color="#e85a0a"/>
-    </linearGradient>
-  </defs>
-  <rect width="600" height="240" fill="#fff"/>
-  <path d="M 55.0,156.7 L 153.0,136 L 300.0,134 L 447.0,136 L 545.0,156.7 L 422.5,182 Q 300.0,187 177.5,182 Z" fill="#1c1c1c"/>
-  <text x="300.0" y="122" text-anchor="middle"
-        font-family="'Oswald', sans-serif" font-weight="700"
-        font-size="88" letter-spacing="4" transform="skewX(-8)" ><tspan fill="url(#d08)">USTO</tspan><tspan fill="url(#o08)">WSKI</tspan></text>
-  <text x="300.0" y="164.52" text-anchor="middle"
-        font-family="'Oswald', Arial, sans-serif" font-weight="400" font-style="italic"
-        font-size="16" fill="#fff" letter-spacing="4" transform="skewX(-8)">czyszczenie · malowanie</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 220">
+  <rect width="600" height="220" fill="#fff"/>
+  <text x="300.0" y="110" text-anchor="middle"
+        font-family="'Impact', sans-serif" font-weight="900"
+        font-size="98" letter-spacing="4" transform="skewX(-10)"><tspan fill="#1a1a1a">USTO</tspan><tspan fill="#f26b1d">WSKI</tspan></text>
+  <line x1="145.0" y1="124" x2="455.0" y2="124" stroke="#f26b1d" stroke-width="2" stroke-linecap="round"/>
+  <text x="300.0" y="152" text-anchor="middle"
+        font-family="sans-serif" font-weight="300" font-style="italic"
+        font-size="14" fill="#555" letter-spacing="5">czyszczenie · malowanie</text>
 </svg>
