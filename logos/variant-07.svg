@@ -2,18 +2,18 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 240">
   <defs>
     <linearGradient id="d07" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#444"/><stop offset="100%" stop-color="#2d2d2d"/>
+      <stop offset="0%" stop-color="#555"/><stop offset="100%" stop-color="#3a3a3a"/>
     </linearGradient>
     <linearGradient id="o07" x1="0" y1="0" x2="0" y2="1">
       <stop offset="0%" stop-color="#f26b1d"/><stop offset="100%" stop-color="#e85a0a"/>
     </linearGradient>
   </defs>
   <rect width="600" height="240" fill="#fff"/>
-  <path d="M 60.0,159.8 L 156.0,140 L 300.0,138 L 444.0,140 L 540.0,159.8 L 420.0,184 Q 300.0,189 180.0,184 Z" fill="#1c1c1c"/>
-  <text x="300.0" y="125" text-anchor="middle"
-        font-family="'Impact', sans-serif" font-weight="900" font-style="italic"
-        font-size="100" letter-spacing="6" transform="skewX(-8)" ><tspan fill="url(#d07)">USTO</tspan><tspan fill="url(#o07)">WSKI</tspan></text>
-  <text x="300.0" y="167.28" text-anchor="middle"
-        font-family="'Impact', Arial, sans-serif" font-weight="500"
-        font-size="15" fill="#fff" letter-spacing="4">czyszczenie · malowanie</text>
+  <path d="M 55.0,156.7 L 153.0,136 L 300.0,134 L 447.0,136 L 545.0,156.7 L 422.5,182 Q 300.0,187 177.5,182 Z" fill="#1c1c1c"/>
+  <text x="300.0" y="122" text-anchor="middle"
+        font-family="'Oswald', sans-serif" font-weight="700"
+        font-size="88" letter-spacing="4" transform="skewX(-10)" ><tspan fill="url(#d07)">USTO</tspan><tspan fill="url(#o07)">WSKI</tspan></text>
+  <text x="300.0" y="164.52" text-anchor="middle"
+        font-family="'Oswald', Arial, sans-serif" font-weight="400" font-style="italic"
+        font-size="16" fill="#fff" letter-spacing="4" transform="skewX(-10)">czyszczenie · malowanie</text>
 </svg>

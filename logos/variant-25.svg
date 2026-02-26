@@ -1,9 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 240">
-  <rect width="600" height="240" fill="#fff"/>
-  <rect x="76" y="76.0" width="88" height="88" rx="6" fill="none" stroke="#f26b1d" stroke-width="4"/><text x="120" y="139.8" text-anchor="middle" font-family="'Montserrat', sans-serif" font-weight="900" font-size="57" fill="#f26b1d">U</text>
-  <line x1="180" y1="90.0" x2="180" y2="150.0" stroke="#ddd" stroke-width="1"/>
-  <text x="345" y="128.0" text-anchor="middle" font-family="'Montserrat', sans-serif" font-weight="900" font-size="44" letter-spacing="8">
-    <tspan fill="#2d2d2d">USTO</tspan><tspan fill="#f26b1d">WSKI</tspan></text>
-  <text x="345" y="152.0" text-anchor="middle" font-family="'Montserrat', Arial, sans-serif" font-weight="500" font-size="13" fill="#777" letter-spacing="3">czyszczenie · malowanie</text>
+  <defs>
+    <linearGradient id="d25" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#aaa"/><stop offset="100%" stop-color="#888"/>
+    </linearGradient>
+    <linearGradient id="o25" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#f26b1d"/><stop offset="100%" stop-color="#e85a0a"/>
+    </linearGradient>
+  </defs>
+  <rect width="600" height="240" fill="#111"/>
+  <path d="M 55.0,156.7 L 153.0,136 L 300.0,134 L 447.0,136 L 545.0,156.7 L 422.5,182 Q 300.0,187 177.5,182 Z" fill="#333"/>
+  <text x="300.0" y="122" text-anchor="middle"
+        font-family="'Barlow Condensed', sans-serif" font-weight="900"
+        font-size="88" letter-spacing="4" transform="skewX(-10)" ><tspan fill="url(#d25)">USTO</tspan><tspan fill="url(#o25)">WSKI</tspan></text>
+  <text x="300.0" y="164.52" text-anchor="middle"
+        font-family="'Barlow Condensed', Arial, sans-serif" font-weight="400" font-style="italic"
+        font-size="16" fill="#fff" letter-spacing="4" transform="skewX(-10)">czyszczenie · malowanie</text>
 </svg>
