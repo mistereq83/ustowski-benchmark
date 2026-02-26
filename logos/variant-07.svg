@@ -1,11 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 220">
   <defs>
-    <linearGradient id="d07" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#444"/><stop offset="100%" stop-color="#2d2d2d"/></linearGradient>
-    <linearGradient id="o07" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#f26b1d"/><stop offset="100%" stop-color="#e85a0a"/></linearGradient>
+    <linearGradient id="d07" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#444"/><stop offset="100%" stop-color="#2d2d2d"/>
+    </linearGradient>
+    <linearGradient id="o07" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#f26b1d"/><stop offset="100%" stop-color="#e85a0a"/>
+    </linearGradient>
   </defs>
   <rect width="600" height="220" fill="#fff"/>
-  <circle cx="480.0" cy="63" r="5" fill="#f26b1d"/>
-  <text x="300.0" y="125" text-anchor="middle" font-family="'Bebas Neue', sans-serif" font-weight="400" font-size="90" letter-spacing="5" ><tspan fill="url(#d07)">USTO</tspan><tspan fill="url(#o07)">WSKI</tspan></text>
-  <text x="300.0" y="157" text-anchor="middle" font-family="'Bebas Neue', sans-serif" font-weight="400" font-size="14" fill="#888" letter-spacing="4" >czyszczenie · malowanie</text>
+  <path d="M 70.0,150.9 L 162.0,132 L 300.0,130 L 438.0,132 L 530.0,150.9 L 415.0,174 Q 300.0,179 185.0,174 Z" fill="#1c1c1c"/>
+  <text x="300.0" y="118" text-anchor="middle"
+        font-family="'Impact', sans-serif" font-weight="900"
+        font-size="82" letter-spacing="16"><tspan fill="url(#d07)">USTO</tspan><tspan fill="url(#o07)">WSKI</tspan></text>
+  <text x="300.0" y="158.04" text-anchor="middle"
+        font-family="'Impact', Arial, sans-serif" font-weight="400"
+        font-size="15" fill="#fff" letter-spacing="4">czyszczenie · malowanie</text>
 </svg>

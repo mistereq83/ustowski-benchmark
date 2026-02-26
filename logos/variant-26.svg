@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 220">
-  <defs>
-    <linearGradient id="d26" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#444"/><stop offset="100%" stop-color="#2d2d2d"/></linearGradient>
-    <linearGradient id="o26" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#f26b1d"/><stop offset="100%" stop-color="#e85a0a"/></linearGradient>
-  </defs>
-  <rect width="600" height="220" fill="#fff"/>
-  <rect x="300.0" y="72" width="190" height="56" rx="4" fill="#f26b1d" opacity="0.15"/>
-  <text x="300.0" y="120" text-anchor="middle" font-family="'Bebas Neue', sans-serif" font-weight="400" font-size="90" letter-spacing="4" ><tspan fill="url(#d26)">USTO</tspan><tspan fill="url(#o26)">WSKI</tspan></text>
-  <text x="300.0" y="155" text-anchor="middle" font-family="'Bebas Neue', sans-serif" font-weight="400" font-size="15" fill="#777" letter-spacing="3" >czyszczenie · malowanie</text>
+  <rect x="80" y="70.0" width="80" height="80" rx="8" fill="#f26b1d"/><text x="120" y="128.0" text-anchor="middle" font-family="'Poppins', sans-serif" font-weight="900" font-size="52" fill="#fff">U</text>
+  <rect x="0" y="0" width="600" height="220" fill="#fff" style="z-index:-1"/>
+  <rect x="80" y="70.0" width="80" height="80" rx="8" fill="#f26b1d"/><text x="120" y="128.0" text-anchor="middle" font-family="'Poppins', sans-serif" font-weight="900" font-size="52" fill="#fff">U</text>
+  <line x1="175" y1="82.0" x2="175" y2="138.0" stroke="#ddd" stroke-width="1"/>
+  <text x="340" y="116.0" text-anchor="middle" font-family="'Poppins', sans-serif" font-weight="900" font-size="36" letter-spacing="8">
+    <tspan fill="#2d2d2d">USTO</tspan><tspan fill="#f26b1d">WSKI</tspan></text>
+  <text x="340" y="138.0" text-anchor="middle" font-family="'Poppins', Arial, sans-serif" font-weight="400" font-size="12" fill="#777" letter-spacing="3">czyszczenie · malowanie</text>
 </svg>

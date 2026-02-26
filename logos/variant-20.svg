@@ -1,8 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 220">
-  
-  <rect width="600" height="220" fill="#fff"/>
-  <circle cx="130" cy="110.0" r="48" fill="#f26b1d"/><text x="130" y="129.2" text-anchor="middle" font-family="'Bebas Neue', sans-serif" font-weight="400" font-size="57" fill="#fff">U</text>
-  
-  <text x="355" y="118.0" text-anchor="middle" font-family="'Bebas Neue', sans-serif" font-weight="400" font-size="58" letter-spacing="3"><tspan fill="#2d2d2d">USTO</tspan><tspan fill="#f26b1d">WSKI</tspan></text><text x="355" y="142.0" text-anchor="middle" font-family="'Bebas Neue', sans-serif" font-weight="400" font-size="13" fill="#777" letter-spacing="2">czyszczenie · malowanie</text>
+  <defs>
+    <linearGradient id="d20" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#aaa"/><stop offset="100%" stop-color="#888"/>
+    </linearGradient>
+    <linearGradient id="o20" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#f26b1d"/><stop offset="100%" stop-color="#e85a0a"/>
+    </linearGradient>
+  </defs>
+  <rect width="600" height="220" fill="#111"/>
+  <path d="M 121.4,132 L 478.6,132 Q 488.6,132 488.6,142 L 488.6,164 Q 488.6,174 478.6,174 L 121.4,174 Q 111.4,174 111.4,164 L 111.4,142 Q 111.4,132 121.4,132 Z" fill="#333"/>
+  <text x="300.0" y="118" text-anchor="middle"
+        font-family="'Bebas Neue', sans-serif" font-weight="400"
+        font-size="88" letter-spacing="14"><tspan fill="url(#d20)">USTO</tspan><tspan fill="url(#o20)">WSKI</tspan></text>
+  <text x="300.0" y="158.04" text-anchor="middle"
+        font-family="'Bebas Neue', Arial, sans-serif" font-weight="400"
+        font-size="15" fill="#fff" letter-spacing="4">czyszczenie · malowanie</text>
 </svg>

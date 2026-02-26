@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 220">
-  
-  <rect width="600" height="220" fill="#111"/>
-  <circle cx="115" cy="110.0" r="38" fill="#f26b1d"/><text x="115" y="125.2" text-anchor="middle" font-family="'Poppins', sans-serif" font-weight="900" font-size="45" fill="#fff">U</text>
-  <line x1="168" y1="82.0" x2="168" y2="138.0" stroke="#ddd" stroke-width="1"/>
-  <text x="330" y="116.0" text-anchor="middle" font-family="'Poppins', sans-serif" font-weight="900" font-size="40" letter-spacing="3"><tspan fill="#999">USTO</tspan><tspan fill="#f26b1d">WSKI</tspan></text><text x="330" y="138.0" text-anchor="middle" font-family="'Poppins', sans-serif" font-weight="400" font-size="13" fill="#999" letter-spacing="2">czyszczenie · malowanie</text>
+  <circle cx="120" cy="110.0" r="40" fill="#f26b1d"/><text x="120" y="126.0" text-anchor="middle" font-family="'Oswald', sans-serif" font-weight="700" font-size="48" fill="#fff">U</text>
+  <rect x="0" y="0" width="600" height="220" fill="#fff" style="z-index:-1"/>
+  <circle cx="120" cy="110.0" r="40" fill="#f26b1d"/><text x="120" y="126.0" text-anchor="middle" font-family="'Oswald', sans-serif" font-weight="700" font-size="48" fill="#fff">U</text>
+  <line x1="175" y1="82.0" x2="175" y2="138.0" stroke="#ddd" stroke-width="1"/>
+  <text x="340" y="116.0" text-anchor="middle" font-family="'Oswald', sans-serif" font-weight="700" font-size="46" letter-spacing="8">
+    <tspan fill="#2d2d2d">USTO</tspan><tspan fill="#f26b1d">WSKI</tspan></text>
+  <text x="340" y="138.0" text-anchor="middle" font-family="'Oswald', Arial, sans-serif" font-weight="400" font-size="12" fill="#777" letter-spacing="3">czyszczenie · malowanie</text>
 </svg>

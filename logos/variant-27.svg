@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 220">
-  <defs>
-    <linearGradient id="d27" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#444"/><stop offset="100%" stop-color="#2d2d2d"/></linearGradient>
-    <linearGradient id="o27" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#f26b1d"/><stop offset="100%" stop-color="#e85a0a"/></linearGradient>
-  </defs>
-  <rect width="600" height="220" fill="#fff"/>
-  <rect x="90.0" y="55" width="18" height="95" rx="4" fill="#f26b1d" opacity="0.2"/><rect x="90.0" y="55" width="18" height="95" rx="4" fill="none" stroke="#f26b1d" stroke-width="1" opacity="0.4"/>
-  <text x="300.0" y="120" text-anchor="middle" font-family="'Kanit', sans-serif" font-weight="800" font-size="78" letter-spacing="4"  transform="skewX(-5)"><tspan fill="url(#d27)">USTO</tspan><tspan fill="url(#o27)">WSKI</tspan></text>
-  <text x="300.0" y="155" text-anchor="middle" font-family="'Kanit', sans-serif" font-weight="400" font-size="15" fill="#777" letter-spacing="3"  transform="skewX(-5)">czyszczenie · malowanie</text>
+  <rect x="80" y="70.0" width="80" height="80" rx="8" fill="#f26b1d"/><text x="120" y="128.0" text-anchor="middle" font-family="'Teko', sans-serif" font-weight="700" font-size="52" fill="#fff">U</text>
+  <rect x="0" y="0" width="600" height="220" fill="#fff" style="z-index:-1"/>
+  <rect x="80" y="70.0" width="80" height="80" rx="8" fill="#f26b1d"/><text x="120" y="128.0" text-anchor="middle" font-family="'Teko', sans-serif" font-weight="700" font-size="52" fill="#fff">U</text>
+  <line x1="175" y1="82.0" x2="175" y2="138.0" stroke="#ddd" stroke-width="1"/>
+  <text x="340" y="116.0" text-anchor="middle" font-family="'Teko', sans-serif" font-weight="700" font-size="54" letter-spacing="10">
+    <tspan fill="#2d2d2d">USTO</tspan><tspan fill="#f26b1d">WSKI</tspan></text>
+  <text x="340" y="138.0" text-anchor="middle" font-family="'Teko', Arial, sans-serif" font-weight="400" font-size="12" fill="#777" letter-spacing="3">czyszczenie · malowanie</text>
 </svg>

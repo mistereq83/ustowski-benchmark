@@ -1,8 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 220">
-  
+  <defs>
+    <linearGradient id="d12" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#444"/><stop offset="100%" stop-color="#2d2d2d"/>
+    </linearGradient>
+    <linearGradient id="o12" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#f26b1d"/><stop offset="100%" stop-color="#e85a0a"/>
+    </linearGradient>
+  </defs>
   <rect width="600" height="220" fill="#fff"/>
-  <rect x="77" y="72.0" width="76" height="76" rx="6" fill="none" stroke="#f26b1d" stroke-width="3"/><text x="115" y="127.1" text-anchor="middle" font-family="'Bebas Neue', sans-serif" font-weight="400" font-size="49" fill="#f26b1d">U</text>
-  <line x1="168" y1="82.0" x2="168" y2="138.0" stroke="#ddd" stroke-width="1"/>
-  <text x="330" y="116.0" text-anchor="middle" font-family="'Bebas Neue', sans-serif" font-weight="400" font-size="58" letter-spacing="3"><tspan fill="#2d2d2d">USTO</tspan><tspan fill="#f26b1d">WSKI</tspan></text><text x="330" y="138.0" text-anchor="middle" font-family="'Bebas Neue', sans-serif" font-weight="400" font-size="13" fill="#777" letter-spacing="2">czyszczenie · malowanie</text>
+  <path d="M 121.4,132 L 478.6,132 Q 488.6,132 488.6,142 L 488.6,164 Q 488.6,174 478.6,174 L 121.4,174 Q 111.4,174 111.4,164 L 111.4,142 Q 111.4,132 121.4,132 Z" fill="#1c1c1c"/>
+  <text x="300.0" y="118" text-anchor="middle"
+        font-family="'Montserrat', sans-serif" font-weight="900"
+        font-size="60" letter-spacing="12"><tspan fill="url(#d12)">USTO</tspan><tspan fill="url(#o12)">WSKI</tspan></text>
+  <text x="300.0" y="158.04" text-anchor="middle"
+        font-family="'Montserrat', Arial, sans-serif" font-weight="400"
+        font-size="15" fill="#fff" letter-spacing="4">czyszczenie · malowanie</text>
 </svg>

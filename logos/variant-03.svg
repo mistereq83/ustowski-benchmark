@@ -1,11 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 220">
   <defs>
-    <linearGradient id="d03" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#444"/><stop offset="100%" stop-color="#2d2d2d"/></linearGradient>
-    <linearGradient id="o03" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#f26b1d"/><stop offset="100%" stop-color="#e85a0a"/></linearGradient>
+    <linearGradient id="d03" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#444"/><stop offset="100%" stop-color="#2d2d2d"/>
+    </linearGradient>
+    <linearGradient id="o03" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#f26b1d"/><stop offset="100%" stop-color="#e85a0a"/>
+    </linearGradient>
   </defs>
   <rect width="600" height="220" fill="#fff"/>
-  <line x1="260.0" y1="128" x2="340.0" y2="128" stroke="#f26b1d" stroke-width="3" stroke-linecap="round"/>
-  <text x="300.0" y="115" text-anchor="middle" font-family="'Poppins', sans-serif" font-weight="900" font-style="normal" font-size="65" letter-spacing="4" ><tspan fill="url(#d03)">USTO</tspan><tspan fill="url(#o03)">WSKI</tspan></text>
-  <text x="300.0" y="158" text-anchor="middle" font-family="'Poppins', sans-serif" font-weight="400" font-style="normal" font-size="15" fill="#666" letter-spacing="3" >czyszczenie · malowanie</text>
+  <path d="M 141.6,132 L 458.4,132 Q 479.4,132 479.4,153.0 Q 479.4,174 458.4,174 L 141.6,174 Q 120.6,174 120.6,153.0 Q 120.6,132 141.6,132 Z" fill="#1c1c1c"/>
+  <text x="300.0" y="118" text-anchor="middle"
+        font-family="'Impact', sans-serif" font-weight="900"
+        font-size="85" letter-spacing="12"><tspan fill="url(#d03)">USTO</tspan><tspan fill="url(#o03)">WSKI</tspan></text>
+  <text x="300.0" y="158.04" text-anchor="middle"
+        font-family="'Impact', Arial, sans-serif" font-weight="400"
+        font-size="15" fill="#fff" letter-spacing="4">czyszczenie · malowanie</text>
 </svg>

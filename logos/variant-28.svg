@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 220">
-  <rect x="80" y="70.0" width="80" height="80" rx="8" fill="#f26b1d"/><text x="120" y="128.0" text-anchor="middle" font-family="'Impact', sans-serif" font-weight="900" font-size="52" fill="#fff">U</text>
+  <circle cx="120" cy="110.0" r="40" fill="#f26b1d"/><text x="120" y="126.0" text-anchor="middle" font-family="'Impact', sans-serif" font-weight="900" font-size="48" fill="#fff">U</text>
   <rect x="0" y="0" width="600" height="220" fill="#fff" style="z-index:-1"/>
-  <rect x="80" y="70.0" width="80" height="80" rx="8" fill="#f26b1d"/><text x="120" y="128.0" text-anchor="middle" font-family="'Impact', sans-serif" font-weight="900" font-size="52" fill="#fff">U</text>
+  <circle cx="120" cy="110.0" r="40" fill="#f26b1d"/><text x="120" y="126.0" text-anchor="middle" font-family="'Impact', sans-serif" font-weight="900" font-size="48" fill="#fff">U</text>
   <line x1="175" y1="82.0" x2="175" y2="138.0" stroke="#ddd" stroke-width="1"/>
   <text x="340" y="116.0" text-anchor="middle" font-family="'Impact', sans-serif" font-weight="900" font-size="50" letter-spacing="8">
     <tspan fill="#2d2d2d">USTO</tspan><tspan fill="#f26b1d">WSKI</tspan></text>
