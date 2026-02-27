@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="pl" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <title>Polityka prywatności | Ustowski</title>
+    <meta name="description" content="Polityka prywatności serwisu ustowski.pl — informacje o przetwarzaniu danych osobowych, cookies i prawach użytkowników.">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500&family=Outfit:wght@400;500;600;700;800;900&family=Space+Mono&display=swap" rel="stylesheet">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        accent: '#F06820',
+                        primary: '#2B2B2B',
+                        dark: '#1A1A1A',
+                        bg: '#FAFAFA',
+                        secondary: '#EDEDED'
+                    },
+                    fontFamily: {
+                        heading: ['Outfit', 'sans-serif'],
+                        body: ['DM Sans', 'sans-serif'],
+                        mono: ['Space Mono', 'monospace'],
+                    },
+                    borderRadius: {
+                        '4xl': '2rem',
+                        '5xl': '3rem',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #FAFAFA;
+            color: #2B2B2B;
+            overflow-x: hidden;
+        }
+        .noise-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            pointer-events: none;
+            z-index: 9999;
+            opacity: 0.05;
+            background: url('data:image/svg+xml,%3Csvg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"%3E%3Cfilter id="noiseFilter"%3E%3CfeTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch"/%3E%3C/filter%3E%3Crect width="100%25" height="100%25" filter="url(%23noiseFilter)"/%3E%3C/svg%3E');
+        }
+        .glass-nav {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+        .nav-scrolled {
+            padding-top: 0.75rem !important;
+            padding-bottom: 0.75rem !important;
+            box-shadow: 0 10px 30px -10px rgba(0,0,0,0.05);
+            border-radius: 3rem;
+            margin-top: 1rem;
+        }
+        .prose-policy h2 {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 700;
+            font-size: 1.5rem;
+            margin-top: 2.5rem;
+            margin-bottom: 1rem;
+            color: #1A1A1A;
+        }
+        .prose-policy h3 {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 600;
+            font-size: 1.15rem;
+            margin-top: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+        .prose-policy p, .prose-policy li {
+            line-height: 1.8;
+            color: #2B2B2B;
+        }
+        .prose-policy ul {
+            list-style: disc;
+            padding-left: 1.5rem;
+        }
+        .prose-policy ul li {
+            margin-bottom: 0.35rem;
+        }
+        .prose-policy a {
+            color: #F06820;
+            text-decoration: underline;
+            text-underline-offset: 3px;
+        }
+        .prose-policy a:hover {
+            opacity: 0.8;
+        }
+    </style>
+</head>
+<body class="font-body antialiased">
+    <div class="noise-overlay"></div>
+
+    <!-- NAVBAR -->
+    <nav class="glass-nav fixed top-0 left-0 right-0 z-50 px-4 md:px-8 py-4 md:py-5 mx-4 md:mx-8 mt-4 rounded-4xl">
+        <div class="max-w-7xl mx-auto flex items-center justify-between">
+            <a href="index.html" class="flex items-center gap-3">
+                <img src="images/logo-ustowski.png" alt="Ustowski" class="h-8" onerror="this.style.opacity=0">
+            </a>
+            <div class="hidden md:flex items-center gap-8">
+                <a href="index.html#uslugi" class="text-sm font-medium text-primary hover:text-accent transition-colors">Usługi</a>
+                <a href="o-firmie.html" class="text-sm font-medium text-primary hover:text-accent transition-colors">O firmie</a>
+                <a href="kontakt.html" class="text-sm font-medium text-primary hover:text-accent transition-colors">Kontakt</a>
+                <a href="tel:+48663719372" class="text-sm font-mono text-primary/60 hover:text-accent transition-colors">663 719 372</a>
+            </div>
+            <button id="mobile-menu-btn" class="md:hidden p-2" aria-label="Menu">
+                <svg id="menu-icon-open" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+                <svg id="menu-icon-close" class="hidden" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu Overlay -->
+    <div id="mobile-menu-overlay" class="fixed inset-0 bg-dark/95 backdrop-blur-xl z-40 hidden flex-col items-center justify-center gap-8">
+        <a href="index.html#uslugi" class="mobile-menu-link text-2xl text-white font-heading font-bold hover:text-accent transition-colors">Usługi</a>
+        <a href="o-firmie.html" class="mobile-menu-link text-2xl text-white font-heading font-bold hover:text-accent transition-colors">O firmie</a>
+        <a href="kontakt.html" class="mobile-menu-link text-2xl text-white font-heading font-bold hover:text-accent transition-colors">Kontakt</a>
+        <a href="tel:+48663719372" class="mobile-menu-link text-xl text-accent font-mono mt-4">663 719 372</a>
+    </div>
+
+    <main>
+        <!-- HERO -->
+        <section class="relative h-[40vh] min-h-[300px] flex items-end bg-dark overflow-hidden">
+            <div class="absolute inset-0 bg-gradient-to-t from-dark via-dark/80 to-dark/40"></div>
+            <div class="relative z-10 max-w-7xl mx-auto w-full px-4 md:px-8 pb-12 md:pb-16 gs-reveal" style="opacity:0; transform: translateY(30px);">
+                <h1 class="font-heading text-4xl md:text-6xl font-bold text-white mb-3">Polityka prywatności</h1>
+                <p class="text-lg text-white/70">Serwis ustowski.pl · Data ostatniej aktualizacji: 28.02.2026</p>
+            </div>
+        </section>
+
+        <!-- CONTENT -->
+        <section class="py-16 md:py-24 px-4">
+            <div class="max-w-3xl mx-auto prose-policy gs-reveal" style="opacity:0; transform: translateY(30px);">
+
+                <h2>1. Administrator danych osobowych</h2>
+                <p>Administratorem danych osobowych jest:</p>
+                <p><strong>Eko Mycie Ustowski</strong><br>
+                ul. Osiedlowa 20, 83-311 Goręczyno<br>
+                NIP: 5892013798<br>
+                REGON: 222106873<br>
+                e-mail: <a href="mailto:kontakt@ustowski.pl">kontakt@ustowski.pl</a><br>
+                telefon: <a href="tel:+48663719372">663 719 372</a></p>
+                <p>W sprawach dotyczących przetwarzania danych osobowych można kontaktować się z Administratorem pod adresem e-mail: <a href="mailto:kontakt@ustowski.pl">kontakt@ustowski.pl</a> lub listownie na adres siedziby wskazany powyżej.</p>
+
+                <h2>2. Zakres i źródła danych</h2>
+                <p>Przetwarzamy dane osobowe, które przekazujesz nam dobrowolnie, w szczególności:</p>
+                <ul>
+                    <li>imię i nazwisko,</li>
+                    <li>numer telefonu,</li>
+                    <li>adres e-mail,</li>
+                    <li>adres realizacji usługi lub lokalizację nieruchomości,</li>
+                    <li>informacje zawarte w wiadomości,</li>
+                    <li>zdjęcia przesłane do wyceny,</li>
+                    <li>dane zawarte w korespondencji lub rozmowie telefonicznej.</li>
+                </ul>
+                <p>Możemy również przetwarzać dane techniczne związane z korzystaniem ze strony internetowej, takie jak adres IP, data i godzina wizyty, dane o urządzeniu, przeglądarce, systemie operacyjnym oraz aktywności w serwisie — w zakresie niezbędnym do zapewnienia bezpieczeństwa i prawidłowego działania strony.</p>
+
+                <h2>3. Cele i podstawy przetwarzania danych</h2>
+                <p>Twoje dane osobowe mogą być przetwarzane w następujących celach:</p>
+                <p><strong>a)</strong> obsługa zapytania, kontakt zwrotny i przygotowanie wyceny — na podstawie art. 6 ust. 1 lit. b RODO (podjęcie działań przed zawarciem umowy na Twoje żądanie), a w niektórych przypadkach również na podstawie art. 6 ust. 1 lit. f RODO (prawnie uzasadniony interes Administratora polegający na obsłudze korespondencji i organizacji kontaktu).</p>
+                <p><strong>b)</strong> zawarcie i wykonanie umowy o świadczenie usług — na podstawie art. 6 ust. 1 lit. b RODO.</p>
+                <p><strong>c)</strong> realizacja obowiązków podatkowych, rachunkowych i archiwizacyjnych — na podstawie art. 6 ust. 1 lit. c RODO (obowiązek prawny ciążący na Administratorze).</p>
+                <p><strong>d)</strong> dochodzenie roszczeń, obrona przed roszczeniami oraz wykazanie zgodności działań z prawem — na podstawie art. 6 ust. 1 lit. f RODO (prawnie uzasadniony interes).</p>
+                <p><strong>e)</strong> obsługa strony internetowej, zapewnienie jej bezpieczeństwa i poprawnego działania — na podstawie art. 6 ust. 1 lit. f RODO.</p>
+                <p><strong>f)</strong> działania analityczne lub marketingowe realizowane za pomocą cookies lub podobnych technologii — na podstawie art. 6 ust. 1 lit. a RODO (Twojej zgody), jeżeli korzystamy z takich narzędzi. Zgoda jest wymagana dla cookies innych niż niezbędne.</p>
+
+                <h2>4. Czy podanie danych jest obowiązkowe?</h2>
+                <p>Podanie danych jest dobrowolne, ale w wielu przypadkach niezbędne do:</p>
+                <ul>
+                    <li>otrzymania odpowiedzi na wiadomość,</li>
+                    <li>przygotowania wyceny,</li>
+                    <li>zawarcia i wykonania umowy,</li>
+                    <li>wystawienia dokumentów księgowych.</li>
+                </ul>
+                <p>Jeśli nie podasz danych potrzebnych do kontaktu lub realizacji usługi, możemy nie być w stanie odpowiedzieć na zapytanie albo wykonać usługi.</p>
+
+                <h2>5. Okres przechowywania danych</h2>
+                <p>Dane będziemy przechowywać przez okres nie dłuższy, niż jest to potrzebne do realizacji celu, w szczególności:</p>
+                <ul>
+                    <li>dane z formularza kontaktowego, wiadomości e-mail, telefonu lub WhatsApp — przez czas niezbędny do obsługi sprawy, a następnie przez okres potrzebny do ochrony przed ewentualnymi roszczeniami,</li>
+                    <li>dane związane z umową i realizacją usługi — przez okres wykonywania umowy, a następnie przez okres wymagany przepisami prawa oraz do czasu przedawnienia roszczeń,</li>
+                    <li>dane na dokumentach księgowych — przez okres wymagany przepisami prawa podatkowego i rachunkowego,</li>
+                    <li>dane przetwarzane na podstawie zgody — do czasu jej wycofania lub utraty przydatności celu,</li>
+                    <li>dane techniczne i cookies — przez okres odpowiadający celowi i rodzajowi danego pliku cookie lub do czasu ich usunięcia zgodnie z ustawieniami przeglądarki albo panelu zgód.</li>
+                </ul>
+                <p>Obowiązek wskazania okresu przechowywania albo kryteriów jego ustalania wynika z art. 13 RODO.</p>
+
+                <h2>6. Odbiorcy danych</h2>
+                <p>Twoje dane mogą być przekazywane podmiotom, które wspierają nas w prowadzeniu działalności i obsłudze strony, w szczególności:</p>
+                <ul>
+                    <li>dostawcy hostingu i poczty e-mail,</li>
+                    <li>dostawcy wsparcia IT i obsługi strony internetowej,</li>
+                    <li>biuru księgowemu,</li>
+                    <li>kancelarii prawnej lub firmie windykacyjnej — jeżeli będzie to potrzebne do dochodzenia roszczeń lub obrony praw,</li>
+                    <li>operatorom narzędzi analitycznych i reklamowych, w tym Google Ireland Limited oraz — w zależności od konfiguracji usług — podmiotom z grupy Google,</li>
+                    <li>uprawnionym organom publicznym, gdy wynika to z przepisów prawa.</li>
+                </ul>
+                <p>RODO wymaga wskazania odbiorców albo kategorii odbiorców danych w klauzuli informacyjnej.</p>
+
+                <h2>7. Przekazywanie danych poza EOG</h2>
+                <p>Co do zasady staramy się przetwarzać dane na terenie Europejskiego Obszaru Gospodarczego. Jeżeli jednak korzystamy z narzędzi dostawców mających siedzibę poza EOG, Twoje dane mogą być przekazywane poza EOG wyłącznie zgodnie z obowiązującymi przepisami prawa, w szczególności na podstawie decyzji stwierdzającej odpowiedni stopień ochrony albo z zastosowaniem odpowiednich zabezpieczeń, takich jak standardowe klauzule umowne.</p>
+                <p>Informacja o transferach i zabezpieczeniach należy do zakresu obowiązku informacyjnego z art. 13 RODO.</p>
+
+                <h2>8. Prawa osoby, której dane dotyczą</h2>
+                <p>Masz prawo do:</p>
+                <ul>
+                    <li>dostępu do swoich danych,</li>
+                    <li>sprostowania danych,</li>
+                    <li>usunięcia danych,</li>
+                    <li>ograniczenia przetwarzania,</li>
+                    <li>przenoszenia danych — w przypadkach przewidzianych prawem,</li>
+                    <li>wniesienia sprzeciwu wobec przetwarzania opartego na art. 6 ust. 1 lit. f RODO,</li>
+                    <li>wycofania zgody w dowolnym momencie, jeśli przetwarzanie odbywa się na podstawie zgody,</li>
+                    <li>wniesienia skargi do Prezesa Urzędu Ochrony Danych Osobowych.</li>
+                </ul>
+                <p>Prawa te wynikają m.in. z art. 15–21 oraz art. 77 RODO. Organem nadzorczym w Polsce jest Prezes UODO.</p>
+
+                <h2>9. Profilowanie i zautomatyzowane podejmowanie decyzji</h2>
+                <p>W ramach serwisu możemy korzystać z narzędzi reklamowych Google Ads, w tym narzędzi służących do pomiaru skuteczności kampanii, śledzenia konwersji, tworzenia grup odbiorców oraz remarketingu. W związku z tym dane dotyczące aktywności użytkownika w serwisie mogą być wykorzystywane do prezentowania reklam dopasowanych do jego wcześniejszych działań w naszej witrynie lub w sieciach reklamowych Google. Takie działania mogą stanowić profilowanie w rozumieniu RODO.</p>
+                <p>Jednocześnie nie podejmujemy wobec użytkownika decyzji opartych wyłącznie na zautomatyzowanym przetwarzaniu, które wywoływałyby wobec niego skutki prawne lub w podobny sposób istotnie na niego wpływały.</p>
+                <p>W zakresie, w jakim Google Ads wykorzystuje cookies lub podobne technologie do celów reklamowych, analitycznych lub remarketingowych, dane są przetwarzane wyłącznie zgodnie z ustawieniami zgód użytkownika, jeżeli zgoda jest wymagana przez obowiązujące przepisy. Google wymaga dla użytkowników z EOG, UK i Szwajcarii odpowiednich ujawnień oraz ważnych sygnałów zgody dla zastosowań reklamowych i pomiarowych.</p>
+
+                <h2>10. Pliki cookies i podobne technologie</h2>
+                <p>Strona może wykorzystywać pliki cookies oraz podobne technologie w celu:</p>
+                <ul>
+                    <li>zapewnienia prawidłowego działania serwisu,</li>
+                    <li>utrzymania sesji użytkownika,</li>
+                    <li>zapamiętania ustawień użytkownika,</li>
+                    <li>tworzenia statystyk,</li>
+                    <li>prowadzenia działań marketingowych — jeśli są stosowane odpowiednie narzędzia.</li>
+                </ul>
+                <p>Pliki cookies niezbędne do działania strony mogą być stosowane bez zgody użytkownika, natomiast inne cookies, zwłaszcza analityczne, funkcjonalne lub marketingowe, co do zasady wymagają uprzedniej zgody użytkownika.</p>
+
+                <h2>11. Zarządzanie cookies</h2>
+                <p>Podczas pierwszej wizyty w serwisie możesz zarządzać zgodami na cookies za pomocą banera lub panelu ustawień cookies. W każdej chwili możesz również zmienić ustawienia swojej przeglądarki i usunąć zapisane pliki cookies. Wyłączenie niektórych cookies może wpływać na działanie wybranych funkcji strony.</p>
+
+                <h2>12. Logi serwera</h2>
+                <p>Korzystanie ze strony wiąże się z przesyłaniem zapytań do serwera, na którym przechowywana jest strona. W logach serwera mogą być zapisywane m.in. adres IP, data i czas serwera, informacje o przeglądarce i systemie operacyjnym. Dane te służą przede wszystkim administrowaniu serwerem, zapewnieniu bezpieczeństwa oraz diagnostyce technicznej i nie są wykorzystywane do identyfikacji użytkownika inaczej niż w razie potrzeby związanej z bezpieczeństwem lub dochodzeniem roszczeń.</p>
+
+                <h2>13. Formularz kontaktowy i wycena</h2>
+                <p>Jeżeli korzystasz z formularza kontaktowego lub formularza wyceny, Twoje dane będą przetwarzane w celu:</p>
+                <ul>
+                    <li>przyjęcia zapytania,</li>
+                    <li>kontaktu zwrotnego,</li>
+                    <li>przygotowania wyceny,</li>
+                    <li>ustalenia szczegółów realizacji usługi.</li>
+                </ul>
+                <p>Przesłanie formularza oznacza przekazanie nam danych niezbędnych do obsługi zapytania. Jeżeli do formularza dołączasz zdjęcia, pamiętaj, aby nie zamieszczać na nich danych, których nie chcesz udostępniać, chyba że są potrzebne do wyceny.</p>
+
+                <h2>14. Kontakt telefoniczny, e-mail i WhatsApp</h2>
+                <p>Jeżeli kontaktujesz się z nami telefonicznie, mailowo albo przez WhatsApp, przetwarzamy Twoje dane wyłącznie w zakresie niezbędnym do obsługi kontaktu, przygotowania oferty, realizacji usługi i dalszej komunikacji.</p>
+
+                <h2>15. Zmiany polityki prywatności</h2>
+                <p>Polityka prywatności może być aktualizowana, w szczególności w przypadku zmian przepisów prawa, zmian technologicznych lub zmian w zakresie oferowanych usług. Aktualna wersja polityki prywatności jest zawsze dostępna na tej stronie z podaniem daty ostatniej aktualizacji.</p>
+
+                <div class="mt-16 pt-8 border-t border-secondary">
+                    <p class="text-sm text-primary/50">Polityka prywatności serwisu ustowski.pl — ostatnia aktualizacja: 28.02.2026</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-dark text-white pt-20 pb-10 rounded-t-5xl px-4">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-12 mb-16">
+                <div>
+                    <a href="index.html"><img src="images/logo-ustowski.png" alt="Ustowski Logo" class="h-10 mb-6 brightness-0 invert" onerror="this.style.opacity=0"></a>
+                    <p class="text-white/60 mb-6 max-w-sm">Profesjonalne mycie i malowanie dachów i elewacji. Pracujemy na terenie całego Pomorza. Szybko, czysto i bezpiecznie.</p>
+                </div>
+                <div>
+                    <h4 class="font-bold text-lg mb-6">Na skróty</h4>
+                    <ul class="space-y-3 text-white/70">
+                        <li><a href="index.html#uslugi" class="hover:text-accent transition-colors">Usługi</a></li>
+                        <li><a href="o-firmie.html" class="hover:text-accent transition-colors">O firmie</a></li>
+                        <li><a href="kontakt.html" class="hover:text-accent transition-colors">Kontakt</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold text-lg mb-6">Kontakt</h4>
+                    <ul class="space-y-3 text-white/70">
+                        <li><a href="tel:+48663719372" class="hover:text-accent transition-colors font-mono text-lg">663 719 372</a></li>
+                        <li><a href="mailto:kontakt@ustowski.pl" class="hover:text-accent transition-colors">kontakt@ustowski.pl</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center text-sm text-white/40 gap-4">
+                <p>&copy; 2026 Ustowski. Wszelkie prawa zastrzeżone.</p>
+                <a href="polityka-prywatnosci.html" class="hover:text-white/70 transition-colors">Polityka prywatności</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const navbar = document.querySelector('.glass-nav');
+            if (navbar) {
+                window.addEventListener('scroll', () => {
+                    if (window.scrollY > 50) {
+                        navbar.classList.add('nav-scrolled');
+                    } else {
+                        navbar.classList.remove('nav-scrolled');
+                    }
+                });
+            }
+
+            const menuBtn = document.getElementById('mobile-menu-btn');
+            const menuOverlay = document.getElementById('mobile-menu-overlay');
+            const menuIconOpen = document.getElementById('menu-icon-open');
+            const menuIconClose = document.getElementById('menu-icon-close');
+            const mobileMenuLinks = document.querySelectorAll('.mobile-menu-link');
+
+            const toggleMenu = () => {
+                const isOpen = menuOverlay.classList.contains('flex');
+                if (isOpen) {
+                    menuOverlay.classList.remove('flex');
+                    menuOverlay.classList.add('hidden');
+                    menuIconOpen.classList.remove('hidden');
+                    menuIconClose.classList.add('hidden');
+                    document.body.style.overflow = '';
+                } else {
+                    menuOverlay.classList.remove('hidden');
+                    menuOverlay.classList.add('flex');
+                    menuIconOpen.classList.add('hidden');
+                    menuIconClose.classList.remove('hidden');
+                    document.body.style.overflow = 'hidden';
+                }
+            };
+            if (menuBtn) menuBtn.addEventListener('click', toggleMenu);
+            mobileMenuLinks.forEach(link => link.addEventListener('click', toggleMenu));
+
+            gsap.registerPlugin(ScrollTrigger);
+            gsap.utils.toArray('.gs-reveal').forEach(elem => {
+                gsap.to(elem, {
+                    opacity: 1, y: 0, duration: 1.2, ease: "power3.out",
+                    scrollTrigger: { trigger: elem, start: "top 90%", toggleActions: "play none none none" }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,271 +1,970 @@
 <!DOCTYPE html>
-<html lang="pl">
+<html lang="pl" class="scroll-smooth">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Ustowski.pl — Warianty designu</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<style>
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-  body { font-family: 'Inter', sans-serif; background: #0a0a0a; color: #e0e0e0; }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ustowski.pl - Profesjonalne mycie i malowanie elewacji i dachu</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Outfit:wght@100..900&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        accent: '#F06820',
+                        primary: '#2B2B2B',
+                        dark: '#1A1A1A',
+                        bg: '#FAFAFA',
+                        secondary: '#EDEDED'
+                    },
+                    fontFamily: {
+                        heading: ['Outfit', 'sans-serif'],
+                        body: ['DM Sans', 'sans-serif'],
+                        mono: ['Space Mono', 'monospace'],
+                    },
+                    borderRadius: {
+                        '4xl': '2rem',
+                        '5xl': '3rem',
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- GSAP -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    
+    <style>
+        /* Base & Textures */
+        body {
+            background-color: #FAFAFA;
+            color: #2B2B2B;
+            font-family: 'DM Sans', sans-serif;
+            overflow-x: hidden;
+        }
+        
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Outfit', sans-serif;
+        }
 
-  .gallery {
-    min-height: 100vh; padding: 24px 16px 40px;
-  }
-  .gallery.hidden { display: none; }
+        .noise-overlay {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            pointer-events: none;
+            z-index: 9999;
+            opacity: 0.05;
+        }
 
-  .gallery-header {
-    text-align: center; padding: 24px 0 32px;
-  }
-  .gallery-header h1 {
-    font-size: 26px; font-weight: 800; color: #fff; margin-bottom: 6px;
-    letter-spacing: -0.02em;
-  }
-  .gallery-header p { font-size: 13px; color: #666; }
+        /* Micro-Interactions */
+        .btn-magnetic {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        .btn-magnetic:hover {
+            transform: scale(1.03);
+        }
+        .btn-bg-slide {
+            position: absolute;
+            inset: 0;
+            background: rgba(0,0,0,0.1);
+            transform: translateY(100%);
+            transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        .btn-magnetic:hover .btn-bg-slide {
+            transform: translateY(0);
+        }
+        
+        .link-lift {
+            transition: transform 0.2s ease, color 0.2s ease;
+        }
+        .link-lift:hover {
+            transform: translateY(-1px);
+            color: #F06820;
+        }
 
-  .section-label {
-    font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em;
-    color: #F06820; font-weight: 700; margin: 32px 0 16px; padding-left: 4px;
-  }
+        /* Components */
+        .glass-nav {
+            background: rgba(250, 250, 250, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255,255,255,0.2);
+            transition: background 0.3s ease, backdrop-filter 0.3s ease;
+        }
+        .glass-nav.transparent {
+            background: transparent;
+            backdrop-filter: none;
+            -webkit-backdrop-filter: none;
+            border-color: transparent;
+        }
 
-  .grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 12px;
-  }
+        /* Before/After Slider */
+        .ba-slider {
+            position: relative;
+            width: 100%;
+            height: 100dvh;
+            overflow: hidden;
+            user-select: none;
+        }
+        .ba-slider img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            position: absolute;
+            top: 0; left: 0;
+            pointer-events: none;
+        }
+        .ba-before {
+            clip-path: polygon(0 0, 50% 0, 50% 100%, 0 100%);
+            z-index: 2;
+        }
+        .ba-after {
+            z-index: 1;
+        }
+        .ba-handle {
+            position: absolute;
+            top: 0; bottom: 0;
+            left: 50%;
+            width: 2px;
+            background: #F06820;
+            z-index: 3;
+            transform: translateX(-50%);
+            cursor: ew-resize;
+        }
+        .ba-handle-btn {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 48px; height: 48px;
+            background: #F06820;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            box-shadow: 0 4px 12px rgba(240, 104, 32, 0.3);
+        }
 
-  .card {
-    background: rgba(255,255,255,0.04);
-    border: 1px solid rgba(255,255,255,0.08);
-    border-radius: 14px;
-    overflow: hidden;
-    cursor: pointer;
-    transition: all 0.2s;
-  }
-  .card:hover {
-    background: rgba(255,255,255,0.07);
-    border-color: rgba(255,255,255,0.18);
-    transform: translateY(-3px);
-    box-shadow: 0 8px 30px rgba(0,0,0,0.3);
-  }
-  .card:active { transform: scale(0.98); }
+        /* Mini Slider */
+        .mini-slider {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 4/3;
+            overflow: hidden;
+            border-radius: 2rem;
+            user-select: none;
+        }
+        .mini-slider img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            position: absolute;
+            top: 0; left: 0;
+            pointer-events: none;
+        }
+        .mini-before {
+            clip-path: polygon(0 0, 50% 0, 50% 100%, 0 100%);
+            z-index: 2;
+        }
+        .mini-after {
+            z-index: 1;
+        }
+        .mini-handle {
+            position: absolute;
+            top: 0; bottom: 0;
+            left: 50%;
+            width: 2px;
+            background: #F06820;
+            z-index: 3;
+            transform: translateX(-50%);
+            cursor: ew-resize;
+        }
 
-  .card-preview {
-    width: 100%; aspect-ratio: 16/10; background: #1a1a1a;
-    position: relative; overflow: hidden;
-  }
-  .card-preview iframe {
-    width: 200%; height: 200%;
-    transform: scale(0.5); transform-origin: top left;
-    border: none; pointer-events: none;
-  }
+        /* Service Cards */
+        .service-card {
+            filter: grayscale(100%);
+            transition: filter 0.5s ease, transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        .service-card:hover {
+            filter: grayscale(0%);
+            transform: scale(1.02);
+        }
+        .service-card-desc {
+            max-height: 0;
+            opacity: 0;
+            transition: max-height 0.5s ease, opacity 0.5s ease;
+            overflow: hidden;
+        }
+        .service-card:hover .service-card-desc {
+            max-height: 100px;
+            opacity: 1;
+            margin-top: 1rem;
+        }
 
-  .card-info {
-    padding: 14px 16px;
-  }
-  .card-info .name {
-    font-size: 14px; font-weight: 700; color: #fff; margin-bottom: 4px;
-  }
-  .card-info .tag {
-    font-size: 11px; color: #888;
-  }
-
-  /* Logos card - full width */
-  .grid-full {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 12px;
-  }
-  .card-logos {
-    background: rgba(255,255,255,0.04);
-    border: 1px solid rgba(255,255,255,0.08);
-    border-radius: 14px;
-    overflow: hidden;
-    cursor: pointer;
-    transition: all 0.2s;
-    display: flex; align-items: center; gap: 16px;
-    padding: 20px 24px;
-  }
-  .card-logos:hover {
-    background: rgba(255,255,255,0.07);
-    border-color: rgba(255,255,255,0.18);
-    transform: translateY(-2px);
-  }
-  .card-logos .emoji { font-size: 32px; }
-  .card-logos .name { font-size: 16px; font-weight: 700; color: #fff; }
-  .card-logos .tag { font-size: 12px; color: #888; margin-top: 2px; }
-
-  /* Viewer */
-  .viewer {
-    position: fixed; inset: 0; z-index: 1000;
-    background: #fff;
-  }
-  .viewer.hidden { display: none; }
-  .viewer iframe { width: 100%; height: 100%; border: none; }
-
-  .back-btn {
-    position: fixed; top: 12px; left: 12px; z-index: 1001;
-    background: rgba(0,0,0,0.75); backdrop-filter: blur(12px);
-    color: #fff; border: none; border-radius: 20px;
-    padding: 8px 16px; font-size: 13px; font-weight: 600;
-    font-family: 'Inter', sans-serif;
-    cursor: pointer; transition: all 0.15s;
-    display: none;
-    box-shadow: 0 2px 12px rgba(0,0,0,0.4);
-  }
-  .back-btn:hover { background: rgba(0,0,0,0.9); }
-  .back-btn.visible { display: flex; align-items: center; gap: 6px; }
-
-  .viewer-nav {
-    position: fixed; top: 12px; right: 12px; z-index: 1001;
-    display: none; gap: 4px;
-  }
-  .viewer-nav.visible { display: flex; }
-  .viewer-nav button {
-    width: 36px; height: 36px; border-radius: 50%;
-    background: rgba(0,0,0,0.75); backdrop-filter: blur(12px);
-    color: #fff; border: none; font-size: 18px; cursor: pointer;
-    box-shadow: 0 2px 12px rgba(0,0,0,0.4);
-  }
-  .viewer-nav button:hover { background: rgba(0,0,0,0.9); }
-  .viewer-nav .counter {
-    display: flex; align-items: center; padding: 0 10px;
-    font-size: 12px; color: #fff; font-weight: 600;
-    background: rgba(0,0,0,0.6); border-radius: 14px;
-    backdrop-filter: blur(12px);
-  }
-
-  @media (min-width: 600px) {
-    .gallery { padding: 40px 32px 48px; }
-    .gallery-header h1 { font-size: 32px; }
-    .grid { gap: 16px; }
-  }
-  @media (min-width: 900px) {
-    .gallery { padding: 48px 64px 64px; max-width: 1000px; margin: 0 auto; }
-    .grid { grid-template-columns: repeat(2, 1fr); gap: 20px; }
-  }
-</style>
+        /* Utilities */
+        .text-balance {
+            text-wrap: balance;
+        }
+        .reveal-word {
+            opacity: 0.2;
+        }
+    </style>
 </head>
-<body>
+<body class="antialiased">
 
-<div class="gallery" id="gallery">
-  <div class="gallery-header">
-    <h1>Ustowski.pl</h1>
-    <p>Warianty designu strony + logotypy</p>
-  </div>
+    <!-- Global Noise Overlay -->
+    <svg class="noise-overlay" viewBox="0 0 200 200" xmlns='http://www.w3.org/2000/svg'>
+        <filter id='noiseFilter'>
+            <feTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/>
+        </filter>
+        <rect width='100%' height='100%' filter='url(#noiseFilter)'/>
+    </svg>
 
-  <div class="section-label">Warianty strony</div>
-  <div class="grid">
-    <div class="card" onclick="openVariant('organic-tech')">
-      <div class="card-preview">
-        <iframe src="variants/organic-gemini31.html" loading="lazy" tabindex="-1"></iframe>
-      </div>
-      <div class="card-info">
-        <div class="name">Organic Tech</div>
-        <div class="tag">Naturalny, nowoczesny</div>
-      </div>
-    </div>
+    <!-- Navbar -->
+    <nav id="navbar" class="fixed top-6 left-1/2 -translate-x-1/2 w-[95%] max-w-7xl rounded-full glass-nav transparent z-50 px-6 py-4 flex items-center justify-between">
+        <a href="#" class="mix-blend-difference" style="mix-blend-mode: difference;"><img src="images/logo-ustowski.png" alt="Ustowski - czyszczenie · malowanie" class="h-10 md:h-12 w-auto"></a>
+        
+        <div class="hidden md:flex items-center gap-8 font-medium text-sm mix-blend-difference text-white">
+            <a href="#uslugi" class="link-lift">Usługi</a>
+            <a href="#firma" class="link-lift">O firmie</a>
+            <a href="#kontakt" class="link-lift">Kontakt</a>
+        </div>
 
-    <div class="card" onclick="openVariant('clean-slate-fixed')">
-      <div class="card-preview">
-        <iframe src="variants/custom-cleanslate-fixed.html" loading="lazy" tabindex="-1"></iframe>
-      </div>
-      <div class="card-info">
-        <div class="name">Clean Slate Fixed</div>
-        <div class="tag">Before/after, naprawiony scroll</div>
-      </div>
-    </div>
+        <div class="flex items-center gap-4">
+            <a href="tel:+48500600700" class="hidden md:flex font-mono font-bold text-white mix-blend-difference link-lift">+48 500 600 700</a>
+            <a href="#wycena" class="btn-magnetic bg-accent text-white px-6 py-3 rounded-full font-bold text-sm">
+                <span class="btn-bg-slide rounded-full"></span>
+                <span class="relative z-10">Bezpłatna wycena</span>
+            </a>
+        </div>
+    </nav>
 
-    <div class="card" onclick="openVariant('auto-animate')">
-      <div class="card-preview">
-        <iframe src="variants/custom-autoanimate.html" loading="lazy" tabindex="-1"></iframe>
-      </div>
-      <div class="card-info">
-        <div class="name">Auto-Animate</div>
-        <div class="tag">Automatyczne animacje GSAP</div>
-      </div>
-    </div>
+    <!-- Hero -->
+    <section class="relative h-[100dvh] w-full overflow-hidden">
+        <div class="ba-slider" id="heroSlider">
+            <img src="images/hero-after.png" class="ba-after" alt="Czysta elewacja" onerror="this.src=''; this.style.background='linear-gradient(45deg, #1A1A1A, #2B2B2B)'">
+            <img src="images/hero-before.png" class="ba-before grayscale brightness-75 contrast-125" alt="Brudna elewacja" onerror="this.src=''; this.style.background='linear-gradient(45deg, #555, #333)'">
+            
+            <div class="ba-handle">
+                <div class="ba-handle-btn">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18-6-6 6-6"/><path d="m15 18 6-6-6-6"/></svg>
+                </div>
+            </div>
+        </div>
 
-    <div class="card" onclick="openVariant('power-wash')">
-      <div class="card-preview">
-        <iframe src="variants/custom-powerwash.html" loading="lazy" tabindex="-1"></iframe>
-      </div>
-      <div class="card-info">
-        <div class="name">Power Wash</div>
-        <div class="tag">Ciemny, dynamiczny</div>
-      </div>
-    </div>
-  </div>
+        <div class="absolute inset-0 z-10 pointer-events-none flex flex-col justify-center items-center text-center px-4 bg-black/20">
+            <h1 class="font-heading font-bold text-4xl md:text-6xl lg:text-7xl text-white max-w-5xl text-balance drop-shadow-lg leading-tight gsap-hero-text">
+                Profesjonalne mycie i malowanie elewacji i dachu
+            </h1>
+        </div>
 
-  <div class="section-label">Logotypy</div>
-  <div class="grid-full">
-    <div class="card-logos" onclick="openVariant('logos')">
-      <span class="emoji">🎨</span>
-      <div>
-        <div class="name">Warianty logotypów</div>
-        <div class="tag">Propozycje logo Ustowski</div>
-      </div>
-    </div>
-  </div>
-</div>
+        <div class="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 text-white flex flex-col items-center gap-2 gsap-hero-text">
+            <span class="text-sm font-medium tracking-widest uppercase opacity-80">Scroll</span>
+            <div class="w-[1px] h-12 bg-white/30 relative overflow-hidden">
+                <div class="absolute top-0 left-0 w-full h-full bg-white origin-top animate-[scrolldown_1.5s_ease-in-out_infinite]"></div>
+            </div>
+        </div>
+    </section>
 
-<div class="viewer hidden" id="viewer">
-  <iframe id="viewer-frame" src=""></iframe>
-</div>
+    <!-- Podtytuły -->
+    <section class="py-24 bg-bg px-4">
+        <div class="max-w-4xl mx-auto text-center space-y-8">
+            <p class="text-2xl md:text-3xl font-heading font-medium text-primary text-balance gsap-fade-up">
+                Elewacja i dach bez zacieków i mchu — szybka realizacja w Trójmieście i na Kaszubach (całe Pomorskie).
+            </p>
+            <p class="text-lg md:text-xl text-primary/70 max-w-2xl mx-auto gsap-fade-up">
+                Podnośnik koszowy umożliwiający najtrudniejsze realizacje. Standard bezpieczeństwa. Efekt, który widać latami.
+            </p>
+        </div>
+    </section>
 
-<button class="back-btn" id="back-btn" onclick="closeViewer()">← Wróć</button>
+    <!-- Trust Bar -->
+    <section class="py-12 border-y border-black/10 bg-white">
+        <div class="max-w-7xl mx-auto px-6 grid grid-cols-2 md:grid-cols-4 gap-8 text-center divide-x divide-black/10">
+            <div class="gsap-trust">
+                <p class="font-heading font-bold text-3xl text-accent">250+</p>
+                <p class="text-sm font-medium mt-1">zrealizowanych projektów</p>
+            </div>
+            <div class="gsap-trust">
+                <p class="font-heading font-bold text-3xl text-primary">83 cm</p>
+                <p class="text-sm font-medium mt-1">podnośnik bez rusztowań</p>
+            </div>
+            <div class="gsap-trust">
+                <p class="font-heading font-bold text-3xl text-primary">8 lat</p>
+                <p class="text-sm font-medium mt-1">doświadczenia</p>
+            </div>
+            <div class="gsap-trust">
+                <p class="font-heading font-bold text-3xl text-primary">24h</p>
+                <p class="text-sm font-medium mt-1">oddzwonimy do Ciebie</p>
+            </div>
+        </div>
+    </section>
 
-<div class="viewer-nav" id="viewer-nav">
-  <button onclick="navigateViewer(-1)">‹</button>
-  <span class="counter" id="viewer-counter">1/5</span>
-  <button onclick="navigateViewer(1)">›</button>
-</div>
+    <!-- Usługi -->
+    <section id="uslugi" class="py-32 px-4 bg-bg">
+        <div class="max-w-7xl mx-auto">
+            <div class="mb-16">
+                <h2 class="font-heading font-bold text-4xl md:text-5xl text-primary gsap-fade-up">Nasze Usługi</h2>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Karta 1 -->
+                <div class="service-card relative rounded-4xl overflow-hidden h-[320px] md:h-[380px] bg-dark group cursor-pointer gsap-card">
+                    <img src="images/usluga-mycie-elewacji.png" class="absolute inset-0 w-full h-full object-cover object-center opacity-60 group-hover:opacity-80 transition-opacity" alt="Mycie elewacji" onerror="this.style.display='none'">
+                    <div class="absolute inset-0 bg-gradient-to-t from-dark/90 via-dark/40 to-transparent p-8 flex flex-col justify-end">
+                        <h3 class="font-heading font-bold text-2xl text-white">Mycie elewacji</h3>
+                        <p class="text-white/80 service-card-desc text-sm">Usuwamy glony, grzyby, smog i brud. Przywracamy oryginalny kolor tynku.</p>
+                    </div>
+                </div>
+                <!-- Karta 2 -->
+                <div class="service-card relative rounded-4xl overflow-hidden h-[320px] md:h-[380px] bg-dark group cursor-pointer gsap-card">
+                    <img src="images/usluga-mycie-dachu.png" class="absolute inset-0 w-full h-full object-cover object-center opacity-60 group-hover:opacity-80 transition-opacity" alt="Mycie dachu" onerror="this.style.display='none'">
+                    <div class="absolute inset-0 bg-gradient-to-t from-dark/90 via-dark/40 to-transparent p-8 flex flex-col justify-end">
+                        <h3 class="font-heading font-bold text-2xl text-white">Mycie dachu</h3>
+                        <p class="text-white/80 service-card-desc text-sm">Bezpieczne czyszczenie dachówek z mchu. Poprawa estetyki i żywotności.</p>
+                    </div>
+                </div>
+                <!-- Karta 3 -->
+                <div class="service-card relative rounded-4xl overflow-hidden h-[320px] md:h-[380px] bg-dark group cursor-pointer gsap-card">
+                    <img src="images/usluga-malowanie-elewacji.png" class="absolute inset-0 w-full h-full object-cover object-center opacity-60 group-hover:opacity-80 transition-opacity" alt="Malowanie elewacji" onerror="this.style.display='none'">
+                    <div class="absolute inset-0 bg-gradient-to-t from-dark/90 via-dark/40 to-transparent p-8 flex flex-col justify-end">
+                        <h3 class="font-heading font-bold text-2xl text-white">Malowanie elewacji</h3>
+                        <p class="text-white/80 service-card-desc text-sm">Trwałe farby fasadowe odporne na warunki atmosferyczne.</p>
+                    </div>
+                </div>
+                <!-- Karta 4 -->
+                <div class="service-card relative rounded-4xl overflow-hidden h-[320px] md:h-[380px] bg-dark group cursor-pointer gsap-card">
+                    <img src="images/usluga-malowanie-dachu.png" class="absolute inset-0 w-full h-full object-cover object-center opacity-60 group-hover:opacity-80 transition-opacity" alt="Malowanie dachu" onerror="this.style.display='none'">
+                    <div class="absolute inset-0 bg-gradient-to-t from-dark/90 via-dark/40 to-transparent p-8 flex flex-col justify-end">
+                        <h3 class="font-heading font-bold text-2xl text-white">Malowanie dachu</h3>
+                        <p class="text-white/80 service-card-desc text-sm">Antykorozyjne powłoki chroniące i odnawiające wygląd.</p>
+                    </div>
+                </div>
+                <!-- Karta 5 -->
+                <div class="service-card relative rounded-4xl overflow-hidden h-[320px] md:h-[380px] bg-dark group cursor-pointer gsap-card">
+                    <img src="images/usluga-impregnacja.png" class="absolute inset-0 w-full h-full object-cover object-center opacity-60 group-hover:opacity-80 transition-opacity" alt="Impregnacja" onerror="this.style.display='none'">
+                    <div class="absolute inset-0 bg-gradient-to-t from-dark/90 via-dark/40 to-transparent p-8 flex flex-col justify-end">
+                        <h3 class="font-heading font-bold text-2xl text-white">Impregnacja</h3>
+                        <p class="text-white/80 service-card-desc text-sm">Zabezpieczenie przed ponownym wnikaniem brudu i wilgoci.</p>
+                    </div>
+                </div>
+                <!-- Karta 6 -->
+                <div class="service-card relative rounded-4xl overflow-hidden h-[320px] md:h-[380px] bg-dark group cursor-pointer gsap-card">
+                    <img src="images/usluga-panele-pv.png" class="absolute inset-0 w-full h-full object-cover object-center opacity-60 group-hover:opacity-80 transition-opacity" alt="Mycie paneli PV" onerror="this.style.display='none'">
+                    <div class="absolute inset-0 bg-gradient-to-t from-dark/90 via-dark/40 to-transparent p-8 flex flex-col justify-end">
+                        <h3 class="font-heading font-bold text-2xl text-white">Mycie paneli PV</h3>
+                        <p class="text-white/80 service-card-desc text-sm">Mycie wodą demineralizowaną. Maksymalizacja wydajności.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-<script>
-const items = [
-  { key: 'organic-tech', src: 'variants/organic-gemini31.html', name: 'Organic Tech' },
-  { key: 'clean-slate-fixed', src: 'variants/custom-cleanslate-fixed.html', name: 'Clean Slate Fixed' },
-  { key: 'auto-animate', src: 'variants/custom-autoanimate.html', name: 'Auto-Animate' },
-  { key: 'power-wash', src: 'variants/custom-powerwash.html', name: 'Power Wash' },
-  { key: 'logos', src: 'variants/logos.html', name: 'Logotypy' },
-];
+    <!-- Filozofia -->
+    <section class="py-12 md:py-20 bg-bg px-4 flex flex-col items-center">
+        <!-- Subtelna linia dekoracyjna -->
+        <div class="w-full max-w-5xl h-[1px] bg-accent/30 mb-8 md:mb-12"></div>
+        
+        <div class="bg-dark rounded-[2rem] w-full max-w-5xl relative overflow-hidden py-16 md:py-24 px-6 md:px-12 flex flex-col items-center justify-center text-center shadow-xl">
+            <!-- Noise Overlay -->
+            <div class="absolute inset-0 opacity-[0.03] pointer-events-none mix-blend-overlay" style="background-image: url('data:image/svg+xml,%3Csvg viewBox=%220 0 200 200%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22noise%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.8%22 numOctaves=%223%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23noise)%22/%3E%3C/svg%3E');"></div>
+            
+            <!-- Parallax Texture -->
+            <div class="absolute inset-0 bg-[url('images/tekstura-filozofia.png')] bg-cover bg-center opacity-10 gs-parallax pointer-events-none"></div>
+            
+            <div class="relative z-10 w-full max-w-3xl flex flex-col items-center">
+                <div class="overflow-hidden mb-4 md:mb-6">
+                    <p class="filozofia-line font-mono text-white/40 tracking-widest uppercase text-xs md:text-sm line-through decoration-accent decoration-2">Wysokie ciśnienie to ryzyko</p>
+                </div>
+                <h2 class="font-heading text-3xl md:text-5xl lg:text-6xl leading-[1.1] flex flex-col gap-2">
+                    <div class="overflow-hidden pb-1">
+                        <span class="filozofia-line text-white font-bold block">Dobieramy ciśnienie.</span>
+                    </div>
+                    <div class="overflow-hidden pb-1">
+                        <span class="filozofia-line text-accent font-black italic block">Chronimy fasadę.</span>
+                    </div>
+                </h2>
+            </div>
+        </div>
+        
+        <!-- Subtelna linia dekoracyjna -->
+        <div class="w-full max-w-5xl h-[1px] bg-accent/30 mt-8 md:mt-12"></div>
 
-let currentIdx = 0;
+        <script>
+            document.addEventListener('DOMContentLoaded', () => {
+                if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
+                    gsap.fromTo('.filozofia-line', 
+                        { y: 80, opacity: 0 },
+                        { 
+                            y: 0, 
+                            opacity: 1, 
+                            duration: 1.2, 
+                            stagger: 0.15, 
+                            ease: 'power3.out',
+                            scrollTrigger: {
+                                trigger: '.bg-dark',
+                                start: 'top 80%',
+                                toggleActions: 'play none none reverse'
+                            }
+                        }
+                    );
+                }
+            });
+        </script>
+    </section>
 
-function openVariant(key) {
-  currentIdx = items.findIndex(i => i.key === key);
-  document.getElementById('viewer-frame').src = items[currentIdx].src;
-  document.getElementById('gallery').classList.add('hidden');
-  document.getElementById('viewer').classList.remove('hidden');
-  document.getElementById('back-btn').classList.add('visible');
-  document.getElementById('viewer-nav').classList.add('visible');
-  updateCounter();
-}
+    <!-- Współpraca krok po kroku -->
+    <section class="py-32 bg-white px-4">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-20 max-w-2xl mx-auto">
+                <h2 class="font-heading font-bold text-4xl md:text-5xl text-primary mb-6 gsap-fade-up">Współpraca krok po kroku</h2>
+                <p class="text-xl text-primary/70 gsap-fade-up">Prosto, bez chaosu i bez niespodzianek.</p>
+            </div>
 
-function closeViewer() {
-  document.getElementById('viewer').classList.add('hidden');
-  document.getElementById('gallery').classList.remove('hidden');
-  document.getElementById('back-btn').classList.remove('visible');
-  document.getElementById('viewer-nav').classList.remove('visible');
-  document.getElementById('viewer-frame').src = '';
-}
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Krok 1 -->
+                <div class="bg-bg rounded-4xl p-8 border border-black/5 gsap-step">
+                    <span class="font-heading font-black text-6xl text-accent/20 block mb-4">01</span>
+                    <h3 class="font-heading font-bold text-2xl mb-3 text-primary">Kontakt</h3>
+                    <p class="text-primary/70">Dzwonisz albo piszesz. Wyślij 2-3 zdjęcia elewacji/dachu.</p>
+                </div>
+                <!-- Krok 2 -->
+                <div class="bg-bg rounded-4xl p-8 border border-black/5 gsap-step">
+                    <span class="font-heading font-black text-6xl text-accent/20 block mb-4">02</span>
+                    <h3 class="font-heading font-bold text-2xl mb-3 text-primary">Rozmowa w ciągu 24h</h3>
+                    <p class="text-primary/70">Ustalamy zakres, termin, szczegóły.</p>
+                </div>
+                <!-- Krok 3 -->
+                <div class="bg-bg rounded-4xl p-8 border border-black/5 gsap-step">
+                    <span class="font-heading font-black text-6xl text-accent/20 block mb-4">03</span>
+                    <h3 class="font-heading font-bold text-2xl mb-3 text-primary">Wycena i plan</h3>
+                    <p class="text-primary/70">Bezpłatna wycena i plan realizacji.</p>
+                </div>
+                <!-- Krok 4 -->
+                <div class="bg-bg rounded-4xl p-8 border border-black/5 gsap-step">
+                    <span class="font-heading font-black text-6xl text-accent/20 block mb-4">04</span>
+                    <h3 class="font-heading font-bold text-2xl mb-3 text-primary">Zabezpieczenie posesji</h3>
+                    <p class="text-primary/70">Zabezpieczamy otoczenie i wyznaczamy strefę pracy.</p>
+                </div>
+                <!-- Krok 5 -->
+                <div class="bg-bg rounded-4xl p-8 border border-black/5 gsap-step">
+                    <span class="font-heading font-black text-6xl text-accent/20 block mb-4">05</span>
+                    <h3 class="font-heading font-bold text-2xl mb-3 text-primary">Realizacja</h3>
+                    <p class="text-primary/70">Mycie, malowanie, impregnacja wg ustalonego zakresu.</p>
+                </div>
+                <!-- Krok 6 -->
+                <div class="bg-bg rounded-4xl p-8 border border-black/5 gsap-step">
+                    <span class="font-heading font-black text-6xl text-accent/20 block mb-4">06</span>
+                    <h3 class="font-heading font-bold text-2xl mb-3 text-primary">Sprzątanie i odbiór</h3>
+                    <p class="text-primary/70">Sprzątamy, pokazujemy efekt, odbiór.</p>
+                </div>
+            </div>
+        </div>
+    </section>
 
-function navigateViewer(dir) {
-  currentIdx = (currentIdx + dir + items.length) % items.length;
-  document.getElementById('viewer-frame').src = items[currentIdx].src;
-  updateCounter();
-}
+    <!-- Podnośnik Koszowy -->
+    <section class="py-32 bg-secondary px-4 rounded-5xl mx-4 my-8">
+        <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+            <div class="space-y-8">
+                <h2 class="font-heading font-bold text-4xl md:text-5xl text-primary leading-tight gsap-fade-up">Dojedziemy tam, gdzie inni rozkładają ręce.</h2>
+                <p class="text-xl text-primary/80 gsap-fade-up">Nasz podnośnik koszowy ma tylko 83 cm szerokości...</p>
+                
+                <ul class="space-y-4 font-medium text-primary gsap-fade-up">
+                    <li class="flex items-start gap-3">
+                        <svg class="w-6 h-6 text-accent shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                        83 cm szerokości – wjazd przez wąskie bramy
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <svg class="w-6 h-6 text-accent shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                        Trudne miejsca – narożniki, podbitki, ciasne zabudowania
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <svg class="w-6 h-6 text-accent shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                        Bez rusztowań – mniej ingerencji, krótszy czas
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <svg class="w-6 h-6 text-accent shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                        Bezpieczna praca na wysokości
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <svg class="w-6 h-6 text-accent shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                        Szybciej niż tradycyjnie
+                    </li>
+                </ul>
 
-function updateCounter() {
-  document.getElementById('viewer-counter').textContent = `${currentIdx + 1}/${items.length}`;
-}
+                <div class="bg-white/50 p-6 rounded-3xl gsap-fade-up">
+                    <p class="text-sm font-bold text-primary mb-3 uppercase tracking-wider">Kiedy to robi różnicę:</p>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="px-3 py-1 bg-white rounded-full text-xs font-medium border border-black/5">wąski wjazd</span>
+                        <span class="px-3 py-1 bg-white rounded-full text-xs font-medium border border-black/5">dom blisko ogrodzenia</span>
+                        <span class="px-3 py-1 bg-white rounded-full text-xs font-medium border border-black/5">zagospodarowany ogród</span>
+                        <span class="px-3 py-1 bg-white rounded-full text-xs font-medium border border-black/5">brak miejsca na rusztowanie</span>
+                        <span class="px-3 py-1 bg-white rounded-full text-xs font-medium border border-black/5">trudny dostęp do dachu</span>
+                    </div>
+                </div>
 
-document.addEventListener('keydown', (e) => {
-  if (document.getElementById('viewer').classList.contains('hidden')) return;
-  if (e.key === 'ArrowLeft') { navigateViewer(-1); e.preventDefault(); }
-  if (e.key === 'ArrowRight') { navigateViewer(1); e.preventDefault(); }
-  if (e.key === 'Escape') { closeViewer(); e.preventDefault(); }
-});
-</script>
+                <div class="pt-4 gsap-fade-up">
+                    <a href="#wycena" class="btn-magnetic bg-accent text-white px-8 py-4 rounded-full font-bold text-lg inline-flex">
+                        <span class="btn-bg-slide rounded-full"></span>
+                        <span class="relative z-10">Sprawdź dojazd – wycena w 24h</span>
+                    </a>
+                    <p class="text-xs text-primary/60 mt-3 font-mono">Wyślij zdjęcie wjazdu i elewacji – powiemy od razu, czy wjedziemy.</p>
+                </div>
+            </div>
+            <div class="relative h-[600px] rounded-4xl overflow-hidden bg-dark gsap-fade-up">
+                <img src="images/podnosnik-1.jpg" class="w-full h-full object-cover" alt="Podnośnik koszowy" onerror="this.style.display='none'">
+            </div>
+        </div>
+    </section>
+
+    <!-- Dlaczego Ustowski -->
+    <section id="firma" class="py-32 bg-bg px-4">
+        <div class="max-w-7xl mx-auto">
+            <div class="mb-20">
+                <h2 class="font-heading font-bold text-4xl md:text-5xl text-primary mb-6 gsap-fade-up">Dlaczego Ustowski</h2>
+                <p class="text-xl text-primary/70 max-w-2xl gsap-fade-up">Nie obiecujemy jakości – pokazujemy konkretne rozwiązania.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- USP 1 -->
+                <div class="bg-white p-8 rounded-4xl border border-black/5 shadow-sm hover:shadow-md transition-shadow gsap-usp">
+                    <h3 class="font-heading font-bold text-xl mb-4 text-primary">Podnośnik gąsienicowy 83 cm</h3>
+                    <p class="text-sm font-mono text-accent mb-2 uppercase tracking-wide">Fakt:</p>
+                    <p class="text-primary/70 mb-4 text-sm">Maszyna wjeżdża przez furtkę.</p>
+                    <p class="text-sm font-mono text-accent mb-2 uppercase tracking-wide">Co to daje:</p>
+                    <p class="text-primary font-medium">Wjazd w wąskie przejazdy, eliminuje rusztowania.</p>
+                </div>
+                <!-- USP 2 -->
+                <div class="bg-white p-8 rounded-4xl border border-black/5 shadow-sm hover:shadow-md transition-shadow gsap-usp">
+                    <h3 class="font-heading font-bold text-xl mb-4 text-primary">Mobilny warsztat</h3>
+                    <p class="text-sm font-mono text-accent mb-2 uppercase tracking-wide">Fakt:</p>
+                    <p class="text-primary/70 mb-4 text-sm">Posiadamy własne zasilanie i wodę.</p>
+                    <p class="text-sm font-mono text-accent mb-2 uppercase tracking-wide">Co to daje:</p>
+                    <p class="text-primary font-medium">Pełna samowystarczalność, zero przestojów.</p>
+                </div>
+                <!-- USP 3 -->
+                <div class="bg-white p-8 rounded-4xl border border-black/5 shadow-sm hover:shadow-md transition-shadow gsap-usp md:col-span-2 lg:col-span-1">
+                    <h3 class="font-heading font-bold text-xl mb-4 text-primary">Standard bezpieczeństwa</h3>
+                    <p class="text-sm font-mono text-accent mb-2 uppercase tracking-wide">Fakt:</p>
+                    <p class="text-primary/70 mb-4 text-sm">Właściciel firmy to czynny strażak PSP.</p>
+                    <p class="text-sm font-mono text-accent mb-2 uppercase tracking-wide">Co to daje:</p>
+                    <p class="text-primary font-medium">Przenosi standardy ze służby na realizację. Profesjonalne procedury pracy na wysokości.</p>
+                </div>
+                <!-- USP 4 -->
+                <div class="bg-white p-8 rounded-4xl border border-black/5 shadow-sm hover:shadow-md transition-shadow gsap-usp">
+                    <h3 class="font-heading font-bold text-xl mb-4 text-primary">Nowoczesne technologie</h3>
+                    <p class="text-sm font-mono text-accent mb-2 uppercase tracking-wide">Fakt:</p>
+                    <p class="text-primary/70 mb-4 text-sm">Wałki natryskowe, drony inspekcyjne.</p>
+                    <p class="text-sm font-mono text-accent mb-2 uppercase tracking-wide">Co to daje:</p>
+                    <p class="text-primary font-medium">Szybkość, precyzja i bezpieczeństwo wyceny.</p>
+                </div>
+                <!-- USP 5 -->
+                <div class="bg-white p-8 rounded-4xl border border-black/5 shadow-sm hover:shadow-md transition-shadow gsap-usp">
+                    <h3 class="font-heading font-bold text-xl mb-4 text-primary">Zabezpieczenie i porządek</h3>
+                    <p class="text-sm font-mono text-accent mb-2 uppercase tracking-wide">Fakt:</p>
+                    <p class="text-primary/70 mb-4 text-sm">Rozkładamy czerwone maty ochronne.</p>
+                    <p class="text-sm font-mono text-accent mb-2 uppercase tracking-wide">Co to daje:</p>
+                    <p class="text-primary font-medium">Zabezpieczona posesja i idealny porządek po pracy.</p>
+                </div>
+                <!-- USP 6 -->
+                <div class="bg-white p-8 rounded-4xl border border-black/5 shadow-sm hover:shadow-md transition-shadow gsap-usp">
+                    <h3 class="font-heading font-bold text-xl mb-4 text-primary">OC + Flota za 350k+ zł</h3>
+                    <p class="text-sm font-mono text-accent mb-2 uppercase tracking-wide">Fakt:</p>
+                    <p class="text-primary/70 mb-4 text-sm">Przemysłowy sprzęt i pełna polisa.</p>
+                    <p class="text-sm font-mono text-accent mb-2 uppercase tracking-wide">Co to daje:</p>
+                    <p class="text-primary font-medium">Spokój, ubezpieczenie szkód, jakość premium.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Before/After Realizacje -->
+    <section id="realizacje" class="py-32 bg-white px-4">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="font-heading font-bold text-4xl md:text-5xl text-primary mb-16 text-center gsap-fade-up">Efekt, który widać</h2>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <!-- Realizacja 1 -->
+                <div class="space-y-4 gsap-fade-up">
+                    <div class="mini-slider js-mini-slider">
+                        <img src="images/realizacja1-po.png" class="mini-after" alt="Po" onerror="this.src=''; this.style.background='#ddd'">
+                        <img src="images/realizacja1-przed.png" class="mini-before grayscale brightness-75" alt="Przed" onerror="this.src=''; this.style.background='#999'">
+                        <div class="mini-handle"></div>
+                    </div>
+                    <div>
+                        <h4 class="font-heading font-bold text-xl">Mycie elewacji</h4>
+                        <p class="text-primary/60 text-sm flex items-center gap-1 mt-1">
+                            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                            Gdynia Orłowo
+                        </p>
+                    </div>
+                </div>
+                <!-- Realizacja 2 -->
+                <div class="space-y-4 gsap-fade-up">
+                    <div class="mini-slider js-mini-slider">
+                        <img src="images/realizacja2-po.png" class="mini-after" alt="Po" onerror="this.src=''; this.style.background='#ddd'">
+                        <img src="images/realizacja2-przed.png" class="mini-before grayscale brightness-75" alt="Przed" onerror="this.src=''; this.style.background='#999'">
+                        <div class="mini-handle"></div>
+                    </div>
+                    <div>
+                        <h4 class="font-heading font-bold text-xl">Mycie dachu</h4>
+                        <p class="text-primary/60 text-sm flex items-center gap-1 mt-1">
+                            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                            Rumia
+                        </p>
+                    </div>
+                </div>
+                <!-- Realizacja 3 -->
+                <div class="space-y-4 gsap-fade-up">
+                    <div class="mini-slider js-mini-slider">
+                        <img src="images/realizacja3-po.png" class="mini-after" alt="Po" onerror="this.src=''; this.style.background='#ddd'">
+                        <img src="images/realizacja3-przed.png" class="mini-before grayscale brightness-75" alt="Przed" onerror="this.src=''; this.style.background='#999'">
+                        <div class="mini-handle"></div>
+                    </div>
+                    <div>
+                        <h4 class="font-heading font-bold text-xl">Malowanie elewacji</h4>
+                        <p class="text-primary/60 text-sm flex items-center gap-1 mt-1">
+                            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                            Wejherowo
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Formularz Wyceny -->
+    <section id="wycena" class="py-32 bg-dark text-white px-4 mx-4 rounded-5xl">
+        <div class="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-5 gap-16">
+            <div class="lg:col-span-2 space-y-8">
+                <h2 class="font-heading font-bold text-4xl md:text-5xl leading-tight text-balance">Bezpłatna wycena w 24h</h2>
+                <p class="text-white/70">Wypełnij formularz lub zadzwoń bezpośrednio. Odpowiadamy sprawnie, doradzamy uczciwie.</p>
+                
+                <div class="space-y-6 pt-4">
+                    <a href="tel:+48500600700" class="flex items-center gap-4 group">
+                        <div class="w-12 h-12 rounded-full bg-accent/20 flex items-center justify-center text-accent group-hover:bg-accent group-hover:text-white transition-colors">
+                            <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path></svg>
+                        </div>
+                        <div>
+                            <p class="text-sm text-white/50 mb-1">Zadzwoń do nas</p>
+                            <p class="font-mono font-bold text-xl">+48 500 600 700</p>
+                        </div>
+                    </a>
+                    
+                    <a href="https://wa.me/48500600700" class="flex items-center gap-4 group">
+                        <div class="w-12 h-12 rounded-full bg-[#25D366]/20 flex items-center justify-center text-[#25D366] group-hover:bg-[#25D366] group-hover:text-white transition-colors">
+                            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg>
+                        </div>
+                        <div>
+                            <p class="text-sm text-white/50 mb-1">Napisz na WhatsApp</p>
+                            <p class="font-mono font-bold text-xl">Szybka odpowiedź</p>
+                        </div>
+                    </a>
+                </div>
+                
+                <div class="pt-8">
+                        Sprawdź cennik orientacyjny
+                        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                    </a>
+                </div>
+            </div>
+            
+            <div class="lg:col-span-3 bg-primary rounded-4xl p-8 md:p-10 border border-white/5">
+                <form class="space-y-6">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="space-y-2">
+                            <label class="text-sm font-medium text-white/70">Imię i nazwisko</label>
+                            <input type="text" class="w-full bg-white/5 border border-white/10 rounded-2xl px-4 py-3 text-white focus:outline-none focus:border-accent transition-colors" placeholder="Jan Kowalski">
+                        </div>
+                        <div class="space-y-2">
+                            <label class="text-sm font-medium text-white/70">Telefon</label>
+                            <input type="tel" class="w-full bg-white/5 border border-white/10 rounded-2xl px-4 py-3 text-white focus:outline-none focus:border-accent transition-colors" placeholder="+48 --- --- ---">
+                        </div>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="space-y-2">
+                            <label class="text-sm font-medium text-white/70">Rodzaj usługi</label>
+                            <select class="w-full bg-white/5 border border-white/10 rounded-2xl px-4 py-3 text-white focus:outline-none focus:border-accent transition-colors appearance-none">
+                                <option value="" disabled selected class="text-black">Wybierz usługę...</option>
+                                <option value="elewacja-mycie" class="text-black">Mycie elewacji</option>
+                                <option value="elewacja-malowanie" class="text-black">Malowanie elewacji</option>
+                                <option value="dach-mycie" class="text-black">Mycie dachu</option>
+                                <option value="dach-malowanie" class="text-black">Malowanie dachu</option>
+                                <option value="inne" class="text-black">Inne / Kompleksowo</option>
+                            </select>
+                        </div>
+                        <div class="space-y-2">
+                            <label class="text-sm font-medium text-white/70">Orientacyjna powierzchnia (m²)</label>
+                            <input type="number" class="w-full bg-white/5 border border-white/10 rounded-2xl px-4 py-3 text-white focus:outline-none focus:border-accent transition-colors" placeholder="np. 150">
+                        </div>
+                    </div>
+                    
+                    <div class="space-y-2">
+                        <label class="text-sm font-medium text-white/70">Wiadomość (opcjonalnie)</label>
+                        <textarea rows="3" class="w-full bg-white/5 border border-white/10 rounded-2xl px-4 py-3 text-white focus:outline-none focus:border-accent transition-colors resize-none" placeholder="Opisz krótko stan, dostęp, np. 'dom piętrowy, wąski wjazd'"></textarea>
+                    </div>
+
+                    <div class="space-y-2">
+                        <label class="text-sm font-medium text-white/70">Dodaj zdjęcie (przyspieszy wycenę)</label>
+                        <div class="w-full border border-dashed border-white/20 rounded-2xl p-6 text-center cursor-pointer hover:bg-white/5 transition-colors">
+                            <svg class="w-8 h-8 text-white/40 mx-auto mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"></path></svg>
+                            <p class="text-sm text-white/60">Kliknij lub przeciągnij plik tutaj</p>
+                            <input type="file" class="hidden" accept="image/*" multiple>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-start gap-3">
+                        <input type="checkbox" id="rodo" class="mt-1.5 rounded bg-white/5 border-white/10 text-accent focus:ring-accent accent-accent">
+                        <label for="rodo" class="text-xs text-white/50 leading-relaxed">
+                            Wyrażam zgodę na przetwarzanie danych osobowych w celu przedstawienia oferty. Szczegóły w <a href="#" class="underline hover:text-white">Polityce prywatności</a>.
+                        </label>
+                    </div>
+                    
+                    <button type="button" class="btn-magnetic w-full bg-accent text-white px-8 py-4 rounded-full font-bold text-lg mt-4">
+                        <span class="btn-bg-slide rounded-full"></span>
+                        <span class="relative z-10">Wyślij zapytanie</span>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white pt-24 pb-8 mt-16 rounded-t-5xl px-4">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
+                <div class="space-y-6">
+                    <a href="#" class="block"><img src="images/logo-ustowski.png" alt="Ustowski - czyszczenie · malowanie" class="h-14 w-auto"></a>
+                    <p class="text-white/60 text-sm leading-relaxed max-w-xs">
+                        Profesjonalne mycie i malowanie elewacji i dachów. Trójmiasto, Kaszuby i całe województwo pomorskie.
+                    </p>
+                </div>
+                
+                <div>
+                    <h4 class="font-heading font-bold text-lg mb-6">Nawigacja</h4>
+                    <ul class="space-y-3 text-sm text-white/70">
+                        <li><a href="#uslugi" class="hover:text-accent transition-colors">Usługi</a></li>
+                        <li><a href="#firma" class="hover:text-accent transition-colors">O firmie</a></li>
+                        <li><a href="#kontakt" class="hover:text-accent transition-colors">Kontakt</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="font-heading font-bold text-lg mb-6">Kontakt</h4>
+                    <ul class="space-y-3 text-sm text-white/70 font-mono">
+                        <li><a href="tel:+48500600700" class="hover:text-accent transition-colors">+48 500 600 700</a></li>
+                        <li><a href="mailto:kontakt@ustowski.pl" class="hover:text-accent transition-colors">kontakt@ustowski.pl</a></li>
+                        <li class="font-sans mt-4">ul. Przykładowa 12<br>80-000 Gdańsk</li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="font-heading font-bold text-lg mb-6">Social Media</h4>
+                    <div class="flex gap-4">
+                        <a href="#" class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-accent transition-colors">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.469h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.469h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-accent transition-colors">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+                        </a>
+                        <a href="https://wa.me/48500600700" class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-[#25D366] transition-colors">
+                           <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-white/40">
+                <p>&copy; 2026 Ustowski.pl. Wszelkie prawa zastrzeżone.</p>
+                <a href="polityka-prywatnosci.html" class="hover:text-white/70 transition-colors">Polityka prywatności</a>
+                <div class="flex gap-4">
+                    <a href="#" class="hover:text-white transition-colors">Polityka prywatności</a>
+                    <a href="#" class="hover:text-white transition-colors">Regulamin</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JS Logic -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            
+            gsap.registerPlugin(ScrollTrigger);
+
+            // 1. Navbar Morphing
+            const nav = document.getElementById('navbar');
+            ScrollTrigger.create({
+                start: 'top -100',
+                end: 99999,
+                toggleClass: {className: 'transparent', targets: nav},
+                onUpdate: (self) => {
+                    if (self.isActive) nav.classList.remove('transparent');
+                    else nav.classList.add('transparent');
+                }
+            });
+
+            // 2. Main Before/After Slider
+            const heroSlider = document.getElementById('heroSlider');
+            if (heroSlider) {
+                const beforeImage = heroSlider.querySelector('.ba-before');
+                const handle = heroSlider.querySelector('.ba-handle');
+                let isDown = false;
+
+                const moveSlider = (e) => {
+                    if (!isDown) return;
+                    e.preventDefault();
+                    let x;
+                    if(e.type === 'touchmove') {
+                        x = e.touches[0].clientX;
+                    } else {
+                        x = e.clientX;
+                    }
+                    const rect = heroSlider.getBoundingClientRect();
+                    let pos = ((x - rect.left) / rect.width) * 100;
+                    if(pos < 0) pos = 0;
+                    if(pos > 100) pos = 100;
+                    beforeImage.style.clipPath = `polygon(0 0, ${pos}% 0, ${pos}% 100%, 0 100%)`;
+                    handle.style.left = `${pos}%`;
+                };
+
+                heroSlider.addEventListener('mousedown', (e) => { isDown = true; moveSlider(e); });
+                heroSlider.addEventListener('touchstart', (e) => { isDown = true; moveSlider(e); });
+                window.addEventListener('mouseup', () => isDown = false);
+                window.addEventListener('touchend', () => isDown = false);
+                window.addEventListener('mousemove', moveSlider);
+                window.addEventListener('touchmove', moveSlider, {passive: false});
+            }
+
+            // 3. Mini Before/After Sliders
+            document.querySelectorAll('.js-mini-slider').forEach(slider => {
+                const beforeImg = slider.querySelector('.mini-before');
+                const handle = slider.querySelector('.mini-handle');
+                let isDown = false;
+
+                const moveSlider = (e) => {
+                    if (!isDown) return;
+                    e.preventDefault();
+                    let x;
+                    if(e.type === 'touchmove') {
+                        x = e.touches[0].clientX;
+                    } else {
+                        x = e.clientX;
+                    }
+                    const rect = slider.getBoundingClientRect();
+                    let pos = ((x - rect.left) / rect.width) * 100;
+                    if(pos < 0) pos = 0;
+                    if(pos > 100) pos = 100;
+                    beforeImg.style.clipPath = `polygon(0 0, ${pos}% 0, ${pos}% 100%, 0 100%)`;
+                    handle.style.left = `${pos}%`;
+                };
+
+                slider.addEventListener('mousedown', (e) => { isDown = true; moveSlider(e); });
+                slider.addEventListener('touchstart', (e) => { isDown = true; moveSlider(e); });
+                slider.addEventListener('mousemove', moveSlider);
+                slider.addEventListener('touchmove', moveSlider, {passive: false});
+                
+                // Stop drag on document
+                const stopDrag = () => isDown = false;
+                document.addEventListener('mouseup', stopDrag);
+                document.addEventListener('touchend', stopDrag);
+            });
+
+            // 4. Hero Text Entrance
+            gsap.from('.gsap-hero-text', {
+                y: 50,
+                opacity: 0,
+                duration: 1.2,
+                stagger: 0.15,
+                ease: "power3.out",
+                delay: 0.2
+            });
+
+            // 5. Standard Fade Ups
+            gsap.utils.toArray('.gsap-fade-up').forEach(el => {
+                gsap.from(el, {
+                    scrollTrigger: {
+                        trigger: el,
+                        start: "top 85%",
+                        toggleActions: "play none none reverse"
+                    },
+                    y: 40,
+                    opacity: 0,
+                    duration: 0.8,
+                    ease: "power3.out"
+                });
+            });
+
+            // 6. Staggered Elements (Trust, Cards, Steps, USPs)
+            const staggerSections = [
+                { items: '.gsap-trust', trigger: '.gsap-trust', y: 30 },
+                { items: '.gsap-card', trigger: '#uslugi', y: 50 },
+                { items: '.gsap-step', trigger: '.gsap-step', y: 40 },
+                { items: '.gsap-usp', trigger: '.gsap-usp', y: 40 }
+            ];
+
+            staggerSections.forEach(sec => {
+                gsap.from(sec.items, {
+                    scrollTrigger: {
+                        trigger: document.querySelector(sec.trigger).parentNode,
+                        start: "top 80%",
+                    },
+                    y: sec.y,
+                    opacity: 0,
+                    duration: 0.8,
+                    stagger: 0.15,
+                    ease: "power3.out"
+                });
+            });
+
+            // 7. Word-by-Word Reveal (Manifesto)
+            const manifesto = document.querySelector('.manifesto-text');
+            if (manifesto) {
+                const text = manifesto.innerText;
+                manifesto.innerHTML = '';
+                text.split(' ').forEach(word => {
+                    const span = document.createElement('span');
+                    span.innerText = word + ' ';
+                    span.className = 'reveal-word inline-block';
+                    manifesto.appendChild(span);
+                });
+
+                gsap.to('.reveal-word', {
+                    scrollTrigger: {
+                        trigger: manifesto,
+                        start: "top 75%",
+                        end: "bottom 40%",
+                        scrub: 1
+                    },
+                    opacity: 1,
+                    stagger: 0.1,
+                    ease: "none"
+                });
+            }
+
+            // 8. Parallax Background
+            gsap.to('.gs-parallax', {
+                scrollTrigger: {
+                    trigger: '.gs-parallax',
+                    start: "top bottom",
+                    end: "bottom top",
+                    scrub: true
+                },
+                y: 100,
+                ease: "none"
+            });
+        });
+    </script>
 </body>
 </html>
