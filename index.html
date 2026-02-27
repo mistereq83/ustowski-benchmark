@@ -248,7 +248,25 @@
                 <span class="relative z-10">Bezpłatna wycena</span>
             </a>
         </div>
+
+            <button id="mobile-menu-btn" class="lg:hidden w-11 h-11 flex items-center justify-center rounded-full z-[101]" aria-label="Menu">
+                <svg id="menu-icon-open" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+                <svg id="menu-icon-close" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="hidden"><path d="M18 6L6 18M6 6l12 12"/></svg>
+            </button>
     </nav>
+
+    <!-- Mobile Menu Overlay -->
+    <div id="mobile-menu-overlay" class="fixed inset-0 bg-dark/95 backdrop-blur-lg z-[100] hidden flex-col items-center justify-center text-white text-center">
+        <nav class="flex flex-col gap-8 text-2xl font-medium font-heading">
+            <a href="index.html#uslugi" class="mobile-menu-link hover:text-accent transition-colors">Usługi</a>
+            <a href="o-firmie.html" class="mobile-menu-link hover:text-accent transition-colors">O firmie</a>
+            <a href="kontakt.html" class="mobile-menu-link hover:text-accent transition-colors">Kontakt</a>
+        </nav>
+        <div class="mt-12 flex flex-col items-center gap-6">
+            <a href="tel:+48663719372" class="font-mono text-xl hover:text-accent transition-colors">663 719 372</a>
+        </div>
+    </div>
+
 
     <!-- Hero -->
     <section class="relative h-[100dvh] w-full overflow-hidden">
@@ -795,6 +813,33 @@
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             
+
+            // Mobile Menu Toggle
+            const menuBtn = document.getElementById('mobile-menu-btn');
+            const menuOverlay = document.getElementById('mobile-menu-overlay');
+            const menuIconOpen = document.getElementById('menu-icon-open');
+            const menuIconClose = document.getElementById('menu-icon-close');
+            const mobileMenuLinks = document.querySelectorAll('.mobile-menu-link');
+
+            const toggleMenu = () => {
+                const isOpen = menuOverlay.classList.contains('flex');
+                if (isOpen) {
+                    menuOverlay.classList.remove('flex');
+                    menuOverlay.classList.add('hidden');
+                    menuIconOpen.classList.remove('hidden');
+                    menuIconClose.classList.add('hidden');
+                    document.body.style.overflow = '';
+                } else {
+                    menuOverlay.classList.remove('hidden');
+                    menuOverlay.classList.add('flex');
+                    menuIconOpen.classList.add('hidden');
+                    menuIconClose.classList.remove('hidden');
+                    document.body.style.overflow = 'hidden';
+                }
+            };
+            if (menuBtn) menuBtn.addEventListener('click', toggleMenu);
+            mobileMenuLinks.forEach(link => link.addEventListener('click', toggleMenu));
+
             gsap.registerPlugin(ScrollTrigger);
 
             // 1. Navbar Morphing
