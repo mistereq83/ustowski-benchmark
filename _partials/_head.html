@@ -57,6 +57,23 @@
         .glass-nav { background: rgba(250, 250, 250, 0.7); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border: 1px solid rgba(255,255,255,0.2); transition: background 0.3s ease, backdrop-filter 0.3s ease; }
         .text-balance { text-wrap: balance; }
         .reveal-word { opacity: 0.2; }
+        /* Before-After Slider */
+        .ba-slider { position: relative; width: 100%; height: 70vh; overflow: hidden; user-select: none; }
+        @media (min-width: 768px) { .ba-slider { height: 100dvh; } }
+        .ba-slider img { width: 100%; height: 100%; object-fit: cover; position: absolute; top: 0; left: 0; pointer-events: none; }
+        .ba-before { clip-path: polygon(0 0, 50% 0, 50% 100%, 0 100%); z-index: 2; }
+        .ba-after { z-index: 1; }
+        .ba-handle { position: absolute; top: 0; bottom: 0; left: 50%; width: 2px; background: #F06820; z-index: 3; transform: translateX(-50%); cursor: ew-resize; }
+        .ba-handle::before { content: ''; position: absolute; top: 0; bottom: 0; left: -20px; width: 42px; background: transparent; }
+        .ba-handle-btn { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 36px; height: 36px; background: #F06820; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; box-shadow: 0 4px 12px rgba(240, 104, 32, 0.3); }
+        @media (min-width: 768px) { .ba-handle-btn { width: 48px; height: 48px; } }
+        /* Mini Slider */
+        .mini-slider { position: relative; width: 100%; aspect-ratio: 4/3; overflow: hidden; border-radius: 2rem; user-select: none; }
+        .mini-slider img { width: 100%; height: 100%; object-fit: cover; position: absolute; top: 0; left: 0; pointer-events: none; }
+        .mini-before { clip-path: polygon(0 0, 50% 0, 50% 100%, 0 100%); z-index: 2; }
+        .mini-after { z-index: 1; }
+        .mini-handle { position: absolute; top: 0; bottom: 0; left: 50%; width: 2px; background: #F06820; z-index: 3; transform: translateX(-50%); cursor: ew-resize; }
+        /* Service Cards */
         .service-card { filter: grayscale(100%); transition: filter 0.5s ease, transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
         .service-card:hover { filter: grayscale(0%); transform: scale(1.02); }
         .service-card-desc { display: none; }
