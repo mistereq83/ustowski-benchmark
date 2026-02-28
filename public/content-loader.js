@@ -40,7 +40,14 @@
   }
 
   function loadReviews(reviews) {
-    if (!reviews || !reviews.length) return;
+    // Hide review sections if no reviews yet
+    if (!reviews || !reviews.length) {
+      document.querySelectorAll('[data-reviews]').forEach(container => {
+        const section = container.closest('section');
+        if (section) section.style.display = 'none';
+      });
+      return;
+    }
     
     // Find all review containers
     document.querySelectorAll('[data-reviews]').forEach(container => {
@@ -53,16 +60,20 @@
       }
       filtered = filtered.slice(0, limit);
       
-      if (!filtered.length) return;
+      if (!filtered.length) {
+        const section = container.closest('section');
+        if (section) section.style.display = 'none';
+        return;
+      }
       
       container.innerHTML = filtered.map(r => `
-        <div class="bg-white rounded-2xl p-6 border border-primary/5">
+        <div class="bg-bg rounded-2xl p-6 border border-primary/5">
           <div class="flex items-center gap-1 mb-3">
-            ${'<span class="text-yellow-400">★</span>'.repeat(r.rating)}${'<span class="text-gray-300">★</span>'.repeat(5-r.rating)}
+            ${Array(r.rating).fill('<span class="text-yellow-400 text-lg">★</span>').join('')}${Array(5-r.rating).fill('<span class="text-gray-300 text-lg">★</span>').join('')}
           </div>
-          <p class="text-primary/80 mb-4 italic">"${r.text}"</p>
+          <p class="text-primary/80 mb-4 italic leading-relaxed">"${r.text}"</p>
           <div class="flex items-center justify-between">
-            <span class="font-medium text-sm">${r.name}</span>
+            <span class="font-heading font-medium text-sm">${r.name}</span>
             <span class="text-primary/40 text-xs font-mono">${cityNames[r.city] || r.city}</span>
           </div>
         </div>
@@ -71,7 +82,11 @@
   }
 
   function loadProjects(projects) {
-    if (!projects || !projects.length) return;
+    if (!projects || !projects.length) {
+      // Hide empty dynamic project containers
+      document.querySelectorAll('[data-projects]').forEach(c => c.style.display = 'none');
+      return;
+    }
     
     // Find all project containers
     document.querySelectorAll('[data-projects]').forEach(container => {
