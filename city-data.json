@@ -1,0 +1,251 @@
+{
+  "cities": {
+    "gdansk": {
+      "name": "Gdańsk",
+      "locative": "Gdańsku",
+      "genitive": "Gdańska",
+      "slug": "gdansk",
+      "distance": "25",
+      "drive_time": "~30 min",
+      "characteristics": {
+        "climate": "Bliskość Morza Bałtyckiego powoduje zwiększoną wilgotność i zasolenie powietrza, co przyspiesza degradację elewacji i pokryć dachowych.",
+        "building_types": "Gdańsk to mozaika zabudowy — od kamienic Głównego Miasta, przez willowe dzielnice Oliwy i Wrzeszcza, po nowoczesne osiedla Jasienia i Ujeściska.",
+        "problems": "Morska bryza niesie sól, która w połączeniu z wilgocią tworzy idealne warunki dla glonów, mchów i korozji. Budynki w sąsiedztwie parków i lasów (Trójmiejski Park Krajobrazowy) są szczególnie narażone."
+      },
+      "challenges": {
+        "1": {
+          "icon": "🌊",
+          "title": "Klimat morski",
+          "desc": "Zasolone powietrze i wilgoć z Bałtyku przyspieszają porastanie elewacji glonami i degradację powłok malarskich."
+        },
+        "2": {
+          "icon": "🌲",
+          "title": "Tereny zielone",
+          "desc": "Bliskość Trójmiejskiego Parku Krajobrazowego oznacza intensywne zarastanie mchami i porostami, szczególnie na dachach."
+        },
+        "3": {
+          "icon": "🏘️",
+          "title": "Zróżnicowana zabudowa",
+          "desc": "Od kamienic po nowoczesne domy — każdy typ elewacji wymaga indywidualnego doboru metody i środków."
+        }
+      }
+    },
+    "gdynia": {
+      "name": "Gdynia",
+      "locative": "Gdyni",
+      "genitive": "Gdyni",
+      "slug": "gdynia",
+      "distance": "35",
+      "drive_time": "~40 min",
+      "characteristics": {
+        "climate": "Gdynia, położona na klifach nadmorskich, jest szczególnie narażona na silne wiatry i zasolenie. Elewacje domów na Wzgórzu Św. Maksymiliana czy w Orłowie wymagają regularnej konserwacji.",
+        "building_types": "Miasto łączy modernistyczną zabudowę centrum (słynny styl gdyński) z willowymi dzielnicami Orłowa, Redłowa i Małego Kacka — pełnymi domów jednorodzinnych z lat 30. do współczesnych.",
+        "problems": "Wiatr z morza nanosi sól na elewacje. Strome zbocza i klify powodują dodatkową wilgoć. Domy na wzniesieniach (Kamienna Góra, Działki Leśne) często mają problem z mchami na dachach od strony północnej."
+      },
+      "challenges": {
+        "1": {
+          "icon": "💨",
+          "title": "Silne wiatry",
+          "desc": "Nadmorskie położenie i ekspozycja na wiatry bałtyckie powodują szybszą erozję powłok malarskich i nanoszenie zanieczyszczeń."
+        },
+        "2": {
+          "icon": "⛰️",
+          "title": "Teren pagórkowaty",
+          "desc": "Domy na wzniesieniach (Kamienna Góra, Orłowo) wymagają specjalistycznego sprzętu — nasz podnośnik 83 cm wjeżdża wszędzie."
+        },
+        "3": {
+          "icon": "🏛️",
+          "title": "Zabudowa modernistyczna",
+          "desc": "Gdyński modernizm to jasne tynki, które łatwo się brudzą. Wymagają delikatnych metod czyszczenia zachowujących charakter budynku."
+        }
+      }
+    },
+    "sopot": {
+      "name": "Sopot",
+      "locative": "Sopocie",
+      "genitive": "Sopotu",
+      "slug": "sopot",
+      "distance": "30",
+      "drive_time": "~35 min",
+      "characteristics": {
+        "climate": "Sopot to miasto willowe — gęsta zabudowa jednorodzinna wśród drzew, co oznacza wilgoć, cień i idealne warunki dla porostów. Bliskość morza dodaje zasolenie.",
+        "building_types": "Dominują wille i domy jednorodzinne, często zabytkowe, otoczone dojrzałą zielenią. Dzielnice jak Kamienny Potok, Brodwino czy Przylesie to typowe osiedla domów premium.",
+        "problems": "Drzewa otaczające domy tworzą cień i blokują schnięcie — idealne warunki dla glonów i mchów. Liście zatykają rynny. Zabytkowe elewacje wymagają szczególnej ostrożności przy czyszczeniu."
+      },
+      "challenges": {
+        "1": {
+          "icon": "🌳",
+          "title": "Gęsta roślinność",
+          "desc": "Willowe dzielnice otoczone drzewami — cień i wilgoć sprzyjają porostom, glony pokrywają elewacje od strony północnej."
+        },
+        "2": {
+          "icon": "🏡",
+          "title": "Domy premium",
+          "desc": "Właściciele sopockich willi oczekują najwyższej jakości. Dbamy o każdy detal — od zabezpieczenia ogrodu po sprzątanie po pracy."
+        },
+        "3": {
+          "icon": "🏚️",
+          "title": "Zabytkowe elewacje",
+          "desc": "Stare tynki i ceglane detale wymagają delikatnych metod. Dobieramy ciśnienie i preparaty indywidualnie do wieku budynku."
+        }
+      }
+    }
+  },
+  "services": {
+    "mycie-elewacji": {
+      "name": "Mycie elewacji",
+      "name_short": "mycie elewacji",
+      "name_genitive": "mycia elewacji",
+      "page": "mycie-elewacji.html",
+      "hero_img": "usluga-mycie-elewacji.webp",
+      "price_range": "13–18",
+      "price_unit": "zł/m² z odgrzybianiem",
+      "price_note": "Cena obejmuje mycie ciśnieniowe z odgrzybianiem i preparatem biobójczym.",
+      "process_step3": "Zabezpieczamy otoczenie, myjemy elewację profesjonalnym sprzętem i nakładamy środek biobójczy.",
+      "intro_templates": {
+        "gdansk": {
+          "headline": "specyfika nadmorskiego miasta",
+          "p1": "Elewacje budynków w Gdańsku narażone są na działanie morskiego klimatu. Zasolone powietrze z Bałtyku w połączeniu z wysoką wilgotnością tworzy idealne warunki dla rozwoju glonów, grzybów i porostów. Szczególnie dotknięte są domy w dzielnicach blisko morza — Brzeźno, Jelitkowo, Nowy Port.",
+          "p2": "Gdańsk to także miasto o bogatej historii architektonicznej. Od ceglanych kamienic Głównego Miasta, przez poniemieckie wille Oliwy i Wrzeszcza, po współczesne osiedla z tynkiem silikonowym — każdy rodzaj elewacji wymaga innego podejścia do mycia. Zbyt agresywne ciśnienie może uszkodzić delikatny tynk, a za słabe nie usunie glonów.",
+          "p3": "Jako firma z Goręczyna, jesteśmy w Gdańsku w 30 minut. Regularnie obsługujemy domy w Oliwie, Matemblewie, Jasienniu i na Morenie. Znamy specyfikę gdańskich elewacji i dobieramy ciśnienie, temperaturę oraz preparaty indywidualnie do każdego budynku."
+        },
+        "gdynia": {
+          "headline": "wyzwania modernistycznego miasta",
+          "p1": "Gdynia to miasto, które wyrosło w międzywojniu — i do dziś jasne, modernistyczne tynki dominują w centrum i okolicznych dzielnicach. Problem? Jasne elewacje brudzą się szybciej. Smog, kurz, glony i zacieki deszczowe są widoczne na nich jak na dłoni.",
+          "p2": "Domy jednorodzinne na Wzgórzu Św. Maksymiliana, w Orłowie, Redłowie czy Małym Kacku to często budynki na stromych działkach, otoczone drzewami. Północne ściany tych domów są mokre przez większość roku — tam glony pojawiają się najszybciej. Dodajmy do tego wiatr z morza nanoszący sól, i mamy przepis na szybką degradację elewacji.",
+          "p3": "Nasz sprzęt — w tym podnośnik gąsienicowy o szerokości zaledwie 83 cm — pozwala dotrzeć do domów na wąskich, pagórkowatych działkach Gdyni. Nie potrzebujemy rusztowań ani prądu — przyjeżdżamy z własnym generatorem i agregatem. Potrzebujemy tylko dostępu do wody."
+        },
+        "sopot": {
+          "headline": "willowe miasto w cieniu drzew",
+          "p1": "Sopot to raj dla właścicieli domów — i wyzwanie dla ich elewacji. Gęsta, dojrzała zieleń otaczająca sopockie wille tworzy cień i zatrzymuje wilgoć. Efekt? Elewacje od strony północnej i zachodniej pokrywają się zielonym nalotem glonów już po 2-3 latach od ostatniego malowania.",
+          "p2": "Sopockie domy to często budynki o podwyższonym standardzie — eleganckie tynki, drewniane elementy, kamienne cokoły. Mycie takiej elewacji wymaga wyczucia i doświadczenia. Zbyt wysokie ciśnienie uszkodzi tynk dekoracyjny, a zbyt niskie nie usunie wrosłych glonów. Dlatego dobieramy metodę indywidualnie — od soft wash po mycie ciśnieniowe z regulacją.",
+          "p3": "Regularnie pracujemy w Sopocie — od Kamiennego Potoku po Brodwino. Znamy sopocką specyfikę: wąskie podjazdy, ogrody wymagające zabezpieczenia, sąsiedzi blisko. Zabezpieczamy teren, chronimy rośliny i sprzątamy po sobie. Efekt: czysta elewacja, zadowolony właściciel."
+        }
+      }
+    },
+    "mycie-dachu": {
+      "name": "Mycie dachu",
+      "name_short": "mycie dachu",
+      "name_genitive": "mycia dachu",
+      "page": "mycie-dachu.html",
+      "hero_img": "usluga-mycie-dachu.webp",
+      "price_range": "15–18",
+      "price_unit": "zł/m² z odgrzybianiem",
+      "price_note": "Cena obejmuje mycie dachówki z odgrzybianiem i preparatem biobójczym.",
+      "process_step3": "Zabezpieczamy rynny i otoczenie, myjemy dach profesjonalnym sprzętem z podnośnika koszowego.",
+      "intro_templates": {
+        "gdansk": {
+          "headline": "dachy nad Motławą",
+          "p1": "Dachy gdańskich domów jednorodzinnych to najczęściej dachówka ceramiczna lub betonowa. Morski klimat sprawia, że po kilku latach pokrywają się mchem i porostami — szczególnie od strony północnej. Mech zatrzymuje wilgoć, która wnika pod dachówki i przyspiesza ich degradację.",
+          "p2": "W dzielnicach takich jak Oliwa, Matemblewo czy Osowa dachy są dodatkowo narażone na spadające liście i igliwie z okolicznych drzew. Nagromadzony materiał organiczny w rynnach i na powierzchni dachówek tworzy podłoże dla mchu. Regularne mycie co 3-5 lat wydłuża żywotność dachu nawet o 15 lat.",
+          "p3": "Nasz podnośnik koszowy pozwala na bezpieczne mycie dachów na wysokości do 25 metrów — bez konieczności chodzenia po dachówkach i ryzyka ich uszkodzenia. To szczególnie ważne w Gdańsku, gdzie wiele domów ma strome dachy i trudny dostęp."
+        },
+        "gdynia": {
+          "headline": "strome dachy na wzgórzach",
+          "p1": "Gdyńskie domy na wzgórzach — od Kamiennej Góry po Działki Leśne — to często budynki ze stromymi dachami, trudnymi w utrzymaniu. Wiatr z morza przynosi wilgoć i sól, a cień od drzew na pagórkowatych działkach sprzyja rozwojowi mchu.",
+          "p2": "Szczególnym wyzwaniem w Gdyni jest dostęp do dachów domów na stromych działkach. Rusztowania często nie wchodzą w grę — zbyt mało miejsca, zbyt stromy teren. Nasz podnośnik gąsienicowy o szerokości 83 cm wjeżdża przez każdą furtkę i stabilnie stoi nawet na pochyłym terenie.",
+          "p3": "Myjemy dachy w Gdyni od lat. Znamy specyfikę lokalnej zabudowy — od domów z lat 30. w Orłowie po współczesne osiedla w Dąbrowie. Każdy dach traktujemy indywidualnie, dobierając ciśnienie do rodzaju pokrycia."
+        },
+        "sopot": {
+          "headline": "pod koronami sopockich drzew",
+          "p1": "Sopockie dachy mają jednego głównego wroga: drzewa. Korony starych buków, dębów i sosen otaczających sopockie wille blokują słońce i zatrzymują wilgoć na dachówkach. Efekt — gęsty, grubowy mech pokrywający dach już po 2-3 latach.",
+          "p2": "Oprócz mchu problemem jest opad organiczny — liście, igliwie, gałęzie. Zatykają rynny, tworzą warstwę kompostu na dachówkach i przyspieszają korozję obróbek blacharskich. Regularne mycie dachu to w Sopocie nie luksus, a konieczność.",
+          "p3": "Pracujemy w Sopocie bezpiecznie — z podnośnika, bez chodzenia po dachówkach. Nasz sprzęt mieści się na wąskich sopockich podjazdach (83 cm szerokości). Zabezpieczamy rabaty i krzewy pod dachem, a po pracy zostawiamy posesję w idealnym porządku."
+        }
+      }
+    },
+    "malowanie-elewacji": {
+      "name": "Malowanie elewacji",
+      "name_short": "malowanie elewacji",
+      "name_genitive": "malowania elewacji",
+      "page": "malowanie-elewacji.html",
+      "hero_img": "usluga-malowanie-elewacji.webp",
+      "price_range": "60–80",
+      "price_unit": "zł/m²",
+      "price_note": "Cena obejmuje przygotowanie podłoża, gruntowanie i malowanie farbą fasadową.",
+      "process_step3": "Przygotowujemy podłoże, gruntujemy i malujemy farbą fasadową metodą natryskową z podnośnika.",
+      "intro_templates": {
+        "gdansk": {
+          "headline": "nowy kolor dla gdańskiego domu",
+          "p1": "Malowanie elewacji w Gdańsku to inwestycja na lata — pod warunkiem, że użyje się odpowiednich farb. Morski klimat z zasoleniem i wilgocią wymaga farb o podwyższonej odporności. Stosujemy wyłącznie farby fasadowe klasy premium — silikonowe i siloksanowe, które odpychają wodę i brud.",
+          "p2": "W Gdańsku ważne jest też prawidłowe przygotowanie podłoża. Stare, odparzające się farby trzeba usunąć, ubytki uzupełnić, a całość zagruntować. Pominięcie tych kroków to najczęstsza przyczyna odpadania farby po 2-3 sezonach. My nigdy nie idziemy na skróty.",
+          "p3": "Malujemy metodą natryskową z podnośnika koszowego — szybciej, równomierniej i bez śladów wałka. W Gdańsku pracujemy regularnie w dzielnicach Oliwa, Wrzeszcz, Zaspa, Morena i Jasień. Dojazd z naszej bazy to zaledwie 30 minut."
+        },
+        "gdynia": {
+          "headline": "fasada odporna na morski wiatr",
+          "p1": "Gdyńskie elewacje muszą być odporne na wiatr, sól i deszcz. Modernistyczne budynki centrum z jasnym tynkiem, wille Orłowa z dekoracyjnymi detalami, współczesne domy Dąbrowy — każdy wymaga odpowiednio dobranej farby i metody aplikacji.",
+          "p2": "Silne wiatry w Gdyni przyspieszają schnięcie farby — co paradoksalnie może być problemem. Malowanie w nieodpowiednich warunkach (zbyt gorąco, zbyt wietrznie) powoduje mikropęknięcia powłoki. Dlatego planujemy prace w optymalnym oknie pogodowym i używamy farb o wydłużonym czasie otwarcia.",
+          "p3": "Nasz podnośnik pozwala malować elewacje do 25 metrów wysokości bez rusztowań — co w Gdyni, z jej pagórkowatym terenem i wąskimi działkami, jest ogromną zaletą. Jeden dzień montażu mniej to jeden dzień hałasu mniej dla Twoich sąsiadów."
+        },
+        "sopot": {
+          "headline": "elegancja sopockiej willi",
+          "p1": "Malowanie elewacji w Sopocie to szczególna odpowiedzialność. Właściciele sopockich willi oczekują perfekcji — nie tylko trwałości, ale i estetyki. Dobór koloru, struktura tynku, wykończenie detali — wszystko musi współgrać z charakterem domu i otaczającą zielenią.",
+          "p2": "Sopockie domy często mają elementy dekoracyjne — gzymsy, pilastry, obramienia okien. Malowanie takich detali wymaga precyzji i doświadczenia. Używamy wałków natryskowych, które pozwalają na równomierną aplikację nawet w trudno dostępnych miejscach.",
+          "p3": "W Sopocie liczy się też kultura pracy. Zabezpieczamy ogrody, podjazdy i tarasy. Pracujemy w ustalonych godzinach, nie zostawiamy bałaganu. Po skończonej pracy jedyną zmianą, którą zauważysz, jest piękna, nowa elewacja."
+        }
+      }
+    },
+    "malowanie-dachu": {
+      "name": "Malowanie dachu",
+      "name_short": "malowanie dachu",
+      "name_genitive": "malowania dachu",
+      "page": "malowanie-dachu.html",
+      "hero_img": "usluga-malowanie-dachu.webp",
+      "price_range": "30–70",
+      "price_unit": "zł/m²",
+      "price_note": "Cena obejmuje mycie, gruntowanie i malowanie powłoką antykorozyjną.",
+      "process_step3": "Myjemy dach, gruntujemy i nakładamy antykorozyjną powłokę malarską z podnośnika koszowego.",
+      "intro_templates": {
+        "gdansk": {
+          "headline": "ochrona dachu przed morskim klimatem",
+          "p1": "Dachy w Gdańsku — szczególnie te z blachodachówki i blachy — narażone są na korozję przyspieszaną przez morskie zasolenie. Malowanie dachu to nie tylko kwestia estetyki, ale przede wszystkim ochrony przed rdzą i przedłużenia żywotności pokrycia.",
+          "p2": "Stosujemy farby antykorozyjne renomowanych producentów, przeznaczone do warunków nadmorskich. Przed malowaniem dach jest dokładnie myty i gruntowany — to gwarantuje przyczepność powłoki na lata. W gdańskim klimacie prawidłowo pomalowany dach wytrzymuje 8-12 lat.",
+          "p3": "Malujemy z podnośnika koszowego — bez chodzenia po dachu, bez ryzyka uszkodzenia dachówek czy obróbek. W Gdańsku najczęściej pracujemy na dachach w Oliwie, na Morenie, w Matemblewie i Osowej."
+        },
+        "gdynia": {
+          "headline": "nowa powłoka dla gdyńskiego dachu",
+          "p1": "Gdyńskie dachy, szczególnie na wzgórzach, są wystawione na intensywne działanie wiatru i słońca. Powłoki malarskie degradują się szybciej niż w głębi lądu. Regularne malowanie co 8-10 lat to standard dla domów w Gdyni.",
+          "p2": "Domy na Kamiennej Górze, w Orłowie czy Redłowie to często budynki z unikatowym dachem — mansardowym, wielospadowym, z lukarnami. Malowanie takich dachów z rusztowań jest kosztowne i ryzykowne. Nasz podnośnik gąsienicowy daje dostęp do każdego fragmentu dachu bez stawiania rusztowań.",
+          "p3": "Przygotowujemy dach kompleksowo: mycie ciśnieniowe, odgrzybianie, gruntowanie antykorozyjne, dwie warstwy farby nawierzchniowej. Całość z gwarancją i dokumentacją użytych materiałów."
+        },
+        "sopot": {
+          "headline": "dach jak nowy w sercu kurortu",
+          "p1": "Dachy sopockich willi to wizytówka domu — widoczna z ulicy, z ogrodu, od sąsiadów. Brudny, omszały dach psuje wizerunek nawet najpiękniejszej posesji. Malowanie przywraca estetykę i chroni pokrycie przed dalszą degradacją.",
+          "p2": "W Sopocie szczególnie ważny jest dobór koloru — wiele dzielnic ma wytyczne konserwatorskie lub sąsiedzkie ustalenia dotyczące kolorystyki. Pomagamy w doborze odcienia i możemy przygotować próbki na fragmencie dachu przed właściwym malowaniem.",
+          "p3": "Nasze prace w Sopocie realizujemy z podnośnika — nie chodzimy po dachu, nie ryzykujemy uszkodzenia dachówek. Zabezpieczamy rynny, obróbki i otoczenie. Po pracy zostawiamy posesję czystą i uporządkowaną."
+        }
+      }
+    },
+    "impregnacja": {
+      "name": "Impregnacja",
+      "name_short": "impregnacja",
+      "name_genitive": "impregnacji",
+      "page": "impregnacja.html",
+      "hero_img": "usluga-impregnacja.webp",
+      "price_range": "= cena mycia",
+      "price_unit": "(łącznie mycie + impregnacja = 2× cena mycia)",
+      "price_note": "Impregnacja to hydrofobowa powłoka nakładana po myciu. Cena impregnacji równa cenie mycia danej powierzchni.",
+      "process_step3": "Po dokładnym myciu i wyschnięciu powierzchni nakładamy preparat hydrofobowy metodą natryskową.",
+      "intro_templates": {
+        "gdansk": {
+          "headline": "ochrona przed morską wilgocią",
+          "p1": "Impregnacja elewacji i dachu w Gdańsku to nie opcja — to konieczność. Morski klimat oznacza stałą ekspozycję na wilgoć i zasolenie. Bez warstwy hydrofobowej wystarczą 2-3 sezony, by elewacja znów pokryła się glonami.",
+          "p2": "Preparat impregnujący tworzy niewidoczną barierę, która odpycha wodę i utrudnia wrastanie mikroorganizmów. Efekt: czystsza elewacja przez 3-5 lat dłużej. W warunkach gdańskich to realnie podwojenie czasu między kolejnymi myciami.",
+          "p3": "Impregnację wykonujemy bezpośrednio po myciu, gdy powierzchnia jest czysta i sucha. To najefektywniejszy moment — preparat wnika głęboko w pory tynku. Dlatego oferujemy pakiet mycie + impregnacja w atrakcyjnej cenie (100% ceny mycia za impregnację)."
+        },
+        "gdynia": {
+          "headline": "tarcza ochronna dla gdyńskiej elewacji",
+          "p1": "Gdynia, z jej nadmorskim położeniem i silnymi wiatrami, to miasto gdzie impregnacja elewacji daje najlepsze efekty. Wiatr niesie sól i wilgoć, które bez ochrony wnikają w strukturę tynku i przyspieszają rozwój glonów.",
+          "p2": "Hydrofobowa powłoka sprawia, że woda spływa po elewacji zamiast wnikać w pory. Brud zmywany jest przez deszcz — efekt samooczyszczania. W Gdyni, gdzie deszcz jest częstym gościem, to duża zaleta.",
+          "p3": "Impregnujemy zarówno elewacje jak i dachy. Szczególnie polecamy impregnację dachówek betonowych — zapobiega wnikaniu wody i mroźnym uszkodzeniom. W połączeniu z myciem to najlepsza inwestycja w długoterminową ochronę budynku."
+        },
+        "sopot": {
+          "headline": "długotrwała czystość sopockiej willi",
+          "p1": "W Sopocie, gdzie drzewa i wilgoć towarzyszą domom przez cały rok, impregnacja to przepis na spokój. Zamiast myć elewację co 2-3 lata, po impregnacji możesz czekać 5-7 lat — a elewacja nadal wygląda czysto.",
+          "p2": "Sopockie wille otoczone zielenią są szczególnie narażone na porosty. Impregnacja nie tylko odpycha wodę, ale tworzy środowisko, w którym glony i mchy mają trudności z wrastaniem. To jak szczepionka dla Twojej elewacji.",
+          "p3": "Wykonujemy impregnację na powierzchniach pionowych (elewacje) i poziomych (dachy, tarasy, kostka). W Sopocie najczęściej obsługujemy pakiet: mycie elewacji + impregnacja — klient płaci za mycie × 2, a zyskuje ochronę na lata."
+        }
+      }
+    }
+  }
+}
