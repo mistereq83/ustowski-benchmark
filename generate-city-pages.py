@@ -55,6 +55,7 @@ def generate_page(template, city, service, all_cities):
         '{{CHALLENGE_3_ICON}}': challenges['3']['icon'],
         '{{CHALLENGE_3_TITLE}}': challenges['3']['title'],
         '{{CHALLENGE_3_DESC}}': challenges['3']['desc'],
+        '{{SERVICE_ID}}': ss,
         '{{PRICE_RANGE}}': service['price_range'],
         '{{PRICE_UNIT}}': service['price_unit'],
         '{{PRICE_NOTE}}': service['price_note'],
