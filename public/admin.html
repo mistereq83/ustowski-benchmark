@@ -113,6 +113,17 @@
               <label class="block text-sm font-medium mb-1">Opis (1-2 zdania)</label>
               <textarea id="projDesc" rows="2" placeholder="Elewacja pokryta glonami od strony północnej..." class="w-full px-3 py-2 rounded-lg border border-gray-200 focus:border-accent focus:outline-none"></textarea>
             </div>
+            <div>
+              <label class="block text-sm font-medium mb-2">Wyświetl na stronach</label>
+              <div id="projPages" class="grid grid-cols-2 gap-2">
+                <label class="flex items-center gap-2 text-sm"><input type="checkbox" value="index" class="accent-accent rounded"> Strona główna</label>
+                <label class="flex items-center gap-2 text-sm"><input type="checkbox" value="mycie-elewacji" class="accent-accent rounded"> Mycie elewacji</label>
+                <label class="flex items-center gap-2 text-sm"><input type="checkbox" value="mycie-dachu" class="accent-accent rounded"> Mycie dachu</label>
+                <label class="flex items-center gap-2 text-sm"><input type="checkbox" value="malowanie-elewacji" class="accent-accent rounded"> Malowanie elewacji</label>
+                <label class="flex items-center gap-2 text-sm"><input type="checkbox" value="malowanie-dachu" class="accent-accent rounded"> Malowanie dachu</label>
+                <label class="flex items-center gap-2 text-sm"><input type="checkbox" value="impregnacja" class="accent-accent rounded"> Impregnacja</label>
+              </div>
+            </div>
             <div class="grid grid-cols-2 gap-4">
               <div>
                 <label class="block text-sm font-medium mb-2">📸 Zdjęcie PRZED</label>
@@ -334,7 +345,8 @@ function renderProjects() {
           <button onclick="deleteProject(${i})" class="text-red-400 hover:text-red-600 text-sm">🗑️ Usuń</button>
         </div>
         <div class="text-sm text-gray-500">${cityName(p.city)}${p.district ? ', ' + p.district : ''} · ${p.area || '?'}m² · ${p.date || ''}</div>
-        <p class="text-sm text-gray-600 mt-2">${p.description || ''}</p>
+        <p class="text-sm text-gray-600 mt-1">${p.description || ''}</p>
+        <div class="flex flex-wrap gap-1 mt-2">${(p.pages || []).map(pg => `<span class="text-xs bg-accent/10 text-accent px-2 py-0.5 rounded-full">${pg === 'index' ? 'Główna' : pg}</span>`).join('')}</div>
       </div>
     </div>
   `).join('');
@@ -357,6 +369,7 @@ async function saveProject() {
     description: document.getElementById('projDesc').value,
     imageBefore: '',
     imageAfter: '',
+    pages: Array.from(document.querySelectorAll('#projPages input:checked')).map(cb => cb.value),
     featured: true
   };
 
@@ -386,6 +399,7 @@ async function saveProject() {
   document.getElementById('projDesc').value = '';
   document.getElementById('fileBefore').value = '';
   document.getElementById('fileAfter').value = '';
+  document.querySelectorAll('#projPages input').forEach(cb => cb.checked = false);
   resetDrop('dropBefore');
   resetDrop('dropAfter');
 }

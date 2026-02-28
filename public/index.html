@@ -510,61 +510,11 @@
         </div>
     </section>
 
-    <!-- Before/After Realizacje -->
+    <!-- Before/After Realizacje (dynamic from admin) -->
     <section id="realizacje" class="py-16 md:py-32 bg-white px-4">
         <div class="max-w-7xl mx-auto">
             <h2 class="font-heading font-bold text-2xl md:text-4xl text-primary mb-6 md:mb-16 text-center gsap-fade-up">Efekt, który widać</h2>
-            
-            <div class="grid grid-cols-2 lg:grid-cols-3 gap-3 md:gap-8">
-                <!-- Realizacja 1 -->
-                <div class="space-y-4 gsap-fade-up">
-                    <div class="mini-slider js-mini-slider">
-                        <img src="images/realizacja1-po.webp" class="mini-after" alt="Po" onerror="this.src=''; this.style.background='#ddd'" loading="lazy">
-                        <img src="images/realizacja1-przed.webp" class="mini-before grayscale brightness-75" alt="Przed" onerror="this.src=''; this.style.background='#999'" loading="lazy">
-                        <div class="mini-handle"></div>
-                    </div>
-                    <div>
-                        <h4 class="font-heading font-bold text-xl">Mycie elewacji</h4>
-                        <p class="text-primary/60 text-sm flex items-center gap-1 mt-1">
-                            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
-                            Gdynia Orłowo
-                        </p>
-                    </div>
-                </div>
-                <!-- Realizacja 2 -->
-                <div class="space-y-4 gsap-fade-up">
-                    <div class="mini-slider js-mini-slider">
-                        <img src="images/realizacja2-po.webp" class="mini-after" alt="Po" onerror="this.src=''; this.style.background='#ddd'" loading="lazy">
-                        <img src="images/realizacja2-przed.webp" class="mini-before grayscale brightness-75" alt="Przed" onerror="this.src=''; this.style.background='#999'" loading="lazy">
-                        <div class="mini-handle"></div>
-                    </div>
-                    <div>
-                        <h4 class="font-heading font-bold text-xl">Mycie dachu</h4>
-                        <p class="text-primary/60 text-sm flex items-center gap-1 mt-1">
-                            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
-                            Rumia
-                        </p>
-                    </div>
-                </div>
-                <!-- Realizacja 3 -->
-                <div class="space-y-4 gsap-fade-up">
-                    <div class="mini-slider js-mini-slider">
-                        <img src="images/realizacja3-po.webp" class="mini-after" alt="Po" onerror="this.src=''; this.style.background='#ddd'" loading="lazy">
-                        <img src="images/realizacja3-przed.webp" class="mini-before grayscale brightness-75" alt="Przed" onerror="this.src=''; this.style.background='#999'" loading="lazy">
-                        <div class="mini-handle"></div>
-                    </div>
-                    <div>
-                        <h4 class="font-heading font-bold text-xl">Malowanie elewacji</h4>
-                        <p class="text-primary/60 text-sm flex items-center gap-1 mt-1">
-                            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
-                            Wejherowo
-                        </p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Dynamic projects from admin panel -->
-            <div data-projects="all" data-projects-limit="6" class="grid grid-cols-2 lg:grid-cols-3 gap-3 md:gap-8 mt-8"></div>
+            <div data-projects="index" data-projects-limit="6" class="grid grid-cols-2 lg:grid-cols-3 gap-3 md:gap-8"></div>
         </div>
     </section>
 
