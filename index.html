@@ -209,7 +209,22 @@
         .service-card:hover .service-card-desc {
             max-height: 100px;
             opacity: 1;
-            margin-top: 1rem;
+            margin-top: 0.5rem;
+        }
+        @media (max-width: 767px) {
+            .service-card {
+                filter: grayscale(0%) !important;
+            }
+            .service-card img {
+                opacity: 0.7 !important;
+            }
+            .service-card-desc {
+                max-height: 80px !important;
+                opacity: 1 !important;
+                margin-top: 0.25rem !important;
+                font-size: 0.75rem !important;
+                line-height: 1.3 !important;
+            }
         }
 
         /* Utilities */
@@ -243,7 +258,7 @@
 
         <div class="flex items-center gap-4">
             <a href="tel:+48663719372" class="hidden md:flex font-mono font-bold text-white mix-blend-difference link-lift">+48 663 719 372</a>
-            <a href="#wycena" class="btn-magnetic bg-accent text-white px-6 py-3 rounded-full font-bold text-sm">
+            <a href="#wycena" class="btn-magnetic bg-accent text-white px-4 py-2 md:px-6 md:py-3 rounded-full font-bold text-xs md:text-sm">
                 <span class="btn-bg-slide rounded-full"></span>
                 <span class="relative z-10">Bezpłatna wycena</span>
             </a>
@@ -282,7 +297,7 @@
         </div>
 
         <div class="absolute inset-0 z-10 pointer-events-none flex flex-col justify-center items-center text-center px-4 bg-black/20">
-            <h1 class="font-heading font-bold text-4xl md:text-6xl lg:text-7xl text-white max-w-5xl text-balance drop-shadow-lg leading-tight gsap-hero-text">
+            <h1 class="font-heading font-bold text-2xl md:text-4xl lg:text-7xl text-white max-w-5xl text-balance drop-shadow-lg leading-tight gsap-hero-text">
                 Profesjonalne mycie i malowanie elewacji i dachu
             </h1>
         </div>
@@ -296,8 +311,8 @@
     </section>
 
     <!-- Podtytuły -->
-    <section class="py-24 bg-bg px-4">
-        <div class="max-w-4xl mx-auto text-center space-y-8">
+    <section class="py-8 md:py-24 bg-bg px-4">
+        <div class="max-w-4xl mx-auto text-center space-y-4 md:space-y-8">
             <p class="text-2xl md:text-3xl font-heading font-medium text-primary text-balance gsap-fade-up">
                 Elewacja i dach bez zacieków i mchu — szybka realizacja w Trójmieście i na Kaszubach (całe Pomorskie).
             </p>
@@ -308,7 +323,7 @@
     </section>
 
     <!-- Trust Bar -->
-    <section class="py-12 border-y border-black/10 bg-white">
+    <section class="py-6 md:py-12 border-y border-black/10 bg-white">
         <div class="max-w-7xl mx-auto px-6 grid grid-cols-2 md:grid-cols-4 gap-8 text-center divide-x divide-black/10">
             <div class="gsap-trust">
                 <p class="font-heading font-bold text-3xl text-accent">250+</p>
@@ -330,55 +345,55 @@
     </section>
 
     <!-- Usługi -->
-    <section id="uslugi" class="py-32 px-4 bg-bg">
+    <section id="uslugi" class="py-16 md:py-32 px-4 bg-bg">
         <div class="max-w-7xl mx-auto">
-            <div class="mb-16">
-                <h2 class="font-heading font-bold text-4xl md:text-5xl text-primary gsap-fade-up">Nasze Usługi</h2>
+            <div class="mb-8 md:mb-16">
+                <h2 class="font-heading font-bold text-2xl md:text-4xl text-primary gsap-fade-up">Nasze Usługi</h2>
             </div>
             
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div class="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-6">
                 <!-- Karta 1 -->
-                <a href="mycie-elewacji.html" class="service-card relative rounded-4xl overflow-hidden h-[320px] md:h-[380px] bg-dark group cursor-pointer gsap-card block">
+                <a href="mycie-elewacji.html" class="service-card relative rounded-4xl overflow-hidden h-[180px] md:h-[320px] bg-dark group cursor-pointer gsap-card block">
                     <img src="images/usluga-mycie-elewacji.webp" class="absolute inset-0 w-full h-full object-cover object-center opacity-60 group-hover:opacity-80 transition-opacity" alt="Mycie elewacji" onerror="this.style.display='none'" loading="lazy">
-                    <div class="absolute inset-0 bg-gradient-to-t from-dark/90 via-dark/40 to-transparent p-8 flex flex-col justify-end">
-                        <h3 class="font-heading font-bold text-2xl text-white">Mycie elewacji</h3>
+                    <div class="absolute inset-0 bg-gradient-to-t from-dark/90 via-dark/40 to-transparent p-4 md:p-8 flex flex-col justify-end">
+                        <h3 class="font-heading font-bold text-base md:text-2xl text-white">Mycie elewacji</h3>
                         <p class="text-white/80 service-card-desc text-sm">Usuwamy glony, grzyby, smog i brud. Przywracamy oryginalny kolor tynku.</p>
-                    </a></div>
+                    </div></a>
                 <!-- Karta 2 -->
-                <a href="mycie-dachu.html" class="service-card relative rounded-4xl overflow-hidden h-[320px] md:h-[380px] bg-dark group cursor-pointer gsap-card block">
+                <a href="mycie-dachu.html" class="service-card relative rounded-4xl overflow-hidden h-[180px] md:h-[320px] bg-dark group cursor-pointer gsap-card block">
                     <img src="images/usluga-mycie-dachu.webp" class="absolute inset-0 w-full h-full object-cover object-center opacity-60 group-hover:opacity-80 transition-opacity" alt="Mycie dachu" onerror="this.style.display='none'" loading="lazy">
-                    <div class="absolute inset-0 bg-gradient-to-t from-dark/90 via-dark/40 to-transparent p-8 flex flex-col justify-end">
-                        <h3 class="font-heading font-bold text-2xl text-white">Mycie dachu</h3>
+                    <div class="absolute inset-0 bg-gradient-to-t from-dark/90 via-dark/40 to-transparent p-4 md:p-8 flex flex-col justify-end">
+                        <h3 class="font-heading font-bold text-base md:text-2xl text-white">Mycie dachu</h3>
                         <p class="text-white/80 service-card-desc text-sm">Bezpieczne czyszczenie dachówek z mchu. Poprawa estetyki i żywotności.</p>
-                    </a></div>
+                    </div></a>
                 <!-- Karta 3 -->
-                <a href="malowanie-elewacji.html" class="service-card relative rounded-4xl overflow-hidden h-[320px] md:h-[380px] bg-dark group cursor-pointer gsap-card block">
+                <a href="malowanie-elewacji.html" class="service-card relative rounded-4xl overflow-hidden h-[180px] md:h-[320px] bg-dark group cursor-pointer gsap-card block">
                     <img src="images/usluga-malowanie-elewacji.webp" class="absolute inset-0 w-full h-full object-cover object-center opacity-60 group-hover:opacity-80 transition-opacity" alt="Malowanie elewacji" onerror="this.style.display='none'" loading="lazy">
-                    <div class="absolute inset-0 bg-gradient-to-t from-dark/90 via-dark/40 to-transparent p-8 flex flex-col justify-end">
-                        <h3 class="font-heading font-bold text-2xl text-white">Malowanie elewacji</h3>
+                    <div class="absolute inset-0 bg-gradient-to-t from-dark/90 via-dark/40 to-transparent p-4 md:p-8 flex flex-col justify-end">
+                        <h3 class="font-heading font-bold text-base md:text-2xl text-white">Malowanie elewacji</h3>
                         <p class="text-white/80 service-card-desc text-sm">Trwałe farby fasadowe odporne na warunki atmosferyczne.</p>
-                    </a></div>
+                    </div></a>
                 <!-- Karta 4 -->
-                <a href="malowanie-dachu.html" class="service-card relative rounded-4xl overflow-hidden h-[320px] md:h-[380px] bg-dark group cursor-pointer gsap-card block">
+                <a href="malowanie-dachu.html" class="service-card relative rounded-4xl overflow-hidden h-[180px] md:h-[320px] bg-dark group cursor-pointer gsap-card block">
                     <img src="images/usluga-malowanie-dachu.webp" class="absolute inset-0 w-full h-full object-cover object-center opacity-60 group-hover:opacity-80 transition-opacity" alt="Malowanie dachu" onerror="this.style.display='none'" loading="lazy">
-                    <div class="absolute inset-0 bg-gradient-to-t from-dark/90 via-dark/40 to-transparent p-8 flex flex-col justify-end">
-                        <h3 class="font-heading font-bold text-2xl text-white">Malowanie dachu</h3>
+                    <div class="absolute inset-0 bg-gradient-to-t from-dark/90 via-dark/40 to-transparent p-4 md:p-8 flex flex-col justify-end">
+                        <h3 class="font-heading font-bold text-base md:text-2xl text-white">Malowanie dachu</h3>
                         <p class="text-white/80 service-card-desc text-sm">Antykorozyjne powłoki chroniące i odnawiające wygląd.</p>
-                    </a></div>
+                    </div></a>
                 <!-- Karta 5 -->
-                <a href="impregnacja.html" class="service-card relative rounded-4xl overflow-hidden h-[320px] md:h-[380px] bg-dark group cursor-pointer gsap-card block">
+                <a href="impregnacja.html" class="service-card relative rounded-4xl overflow-hidden h-[180px] md:h-[320px] bg-dark group cursor-pointer gsap-card block">
                     <img src="images/usluga-impregnacja.webp" class="absolute inset-0 w-full h-full object-cover object-center opacity-60 group-hover:opacity-80 transition-opacity" alt="Impregnacja" onerror="this.style.display='none'" loading="lazy">
-                    <div class="absolute inset-0 bg-gradient-to-t from-dark/90 via-dark/40 to-transparent p-8 flex flex-col justify-end">
-                        <h3 class="font-heading font-bold text-2xl text-white">Impregnacja</h3>
+                    <div class="absolute inset-0 bg-gradient-to-t from-dark/90 via-dark/40 to-transparent p-4 md:p-8 flex flex-col justify-end">
+                        <h3 class="font-heading font-bold text-base md:text-2xl text-white">Impregnacja</h3>
                         <p class="text-white/80 service-card-desc text-sm">Zabezpieczenie przed ponownym wnikaniem brudu i wilgoci.</p>
-                    </a></div>
+                    </div></a>
                 <!-- Karta 6 -->
-                <a href="mycie-paneli-pv.html" class="service-card relative rounded-4xl overflow-hidden h-[320px] md:h-[380px] bg-dark group cursor-pointer gsap-card block">
+                <a href="mycie-paneli-pv.html" class="service-card relative rounded-4xl overflow-hidden h-[180px] md:h-[320px] bg-dark group cursor-pointer gsap-card block">
                     <img src="images/usluga-panele-pv.webp" class="absolute inset-0 w-full h-full object-cover object-center opacity-60 group-hover:opacity-80 transition-opacity" alt="Mycie paneli PV" onerror="this.style.display='none'" loading="lazy">
-                    <div class="absolute inset-0 bg-gradient-to-t from-dark/90 via-dark/40 to-transparent p-8 flex flex-col justify-end">
-                        <h3 class="font-heading font-bold text-2xl text-white">Mycie paneli PV</h3>
+                    <div class="absolute inset-0 bg-gradient-to-t from-dark/90 via-dark/40 to-transparent p-4 md:p-8 flex flex-col justify-end">
+                        <h3 class="font-heading font-bold text-base md:text-2xl text-white">Mycie paneli PV</h3>
                         <p class="text-white/80 service-card-desc text-sm">Mycie wodą demineralizowaną. Maksymalizacja wydajności.</p>
-                    </a></div>
+                    </div></a>
             </div>
         </div>
     </section>
@@ -388,7 +403,7 @@
         <!-- Subtelna linia dekoracyjna -->
         <div class="w-full max-w-5xl h-[1px] bg-accent/30 mb-8 md:mb-12"></div>
         
-        <div class="bg-dark rounded-[2rem] w-full max-w-5xl relative overflow-hidden py-16 md:py-24 px-6 md:px-12 flex flex-col items-center justify-center text-center shadow-xl">
+        <div class="bg-dark rounded-[1.5rem] md:rounded-[2rem] w-full max-w-5xl relative overflow-hidden py-8 md:py-24 px-4 md:px-12 flex flex-col items-center justify-center text-center shadow-xl">
             <!-- Noise Overlay -->
             <div class="absolute inset-0 opacity-[0.03] pointer-events-none mix-blend-overlay" style="background-image: url('data:image/svg+xml,%3Csvg viewBox=%220 0 200 200%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22noise%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.8%22 numOctaves=%223%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23noise)%22/%3E%3C/svg%3E');"></div>
             
@@ -437,14 +452,14 @@
     </section>
 
     <!-- Współpraca krok po kroku -->
-    <section class="py-32 bg-white px-4">
+    <section class="py-16 md:py-32 bg-white px-4">
         <div class="max-w-7xl mx-auto">
-            <div class="text-center mb-20 max-w-2xl mx-auto">
-                <h2 class="font-heading font-bold text-4xl md:text-5xl text-primary mb-6 gsap-fade-up">Współpraca krok po kroku</h2>
+            <div class="text-center mb-6 md:mb-20 max-w-2xl mx-auto">
+                <h2 class="font-heading font-bold text-2xl md:text-4xl text-primary mb-6 gsap-fade-up">Współpraca krok po kroku</h2>
                 <p class="text-xl text-primary/70 gsap-fade-up">Prosto, bez chaosu i bez niespodzianek.</p>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div class="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-8">
                 <!-- Krok 1 -->
                 <div class="bg-bg rounded-4xl p-8 border border-black/5 gsap-step">
                     <span class="font-heading font-black text-6xl text-accent/20 block mb-4">01</span>
@@ -486,13 +501,13 @@
     </section>
 
     <!-- Podnośnik Koszowy -->
-    <section class="py-32 bg-secondary px-4 rounded-5xl mx-4 my-8">
-        <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-            <div class="space-y-8">
-                <h2 class="font-heading font-bold text-4xl md:text-5xl text-primary leading-tight gsap-fade-up">Dojedziemy tam, gdzie inni rozkładają ręce.</h2>
+    <section class="py-16 md:py-32 bg-secondary px-4 rounded-3xl md:rounded-5xl mx-2 md:mx-4 my-4 md:my-8">
+        <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-4 md:gap-16 items-center">
+            <div class="space-y-4 md:space-y-8">
+                <h2 class="font-heading font-bold text-2xl md:text-4xl text-primary leading-tight gsap-fade-up">Dojedziemy tam, gdzie inni rozkładają ręce.</h2>
                 <p class="text-xl text-primary/80 gsap-fade-up">Nasz podnośnik koszowy ma tylko 83 cm szerokości...</p>
                 
-                <ul class="space-y-4 font-medium text-primary gsap-fade-up">
+                <ul class="space-y-1 md:space-y-4 font-medium text-primary gsap-fade-up">
                     <li class="flex items-start gap-3">
                         <svg class="w-6 h-6 text-accent shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
                         83 cm szerokości – wjazd przez wąskie bramy
@@ -541,14 +556,14 @@
     </section>
 
     <!-- Dlaczego Ustowski -->
-    <section id="firma" class="py-32 bg-bg px-4">
+    <section id="firma" class="py-16 md:py-32 bg-bg px-4">
         <div class="max-w-7xl mx-auto">
-            <div class="mb-20">
-                <h2 class="font-heading font-bold text-4xl md:text-5xl text-primary mb-6 gsap-fade-up">Dlaczego Ustowski</h2>
+            <div class="mb-6 md:mb-20">
+                <h2 class="font-heading font-bold text-2xl md:text-4xl text-primary mb-6 gsap-fade-up">Dlaczego Ustowski</h2>
                 <p class="text-xl text-primary/70 max-w-2xl gsap-fade-up">Nie obiecujemy jakości – pokazujemy konkretne rozwiązania.</p>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div class="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-6">
                 <!-- USP 1 -->
                 <div class="bg-white p-8 rounded-4xl border border-black/5 shadow-sm hover:shadow-md transition-shadow gsap-usp">
                     <h3 class="font-heading font-bold text-xl mb-4 text-primary">Podnośnik gąsienicowy 83 cm</h3>
@@ -602,9 +617,9 @@
     </section>
 
     <!-- Before/After Realizacje -->
-    <section id="realizacje" class="py-32 bg-white px-4">
+    <section id="realizacje" class="py-16 md:py-32 bg-white px-4">
         <div class="max-w-7xl mx-auto">
-            <h2 class="font-heading font-bold text-4xl md:text-5xl text-primary mb-16 text-center gsap-fade-up">Efekt, który widać</h2>
+            <h2 class="font-heading font-bold text-2xl md:text-4xl text-primary mb-6 md:mb-16 text-center gsap-fade-up">Efekt, który widać</h2>
             
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
                 <!-- Realizacja 1 -->
@@ -657,10 +672,10 @@
     </section>
 
     <!-- Formularz Wyceny -->
-    <section id="wycena" class="py-32 bg-dark text-white px-4 mx-4 rounded-5xl">
-        <div class="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-5 gap-16">
-            <div class="lg:col-span-2 space-y-8">
-                <h2 class="font-heading font-bold text-4xl md:text-5xl leading-tight text-balance">Bezpłatna wycena w 24h</h2>
+    <section id="wycena" class="py-12 md:py-32 bg-dark text-white px-4 mx-2 md:mx-4 rounded-5xl">
+        <div class="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-5 gap-8 md:gap-16">
+            <div class="lg:col-span-2 space-y-4 md:space-y-8">
+                <h2 class="font-heading font-bold text-2xl md:text-4xl leading-tight text-balance">Bezpłatna wycena w 24h</h2>
                 <p class="text-white/70">Wypełnij formularz lub zadzwoń bezpośrednio. Odpowiadamy sprawnie, doradzamy uczciwie.</p>
                 
                 <div class="space-y-6 pt-4">
@@ -693,7 +708,7 @@
             </div>
             
             <div class="lg:col-span-3 bg-primary rounded-4xl p-8 md:p-10 border border-white/5">
-                <form class="space-y-6">
+                <form class="space-y-4 md:space-y-6">
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div class="space-y-2">
                             <label class="text-sm font-medium text-white/70">Imię i nazwisko</label>
@@ -754,10 +769,10 @@
     </section>
 
     <!-- Footer -->
-    <footer class="bg-dark text-white pt-24 pb-8 mt-16 rounded-t-5xl px-4">
+    <footer class="bg-dark text-white pt-24 pb-8 mt-16 rounded-t-3xl md:rounded-t-5xl px-4">
         <div class="max-w-7xl mx-auto">
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
-                <div class="space-y-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-8 md:mb-16">
+                <div class="space-y-4 md:space-y-6">
                     <a href="#" class="block"><img src="images/logo-ustowski.png" alt="Ustowski - czyszczenie · malowanie" class="h-14 w-auto"></a>
                     <p class="text-white/60 text-sm leading-relaxed max-w-xs">
                         Profesjonalne mycie i malowanie elewacji i dachów. Trójmiasto, Kaszuby i całe województwo pomorskie.
