@@ -83,8 +83,7 @@
         </svg>
     </div>
 
-    <!-- NAVBAR -->
-        <header class="fixed top-0 left-0 w-full z-50 transition-all duration-300 px-4 pt-4" id="navbar">
+    <header class="fixed top-0 left-0 w-full z-50 transition-all duration-300 px-4 pt-4" id="navbar">
         <div class="glass-nav max-w-7xl mx-auto rounded-[2rem] px-6 py-4 flex items-center justify-between">
             <a href="index.html" class="flex-shrink-0 relative z-10 block">
                 <img src="images/logo-v3.png" alt="Ustowski" class="h-7 md:h-12 w-auto object-contain" onerror="this.style.opacity=0">
@@ -110,9 +109,7 @@
         </div>
     </header>
 
-    
-    <!-- MOBILE MENU OVERLAY -->
-        <div id="mobile-menu-overlay" class="fixed inset-0 bg-dark/95 backdrop-blur-lg z-[100] hidden flex-col items-center justify-center text-white text-center">
+    <div id="mobile-menu-overlay" class="fixed inset-0 bg-dark/95 backdrop-blur-lg z-[100] hidden flex-col items-center justify-center text-white text-center">
         <button id="mobile-menu-close" class="absolute top-8 right-8 w-14 h-14 flex items-center justify-center rounded-full bg-white/20 border-2 border-white/40 z-[110]" aria-label="Zamknij menu">
             <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"><path d="M18 6L6 18M6 6l12 12"/></svg>
         </button>
@@ -129,60 +126,124 @@
         </div>
     </div>
 
-                </div>
 
+    <main>
+        <!-- 1. HERO -->
+        <section class="relative min-h-[50vh] md:h-[400px] flex items-end pb-12 pt-28 px-4" style="background: linear-gradient(135deg, #1A1A1A 0%, #2B2B2B 100%);">
+            <div class="absolute inset-0 bg-gradient-to-t from-dark/80 to-transparent"></div>
+            <div class="relative z-10 max-w-7xl mx-auto w-full">
+                <h1 class="font-heading text-3xl md:text-6xl font-bold text-white mb-4">Kontakt</h1>
+                <p class="text-lg md:text-xl text-white/70 max-w-2xl">Skontaktuj się z nami — odpowiadamy w ciągu 24 godzin.</p>
+            </div>
+        </section>
+
+        <!-- 2. CONTACT INFO + FORM -->
+        <section class="py-8 md:py-24 px-4" id="formularz">
+            <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-16">
+                
+                <!-- LEFT - INFO -->
+                <div class="space-y-8 gs-reveal">
+                    <div>
+                        <h2 class="font-heading text-2xl md:text-3xl font-bold mb-4">Dane kontaktowe</h2>
+                        <p class="text-primary/70">Zadzwoń, napisz lub wypełnij formularz — odezwiemy się szybko.</p>
+                    </div>
+                    
+                    <div class="space-y-6">
+                        <a href="tel:+48663719372" class="flex items-center gap-4 p-4 bg-bg rounded-2xl hover:bg-secondary transition-colors">
+                            <div class="w-12 h-12 bg-accent/10 text-accent rounded-full flex items-center justify-center flex-shrink-0">
+                                <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                            </div>
+                            <div>
+                                <p class="font-mono font-bold text-lg">+48 663 719 372</p>
+                                <p class="text-sm text-primary/60">Pon-Pt 7:00-18:00</p>
+                            </div>
+                        </a>
+                        
+                        <a href="mailto:ustowskikamil1@onet.pl" class="flex items-center gap-4 p-4 bg-bg rounded-2xl hover:bg-secondary transition-colors">
+                            <div class="w-12 h-12 bg-accent/10 text-accent rounded-full flex items-center justify-center flex-shrink-0">
+                                <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                            </div>
+                            <div>
+                                <p class="font-bold">ustowskikamil1@onet.pl</p>
+                                <p class="text-sm text-primary/60">Odpowiadamy w 24h</p>
+                            </div>
+                        </a>
+                        
+                        <a href="https://wa.me/48663719372" class="flex items-center gap-4 p-4 bg-bg rounded-2xl hover:bg-secondary transition-colors">
+                            <div class="w-12 h-12 bg-[#25D366]/10 text-[#25D366] rounded-full flex items-center justify-center flex-shrink-0">
+                                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/></svg>
+                            </div>
+                            <div>
+                                <p class="font-bold">WhatsApp</p>
+                                <p class="text-sm text-primary/60">Napisz wiadomość</p>
+                            </div>
+                        </a>
+                    </div>
+                    
+                    <div class="p-6 bg-bg rounded-2xl">
+                        <h3 class="font-heading font-bold mb-2">Adres firmy</h3>
+                        <p class="text-primary/70 text-sm">
+                            Eko Mycie Ustowski<br>
+                            ul. Osiedlowa 20<br>
+                            83-311 Goręczyno<br>
+                            NIP: 5892013798
+                        </p>
+                    </div>
+                </div>
+                
                 <!-- RIGHT - FORM -->
-                <div class="bg-white p-8 md:p-12 rounded-4xl border border-secondary gs-reveal" id="formularz">
-                    <h2 class="font-heading text-xl md:text-3xl font-bold mb-2">Formularz wyceny</h2>
-                    <p class="text-primary/70 mb-8">Wypełnij formularz, a my skontaktujemy się w ciągu 24 godzin.</p>
-                    <form action="#" method="POST" class="space-y-3 md:space-y-6" action="https://formsubmit.co/ustowskikamil1@onet.pl" method="POST">
-                    <input type="hidden" name="_subject" value="Nowe zapytanie ze strony ustowski.pl (kontakt)">
-                    <input type="hidden" name="_captcha" value="false">
-                    <input type="hidden" name="_next" value="https://ustowski.pl/kontakt.html?sent=1">
-                    <input type="hidden" name="_template" value="table">
-                    <input type="text" name="_honey" style="display:none">
-                        <div>
-                            <label for="name" class="sr-only">Imię i nazwisko</label>
-                            <input type="text" name="name" id="name" placeholder="Imię i nazwisko" name="name" required minlength="2" class="form-input">
+                <div class="bg-dark text-white p-6 md:p-12 rounded-4xl gs-reveal" id="wycena">
+                    <h2 class="font-heading text-xl md:text-3xl font-bold mb-2">Bezpłatna wycena</h2>
+                    <p class="text-white/70 mb-8">Wypełnij formularz, odezwiemy się w ciągu 24h.</p>
+                    <form id="wycena-form" action="https://formsubmit.co/ustowskikamil1@onet.pl" method="POST" class="space-y-4">
+                        <input type="hidden" name="_subject" value="Nowe zapytanie ze strony ustowski.pl">
+                        <input type="hidden" name="_captcha" value="false">
+                        <input type="hidden" name="_next" value="https://ustowski.pl/kontakt.html?sent=1">
+                        <input type="hidden" name="_template" value="table">
+                        <input type="text" name="_honey" style="display:none">
+                        
+                        <div class="space-y-2">
+                            <input type="text" name="name" required minlength="2" placeholder="Imię i nazwisko" class="w-full bg-white/5 border border-white/10 rounded-2xl px-4 py-3 text-white focus:outline-none focus:border-accent transition-colors">
                         </div>
-                        <div>
-                            <label for="phone" class="sr-only">Telefon</label>
-                            <input type="tel" name="phone" id="phone" placeholder="Telefon" name="phone" required required class="form-input">
+                        <div class="space-y-2">
+                            <input type="tel" name="phone" required placeholder="+48 --- --- ---" class="w-full bg-white/5 border border-white/10 rounded-2xl px-4 py-3 text-white focus:outline-none focus:border-accent transition-colors">
                         </div>
-                        <div>
-                            <label for="email" class="sr-only">Email</label>
-                            <input type="email" name="email" id="email" placeholder="Email" name="email" class="form-input">
+                        <div class="space-y-2">
+                            <input type="email" name="email" placeholder="Email (opcjonalnie)" class="w-full bg-white/5 border border-white/10 rounded-2xl px-4 py-3 text-white focus:outline-none focus:border-accent transition-colors">
                         </div>
-                        <div>
-                            <label for="service" class="sr-only">Rodzaj usługi</label>
-                            <select name="service" id="service" class="form-input" name="service" required>
-                                <option>Mycie elewacji</option>
-                                <option>Mycie dachu</option>
-                                <option>Malowanie elewacji</option>
-                                <option>Malowanie dachu</option>
-                                <option>Impregnacja</option>
-                                <option>Mycie paneli PV</option>
-                                <option>Inne</option>
+                        <div class="space-y-2">
+                            <select name="service" required class="w-full bg-white/5 border border-white/10 rounded-2xl px-4 py-3 text-white focus:outline-none focus:border-accent transition-colors">
+                                <option value="" disabled selected>Wybierz usługę...</option>
+                                <option value="mycie-elewacji">Mycie elewacji</option>
+                                <option value="mycie-dachu">Mycie dachu</option>
+                                <option value="malowanie-elewacji">Malowanie elewacji</option>
+                                <option value="malowanie-dachu">Malowanie dachu</option>
+                                <option value="impregnacja">Impregnacja</option>
+                                <option value="mycie-paneli-pv">Mycie paneli PV</option>
+                                <option value="inne">Inne / Kompleksowo</option>
                             </select>
                         </div>
-                        <div>
-                            <label for="message" class="sr-only">Wiadomość</label>
-                            <textarea name="message" id="message" rows="4" placeholder="Wiadomość" class="form-input" name="message"></textarea>
+                        <div class="space-y-2">
+                            <input type="text" name="area" placeholder="Powierzchnia (np. 150 m²)" class="w-full bg-white/5 border border-white/10 rounded-2xl px-4 py-3 text-white focus:outline-none focus:border-accent transition-colors">
                         </div>
-                        <div>
-                            <button type="submit" class="btn-magnetic bg-accent text-white w-full py-4 text-lg font-bold">
-                                <span class="btn-content">Wyślij zapytanie</span>
-                            </button>
+                        <div class="space-y-2">
+                            <textarea name="message" rows="3" placeholder="Opisz krótko stan, dostęp, np. 'dom piętrowy, wąski wjazd'" class="w-full bg-white/5 border border-white/10 rounded-2xl px-4 py-3 text-white focus:outline-none focus:border-accent transition-colors resize-none"></textarea>
                         </div>
-                        <p class="text-sm text-center text-primary/60 pt-2">Odpowiadamy w ciągu 24 godzin. Najlepiej dołącz 2-3 zdjęcia obiektu w odpowiedzi na naszego maila.</p>
+                        <div class="flex items-start gap-3 text-sm text-white/60">
+                            <input type="checkbox" id="rodo" required class="mt-1 accent-accent">
+                            <label for="rodo">Wyrażam zgodę na przetwarzanie danych osobowych w celu realizacji zapytania. <a href="polityka-prywatnosci.html" class="text-accent hover:underline">Polityka prywatności</a></label>
+                        </div>
+                        <button type="submit" id="submit-btn" class="btn-magnetic w-full bg-accent text-white px-8 py-4 rounded-full font-bold text-lg mt-4">
+                            <span class="btn-content">Wyślij zapytanie</span>
+                        </button>
                     </form>
                 </div>
             </div>
         </section>
 
         <!-- 3. MAP SECTION -->
-        <section class="py-20 md:py-32 bg-dark text-white rounded-5xl mx-2 md:mx-4 px-4">
-            <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-4 md:gap-12 items-center">
+        <section class="py-12 md:py-32 bg-dark text-white rounded-5xl mx-2 md:mx-4 px-4">
+            <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 items-center">
                 <div class="gs-reveal">
                     <h2 class="font-heading text-2xl md:text-4xl font-bold mb-6">Obszar działania</h2>
                     <p class="text-lg text-white/70 mb-8 max-w-lg">Obsługujemy klientów na terenie całego województwa pomorskiego. Nasza baza znajduje się w Trójmieście, ale bez problemu dojeżdżamy do klientów na Kaszubach i w dalszych rejonach Pomorza.</p>
@@ -203,24 +264,9 @@
                 </div>
             </div>
         </section>
-
-        <!-- 4. CTA SECTION -->
-        <section class="py-20 md:py-16 md:py-32 px-4">
-            <div class="max-w-4xl mx-auto gs-reveal">
-                <div class="bg-dark text-white text-center rounded-5xl p-12 md:p-20 relative overflow-hidden">
-                     <div class="absolute -bottom-20 -left-20 w-60 h-60 bg-accent/30 rounded-full blur-3xl shadow-glow-accent"></div>
-                     <div class="absolute -top-20 -right-20 w-60 h-60 bg-accent/30 rounded-full blur-3xl shadow-glow-accent"></div>
-                    <div class="relative z-10">
-                        <h2 class="font-heading text-2xl md:text-4xl font-bold mb-4">Potrzebujesz wyceny?</h2>
-                        <p class="text-xl text-white/80 max-w-2xl mx-auto">Wyślij zdjęcia elewacji, dachu lub wjazdu na posesję. Ocenimy zakres prac i wrócimy z odpowiedzią w ciągu 24h.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
     </main>
     
-    <!-- FOOTER -->
-        <footer class="bg-dark text-white pt-24 pb-8 mt-16 rounded-t-3xl md:rounded-t-5xl px-4">
+    <footer class="bg-dark text-white pt-24 pb-8 mt-16 rounded-t-3xl md:rounded-t-5xl px-4">
         <div class="max-w-7xl mx-auto">
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-8 md:mb-16">
                 <div class="space-y-4 md:space-y-6">
@@ -272,64 +318,13 @@
     </footer>
 
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-    
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            // Navbar morph on scroll
-            const navbar = document.querySelector('.glass-nav');
-            if (navbar) {
-                window.addEventListener('scroll', () => {
-                    if (window.scrollY > 50) {
-                        navbar.classList.add('nav-scrolled');
-                    } else {
-                        navbar.classList.remove('nav-scrolled');
-                    }
-                });
-            }
-
-            // Mobile Menu Toggle
-            const menuBtn = document.getElementById('mobile-menu-btn');
-            const menuOverlay = document.getElementById('mobile-menu-overlay');
-            const menuIconOpen = document.getElementById('menu-icon-open');
-            const menuIconClose = document.getElementById('menu-icon-close');
-            const mobileMenuLinks = document.querySelectorAll('.mobile-menu-link');
-
-            const toggleMenu = () => {
-                const isOpen = menuOverlay.classList.contains('flex');
-                if (isOpen) {
-                    menuOverlay.classList.remove('flex');
-                    menuOverlay.classList.add('hidden');
-                    menuIconOpen.classList.remove('hidden');
-                    menuIconClose.classList.add('hidden');
-                    document.body.style.overflow = '';
-                } else {
-                    menuOverlay.classList.remove('hidden');
-                    menuOverlay.classList.add('flex');
-                    menuIconOpen.classList.add('hidden');
-                    menuIconClose.classList.remove('hidden');
-                    document.body.style.overflow = 'hidden';
-                }
-            };
-            
-            if (menuBtn) menuBtn.addEventListener('click', toggleMenu);
-            mobileMenuLinks.forEach(link => link.addEventListener('click', toggleMenu));
-
-            // GSAP Animations
             gsap.registerPlugin(ScrollTrigger);
-
             gsap.utils.toArray('.gs-reveal').forEach(elem => {
                 gsap.to(elem, {
-                    opacity: 1,
-                    y: 0,
-                    duration: 1.2,
-                    ease: "power3.out",
-                    scrollTrigger: {
-                        trigger: elem,
-                        start: "top 90%",
-                        toggleActions: "play none none none"
-                    }
+                    opacity: 1, y: 0, duration: 1.2, ease: "power3.out",
+                    scrollTrigger: { trigger: elem, start: "top 90%", toggleActions: "play none none none" }
                 });
             });
         });

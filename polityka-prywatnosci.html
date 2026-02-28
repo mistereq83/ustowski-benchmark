@@ -191,33 +191,6 @@
                 });
             }
 
-            const menuBtn = document.getElementById('mobile-menu-btn');
-            const menuOverlay = document.getElementById('mobile-menu-overlay');
-            const menuIconOpen = document.getElementById('menu-icon-open');
-            const menuIconClose = document.getElementById('menu-icon-close');
-            const mobileMenuLinks = document.querySelectorAll('.mobile-menu-link');
-
-            const toggleMenu = () => {
-                const isOpen = menuOverlay.classList.contains('flex');
-                if (isOpen) {
-                    menuOverlay.classList.remove('flex');
-                    menuOverlay.classList.add('hidden');
-                    menuIconOpen.classList.remove('hidden');
-                    menuIconClose.classList.add('hidden');
-                    document.body.style.overflow = '';
-                } else {
-                    menuOverlay.classList.remove('hidden');
-                    menuOverlay.classList.add('flex');
-                    menuIconOpen.classList.add('hidden');
-                    menuIconClose.classList.remove('hidden');
-                    document.body.style.overflow = 'hidden';
-                }
-            };
-            if (menuBtn) menuBtn.addEventListener('click', toggleMenu);
-            const menuClose = document.getElementById('mobile-menu-close');
-            if (menuClose) menuClose.addEventListener('click', toggleMenu);
-            mobileMenuLinks.forEach(link => link.addEventListener('click', toggleMenu));
-
             gsap.registerPlugin(ScrollTrigger);
             gsap.utils.toArray('.gs-reveal').forEach(elem => {
                 gsap.to(elem, {
