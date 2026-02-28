@@ -249,28 +249,31 @@
     </svg>
 
     <!-- Navbar -->
-    <nav id="navbar" class="fixed top-6 left-1/2 -translate-x-1/2 w-[95%] max-w-7xl rounded-full glass-nav transparent z-50 px-6 py-4 flex items-center justify-between">
-        <a href="#" ><img src="images/logo-v3.png" alt="Ustowski - czyszczenie · malowanie" class="h-7 md:h-12 w-auto"></a>
-        
-        <div class="hidden md:flex items-center gap-8 font-medium text-sm text-primary">
-            <a href="#uslugi" class="link-lift">Usługi</a>
-            <a href="o-firmie.html" class="link-lift">O firmie</a>
-            <a href="kontakt.html" class="link-lift">Kontakt</a>
-        </div>
-
-        <div class="flex items-center gap-4">
-            <a href="tel:+48663719372" class="hidden md:flex font-mono font-bold text-primary link-lift">+48 663 719 372</a>
-            <a href="#wycena" class="btn-magnetic bg-accent text-white px-4 py-2 md:px-6 md:py-3 rounded-full font-bold text-xs md:text-sm">
-                <span class="btn-bg-slide rounded-full"></span>
-                <span class="relative z-10">Bezpłatna wycena</span>
+    <header class="fixed top-0 left-0 w-full z-50 transition-all duration-300 px-4 pt-4" id="navbar">
+        <div class="glass-nav max-w-7xl mx-auto rounded-[2rem] px-6 py-4 flex items-center justify-between">
+            <a href="index.html" class="flex-shrink-0 relative z-10 block">
+                <img src="images/logo-v3.png" alt="Ustowski" class="h-7 md:h-12 w-auto object-contain" onerror="this.style.opacity=0">
             </a>
-        </div>
+            
+            <nav class="hidden lg:flex items-center gap-8 font-medium">
+                <a href="#uslugi" class="hover:text-accent transition-colors">Usługi</a>
+                <a href="o-firmie.html" class="hover:text-accent transition-colors">O firmie</a>
+                <a href="kontakt.html" class="hover:text-accent transition-colors">Kontakt</a>
+            </nav>
 
-            <button id="mobile-menu-btn" class="lg:hidden w-11 h-11 flex items-center justify-center rounded-full z-[101]" aria-label="Menu">
+            <div class="flex items-center gap-3 md:gap-6">
+                <a href="tel:+48663719372" class="font-mono font-medium hover:text-accent transition-colors hidden md:block">+48 663 719 372</a>
+                <a href="#wycena" class="btn-magnetic bg-accent text-white px-4 py-2 md:px-6 md:py-3 rounded-full font-medium text-sm">
+                    <span class="btn-content">Bezpłatna wycena</span>
+                </a>
+            </div>
+            
+            <button id="mobile-menu-btn" class="lg:hidden w-11 h-11 flex items-center justify-center bg-secondary rounded-full z-[101]" aria-label="Menu">
                 <svg id="menu-icon-open" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
                 <svg id="menu-icon-close" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="hidden"><path d="M18 6L6 18M6 6l12 12"/></svg>
             </button>
-    </nav>
+        </div>
+    </header>
 
     <!-- Mobile Menu Overlay -->
     <div id="mobile-menu-overlay" class="fixed inset-0 bg-dark/95 backdrop-blur-lg z-[100] hidden flex-col items-center justify-center text-white text-center">
@@ -954,10 +957,10 @@
             ScrollTrigger.create({
                 start: 'top -100',
                 end: 99999,
-                toggleClass: {className: 'transparent', targets: nav},
+                
                 onUpdate: (self) => {
-                    if (self.isActive) nav.classList.remove('transparent');
-                    else nav.classList.add('transparent');
+                    
+                    ;
                 }
             });
 
