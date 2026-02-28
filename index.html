@@ -117,7 +117,7 @@
             user-select: none;
         }
         @media (min-width: 768px) {
-            .ba-slider { height: 100dvh; }
+            .ba-slider { height: 70vh; } @media(min-width:768px){ .ba-slider { height: 100dvh; } }
         }
         .ba-slider img {
             width: 100%;
@@ -297,7 +297,7 @@
 
 
     <!-- Hero -->
-    <section class="relative h-[100dvh] w-full overflow-hidden">
+    <section class="relative h-[70vh] md:h-[100dvh] w-full overflow-hidden">
         <div class="ba-slider" id="heroSlider">
             <img src="images/hero-after.webp" class="ba-after" alt="Czysta elewacja" onerror="this.src=''; this.style.background='linear-gradient(45deg, #1A1A1A, #2B2B2B)'">
             <img src="images/hero-before.webp" class="ba-before grayscale brightness-75 contrast-125" alt="Brudna elewacja" onerror="this.src=''; this.style.background='linear-gradient(45deg, #555, #333)'">
@@ -721,7 +721,7 @@
             </div>
             
             <div class="lg:col-span-3 bg-primary rounded-4xl p-8 md:p-10 border border-white/5">
-                <form id="wycena-form" action="https://formsubmit.co/kontakt@ustowski.pl" method="POST" class="space-y-4 md:space-y-6">
+                <form id="wycena-form" action="https://formsubmit.co/ustowskikamil1@onet.pl" method="POST" class="space-y-4 md:space-y-6">
                     <input type="hidden" name="_subject" value="Nowe zapytanie ze strony ustowski.pl">
                     <input type="hidden" name="_captcha" value="false">
                     <input type="hidden" name="_next" value="https://ustowski.pl/index.html?sent=1">
