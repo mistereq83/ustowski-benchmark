@@ -38,10 +38,9 @@
             </h1>
         </div>
 
-        <div class="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 text-white hidden md:flex flex-col items-center gap-2 gsap-hero-text">
-            <span class="text-sm font-medium tracking-widest uppercase opacity-80">Scroll</span>
-            <div class="w-[1px] h-12 bg-white/30 relative overflow-hidden">
-                <div class="absolute top-0 left-0 w-full h-full bg-white origin-top animate-[scrolldown_1.5s_ease-in-out_infinite]"></div>
+        <div class="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gsap-hero-text scroll-dot-wrap">
+            <div class="w-[1px] h-16 bg-white/20 relative overflow-hidden rounded-full">
+                <div class="w-[3px] h-[8px] bg-white rounded-full absolute left-1/2 -translate-x-1/2 animate-[scrolldot_2s_ease-in-out_infinite]"></div>
             </div>
         </div>
     </section>
@@ -688,6 +687,13 @@
                 ease: "none"
             });
         });
+    </script>
+<script>
+    // Hide scroll dot on scroll
+    var sdw = document.querySelector('.scroll-dot-wrap');
+    if (sdw) window.addEventListener('scroll', function() {
+        sdw.style.opacity = window.scrollY > 100 ? '0' : '1';
+    });
     </script>
 <!-- INCLUDE:_scripts.html -->
 </body>
