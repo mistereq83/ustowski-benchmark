@@ -23,10 +23,12 @@ def generate_related_links(service_slug, current_city_slug, cities):
 def generate_page(template, city, service, all_cities):
     cs = city['slug']
     ss = service['page'].replace('.html', '')
+    filename = f'{ss}-{cs}.html'
     intro = service['intro_templates'][cs]
     challenges = city['challenges']
     
     replacements = {
+        '{{FILENAME}}': filename,
         '{{TITLE}}': f'{service["name"]} {city["name"]}',
         '{{META_DESC}}': f'{service["name"]} w {city["locative"]} — profesjonalne usługi firmy Ustowski. Ceny od {service["price_range"]} {service["price_unit"]}. Bezpłatna wycena. Tel. 663 719 372.',
         '{{HERO_IMG}}': service['hero_img'],

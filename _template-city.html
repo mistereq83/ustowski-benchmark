@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Impregnacja Gdynia | Ustowski</title>
-    <meta name="description" content="Impregnacja w Gdyni — profesjonalne usługi firmy Ustowski. Ceny od = cena mycia (łącznie mycie + impregnacja = 2× cena mycia). Bezpłatna wycena. Tel. 663 719 372.">
-    <link rel="canonical" href="https://ustowski.pl/impregnacja-gdynia.html">
+    <title>{{TITLE}} | Ustowski</title>
+    <meta name="description" content="{{META_DESC}}">
+    <link rel="canonical" href="https://ustowski.pl/{{FILENAME}}">
     <meta charset="UTF-8">
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -121,9 +121,9 @@
     {
         "@context": "https://schema.org",
         "@type": "LocalBusiness",
-        "name": "Ustowski — Impregnacja Gdynia",
-        "description": "Impregnacja w Gdyni — profesjonalne usługi firmy Ustowski. Ceny od = cena mycia (łącznie mycie + impregnacja = 2× cena mycia). Bezpłatna wycena. Tel. 663 719 372.",
-        "url": "https://ustowski.pl/impregnacja-gdynia.html",
+        "name": "Ustowski — {{SERVICE_NAME}} {{CITY}}",
+        "description": "{{META_DESC}}",
+        "url": "https://ustowski.pl/{{FILENAME}}",
         "telephone": "+48663719372",
         "email": "ustowskikamil1@onet.pl",
         "address": {
@@ -136,9 +136,9 @@
         },
         "areaServed": {
             "@type": "City",
-            "name": "Gdynia"
+            "name": "{{CITY}}"
         },
-        "priceRange": "= cena mycia (łącznie mycie + impregnacja = 2× cena mycia)"
+        "priceRange": "{{PRICE_RANGE}} {{PRICE_UNIT}}"
     }
     </script>
     <script type="application/ld+json">
@@ -148,8 +148,8 @@
         "itemListElement": [
             {"@type": "ListItem", "position": 1, "name": "Strona główna", "item": "https://ustowski.pl/"},
             {"@type": "ListItem", "position": 2, "name": "Usługi", "item": "https://ustowski.pl/uslugi.html"},
-            {"@type": "ListItem", "position": 3, "name": "Impregnacja", "item": "https://ustowski.pl/impregnacja.html"},
-            {"@type": "ListItem", "position": 4, "name": "Gdynia"}
+            {"@type": "ListItem", "position": 3, "name": "{{SERVICE_NAME}}", "item": "https://ustowski.pl/{{SERVICE_PAGE}}"},
+            {"@type": "ListItem", "position": 4, "name": "{{CITY}}"}
         ]
     }
     </script>
@@ -207,7 +207,7 @@
     <!-- 1. HERO -->
     <section class="relative min-h-[50vh] md:h-[400px] flex items-end pb-12 pt-28 px-4">
         <div class="absolute inset-0 z-0">
-            <img src="images/usluga-impregnacja.webp" alt="Impregnacja Gdynia" class="w-full h-full object-cover">
+            <img src="images/{{HERO_IMG}}" alt="{{SERVICE_NAME}} {{CITY}}" class="w-full h-full object-cover">
             <div class="absolute inset-0 bg-gradient-to-t from-dark/90 via-dark/60 to-dark/30"></div>
         </div>
         <div class="max-w-7xl mx-auto w-full relative z-10 text-white gs-reveal">
@@ -216,14 +216,14 @@
                 <span>→</span>
                 <a href="uslugi.html" class="hover:text-white transition">Usługi</a>
                 <span>→</span>
-                <a href="impregnacja.html" class="hover:text-white transition">Impregnacja</a>
+                <a href="{{SERVICE_PAGE}}" class="hover:text-white transition">{{SERVICE_NAME}}</a>
                 <span>→</span>
-                <span class="text-white">Gdynia</span>
+                <span class="text-white">{{CITY}}</span>
             </div>
-            <h1 class="font-heading text-3xl md:text-6xl font-bold mb-4 tracking-tight">Impregnacja Gdynia</h1>
-            <p class="text-lg md:text-xl text-white/90 max-w-2xl mb-8 font-light">Profesjonalne impregnacja w Gdyni i okolicach. Sprzęt przemysłowy, doświadczony zespół, gwarancja jakości.</p>
+            <h1 class="font-heading text-3xl md:text-6xl font-bold mb-4 tracking-tight">{{H1}}</h1>
+            <p class="text-lg md:text-xl text-white/90 max-w-2xl mb-8 font-light">{{HERO_DESC}}</p>
             <a href="kontakt.html#formularz" class="btn-magnetic bg-accent text-white px-8 py-4 rounded-full font-medium text-lg inline-flex">
-                <span class="btn-content">Bezpłatna wycena w Gdyni</span>
+                <span class="btn-content">Bezpłatna wycena w {{CITY_LOCATIVE}}</span>
             </a>
         </div>
     </section>
@@ -231,11 +231,11 @@
     <!-- 2. INTRO — UNIKALNA TREŚĆ DLA MIASTA -->
     <section class="py-12 md:py-24 px-4 bg-bg">
         <div class="max-w-4xl mx-auto gs-reveal">
-            <h2 class="font-heading text-2xl md:text-4xl font-bold mb-8">Impregnacja w Gdyni — tarcza ochronna dla gdyńskiej elewacji</h2>
+            <h2 class="font-heading text-2xl md:text-4xl font-bold mb-8">{{SERVICE_NAME}} w {{CITY_LOCATIVE}} — {{INTRO_HEADLINE}}</h2>
             <div class="space-y-6 text-primary/80 text-base md:text-lg leading-relaxed">
-                <p>Gdynia, z jej nadmorskim położeniem i silnymi wiatrami, to miasto gdzie impregnacja elewacji daje najlepsze efekty. Wiatr niesie sól i wilgoć, które bez ochrony wnikają w strukturę tynku i przyspieszają rozwój glonów.</p>
-                <p>Hydrofobowa powłoka sprawia, że woda spływa po elewacji zamiast wnikać w pory. Brud zmywany jest przez deszcz — efekt samooczyszczania. W Gdyni, gdzie deszcz jest częstym gościem, to duża zaleta.</p>
-                <p>Impregnujemy zarówno elewacje jak i dachy. Szczególnie polecamy impregnację dachówek betonowych — zapobiega wnikaniu wody i mroźnym uszkodzeniom. W połączeniu z myciem to najlepsza inwestycja w długoterminową ochronę budynku.</p>
+                <p>{{INTRO_P1}}</p>
+                <p>{{INTRO_P2}}</p>
+                <p>{{INTRO_P3}}</p>
             </div>
         </div>
     </section>
@@ -243,23 +243,23 @@
     <!-- 3. LOKALNE WYZWANIA -->
     <section class="py-12 md:py-24 px-4 bg-dark text-white rounded-[3rem] mx-2 md:mx-4">
         <div class="max-w-7xl mx-auto">
-            <h2 class="font-heading text-2xl md:text-4xl font-bold mb-4 text-center gs-reveal">Dlaczego impregnacja w Gdyni wymaga specjalisty?</h2>
-            <p class="text-white/60 text-center mb-10 md:mb-16 max-w-2xl mx-auto gs-reveal">Wiatr z morza nanosi sól na elewacje. Strome zbocza i klify powodują dodatkową wilgoć. Domy na wzniesieniach (Kamienna Góra, Działki Leśne) często mają problem z mchami na dachach od strony północnej.</p>
+            <h2 class="font-heading text-2xl md:text-4xl font-bold mb-4 text-center gs-reveal">Dlaczego {{SERVICE_NAME_SHORT}} w {{CITY_LOCATIVE}} wymaga specjalisty?</h2>
+            <p class="text-white/60 text-center mb-10 md:mb-16 max-w-2xl mx-auto gs-reveal">{{CHALLENGES_INTRO}}</p>
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
                 <div class="bg-white/5 p-6 md:p-8 rounded-[2rem] border border-white/10 gs-card">
-                    <div class="text-3xl mb-4">💨</div>
-                    <h3 class="font-heading font-bold text-lg mb-2">Silne wiatry</h3>
-                    <p class="text-white/70 text-sm">Nadmorskie położenie i ekspozycja na wiatry bałtyckie powodują szybszą erozję powłok malarskich i nanoszenie zanieczyszczeń.</p>
+                    <div class="text-3xl mb-4">{{CHALLENGE_1_ICON}}</div>
+                    <h3 class="font-heading font-bold text-lg mb-2">{{CHALLENGE_1_TITLE}}</h3>
+                    <p class="text-white/70 text-sm">{{CHALLENGE_1_DESC}}</p>
                 </div>
                 <div class="bg-white/5 p-6 md:p-8 rounded-[2rem] border border-white/10 gs-card">
-                    <div class="text-3xl mb-4">⛰️</div>
-                    <h3 class="font-heading font-bold text-lg mb-2">Teren pagórkowaty</h3>
-                    <p class="text-white/70 text-sm">Domy na wzniesieniach (Kamienna Góra, Orłowo) wymagają specjalistycznego sprzętu — nasz podnośnik 83 cm wjeżdża wszędzie.</p>
+                    <div class="text-3xl mb-4">{{CHALLENGE_2_ICON}}</div>
+                    <h3 class="font-heading font-bold text-lg mb-2">{{CHALLENGE_2_TITLE}}</h3>
+                    <p class="text-white/70 text-sm">{{CHALLENGE_2_DESC}}</p>
                 </div>
                 <div class="bg-white/5 p-6 md:p-8 rounded-[2rem] border border-white/10 gs-card">
-                    <div class="text-3xl mb-4">🏛️</div>
-                    <h3 class="font-heading font-bold text-lg mb-2">Zabudowa modernistyczna</h3>
-                    <p class="text-white/70 text-sm">Gdyński modernizm to jasne tynki, które łatwo się brudzą. Wymagają delikatnych metod czyszczenia zachowujących charakter budynku.</p>
+                    <div class="text-3xl mb-4">{{CHALLENGE_3_ICON}}</div>
+                    <h3 class="font-heading font-bold text-lg mb-2">{{CHALLENGE_3_TITLE}}</h3>
+                    <p class="text-white/70 text-sm">{{CHALLENGE_3_DESC}}</p>
                 </div>
             </div>
         </div>
@@ -271,12 +271,12 @@
             <div class="bg-white rounded-[2rem] p-6 md:p-10 shadow-sm border border-primary/5">
                 <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
                     <div>
-                        <h2 class="font-heading text-xl md:text-2xl font-bold text-primary mb-2">Cennik — Impregnacja Gdynia</h2>
-                        <p class="text-primary/60 text-sm md:text-base">Impregnacja to hydrofobowa powłoka nakładana po myciu. Cena impregnacji równa cenie mycia danej powierzchni.</p>
+                        <h2 class="font-heading text-xl md:text-2xl font-bold text-primary mb-2">Cennik — {{SERVICE_NAME}} {{CITY}}</h2>
+                        <p class="text-primary/60 text-sm md:text-base">{{PRICE_NOTE}}</p>
                     </div>
                     <div class="text-left md:text-right">
-                        <div class="font-mono text-3xl md:text-4xl font-bold text-accent">= cena mycia</div>
-                        <div class="text-sm text-primary/50 font-mono">(łącznie mycie + impregnacja = 2× cena mycia)</div>
+                        <div class="font-mono text-3xl md:text-4xl font-bold text-accent">{{PRICE_RANGE}}</div>
+                        <div class="text-sm text-primary/50 font-mono">{{PRICE_UNIT}}</div>
                     </div>
                 </div>
                 <div class="mt-6 pt-6 border-t border-primary/10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
@@ -290,15 +290,15 @@
     <!-- 5. DLACZEGO USTOWSKI -->
     <section class="py-12 md:py-24 px-4 bg-bg">
         <div class="max-w-7xl mx-auto">
-            <h2 class="font-heading text-2xl md:text-4xl font-bold mb-10 md:mb-16 text-center gs-reveal">Dlaczego Ustowski w Gdyni?</h2>
+            <h2 class="font-heading text-2xl md:text-4xl font-bold mb-10 md:mb-16 text-center gs-reveal">Dlaczego Ustowski w {{CITY_LOCATIVE}}?</h2>
             <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
                 <div class="bg-secondary/50 p-5 md:p-8 rounded-[2rem] text-center gs-card">
-                    <div class="font-mono text-2xl md:text-3xl font-bold text-accent mb-2">35 km</div>
+                    <div class="font-mono text-2xl md:text-3xl font-bold text-accent mb-2">{{DISTANCE}} km</div>
                     <p class="text-primary/60 text-sm">od naszej bazy<br>w Goręczynie</p>
                 </div>
                 <div class="bg-secondary/50 p-5 md:p-8 rounded-[2rem] text-center gs-card">
-                    <div class="font-mono text-2xl md:text-3xl font-bold text-accent mb-2">~40 min</div>
-                    <p class="text-primary/60 text-sm">czas dojazdu<br>do Gdyni</p>
+                    <div class="font-mono text-2xl md:text-3xl font-bold text-accent mb-2">{{DRIVE_TIME}}</div>
+                    <p class="text-primary/60 text-sm">czas dojazdu<br>do {{CITY_GENITIVE}}</p>
                 </div>
                 <div class="bg-secondary/50 p-5 md:p-8 rounded-[2rem] text-center gs-card">
                     <div class="font-mono text-2xl md:text-3xl font-bold text-accent mb-2">350k+</div>
@@ -315,22 +315,22 @@
     <!-- 6. PROCES -->
     <section class="py-12 md:py-24 px-4 bg-dark text-white rounded-[3rem] mx-2 md:mx-4">
         <div class="max-w-7xl mx-auto">
-            <h2 class="font-heading text-2xl md:text-4xl font-bold mb-10 md:mb-16 text-center gs-reveal">Jak wygląda impregnacja w Gdyni?</h2>
+            <h2 class="font-heading text-2xl md:text-4xl font-bold mb-10 md:mb-16 text-center gs-reveal">Jak wygląda {{SERVICE_NAME_SHORT}} w {{CITY_LOCATIVE}}?</h2>
             <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
                 <div class="bg-white/5 p-6 md:p-8 rounded-[2rem] border border-white/10 gs-step">
                     <div class="font-mono text-3xl text-accent font-bold mb-4">01</div>
                     <h3 class="font-heading font-bold text-lg mb-2">Kontakt</h3>
-                    <p class="text-white/70 text-sm">Zadzwoń lub wyślij formularz. Umawiamy oględziny w Gdyni.</p>
+                    <p class="text-white/70 text-sm">Zadzwoń lub wyślij formularz. Umawiamy oględziny w {{CITY_LOCATIVE}}.</p>
                 </div>
                 <div class="bg-white/5 p-6 md:p-8 rounded-[2rem] border border-white/10 gs-step">
                     <div class="font-mono text-3xl text-accent font-bold mb-4">02</div>
                     <h3 class="font-heading font-bold text-lg mb-2">Oględziny</h3>
-                    <p class="text-white/70 text-sm">Przyjeżdżamy do Gdyni, oceniamy stan i dobieramy metodę.</p>
+                    <p class="text-white/70 text-sm">Przyjeżdżamy do {{CITY_GENITIVE}}, oceniamy stan i dobieramy metodę.</p>
                 </div>
                 <div class="bg-white/5 p-6 md:p-8 rounded-[2rem] border border-white/10 gs-step">
                     <div class="font-mono text-3xl text-accent font-bold mb-4">03</div>
                     <h3 class="font-heading font-bold text-lg mb-2">Realizacja</h3>
-                    <p class="text-white/70 text-sm">Po dokładnym myciu i wyschnięciu powierzchni nakładamy preparat hydrofobowy metodą natryskową.</p>
+                    <p class="text-white/70 text-sm">{{PROCESS_STEP3}}</p>
                 </div>
                 <div class="bg-white/5 p-6 md:p-8 rounded-[2rem] border border-white/10 gs-step">
                     <div class="font-mono text-3xl text-accent font-bold mb-4">04</div>
@@ -344,14 +344,12 @@
     <!-- 7. POWIĄZANE MIASTA -->
     <section class="py-12 md:py-24 px-4 bg-bg">
         <div class="max-w-4xl mx-auto text-center gs-reveal">
-            <h2 class="font-heading text-xl md:text-2xl font-bold mb-8">Impregnacja w innych miastach</h2>
+            <h2 class="font-heading text-xl md:text-2xl font-bold mb-8">{{SERVICE_NAME}} w innych miastach</h2>
             <div class="flex flex-wrap justify-center gap-3">
-                <a href="impregnacja-gdansk.html" class="px-4 py-2 bg-secondary hover:bg-accent hover:text-white rounded-full text-sm font-medium transition-colors">Gdańsk</a>
-                <span class="px-4 py-2 bg-accent text-white rounded-full text-sm font-medium">Gdynia</span>
-                <a href="impregnacja-sopot.html" class="px-4 py-2 bg-secondary hover:bg-accent hover:text-white rounded-full text-sm font-medium transition-colors">Sopot</a>
+                {{RELATED_CITIES_LINKS}}
             </div>
             <div class="mt-8">
-                <a href="impregnacja.html" class="text-accent font-medium hover:underline">← Wróć do Impregnacja</a>
+                <a href="{{SERVICE_PAGE}}" class="text-accent font-medium hover:underline">← Wróć do {{SERVICE_NAME}}</a>
             </div>
         </div>
     </section>
@@ -359,7 +357,7 @@
     <!-- 8. CTA -->
     <section class="py-12 md:py-24 px-4 bg-dark text-white text-center rounded-[3rem] mx-2 md:mx-4 mb-12">
         <div class="max-w-3xl mx-auto gs-reveal">
-            <h2 class="font-heading text-2xl md:text-4xl font-bold mb-6">Szukasz specjalisty od impregnacji w Gdyni?</h2>
+            <h2 class="font-heading text-2xl md:text-4xl font-bold mb-6">Szukasz specjalisty od {{SERVICE_NAME_GENITIVE}} w {{CITY_LOCATIVE}}?</h2>
             <p class="text-xl text-white/80 mb-8">Zadzwoń lub napisz — wycena jest bezpłatna i niezobowiązująca.</p>
             <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
                 <a href="tel:+48663719372" class="bg-white/10 text-white px-8 py-4 rounded-full font-medium text-lg inline-flex items-center gap-3 hover:bg-white/20 transition-colors">
