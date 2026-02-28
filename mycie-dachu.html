@@ -330,12 +330,8 @@
                 <div class="gs-card">
                     <div class="h-[220px] md:h-[400px] w-full mb-4 ba-container relative rounded-[2rem] overflow-hidden bg-secondary">
                         <div class="ba-slider">
-                            <div class="ba-image-after">
-                                <img src="images/realizacja2-po.webp" alt="Po myciu dachu" onerror="this.src='data:image/svg+xml;utf8,%3Csvg xmlns=\'http://www.w3.org/2000/svg\'/%3E'; this.style.background='#e0e0e0'" loading="lazy">
-                            </div>
-                            <div class="ba-image-before">
-                                <img src="images/realizacja2-przed.webp" alt="Przed myciem dachu" onerror="this.src='data:image/svg+xml;utf8,%3Csvg xmlns=\'http://www.w3.org/2000/svg\'/%3E'; this.style.background='#d0d0d0'" loading="lazy">
-                            </div>
+                            <img src="images/realizacja2-po.webp" class="ba-after" alt="Po myciu dachu">
+                            <img src="images/realizacja2-przed.webp" class="ba-before grayscale brightness-75 contrast-125" alt="Przed myciem dachu">
                             <div class="ba-handle"></div>
                         </div>
                     </div>
@@ -349,12 +345,8 @@
                 <div class="gs-card">
                     <div class="h-[220px] md:h-[400px] w-full mb-4 ba-container relative rounded-[2rem] overflow-hidden bg-secondary">
                         <div class="ba-slider">
-                            <div class="ba-image-after">
-                                <img src="images/hero-after.webp" alt="Po myciu dachu" onerror="this.src='data:image/svg+xml;utf8,%3Csvg xmlns=\'http://www.w3.org/2000/svg\'/%3E'; this.style.background='#e0e0e0'">
-                            </div>
-                            <div class="ba-image-before">
-                                <img src="images/hero-before.webp" alt="Przed myciem dachu" onerror="this.src='data:image/svg+xml;utf8,%3Csvg xmlns=\'http://www.w3.org/2000/svg\'/%3E'; this.style.background='#d0d0d0'">
-                            </div>
+                            <img src="images/hero-after.webp" class="ba-after" alt="Po myciu dachu">
+                            <img src="images/hero-before.webp" class="ba-before grayscale brightness-75 contrast-125" alt="Przed myciem dachu">
                             <div class="ba-handle"></div>
                         </div>
                     </div>
@@ -605,46 +597,27 @@
         // Before/After Slider Logic
         document.querySelectorAll('.ba-container').forEach(container => {
             const slider = container.querySelector('.ba-slider');
-            const beforeImage = container.querySelector('.ba-image-before');
-            const handle = container.querySelector('.ba-handle');
+            const beforeImage = slider.querySelector('.ba-before');
+            const handle = slider.querySelector('.ba-handle');
             let isDragging = false;
 
-            const updateSlider = (e) => {
+            const moveSlider = (e) => {
+                if (!isDragging) return;
+                e.preventDefault();
                 const rect = slider.getBoundingClientRect();
                 let x = (e.type.includes('touch') ? e.touches[0].clientX : e.clientX) - rect.left;
-                
-                // Constraints
                 x = Math.max(0, Math.min(x, rect.width));
-                
-                const percentage = (x / rect.width) * 100;
-                beforeImage.style.width = percentage + '%';
-                handle.style.left = percentage + '%';
+                const pct = (x / rect.width) * 100;
+                beforeImage.style.clipPath = 'polygon(0 0, ' + pct + '% 0, ' + pct + '% 100%, 0 100%)';
+                handle.style.left = pct + '%';
             };
 
-            // Mouse events
             handle.addEventListener('mousedown', () => isDragging = true);
             window.addEventListener('mouseup', () => isDragging = false);
-            window.addEventListener('mousemove', (e) => {
-                if (isDragging) updateSlider(e);
-            });
-
-            // Touch events
+            window.addEventListener('mousemove', moveSlider);
             handle.addEventListener('touchstart', () => isDragging = true, {passive: true});
             window.addEventListener('touchend', () => isDragging = false);
-            window.addEventListener('touchmove', (e) => {
-                if (isDragging) {
-                    updateSlider(e);
-                    // e.preventDefault();
-                }
-            }, {passive: false});
-            
-            // Sync inner image width to parent container width to maintain aspect ratio anchor
-            const syncWidth = () => {
-                const img = beforeImage.querySelector('img');
-                img.style.width = slider.offsetWidth + 'px';
-            };
-            window.addEventListener('resize', syncWidth);
-            syncWidth();
+            window.addEventListener('touchmove', moveSlider, {passive: false});
         });
     </script>
     <script>
