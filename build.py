@@ -12,7 +12,7 @@ import glob
 
 PARTIALS_DIR = '_partials'
 SRC_DIR = 'src'
-OUT_DIR = '.'  # root = deploy directory
+OUT_DIR = 'public'  # Express serves from public/
 
 def load_partial(name):
     path = os.path.join(PARTIALS_DIR, name)

@@ -1,0 +1,15 @@
+{
+  "name": "ustowski-website",
+  "version": "1.0.0",
+  "description": "Ustowski — professional facade & roof cleaning",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.21.0",
+    "multer": "^1.4.5-lts.1",
+    "sharp": "^0.33.2"
+  }
+}

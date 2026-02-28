@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+<html lang="pl" class="scroll-smooth">
+<head>
+    <title>Malowanie elewacji | Ustowski</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- GTM / Analytics — dodaj tutaj, pojawi się na wszystkich stronach -->
+    <!-- {{GTM_HEAD}} -->
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Outfit:wght@100..900&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        accent: '#F06820',
+                        primary: '#2B2B2B',
+                        dark: '#1A1A1A',
+                        bg: '#FAFAFA',
+                        secondary: '#EDEDED'
+                    },
+                    fontFamily: {
+                        heading: ['Outfit', 'sans-serif'],
+                        body: ['DM Sans', 'sans-serif'],
+                        mono: ['Space Mono', 'monospace'],
+                    },
+                    borderRadius: {
+                        '4xl': '2rem',
+                        '5xl': '3rem',
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- GSAP -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    
+    <style>
+        body {
+            background-color: #FAFAFA;
+            color: #2B2B2B;
+            font-family: 'DM Sans', sans-serif;
+            overflow-x: hidden;
+        }
+        h1, h2, h3, h4, h5, h6 { font-family: 'Outfit', sans-serif; }
+        .noise-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; pointer-events: none; z-index: 9999; opacity: 0.05; }
+        .btn-magnetic { display: inline-flex; align-items: center; justify-content: center; position: relative; overflow: hidden; transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
+        .btn-magnetic:hover { transform: scale(1.03); }
+        .link-lift { transition: transform 0.2s ease, color 0.2s ease; }
+        .link-lift:hover { transform: translateY(-1px); color: #F06820; }
+        .glass-nav { background: rgba(250, 250, 250, 0.7); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border: 1px solid rgba(255,255,255,0.2); transition: background 0.3s ease, backdrop-filter 0.3s ease; }
+        .text-balance { text-wrap: balance; }
+        .reveal-word { opacity: 0.2; }
+        /* Before-After Slider */
+        .ba-slider { position: relative; width: 100%; height: 70vh; overflow: hidden; user-select: none; }
+        @media (min-width: 768px) { .ba-slider { height: 100dvh; } }
+        .ba-slider img { width: 100%; height: 100%; object-fit: cover; position: absolute; top: 0; left: 0; pointer-events: none; }
+        .ba-before { clip-path: polygon(0 0, 50% 0, 50% 100%, 0 100%); z-index: 2; }
+        .ba-after { z-index: 1; }
+        /* Subpage mini sliders (width-based, not clip-path) */
+        .ba-container .ba-slider { height: 100%; }
+        .ba-image-before, .ba-image-after { position: absolute; top: 0; left: 0; width: 100%; height: 100%; overflow: hidden; }
+        .ba-image-before { width: 50%; z-index: 2; }
+        .ba-image-after { z-index: 1; }
+        .ba-image-before img, .ba-image-after img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; pointer-events: none; }
+        .ba-handle { position: absolute; top: 0; bottom: 0; left: 50%; width: 2px; background: #F06820; z-index: 3; transform: translateX(-50%); cursor: ew-resize; }
+        .ba-handle::before { content: ''; position: absolute; top: 0; bottom: 0; left: -20px; width: 42px; background: transparent; }
+        .ba-handle-btn { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 36px; height: 36px; background: #F06820; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; box-shadow: 0 4px 12px rgba(240, 104, 32, 0.3); }
+        @media (min-width: 768px) { .ba-handle-btn { width: 48px; height: 48px; } }
+        /* Mini Slider */
+        .mini-slider { position: relative; width: 100%; aspect-ratio: 4/3; overflow: hidden; border-radius: 2rem; user-select: none; }
+        .mini-slider img { width: 100%; height: 100%; object-fit: cover; position: absolute; top: 0; left: 0; pointer-events: none; }
+        .mini-before { clip-path: polygon(0 0, 50% 0, 50% 100%, 0 100%); z-index: 2; }
+        .mini-after { z-index: 1; }
+        .mini-handle { position: absolute; top: 0; bottom: 0; left: 50%; width: 2px; background: #F06820; z-index: 3; transform: translateX(-50%); cursor: ew-resize; }
+        /* Service Cards */
+        .service-card { filter: grayscale(100%); transition: filter 0.5s ease, transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
+        .service-card:hover { filter: grayscale(0%); transform: scale(1.02); }
+        .service-card-desc { display: none !important; max-height: 0 !important; overflow: hidden !important; }
+        @media (max-width: 767px) {
+            .service-card { filter: grayscale(0%) !important; }
+            .service-card img { opacity: 0.7 !important; }
+            .service-card-desc { display: none !important; }
+        }
+        .service-card {
+            height: 180px !important;
+            min-height: 180px !important;
+            max-height: 180px !important;
+        }
+        @media (min-width: 768px) {
+            .service-card {
+                height: 280px !important;
+                min-height: 280px !important;
+                max-height: 280px !important;
+            }
+        }
+        .service-card img {
+            position: absolute !important;
+            top: 0 !important;
+            left: 0 !important;
+            width: 100% !important;
+            height: 100% !important;
+            object-fit: cover !important;
+        }
+        @keyframes scrolldot {
+            0%, 100% { top: 2px; opacity: 0.3; }
+            50% { top: calc(100% - 10px); opacity: 1; }
+        }
+        .scroll-dot-wrap { transition: opacity 0.5s ease; }
+    </style>
+
+</head>
+<body class="font-body text-primary antialiased selection:bg-accent selection:text-white">
+
+    <div class="noise-overlay"></div>
+
+    <!-- NAVBAR -->
+        <header class="fixed top-0 left-0 w-full z-50 transition-all duration-300 px-4 pt-4" id="navbar">
+        <div class="glass-nav max-w-7xl mx-auto rounded-[2rem] px-6 py-4 flex items-center justify-between">
+            <a href="index.html" class="flex-shrink-0 relative z-10 block">
+                <img src="images/logo-v3.png" alt="Ustowski" class="h-7 md:h-12 w-auto object-contain" onerror="this.style.opacity=0">
+            </a>
+            
+            <nav class="hidden lg:flex items-center gap-8 font-medium">
+                <a href="uslugi.html" class="hover:text-accent transition-colors">Usługi</a>
+                <a href="cennik.html" class="hover:text-accent transition-colors">Cennik</a>
+                <a href="o-firmie.html" class="hover:text-accent transition-colors">O firmie</a>
+                <a href="kontakt.html" class="hover:text-accent transition-colors">Kontakt</a>
+            </nav>
+
+            <div class="flex items-center gap-3 md:gap-6">
+                <a href="tel:+48663719372" class="font-mono font-medium hover:text-accent transition-colors hidden md:block">+48 663 719 372</a>
+                <a href="kontakt.html#formularz" class="btn-magnetic bg-accent text-white px-4 py-2 md:px-6 md:py-3 rounded-full font-medium text-sm">
+                    <span class="btn-content">Bezpłatna wycena</span>
+                </a>
+            </div>
+            
+            <button id="mobile-menu-btn" class="lg:hidden w-11 h-11 flex items-center justify-center bg-secondary rounded-full z-[101]" aria-label="Menu">
+                <svg id="menu-icon-open" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+                <svg id="menu-icon-close" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="hidden"><path d="M18 6L6 18M6 6l12 12"/></svg>
+            </button>
+        </div>
+    </header>
+
+
+    <div id="mobile-menu-overlay" class="fixed inset-0 bg-dark/95 backdrop-blur-lg z-[100] hidden flex-col items-center justify-center text-white text-center">
+        <button id="mobile-menu-close" class="absolute top-8 right-8 w-14 h-14 flex items-center justify-center rounded-full bg-white/20 border-2 border-white/40 z-[110]" aria-label="Zamknij menu">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"><path d="M18 6L6 18M6 6l12 12"/></svg>
+        </button>
+        <nav class="flex flex-col gap-8 text-2xl font-medium font-heading">
+            <a href="uslugi.html" class="mobile-menu-link hover:text-accent transition-colors">Usługi</a>
+            <a href="cennik.html" class="mobile-menu-link hover:text-accent transition-colors">Cennik</a>
+            <a href="o-firmie.html" class="mobile-menu-link hover:text-accent transition-colors">O firmie</a>
+            <a href="kontakt.html" class="mobile-menu-link hover:text-accent transition-colors">Kontakt</a>
+        </nav>
+        <div class="mt-12 flex flex-col items-center gap-6">
+            <a href="kontakt.html#formularz" class="btn-magnetic bg-accent text-white px-8 py-4 rounded-full font-bold text-lg">
+                <span class="btn-content">Bezpłatna wycena</span>
+            </a>
+            <a href="tel:+48663719372" class="font-mono text-xl hover:text-accent transition-colors">663 719 372</a>
+        </div>
+    </div>
+
+
+
+    <!-- 1. HERO -->
+    <section class="relative min-h-[50vh] md:h-[400px] flex items-end pb-12 pt-28 px-4">
+        <div class="absolute inset-0 z-0">
+            <img src="images/usluga-malowanie-elewacji.webp" alt="Malowanie elewacji" class="w-full h-full object-cover" onerror="this.src='data:image/svg+xml;utf8,%3Csvg xmlns=\'http://www.w3.org/2000/svg\'/%3E'; this.style.background='#2B2B2B'" loading="lazy">
+            <div class="absolute inset-0 bg-gradient-to-t from-dark/90 via-dark/50 to-transparent"></div>
+        </div>
+        
+        <div class="max-w-7xl mx-auto w-full relative z-10 text-white gs-reveal">
+            <div class="flex items-center gap-2 text-sm text-white/70 font-mono mb-6">
+                <a href="/" class="hover:text-white transition">Strona główna</a>
+                <span>→</span>
+                <a href="uslugi.html" class="hover:text-white transition">Usługi</a>
+                <span>→</span>
+                <span class="text-white">Malowanie elewacji</span>
+            </div>
+            <h1 class="font-heading text-5xl md:text-7xl font-bold mb-4 tracking-tight">Malowanie elewacji</h1>
+            <p class="text-lg md:text-xl text-white/90 max-w-2xl mb-8 font-light">Odświeżamy wygląd budynku i przywracamy elewacji równy, estetyczny kolor. Pracujemy sprawnie, bez chaosu i z dbałością o zabezpieczenie posesji.</p>
+            <a href="kontakt.html#formularz" class="btn-magnetic bg-accent text-white px-8 py-4 rounded-full font-medium text-lg inline-flex">
+                <span class="btn-content">Bezpłatna wycena w 24h</span>
+            </a>
+        </div>
+    </section>
+
+    <!-- 2. PROBLEM KLIENTA -->
+    <section class="py-12 md:py-24 px-4 bg-bg">
+        <div class="max-w-4xl mx-auto gs-reveal">
+            <div class="pl-6 md:pl-10 border-l-4 border-accent py-2">
+                <h2 class="font-heading text-xl md:text-3xl font-bold mb-6">Kiedy ta usługa jest potrzebna?</h2>
+                <p class="text-lg md:text-xl text-primary/80 leading-relaxed">
+                    Wyblakły kolor, ślady po zaciekach, miejscowe przebarwienia i elewacja, która przestała wyglądać świeżo – to sygnał, że samo mycie może już nie wystarczyć. Malowanie pozwala odnowić wygląd domu i przywrócić mu estetykę bez pełnego remontu.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 3. CO OBEJMUJE USŁUGA -->
+    <section class="py-12 md:py-24 px-4 bg-secondary rounded-[3rem] mx-2 md:mx-4">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="font-heading text-2xl md:text-4xl font-bold mb-6 md:mb-16 text-center gs-reveal">Co obejmuje usługa</h2>
+            <div class="grid grid-cols-2 lg:grid-cols-3 gap-3 md:gap-6">
+                <!-- Items -->
+                <div class="bg-bg p-4 md:p-8 rounded-xl md:rounded-[2rem] gs-card">
+                    <div class="w-8 h-8 md:w-12 md:h-12 bg-accent/10 text-accent rounded-full flex items-center justify-center mb-2 md:mb-6">
+                        <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+                    </div>
+                    <p class="font-medium text-xs md:text-lg">Ocenę stanu elewacji i przygotowanie podłoża</p>
+                </div>
+                <div class="bg-bg p-4 md:p-8 rounded-xl md:rounded-[2rem] gs-card">
+                    <div class="w-8 h-8 md:w-12 md:h-12 bg-accent/10 text-accent rounded-full flex items-center justify-center mb-2 md:mb-6">
+                        <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+                    </div>
+                    <p class="font-medium text-xs md:text-lg">Mycie lub doczyszczenie powierzchni przed malowaniem</p>
+                </div>
+                <div class="bg-bg p-4 md:p-8 rounded-xl md:rounded-[2rem] gs-card">
+                    <div class="w-8 h-8 md:w-12 md:h-12 bg-accent/10 text-accent rounded-full flex items-center justify-center mb-2 md:mb-6">
+                        <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+                    </div>
+                    <p class="font-medium text-xs md:text-lg">Zabezpieczenie okien, drzwi, kostki i elementów otoczenia</p>
+                </div>
+                <div class="bg-bg p-4 md:p-8 rounded-xl md:rounded-[2rem] gs-card">
+                    <div class="w-8 h-8 md:w-12 md:h-12 bg-accent/10 text-accent rounded-full flex items-center justify-center mb-2 md:mb-6">
+                        <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+                    </div>
+                    <p class="font-medium text-xs md:text-lg">Malowanie elewacji dobraną metodą</p>
+                </div>
+                <div class="bg-bg p-8 rounded-[2rem] gs-card lg:col-span-2">
+                    <div class="w-8 h-8 md:w-12 md:h-12 bg-accent/10 text-accent rounded-full flex items-center justify-center mb-2 md:mb-6">
+                        <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+                    </div>
+                    <p class="font-medium text-xs md:text-lg">Uporządkowanie terenu po zakończeniu prac</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 4. DLACZEGO USTOWSKI -->
+    <section class="py-12 md:py-24 px-4 bg-bg">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="font-heading text-2xl md:text-4xl font-bold mb-6 md:mb-16 text-center gs-reveal">Dlaczego Ustowski przy malowaniu elewacji</h2>
+            <div class="grid grid-cols-2 lg:grid-cols-3 gap-3 md:gap-8">
+                
+                <div class="group bg-white border border-gray-100 p-4 md:p-10 rounded-xl md:rounded-[2rem] shadow-sm hover:shadow-floating transition-all duration-300 gs-card">
+                    <div class="w-10 h-10 md:w-16 md:h-16 bg-secondary rounded-full flex items-center justify-center mb-3 md:mb-8 group-hover:bg-accent group-hover:text-white transition-colors duration-300">
+                        <svg width="28" height="28" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20V10M18 20V4M6 20v-4"/></svg>
+                    </div>
+                    <h3 class="font-heading text-sm md:text-2xl font-bold mb-2 md:mb-4">Liczy się przygotowanie, nie tylko farba</h3>
+                    <p class="text-primary/70 leading-relaxed text-xs md:text-base">Dobrze wykonane malowanie zaczyna się od właściwego przygotowania powierzchni.</p>
+                </div>
+
+                <div class="group bg-white border border-gray-100 p-4 md:p-10 rounded-xl md:rounded-[2rem] shadow-sm hover:shadow-floating transition-all duration-300 gs-card">
+                    <div class="w-10 h-10 md:w-16 md:h-16 bg-secondary rounded-full flex items-center justify-center mb-3 md:mb-8 group-hover:bg-accent group-hover:text-white transition-colors duration-300">
+                        <svg width="28" height="28" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                    </div>
+                    <h3 class="font-heading text-sm md:text-2xl font-bold mb-2 md:mb-4">Równomierny efekt na całej elewacji</h3>
+                    <p class="text-primary/70 leading-relaxed text-xs md:text-base">Pracujemy tak, aby kolor był spójny, a całość wyglądała estetycznie z bliska i z daleka.</p>
+                </div>
+
+                <div class="group bg-white border border-gray-100 p-4 md:p-10 rounded-xl md:rounded-[2rem] shadow-sm hover:shadow-floating transition-all duration-300 gs-card">
+                    <div class="w-10 h-10 md:w-16 md:h-16 bg-secondary rounded-full flex items-center justify-center mb-3 md:mb-8 group-hover:bg-accent group-hover:text-white transition-colors duration-300">
+                        <svg width="28" height="28" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+                    </div>
+                    <h3 class="font-heading text-sm md:text-2xl font-bold mb-2 md:mb-4">Sprawna realizacja bez bałaganu</h3>
+                    <p class="text-primary/70 leading-relaxed text-xs md:text-base">Zabezpieczamy posesję przed rozpoczęciem prac i sprzątamy po zakończeniu.</p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- 5. PROCES KROK PO KROKU -->
+    <section class="py-12 md:py-24 px-4 bg-dark text-white rounded-[3rem] mx-2 md:mx-4">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="font-heading text-2xl md:text-4xl font-bold mb-16 text-center gs-reveal">Proces krok po kroku</h2>
+            <div class="grid grid-cols-2 lg:grid-cols-3 gap-3 md:gap-6">
+                
+                <div class="bg-white/5 p-8 rounded-[2rem] border border-white/10 gs-step">
+                    <div class="font-mono text-4xl text-accent font-bold mb-6">01</div>
+                    <p class="text-lg font-medium">Kontakt i przesłanie zdjęć elewacji.</p>
+                </div>
+                <div class="bg-white/5 p-8 rounded-[2rem] border border-white/10 gs-step">
+                    <div class="font-mono text-4xl text-accent font-bold mb-6">02</div>
+                    <p class="text-lg font-medium">Rozmowa w ciągu 24h.</p>
+                </div>
+                <div class="bg-white/5 p-8 rounded-[2rem] border border-white/10 gs-step">
+                    <div class="font-mono text-4xl text-accent font-bold mb-6">03</div>
+                    <p class="text-lg font-medium">Wycena i ustalenie zakresu oraz koloru.</p>
+                </div>
+                <div class="bg-white/5 p-8 rounded-[2rem] border border-white/10 gs-step">
+                    <div class="font-mono text-4xl text-accent font-bold mb-6">04</div>
+                    <p class="text-lg font-medium">Zabezpieczenie posesji i przygotowanie podłoża.</p>
+                </div>
+                <div class="bg-white/5 p-8 rounded-[2rem] border border-white/10 gs-step">
+                    <div class="font-mono text-4xl text-accent font-bold mb-6">05</div>
+                    <p class="text-lg font-medium">Malowanie elewacji.</p>
+                </div>
+                <div class="bg-white/5 p-8 rounded-[2rem] border border-white/10 gs-step">
+                    <div class="font-mono text-4xl text-accent font-bold mb-6">06</div>
+                    <p class="text-lg font-medium">Sprzątanie i odbiór realizacji.</p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- 6. REALIZACJE — BEFORE/AFTER -->
+    <section class="py-12 md:py-24 px-4 bg-bg">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center max-w-3xl mx-auto mb-16 gs-reveal">
+                <h2 class="font-heading text-2xl md:text-4xl font-bold mb-6">Efekt, który widać</h2>
+                <p class="text-lg text-primary/70">Zobacz, jak zmienia się budynek po malowaniu elewacji – od odświeżenia koloru po pełną wizualną zmianę całego domu.</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 md:gap-12">
+                <!-- Slider 1 -->
+                <div class="gs-card">
+                    <div class="h-[220px] md:h-[400px] w-full mb-4 ba-container relative rounded-[2rem] overflow-hidden bg-secondary">
+                        <div class="ba-slider">
+                            <img src="images/realizacja3-po.webp" class="ba-after" alt="Po malowaniu elewacji">
+                            <img src="images/realizacja3-przed.webp" class="ba-before grayscale brightness-75 contrast-125" alt="Przed malowaniem elewacji">
+                            <div class="ba-handle"></div>
+                        </div>
+                    </div>
+                    <div class="flex justify-between items-center px-2">
+                        <span class="font-medium">Malowanie elewacji</span>
+                        <span class="text-primary/50 text-sm font-mono">Wejherowo</span>
+                    </div>
+                </div>
+
+                <!-- Slider 2 -->
+                <div class="gs-card">
+                    <div class="h-[220px] md:h-[400px] w-full mb-4 ba-container relative rounded-[2rem] overflow-hidden bg-secondary">
+                        <div class="ba-slider">
+                            <img src="images/realizacja1-po.webp" class="ba-after" alt="Po malowaniu elewacji">
+                            <img src="images/realizacja1-przed.webp" class="ba-before grayscale brightness-75 contrast-125" alt="Przed malowaniem elewacji">
+                            <div class="ba-handle"></div>
+                        </div>
+                    </div>
+                    <div class="flex justify-between items-center px-2">
+                        <span class="font-medium">Malowanie elewacji</span>
+                        <span class="text-primary/50 text-sm font-mono">Gdynia</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 7. OPINIE KLIENTÓW -->
+    <section class="py-12 md:py-24 px-4 bg-secondary rounded-[3rem] mx-2 md:mx-4">
+        <div class="max-w-4xl mx-auto text-center gs-reveal">
+            <h2 class="font-heading text-2xl md:text-4xl font-bold mb-6">Co mówią klienci</h2>
+            <p class="text-lg text-primary/70 mb-12">Klienci zwracają uwagę na estetykę wykonania, dobrą organizację prac i efekt, który naprawdę zmienia odbiór całej nieruchomości.</p>
+            
+            <div class="bg-bg border border-gray-200 p-12 rounded-[2rem] shadow-sm max-w-2xl mx-auto">
+                <div class="flex justify-center gap-1 text-accent mb-6">
+                    <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                    <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                    <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                    <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                    <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                </div>
+                <p class="text-xl font-medium text-primary/60 italic">Opinie pojawią się wkrótce — zbieramy referencje od dotychczasowych klientów.</p>
+            </div>
+        </div>
+    </section>
+
+    
+    <!-- CENNIK -->
+    <section class="py-12 md:py-20 px-4 bg-secondary/50">
+        <div class="max-w-4xl mx-auto gs-reveal">
+            <div class="bg-white rounded-[2rem] p-6 md:p-10 shadow-sm border border-primary/5">
+                <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+                    <div>
+                        <h2 class="font-heading text-xl md:text-2xl font-bold text-primary mb-2">Orientacyjny cennik</h2>
+                        <p class="text-primary/60 text-sm md:text-base">Cena obejmuje przygotowanie podłoża, gruntowanie i malowanie farbą fasadową.</p>
+                    </div>
+                    <div class="text-left md:text-right">
+                        <div class="font-mono text-3xl md:text-4xl font-bold text-accent">60–80</div>
+                        <div class="text-sm text-primary/50 font-mono">zł/m²</div>
+                    </div>
+                </div>
+                <div class="mt-6 pt-6 border-t border-primary/10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+                    <p class="text-xs text-primary/40">Ostateczna cena po bezpłatnych oględzinach. Zależy od metrażu, stopnia zabrudzenia i dostępności.</p>
+                    <a href="cennik.html" class="text-accent font-medium text-sm hover:underline whitespace-nowrap">Pełny cennik →</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+        <!-- OBSŁUGUJEMY W REGIONIE -->
+    <section class="py-12 md:py-20 px-4 bg-bg">
+        <div class="max-w-5xl mx-auto text-center gs-reveal">
+            <h2 class="font-heading text-2xl md:text-3xl font-bold mb-4">Malowanie elewacji w Twoim mieście</h2>
+            <p class="text-primary/60 mb-8">Działamy na terenie Trójmiasta, Kaszub i Kociewia. Sprawdź szczegóły dla Twojego miasta.</p>
+            <div class="grid grid-cols-3 md:grid-cols-5 gap-3 md:gap-4 max-w-4xl mx-auto">
+                <a href="malowanie-elewacji-gdansk.html" class="group bg-white border border-primary/10 rounded-2xl p-3 md:p-5 hover:border-accent hover:shadow-lg transition-all duration-300">
+                    <div class="font-heading font-bold text-xs md:text-base group-hover:text-accent transition-colors">Gdańsk</div>
+                    <div class="text-[10px] md:text-xs text-primary/40 font-mono mt-1">~30 min</div>
+                </a>
+                <a href="malowanie-elewacji-gdynia.html" class="group bg-white border border-primary/10 rounded-2xl p-3 md:p-5 hover:border-accent hover:shadow-lg transition-all duration-300">
+                    <div class="font-heading font-bold text-xs md:text-base group-hover:text-accent transition-colors">Gdynia</div>
+                    <div class="text-[10px] md:text-xs text-primary/40 font-mono mt-1">~40 min</div>
+                </a>
+                <a href="malowanie-elewacji-sopot.html" class="group bg-white border border-primary/10 rounded-2xl p-3 md:p-5 hover:border-accent hover:shadow-lg transition-all duration-300">
+                    <div class="font-heading font-bold text-xs md:text-base group-hover:text-accent transition-colors">Sopot</div>
+                    <div class="text-[10px] md:text-xs text-primary/40 font-mono mt-1">~35 min</div>
+                </a>
+                <a href="malowanie-elewacji-wejherowo.html" class="group bg-white border border-primary/10 rounded-2xl p-3 md:p-5 hover:border-accent hover:shadow-lg transition-all duration-300">
+                    <div class="font-heading font-bold text-xs md:text-base group-hover:text-accent transition-colors">Wejherowo</div>
+                    <div class="text-[10px] md:text-xs text-primary/40 font-mono mt-1">~45 min</div>
+                </a>
+                <a href="malowanie-elewacji-rumia.html" class="group bg-white border border-primary/10 rounded-2xl p-3 md:p-5 hover:border-accent hover:shadow-lg transition-all duration-300">
+                    <div class="font-heading font-bold text-xs md:text-base group-hover:text-accent transition-colors">Rumia</div>
+                    <div class="text-[10px] md:text-xs text-primary/40 font-mono mt-1">~40 min</div>
+                </a>
+                <a href="malowanie-elewacji-reda.html" class="group bg-white border border-primary/10 rounded-2xl p-3 md:p-5 hover:border-accent hover:shadow-lg transition-all duration-300">
+                    <div class="font-heading font-bold text-xs md:text-base group-hover:text-accent transition-colors">Reda</div>
+                    <div class="text-[10px] md:text-xs text-primary/40 font-mono mt-1">~42 min</div>
+                </a>
+                <a href="malowanie-elewacji-pruszcz-gdanski.html" class="group bg-white border border-primary/10 rounded-2xl p-3 md:p-5 hover:border-accent hover:shadow-lg transition-all duration-300">
+                    <div class="font-heading font-bold text-xs md:text-base group-hover:text-accent transition-colors">Pruszcz Gd.</div>
+                    <div class="text-[10px] md:text-xs text-primary/40 font-mono mt-1">~35 min</div>
+                </a>
+                <a href="malowanie-elewacji-tczew.html" class="group bg-white border border-primary/10 rounded-2xl p-3 md:p-5 hover:border-accent hover:shadow-lg transition-all duration-300">
+                    <div class="font-heading font-bold text-xs md:text-base group-hover:text-accent transition-colors">Tczew</div>
+                    <div class="text-[10px] md:text-xs text-primary/40 font-mono mt-1">~55 min</div>
+                </a>
+                <a href="malowanie-elewacji-starogard-gdanski.html" class="group bg-white border border-primary/10 rounded-2xl p-3 md:p-5 hover:border-accent hover:shadow-lg transition-all duration-300">
+                    <div class="font-heading font-bold text-xs md:text-base group-hover:text-accent transition-colors">Starogard Gd.</div>
+                    <div class="text-[10px] md:text-xs text-primary/40 font-mono mt-1">~1h</div>
+                </a>
+                <a href="malowanie-elewacji-kartuzy.html" class="group bg-white border border-primary/10 rounded-2xl p-3 md:p-5 hover:border-accent hover:shadow-lg transition-all duration-300">
+                    <div class="font-heading font-bold text-xs md:text-base group-hover:text-accent transition-colors">Kartuzy</div>
+                    <div class="text-[10px] md:text-xs text-primary/40 font-mono mt-1">~20 min</div>
+                </a>
+                <a href="malowanie-elewacji-zukowo.html" class="group bg-white border border-primary/10 rounded-2xl p-3 md:p-5 hover:border-accent hover:shadow-lg transition-all duration-300">
+                    <div class="font-heading font-bold text-xs md:text-base group-hover:text-accent transition-colors">Żukowo</div>
+                    <div class="text-[10px] md:text-xs text-primary/40 font-mono mt-1">~15 min</div>
+                </a>
+                <a href="malowanie-elewacji-koscierzyna.html" class="group bg-white border border-primary/10 rounded-2xl p-3 md:p-5 hover:border-accent hover:shadow-lg transition-all duration-300">
+                    <div class="font-heading font-bold text-xs md:text-base group-hover:text-accent transition-colors">Kościerzyna</div>
+                    <div class="text-[10px] md:text-xs text-primary/40 font-mono mt-1">~40 min</div>
+                </a>
+                <a href="malowanie-elewacji-goreczyno.html" class="group bg-white border border-primary/10 rounded-2xl p-3 md:p-5 hover:border-accent hover:shadow-lg transition-all duration-300">
+                    <div class="font-heading font-bold text-xs md:text-base group-hover:text-accent transition-colors">Goręczyno</div>
+                    <div class="text-[10px] md:text-xs text-primary/40 font-mono mt-1">0 min</div>
+                </a>
+                <a href="malowanie-elewacji-lebork.html" class="group bg-white border border-primary/10 rounded-2xl p-3 md:p-5 hover:border-accent hover:shadow-lg transition-all duration-300">
+                    <div class="font-heading font-bold text-xs md:text-base group-hover:text-accent transition-colors">Lębork</div>
+                    <div class="text-[10px] md:text-xs text-primary/40 font-mono mt-1">~1h 10</div>
+                </a>
+                <a href="malowanie-elewacji-bytow.html" class="group bg-white border border-primary/10 rounded-2xl p-3 md:p-5 hover:border-accent hover:shadow-lg transition-all duration-300">
+                    <div class="font-heading font-bold text-xs md:text-base group-hover:text-accent transition-colors">Bytów</div>
+                    <div class="text-[10px] md:text-xs text-primary/40 font-mono mt-1">~1h 15</div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 9. POWIĄZANE USŁUGI -->
+    <section class="py-12 md:py-24 px-4 bg-bg">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="font-heading text-3xl font-bold mb-10 gs-reveal">Powiązane usługi</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
+                <a href="/mycie-elewacji.html" class="group block bg-white rounded-[2rem] overflow-hidden shadow-sm hover:shadow-floating transition-all duration-300 gs-card border border-gray-100">
+                    <div class="h-48 overflow-hidden">
+                        <img src="images/usluga-mycie-elewacji.webp" alt="Mycie elewacji" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" onerror="this.src='data:image/svg+xml;utf8,%3Csvg xmlns=\'http://www.w3.org/2000/svg\'/%3E'; this.style.background='#e0e0e0'" loading="lazy">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="font-bold text-xl mb-2 group-hover:text-accent transition-colors">Mycie elewacji</h3>
+                        <p class="text-sm text-primary/70">Profesjonalne usuwanie zabrudzeń, glonów i nalotów z tynków.</p>
+                    </div>
+                </a>
+                <a href="/impregnacja.html" class="group block bg-white rounded-[2rem] overflow-hidden shadow-sm hover:shadow-floating transition-all duration-300 gs-card border border-gray-100">
+                    <div class="h-48 overflow-hidden">
+                        <img src="images/usluga-impregnacja.webp" alt="Impregnacja" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" onerror="this.src='data:image/svg+xml;utf8,%3Csvg xmlns=\'http://www.w3.org/2000/svg\'/%3E'; this.style.background='#e0e0e0'" loading="lazy">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="font-bold text-xl mb-2 group-hover:text-accent transition-colors">Impregnacja</h3>
+                        <p class="text-sm text-primary/70">Zabezpieczenie hydrofobowe powierzchni po umyciu.</p>
+                    </div>
+                </a>
+                <a href="/malowanie-dachu.html" class="group block bg-white rounded-[2rem] overflow-hidden shadow-sm hover:shadow-floating transition-all duration-300 gs-card border border-gray-100">
+                    <div class="h-48 overflow-hidden">
+                        <img src="images/usluga-malowanie-dachu.webp" alt="Malowanie dachu" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" onerror="this.src='data:image/svg+xml;utf8,%3Csvg xmlns=\'http://www.w3.org/2000/svg\'/%3E'; this.style.background='#e0e0e0'" loading="lazy">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="font-bold text-xl mb-2 group-hover:text-accent transition-colors">Malowanie dachu</h3>
+                        <p class="text-sm text-primary/70">Odnowienie koloru i zabezpieczenie powłoki dachowej.</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 10. FOOTER -->
+        <footer class="bg-dark text-white pt-24 pb-8 mt-16 rounded-t-3xl md:rounded-t-5xl px-4">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8 md:gap-10 mb-8 md:mb-16">
+                <div class="space-y-4 md:space-y-6">
+                    <a href="index.html" class="block"><img src="images/logo-v3.png" alt="Ustowski" class="h-14 w-auto"></a>
+                    <p class="text-white/60 text-sm leading-relaxed max-w-xs">
+                        Profesjonalne mycie i malowanie elewacji i dachów. Trójmiasto, Kaszuby i całe województwo pomorskie.
+                    </p>
+                </div>
+                
+                <div>
+                    <h4 class="font-heading font-bold text-lg mb-6">Nawigacja</h4>
+                    <ul class="space-y-3 text-sm text-white/70">
+                        <li><a href="uslugi.html" class="hover:text-accent transition-colors">Usługi</a></li>
+                        <li><a href="cennik.html" class="hover:text-accent transition-colors">Cennik</a></li>
+                        <li><a href="o-firmie.html" class="hover:text-accent transition-colors">O firmie</a></li>
+                        <li><a href="kontakt.html" class="hover:text-accent transition-colors">Kontakt</a></li>
+                    </ul>
+                </div>
+                
+                <div class="col-span-2 md:col-span-1">
+                    <h4 class="font-heading font-bold text-lg mb-6">Obsługujemy</h4>
+                    <div class="grid grid-cols-2 gap-x-6 gap-y-2 text-sm text-white/70">
+                        <a href="mycie-elewacji-gdansk.html" class="hover:text-accent transition-colors">Gdańsk</a>
+                        <a href="mycie-elewacji-kartuzy.html" class="hover:text-accent transition-colors">Kartuzy</a>
+                        <a href="mycie-elewacji-gdynia.html" class="hover:text-accent transition-colors">Gdynia</a>
+                        <a href="mycie-elewacji-zukowo.html" class="hover:text-accent transition-colors">Żukowo</a>
+                        <a href="mycie-elewacji-sopot.html" class="hover:text-accent transition-colors">Sopot</a>
+                        <a href="mycie-elewacji-koscierzyna.html" class="hover:text-accent transition-colors">Kościerzyna</a>
+                        <a href="mycie-elewacji-wejherowo.html" class="hover:text-accent transition-colors">Wejherowo</a>
+                        <a href="mycie-elewacji-goreczyno.html" class="hover:text-accent transition-colors">Goręczyno</a>
+                        <a href="mycie-elewacji-rumia.html" class="hover:text-accent transition-colors">Rumia</a>
+                        <a href="mycie-elewacji-lebork.html" class="hover:text-accent transition-colors">Lębork</a>
+                        <a href="mycie-elewacji-reda.html" class="hover:text-accent transition-colors">Reda</a>
+                        <a href="mycie-elewacji-bytow.html" class="hover:text-accent transition-colors">Bytów</a>
+                        <a href="mycie-elewacji-pruszcz-gdanski.html" class="hover:text-accent transition-colors">Pruszcz Gd.</a>
+                        <a href="mycie-elewacji-tczew.html" class="hover:text-accent transition-colors">Tczew</a>
+                        <a href="mycie-elewacji-starogard-gdanski.html" class="hover:text-accent transition-colors">Starogard Gd.</a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h4 class="font-heading font-bold text-lg mb-6">Kontakt</h4>
+                    <ul class="space-y-3 text-sm text-white/70 font-mono">
+                        <li><a href="tel:+48663719372" class="hover:text-accent transition-colors">+48 663 719 372</a></li>
+                        <li><a href="mailto:ustowskikamil1@onet.pl" class="hover:text-accent transition-colors">ustowskikamil1@onet.pl</a></li>
+                        <li class="font-sans mt-4">ul. Osiedlowa 20<br>83-311 Goręczyno</li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="font-heading font-bold text-lg mb-6">Social Media</h4>
+                    <div class="flex gap-4">
+                        <a href="#" class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-accent transition-colors">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.469h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.469h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-accent transition-colors">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+                        </a>
+                        <a href="https://wa.me/48663719372" class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-[#25D366] transition-colors">
+                           <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-white/40">
+                <p>&copy; 2026 Ustowski.pl. Wszelkie prawa zastrzeżone.</p>
+                <a href="polityka-prywatnosci.html" class="hover:text-white/70 transition-colors">Polityka prywatności</a>
+            </div>
+        </div>
+    </footer>
+
+
+    <!-- GSAP & Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    
+    <script>
+        // Navbar morph on scroll
+        const navbar = document.querySelector('.glass-nav');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('nav-scrolled');
+            } else {
+                navbar.classList.remove('nav-scrolled');
+            }
+        });
+
+        // GSAP Animations
+        gsap.registerPlugin(ScrollTrigger);
+
+        // Reveal Elements
+        gsap.utils.toArray('.gs-reveal').forEach(elem => {
+            gsap.fromTo(elem, 
+                { y: 40, opacity: 0 },
+                {
+                    y: 0, opacity: 1, duration: 1, ease: "power3.out",
+                    scrollTrigger: {
+                        trigger: elem,
+                        start: "top 85%",
+                        toggleActions: "play none none none"
+                    }
+                }
+            );
+        });
+
+        // Staggered Cards
+        gsap.utils.toArray('.gs-card').forEach((card, i) => {
+            gsap.fromTo(card, 
+                { y: 50, opacity: 0 },
+                {
+                    y: 0, opacity: 1, duration: 0.8, ease: "power3.out",
+                    scrollTrigger: {
+                        trigger: card.parentElement,
+                        start: "top 80%",
+                    },
+                    delay: (i % 3) * 0.15
+                }
+            );
+        });
+
+        // Staggered Process Steps
+        gsap.utils.toArray('.gs-step').forEach((step, i) => {
+            gsap.fromTo(step, 
+                { y: 30, opacity: 0 },
+                {
+                    y: 0, opacity: 1, duration: 0.8, ease: "power3.out",
+                    scrollTrigger: {
+                        trigger: step.parentElement,
+                        start: "top 80%",
+                    },
+                    delay: i * 0.1
+                }
+            );
+        });
+
+        // Before/After Slider Logic
+        document.querySelectorAll('.ba-container').forEach(container => {
+            const slider = container.querySelector('.ba-slider');
+            const beforeImage = slider.querySelector('.ba-before');
+            const handle = slider.querySelector('.ba-handle');
+            let isDragging = false;
+
+            const moveSlider = (e) => {
+                if (!isDragging) return;
+                e.preventDefault();
+                const rect = slider.getBoundingClientRect();
+                let x = (e.type.includes('touch') ? e.touches[0].clientX : e.clientX) - rect.left;
+                x = Math.max(0, Math.min(x, rect.width));
+                const pct = (x / rect.width) * 100;
+                beforeImage.style.clipPath = 'polygon(0 0, ' + pct + '% 0, ' + pct + '% 100%, 0 100%)';
+                handle.style.left = pct + '%';
+            };
+
+            handle.addEventListener('mousedown', () => isDragging = true);
+            window.addEventListener('mouseup', () => isDragging = false);
+            window.addEventListener('mousemove', moveSlider);
+            handle.addEventListener('touchstart', () => isDragging = true, {passive: true});
+            window.addEventListener('touchend', () => isDragging = false);
+            window.addEventListener('touchmove', moveSlider, {passive: false});
+        });
+    </script>
+    <!-- Content Loader (dynamic pricing, reviews, projects) -->
+    <script src="/content-loader.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Form Validation (works on any page with #wycena-form)
+            const form = document.getElementById('wycena-form');
+            if (form) {
+                const submitBtn = document.getElementById('submit-btn');
+                const inputs = form.querySelectorAll('input[required], select[required]');
+                inputs.forEach(input => {
+                    input.addEventListener('blur', () => validateField(input));
+                    input.addEventListener('input', () => { if (input.classList.contains('border-red-500')) validateField(input); });
+                });
+                function validateField(field) {
+                    const parent = field.closest('.space-y-2');
+                    let existing = parent ? parent.querySelector('.error-msg') : null;
+                    if (existing) existing.remove();
+                    let error = '';
+                    if (field.name === 'name' && field.value.trim().length < 2) error = 'Wpisz imię i nazwisko (min. 2 znaki)';
+                    else if (field.name === 'phone') { if (field.value.replace(/[^0-9]/g, '').length < 9) error = 'Wpisz poprawny numer telefonu (min. 9 cyfr)'; }
+                    else if (field.name === 'service' && !field.value) error = 'Wybierz rodzaj usługi';
+                    if (error) {
+                        field.classList.add('border-red-500'); field.classList.remove('border-white/10');
+                        if (parent) { const msg = document.createElement('p'); msg.className = 'error-msg text-red-400 text-xs mt-1'; msg.textContent = error; parent.appendChild(msg); }
+                        return false;
+                    } else { field.classList.remove('border-red-500'); field.classList.add('border-white/10'); return true; }
+                }
+                form.addEventListener('submit', (e) => {
+                    let valid = true;
+                    inputs.forEach(input => { if (!validateField(input)) valid = false; });
+                    const rodo = document.getElementById('rodo');
+                    if (rodo && !rodo.checked) { valid = false; alert('Zaakceptuj zgodę na przetwarzanie danych osobowych.'); }
+                    if (!valid) { e.preventDefault(); return; }
+                    submitBtn.innerHTML = '<span class="relative z-10">Wysyłam...</span>'; submitBtn.disabled = true;
+                });
+                if (window.location.search.includes('sent=1')) {
+                    const formSection = document.getElementById('wycena') || document.getElementById('formularz');
+                    if (formSection) {
+                        const msg = document.createElement('div');
+                        msg.className = 'bg-green-500/20 border border-green-500/50 rounded-2xl p-6 text-center text-green-400 mb-6';
+                        msg.innerHTML = '<p class="text-lg font-bold">✅ Dziękujemy!</p><p>Twoje zapytanie zostało wysłane. Odezwiemy się w ciągu 24h.</p>';
+                        form.parentNode.insertBefore(msg, form); form.style.display = 'none';
+                    }
+                }
+            }
+
+            // Mobile Menu Toggle
+            const menuBtn = document.getElementById('mobile-menu-btn');
+            const menuOverlay = document.getElementById('mobile-menu-overlay');
+            const menuIconOpen = document.getElementById('menu-icon-open');
+            const menuIconClose = document.getElementById('menu-icon-close');
+            const mobileMenuLinks = document.querySelectorAll('.mobile-menu-link');
+            const toggleMenu = () => {
+                const isOpen = menuOverlay.classList.contains('flex');
+                if (isOpen) {
+                    menuOverlay.classList.remove('flex'); menuOverlay.classList.add('hidden');
+                    menuIconOpen.classList.remove('hidden'); menuIconClose.classList.add('hidden');
+                    document.body.style.overflow = '';
+                } else {
+                    menuOverlay.classList.remove('hidden'); menuOverlay.classList.add('flex');
+                    menuIconOpen.classList.add('hidden'); menuIconClose.classList.remove('hidden');
+                    document.body.style.overflow = 'hidden';
+                }
+            };
+            if (menuBtn) menuBtn.addEventListener('click', toggleMenu);
+            const menuClose = document.getElementById('mobile-menu-close');
+            if (menuClose) menuClose.addEventListener('click', toggleMenu);
+            mobileMenuLinks.forEach(link => link.addEventListener('click', toggleMenu));
+        });
+    </script>
+
+</body>
+</html>

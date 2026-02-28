@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Panel Administracyjny | Ustowski</title>
+<meta name="robots" content="noindex, nofollow">
+<script src="https://cdn.tailwindcss.com"></script>
+<script>tailwind.config={theme:{extend:{colors:{accent:'#F06820',dark:'#1A1A1A'}}}}</script>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  body { font-family: 'DM Sans', sans-serif; }
+  h1,h2,h3 { font-family: 'Outfit', sans-serif; }
+  .tab-active { border-color: #F06820; color: #F06820; }
+  .toast { animation: slideIn 0.3s ease, fadeOut 0.3s ease 2.7s; }
+  @keyframes slideIn { from { transform: translateY(-20px); opacity: 0; } }
+  @keyframes fadeOut { to { opacity: 0; } }
+</style>
+</head>
+<body class="bg-gray-50 min-h-screen">
+
+<!-- LOGIN SCREEN -->
+<div id="loginScreen" class="min-h-screen flex items-center justify-center">
+  <div class="bg-white p-8 rounded-2xl shadow-lg max-w-sm w-full mx-4">
+    <img src="images/logo-v3.png" alt="Ustowski" class="h-12 mx-auto mb-6">
+    <h1 class="text-xl font-bold text-center mb-6">Panel Administracyjny</h1>
+    <input id="tokenInput" type="password" placeholder="Hasło dostępu" class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-accent focus:outline-none mb-4" onkeydown="if(event.key==='Enter')login()">
+    <button onclick="login()" class="w-full bg-accent text-white py-3 rounded-xl font-medium hover:bg-orange-600 transition">Zaloguj się</button>
+    <p id="loginError" class="text-red-500 text-sm text-center mt-3 hidden">Nieprawidłowe hasło</p>
+  </div>
+</div>
+
+<!-- ADMIN PANEL -->
+<div id="adminPanel" class="hidden">
+  <!-- Header -->
+  <header class="bg-dark text-white px-4 py-4 sticky top-0 z-50">
+    <div class="max-w-6xl mx-auto flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <img src="images/logo-v3.png" alt="Ustowski" class="h-8">
+        <span class="text-sm text-white/60">Panel Admin</span>
+      </div>
+      <div class="flex items-center gap-3">
+        <span id="saveStatus" class="text-xs text-white/40"></span>
+        <button onclick="saveAll()" class="bg-accent text-white px-5 py-2 rounded-lg font-medium text-sm hover:bg-orange-600 transition">💾 Zapisz zmiany</button>
+        <button onclick="logout()" class="text-white/40 hover:text-white text-sm">Wyloguj</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Tabs -->
+  <div class="border-b bg-white sticky top-[64px] z-40">
+    <div class="max-w-6xl mx-auto flex">
+      <button onclick="switchTab('pricing')" class="tab px-6 py-4 text-sm font-medium border-b-2 border-transparent hover:text-accent transition" data-tab="pricing">💰 Cennik</button>
+      <button onclick="switchTab('projects')" class="tab px-6 py-4 text-sm font-medium border-b-2 border-transparent hover:text-accent transition" data-tab="projects">📸 Realizacje</button>
+      <button onclick="switchTab('reviews')" class="tab px-6 py-4 text-sm font-medium border-b-2 border-transparent hover:text-accent transition" data-tab="reviews">⭐ Opinie</button>
+    </div>
+  </div>
+
+  <!-- Content -->
+  <main class="max-w-6xl mx-auto px-4 py-8">
+
+    <!-- CENNIK TAB -->
+    <div id="tab-pricing" class="tab-content">
+      <div class="flex items-center justify-between mb-6">
+        <h2 class="text-2xl font-bold">Cennik usług</h2>
+        <span id="priceLastUpdated" class="text-sm text-gray-400"></span>
+      </div>
+      <div id="pricingList" class="space-y-3"></div>
+    </div>
+
+    <!-- REALIZACJE TAB -->
+    <div id="tab-projects" class="tab-content hidden">
+      <div class="flex items-center justify-between mb-6">
+        <h2 class="text-2xl font-bold">Realizacje</h2>
+        <button onclick="addProject()" class="bg-accent text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-orange-600 transition">+ Dodaj realizację</button>
+      </div>
+      <div id="projectsList" class="grid grid-cols-1 md:grid-cols-2 gap-6"></div>
+      
+      <!-- Add Project Modal -->
+      <div id="projectModal" class="hidden fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl p-6 max-w-lg w-full max-h-[90vh] overflow-y-auto">
+          <h3 class="text-xl font-bold mb-4">Nowa realizacja</h3>
+          <div class="space-y-4">
+            <div>
+              <label class="block text-sm font-medium mb-1">Usługa</label>
+              <select id="projService" class="w-full px-3 py-2 rounded-lg border border-gray-200 focus:border-accent focus:outline-none">
+                <option value="mycie-elewacji">Mycie elewacji</option>
+                <option value="mycie-dachu">Mycie dachu</option>
+                <option value="malowanie-elewacji">Malowanie elewacji</option>
+                <option value="malowanie-dachu">Malowanie dachu</option>
+                <option value="impregnacja">Impregnacja</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-sm font-medium mb-1">Miasto</label>
+              <select id="projCity" class="w-full px-3 py-2 rounded-lg border border-gray-200 focus:border-accent focus:outline-none"></select>
+            </div>
+            <div>
+              <label class="block text-sm font-medium mb-1">Dzielnica / ulica</label>
+              <input id="projDistrict" type="text" placeholder="np. Oliwa" class="w-full px-3 py-2 rounded-lg border border-gray-200 focus:border-accent focus:outline-none">
+            </div>
+            <div class="grid grid-cols-2 gap-4">
+              <div>
+                <label class="block text-sm font-medium mb-1">Metraż (m²)</label>
+                <input id="projArea" type="number" placeholder="180" class="w-full px-3 py-2 rounded-lg border border-gray-200 focus:border-accent focus:outline-none">
+              </div>
+              <div>
+                <label class="block text-sm font-medium mb-1">Data</label>
+                <input id="projDate" type="month" class="w-full px-3 py-2 rounded-lg border border-gray-200 focus:border-accent focus:outline-none">
+              </div>
+            </div>
+            <div>
+              <label class="block text-sm font-medium mb-1">Opis (1-2 zdania)</label>
+              <textarea id="projDesc" rows="2" placeholder="Elewacja pokryta glonami od strony północnej..." class="w-full px-3 py-2 rounded-lg border border-gray-200 focus:border-accent focus:outline-none"></textarea>
+            </div>
+            <div class="grid grid-cols-2 gap-4">
+              <div>
+                <label class="block text-sm font-medium mb-2">📸 Zdjęcie PRZED</label>
+                <div id="dropBefore" class="border-2 border-dashed border-gray-200 rounded-xl p-4 text-center cursor-pointer hover:border-accent transition h-32 flex items-center justify-center" onclick="document.getElementById('fileBefore').click()">
+                  <span class="text-gray-400 text-sm">Kliknij lub przeciągnij</span>
+                </div>
+                <input id="fileBefore" type="file" accept="image/*" class="hidden" onchange="previewImage(this, 'dropBefore')">
+              </div>
+              <div>
+                <label class="block text-sm font-medium mb-2">📸 Zdjęcie PO</label>
+                <div id="dropAfter" class="border-2 border-dashed border-gray-200 rounded-xl p-4 text-center cursor-pointer hover:border-accent transition h-32 flex items-center justify-center" onclick="document.getElementById('fileAfter').click()">
+                  <span class="text-gray-400 text-sm">Kliknij lub przeciągnij</span>
+                </div>
+                <input id="fileAfter" type="file" accept="image/*" class="hidden" onchange="previewImage(this, 'dropAfter')">
+              </div>
+            </div>
+            <div class="flex gap-3 pt-2">
+              <button onclick="saveProject()" class="flex-1 bg-accent text-white py-3 rounded-xl font-medium hover:bg-orange-600 transition">Zapisz realizację</button>
+              <button onclick="closeModal('projectModal')" class="px-6 py-3 rounded-xl border border-gray-200 hover:bg-gray-50 transition">Anuluj</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- OPINIE TAB -->
+    <div id="tab-reviews" class="tab-content hidden">
+      <div class="flex items-center justify-between mb-6">
+        <h2 class="text-2xl font-bold">Opinie klientów</h2>
+        <button onclick="addReview()" class="bg-accent text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-orange-600 transition">+ Dodaj opinię</button>
+      </div>
+      <div id="reviewsList" class="space-y-4"></div>
+      
+      <!-- Add Review Modal -->
+      <div id="reviewModal" class="hidden fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl p-6 max-w-lg w-full">
+          <h3 class="text-xl font-bold mb-4">Nowa opinia</h3>
+          <div class="space-y-4">
+            <div>
+              <label class="block text-sm font-medium mb-1">Imię i pierwsza litera nazwiska</label>
+              <input id="revName" type="text" placeholder="Jan K." class="w-full px-3 py-2 rounded-lg border border-gray-200 focus:border-accent focus:outline-none">
+            </div>
+            <div class="grid grid-cols-2 gap-4">
+              <div>
+                <label class="block text-sm font-medium mb-1">Miasto</label>
+                <select id="revCity" class="w-full px-3 py-2 rounded-lg border border-gray-200 focus:border-accent focus:outline-none"></select>
+              </div>
+              <div>
+                <label class="block text-sm font-medium mb-1">Usługa</label>
+                <select id="revService" class="w-full px-3 py-2 rounded-lg border border-gray-200 focus:border-accent focus:outline-none">
+                  <option value="mycie-elewacji">Mycie elewacji</option>
+                  <option value="mycie-dachu">Mycie dachu</option>
+                  <option value="malowanie-elewacji">Malowanie elewacji</option>
+                  <option value="malowanie-dachu">Malowanie dachu</option>
+                  <option value="impregnacja">Impregnacja</option>
+                </select>
+              </div>
+            </div>
+            <div>
+              <label class="block text-sm font-medium mb-2">Ocena</label>
+              <div id="starRating" class="flex gap-1">
+                <button onclick="setRating(1)" class="star text-3xl text-gray-300 hover:text-yellow-400 transition">★</button>
+                <button onclick="setRating(2)" class="star text-3xl text-gray-300 hover:text-yellow-400 transition">★</button>
+                <button onclick="setRating(3)" class="star text-3xl text-gray-300 hover:text-yellow-400 transition">★</button>
+                <button onclick="setRating(4)" class="star text-3xl text-gray-300 hover:text-yellow-400 transition">★</button>
+                <button onclick="setRating(5)" class="star text-3xl text-yellow-400 hover:text-yellow-400 transition">★</button>
+              </div>
+            </div>
+            <div>
+              <label class="block text-sm font-medium mb-1">Treść opinii</label>
+              <textarea id="revText" rows="3" placeholder="Profesjonalna ekipa, szybko i czysto..." class="w-full px-3 py-2 rounded-lg border border-gray-200 focus:border-accent focus:outline-none"></textarea>
+            </div>
+            <div class="flex gap-3 pt-2">
+              <button onclick="saveReview()" class="flex-1 bg-accent text-white py-3 rounded-xl font-medium hover:bg-orange-600 transition">Zapisz opinię</button>
+              <button onclick="closeModal('reviewModal')" class="px-6 py-3 rounded-xl border border-gray-200 hover:bg-gray-50 transition">Anuluj</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+
+<!-- Toast -->
+<div id="toast" class="hidden fixed top-4 right-4 bg-dark text-white px-6 py-3 rounded-xl shadow-lg z-50 toast"></div>
+
+<script>
+// --- State ---
+let token = localStorage.getItem('ustowski_token') || '';
+let content = { pricing: { lastUpdated: '', services: [] }, reviews: [], projects: [] };
+let currentRating = 5;
+
+const CITIES = [
+  { slug: 'gdansk', name: 'Gdańsk' }, { slug: 'gdynia', name: 'Gdynia' }, { slug: 'sopot', name: 'Sopot' },
+  { slug: 'wejherowo', name: 'Wejherowo' }, { slug: 'rumia', name: 'Rumia' }, { slug: 'reda', name: 'Reda' },
+  { slug: 'pruszcz-gdanski', name: 'Pruszcz Gdański' }, { slug: 'tczew', name: 'Tczew' }, { slug: 'starogard-gdanski', name: 'Starogard Gdański' },
+  { slug: 'kartuzy', name: 'Kartuzy' }, { slug: 'zukowo', name: 'Żukowo' }, { slug: 'koscierzyna', name: 'Kościerzyna' },
+  { slug: 'goreczyno', name: 'Goręczyno' }, { slug: 'lebork', name: 'Lębork' }, { slug: 'bytow', name: 'Bytów' }
+];
+
+const SERVICE_NAMES = {
+  'mycie-elewacji': 'Mycie elewacji', 'mycie-dachu': 'Mycie dachu',
+  'malowanie-elewacji': 'Malowanie elewacji', 'malowanie-dachu': 'Malowanie dachu', 'impregnacja': 'Impregnacja'
+};
+
+// --- Auth ---
+async function login() {
+  token = document.getElementById('tokenInput').value;
+  try {
+    const res = await fetch('/api/content', { headers: { 'Authorization': `Bearer ${token}` } });
+    if (res.ok) {
+      localStorage.setItem('ustowski_token', token);
+      content = await res.json();
+      document.getElementById('loginScreen').classList.add('hidden');
+      document.getElementById('adminPanel').classList.remove('hidden');
+      initPanel();
+    } else {
+      // Public endpoint, check with POST
+      const test = await fetch('/api/content', { method: 'POST', headers: { 'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json' }, body: JSON.stringify(content) });
+      if (test.status === 401) {
+        document.getElementById('loginError').classList.remove('hidden');
+      } else {
+        localStorage.setItem('ustowski_token', token);
+        content = await (await fetch('/api/content')).json();
+        document.getElementById('loginScreen').classList.add('hidden');
+        document.getElementById('adminPanel').classList.remove('hidden');
+        initPanel();
+      }
+    }
+  } catch(e) { showToast('Błąd połączenia: ' + e.message); }
+}
+
+function logout() {
+  localStorage.removeItem('ustowski_token');
+  token = '';
+  location.reload();
+}
+
+// Auto-login
+if (token) {
+  fetch('/api/content').then(r => r.json()).then(data => {
+    content = data;
+    // Verify token with a test write
+    fetch('/api/content', { method: 'POST', headers: { 'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json' }, body: JSON.stringify(data) })
+    .then(r => {
+      if (r.ok) {
+        document.getElementById('loginScreen').classList.add('hidden');
+        document.getElementById('adminPanel').classList.remove('hidden');
+        initPanel();
+      }
+    });
+  });
+}
+
+// --- Init ---
+function initPanel() {
+  populateCityDropdowns();
+  renderPricing();
+  renderProjects();
+  renderReviews();
+  switchTab('pricing');
+}
+
+function populateCityDropdowns() {
+  ['projCity', 'revCity'].forEach(id => {
+    const sel = document.getElementById(id);
+    sel.innerHTML = CITIES.map(c => `<option value="${c.slug}">${c.name}</option>`).join('');
+  });
+}
+
+// --- Tabs ---
+function switchTab(name) {
+  document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+  document.querySelectorAll('.tab').forEach(el => el.classList.remove('tab-active'));
+  document.getElementById('tab-' + name).classList.remove('hidden');
+  document.querySelector(`[data-tab="${name}"]`).classList.add('tab-active');
+}
+
+// --- Pricing ---
+function renderPricing() {
+  const el = document.getElementById('pricingList');
+  document.getElementById('priceLastUpdated').textContent = content.pricing.lastUpdated ? `Ostatnia zmiana: ${content.pricing.lastUpdated}` : '';
+  el.innerHTML = content.pricing.services.map((s, i) => `
+    <div class="bg-white rounded-xl p-4 border border-gray-100 flex flex-col sm:flex-row sm:items-center gap-3">
+      <div class="flex-1 font-medium">${s.name}</div>
+      <div class="flex items-center gap-2">
+        ${s.priceFrom !== null ? `
+          <input type="number" value="${s.priceFrom}" onchange="updatePrice(${i}, 'priceFrom', this.value)" class="w-20 px-2 py-1 rounded-lg border border-gray-200 text-center font-mono focus:border-accent focus:outline-none">
+          <span class="text-gray-400">–</span>
+          <input type="number" value="${s.priceTo}" onchange="updatePrice(${i}, 'priceTo', this.value)" class="w-20 px-2 py-1 rounded-lg border border-gray-200 text-center font-mono focus:border-accent focus:outline-none">
+          <span class="text-sm text-gray-500 min-w-[60px]">${s.unit}</span>
+        ` : `<span class="text-sm text-gray-500 italic">${s.unit}</span>`}
+      </div>
+    </div>
+  `).join('');
+}
+
+function updatePrice(index, field, value) {
+  content.pricing.services[index][field] = parseInt(value) || 0;
+  markDirty();
+}
+
+// --- Projects ---
+function renderProjects() {
+  const el = document.getElementById('projectsList');
+  if (!content.projects.length) {
+    el.innerHTML = '<div class="col-span-2 text-center py-12 text-gray-400"><p class="text-lg">Brak realizacji</p><p class="text-sm mt-1">Kliknij "+ Dodaj realizację" aby dodać pierwszą</p></div>';
+    return;
+  }
+  el.innerHTML = content.projects.map((p, i) => `
+    <div class="bg-white rounded-2xl overflow-hidden border border-gray-100">
+      <div class="grid grid-cols-2 h-40">
+        <img src="${p.imageBefore || 'data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22/>'}" alt="Przed" class="w-full h-full object-cover ${p.imageBefore ? '' : 'bg-gray-100'}">
+        <img src="${p.imageAfter || 'data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22/>'}" alt="Po" class="w-full h-full object-cover ${p.imageAfter ? '' : 'bg-gray-100'}">
+      </div>
+      <div class="p-4">
+        <div class="flex items-center justify-between mb-2">
+          <span class="font-medium">${SERVICE_NAMES[p.service] || p.service}</span>
+          <button onclick="deleteProject(${i})" class="text-red-400 hover:text-red-600 text-sm">🗑️ Usuń</button>
+        </div>
+        <div class="text-sm text-gray-500">${cityName(p.city)}${p.district ? ', ' + p.district : ''} · ${p.area || '?'}m² · ${p.date || ''}</div>
+        <p class="text-sm text-gray-600 mt-2">${p.description || ''}</p>
+      </div>
+    </div>
+  `).join('');
+}
+
+function addProject() {
+  document.getElementById('projDate').value = new Date().toISOString().substring(0, 7);
+  document.getElementById('projectModal').classList.remove('hidden');
+}
+
+async function saveProject() {
+  const id = `proj-${Date.now()}`;
+  const project = {
+    id,
+    service: document.getElementById('projService').value,
+    city: document.getElementById('projCity').value,
+    district: document.getElementById('projDistrict').value,
+    area: parseInt(document.getElementById('projArea').value) || null,
+    date: document.getElementById('projDate').value,
+    description: document.getElementById('projDesc').value,
+    imageBefore: '',
+    imageAfter: '',
+    featured: true
+  };
+
+  // Upload images
+  const fileBefore = document.getElementById('fileBefore').files[0];
+  const fileAfter = document.getElementById('fileAfter').files[0];
+  
+  if (fileBefore) {
+    showToast('Przesyłam zdjęcie PRZED...');
+    const url = await uploadImage(fileBefore, id, 'before');
+    if (url) project.imageBefore = url;
+  }
+  if (fileAfter) {
+    showToast('Przesyłam zdjęcie PO...');
+    const url = await uploadImage(fileAfter, id, 'after');
+    if (url) project.imageAfter = url;
+  }
+
+  content.projects.unshift(project);
+  closeModal('projectModal');
+  renderProjects();
+  await saveAll();
+  
+  // Reset form
+  document.getElementById('projDistrict').value = '';
+  document.getElementById('projArea').value = '';
+  document.getElementById('projDesc').value = '';
+  document.getElementById('fileBefore').value = '';
+  document.getElementById('fileAfter').value = '';
+  resetDrop('dropBefore');
+  resetDrop('dropAfter');
+}
+
+function deleteProject(index) {
+  if (!confirm('Na pewno usunąć tę realizację?')) return;
+  content.projects.splice(index, 1);
+  renderProjects();
+  markDirty();
+}
+
+async function uploadImage(file, projectId, type) {
+  const fd = new FormData();
+  fd.append('image', file);
+  fd.append('projectId', projectId);
+  fd.append('type', type);
+  try {
+    const res = await fetch('/api/upload', { method: 'POST', headers: { 'Authorization': `Bearer ${token}` }, body: fd });
+    const data = await res.json();
+    return data.ok ? data.url : null;
+  } catch { return null; }
+}
+
+// --- Reviews ---
+function renderReviews() {
+  const el = document.getElementById('reviewsList');
+  if (!content.reviews.length) {
+    el.innerHTML = '<div class="text-center py-12 text-gray-400"><p class="text-lg">Brak opinii</p><p class="text-sm mt-1">Kliknij "+ Dodaj opinię" aby dodać pierwszą</p></div>';
+    return;
+  }
+  el.innerHTML = content.reviews.map((r, i) => `
+    <div class="bg-white rounded-xl p-4 border border-gray-100 flex items-start gap-4">
+      <div class="flex-1">
+        <div class="flex items-center gap-2 mb-1">
+          <span class="text-yellow-400">${'★'.repeat(r.rating)}${'☆'.repeat(5-r.rating)}</span>
+          <span class="font-medium">${r.name}</span>
+        </div>
+        <div class="text-sm text-gray-500 mb-2">${cityName(r.city)} · ${SERVICE_NAMES[r.service] || r.service} · ${r.date || ''}</div>
+        <p class="text-gray-700">"${r.text}"</p>
+      </div>
+      <button onclick="deleteReview(${i})" class="text-red-400 hover:text-red-600 text-sm shrink-0">🗑️</button>
+    </div>
+  `).join('');
+}
+
+function addReview() {
+  currentRating = 5;
+  updateStars();
+  document.getElementById('reviewModal').classList.remove('hidden');
+}
+
+function saveReview() {
+  const review = {
+    id: `rev-${Date.now()}`,
+    name: document.getElementById('revName').value,
+    city: document.getElementById('revCity').value,
+    service: document.getElementById('revService').value,
+    rating: currentRating,
+    text: document.getElementById('revText').value,
+    date: new Date().toISOString().substring(0, 7),
+    featured: true
+  };
+  if (!review.name || !review.text) { showToast('Wypełnij imię i treść opinii'); return; }
+  content.reviews.unshift(review);
+  closeModal('reviewModal');
+  renderReviews();
+  saveAll();
+  document.getElementById('revName').value = '';
+  document.getElementById('revText').value = '';
+}
+
+function deleteReview(index) {
+  if (!confirm('Na pewno usunąć tę opinię?')) return;
+  content.reviews.splice(index, 1);
+  renderReviews();
+  markDirty();
+}
+
+function setRating(n) { currentRating = n; updateStars(); }
+function updateStars() {
+  document.querySelectorAll('#starRating .star').forEach((el, i) => {
+    el.classList.toggle('text-yellow-400', i < currentRating);
+    el.classList.toggle('text-gray-300', i >= currentRating);
+  });
+}
+
+// --- Save ---
+let dirty = false;
+function markDirty() { dirty = true; document.getElementById('saveStatus').textContent = '● Niezapisane zmiany'; }
+
+async function saveAll() {
+  try {
+    document.getElementById('saveStatus').textContent = 'Zapisuję...';
+    const res = await fetch('/api/content', {
+      method: 'POST',
+      headers: { 'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json' },
+      body: JSON.stringify(content)
+    });
+    const data = await res.json();
+    if (data.ok) {
+      dirty = false;
+      document.getElementById('saveStatus').textContent = '✓ Zapisano';
+      document.getElementById('priceLastUpdated').textContent = `Ostatnia zmiana: ${content.pricing.lastUpdated}`;
+      showToast('✅ Zmiany zapisane! Widoczne na stronie.');
+    } else {
+      showToast('❌ Błąd: ' + (data.error || 'nieznany'));
+    }
+  } catch(e) { showToast('❌ Błąd połączenia'); }
+}
+
+// --- Helpers ---
+function cityName(slug) { return CITIES.find(c => c.slug === slug)?.name || slug; }
+function closeModal(id) { document.getElementById(id).classList.add('hidden'); }
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.remove('hidden');
+  setTimeout(() => t.classList.add('hidden'), 3000);
+}
+
+function previewImage(input, dropId) {
+  const file = input.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = (e) => {
+    document.getElementById(dropId).innerHTML = `<img src="${e.target.result}" class="w-full h-full object-cover rounded-lg">`;
+  };
+  reader.readAsDataURL(file);
+}
+
+function resetDrop(id) {
+  document.getElementById(id).innerHTML = '<span class="text-gray-400 text-sm">Kliknij lub przeciągnij</span>';
+}
+
+// Warn before leaving with unsaved changes
+window.onbeforeunload = () => dirty ? true : null;
+</script>
+</body>
+</html>

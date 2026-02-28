@@ -1,0 +1,18 @@
+{
+  "pricing": {
+    "lastUpdated": "2026-02-28",
+    "services": [
+      { "id": "mycie-elewacji", "name": "Mycie elewacji", "priceFrom": 13, "priceTo": 18, "unit": "zł/m²", "note": "z odgrzybianiem i preparatem biobójczym" },
+      { "id": "mycie-dachu", "name": "Mycie dachu", "priceFrom": 15, "priceTo": 18, "unit": "zł/m²", "note": "z odgrzybianiem i preparatem biobójczym" },
+      { "id": "malowanie-elewacji", "name": "Malowanie elewacji", "priceFrom": 60, "priceTo": 80, "unit": "zł/m²", "note": "przygotowanie podłoża, gruntowanie i malowanie farbą fasadową" },
+      { "id": "malowanie-dachu", "name": "Malowanie dachu", "priceFrom": 30, "priceTo": 70, "unit": "zł/m²", "note": "mycie, gruntowanie i malowanie powłoką antykorozyjną" },
+      { "id": "impregnacja", "name": "Impregnacja", "priceFrom": null, "priceTo": null, "unit": "= cena mycia", "note": "łącznie mycie + impregnacja = 2× cena mycia" },
+      { "id": "mycie-kostki", "name": "Mycie kostki brukowej", "priceFrom": 12, "priceTo": 15, "unit": "zł/m²", "note": "mycie ciśnieniowe z odchwaszczaniem" },
+      { "id": "czyszczenie-rynien", "name": "Czyszczenie rynien", "priceFrom": 15, "priceTo": 20, "unit": "zł/mb", "note": "udrożnienie i mycie rynien" },
+      { "id": "spoinowanie-kostki", "name": "Spoinowanie kostki", "priceFrom": 30, "priceTo": 40, "unit": "zł/m²", "note": "uzupełnienie spoin piaskiem polimerowym" },
+      { "id": "mycie-hal", "name": "Mycie hal i magazynów", "priceFrom": null, "priceTo": null, "unit": "wycena indywidualna", "note": "cena zależna od metrażu i stopnia zabrudzenia" }
+    ]
+  },
+  "reviews": [],
+  "projects": []
+}
