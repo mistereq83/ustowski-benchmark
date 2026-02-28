@@ -79,6 +79,7 @@
         .mini-before { clip-path: polygon(0 0, 50% 0, 50% 100%, 0 100%); z-index: 2; }
         .mini-after { z-index: 1; }
         .mini-handle { position: absolute; top: 0; bottom: 0; left: 50%; width: 2px; background: #F06820; z-index: 3; transform: translateX(-50%); cursor: ew-resize; }
+        .mini-handle::before { content: ''; position: absolute; top: 0; bottom: 0; left: -24px; width: 50px; background: transparent; }
         /* Service Cards */
         .service-card { filter: grayscale(100%); transition: filter 0.5s ease, transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
         .service-card:hover { filter: grayscale(0%); transform: scale(1.02); }

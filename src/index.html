@@ -539,13 +539,8 @@
                     handle.style.left = `${pos}%`;
                 };
 
-                const isNearHandle = (e) => {
-                    const handleLeft = handle.getBoundingClientRect().left + handle.getBoundingClientRect().width / 2;
-                    let clientX = e.type.includes('touch') ? e.touches[0].clientX : e.clientX;
-                    return Math.abs(clientX - handleLeft) < 40;
-                };
-                slider.addEventListener('mousedown', (e) => { if (isNearHandle(e)) { isDown = true; moveSlider(e); } });
-                slider.addEventListener('touchstart', (e) => { if (isNearHandle(e)) { isDown = true; moveSlider(e); } }, {passive: true});
+                slider.addEventListener('mousedown', (e) => { isDown = true; moveSlider(e); });
+                slider.addEventListener('touchstart', (e) => { isDown = true; moveSlider(e); }, {passive: true});
                 slider.addEventListener('mousemove', moveSlider);
                 slider.addEventListener('touchmove', moveSlider, {passive: false});
                 

@@ -185,8 +185,8 @@
         handle.style.left = pct + '%';
       };
 
-      handle.addEventListener('mousedown', () => dragging = true);
-      handle.addEventListener('touchstart', () => dragging = true, {passive: true});
+      slider.addEventListener('mousedown', () => dragging = true);
+      slider.addEventListener('touchstart', () => dragging = true, {passive: true});
       window.addEventListener('mouseup', () => dragging = false);
       window.addEventListener('touchend', () => dragging = false);
       window.addEventListener('mousemove', move);
@@ -211,8 +211,8 @@
         handle.style.left = pct + '%';
       };
 
-      handle.addEventListener('mousedown', () => dragging = true);
-      handle.addEventListener('touchstart', () => dragging = true, {passive: true});
+      slider.addEventListener('mousedown', () => dragging = true);
+      slider.addEventListener('touchstart', () => dragging = true, {passive: true});
       window.addEventListener('mouseup', () => dragging = false);
       window.addEventListener('touchend', () => dragging = false);
       window.addEventListener('mousemove', move);
