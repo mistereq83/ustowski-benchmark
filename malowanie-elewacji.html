@@ -214,6 +214,9 @@
 
     <!-- Mobile Menu Overlay -->
     <div id="mobile-menu-overlay" class="fixed inset-0 bg-dark/95 backdrop-blur-lg z-[100] hidden flex-col items-center justify-center text-white text-center">
+        <button id="mobile-menu-close" class="absolute top-6 right-6 w-11 h-11 flex items-center justify-center rounded-full bg-white/10 z-[110]" aria-label="Zamknij menu">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+        </button>
         <nav class="flex flex-col gap-8 text-2xl font-medium font-heading">
             <a href="index.html#uslugi" class="mobile-menu-link hover:text-accent transition-colors">Usługi</a>
             <a href="o-firmie.html" class="mobile-menu-link hover:text-accent transition-colors">O firmie</a>
@@ -308,7 +311,7 @@
                 
                 <div class="group bg-white border border-gray-100 p-10 rounded-[2rem] shadow-sm hover:shadow-floating transition-all duration-300 gs-card">
                     <div class="w-16 h-16 bg-secondary rounded-full flex items-center justify-center mb-8 group-hover:bg-accent group-hover:text-white transition-colors duration-300">
-                        <svg width="28" height="28" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                        <svg width="28" height="28" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20V10M18 20V4M6 20v-4"/></svg>
                     </div>
                     <h3 class="font-heading text-2xl font-bold mb-4">Liczy się przygotowanie, nie tylko farba</h3>
                     <p class="text-primary/70 leading-relaxed">Dobrze wykonane malowanie zaczyna się od właściwego przygotowania powierzchni.</p>
@@ -316,7 +319,7 @@
 
                 <div class="group bg-white border border-gray-100 p-10 rounded-[2rem] shadow-sm hover:shadow-floating transition-all duration-300 gs-card">
                     <div class="w-16 h-16 bg-secondary rounded-full flex items-center justify-center mb-8 group-hover:bg-accent group-hover:text-white transition-colors duration-300">
-                        <svg width="28" height="28" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
+                        <svg width="28" height="28" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
                     </div>
                     <h3 class="font-heading text-2xl font-bold mb-4">Równomierny efekt na całej elewacji</h3>
                     <p class="text-primary/70 leading-relaxed">Pracujemy tak, aby kolor był spójny, a całość wyglądała estetycznie z bliska i z daleka.</p>
@@ -487,7 +490,7 @@
         <div class="max-w-7xl mx-auto">
             <div class="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-12 mb-8 md:mb-16">
                 <div>
-                    <img src="images/logo-ustowski.png" alt="Ustowski" class="h-10 mb-6 brightness-0 invert" onerror="this.style.opacity=0">
+                    <img src="images/logo-ustowski.png" alt="Ustowski" class="h-10 mb-6" onerror="this.style.opacity=0">
                     <p class="text-white/60 mb-6 max-w-sm">Specjalistyczne mycie dachów i elewacji. Pracujemy na terenie całego Pomorza. Szybko, czysto i bezpiecznie.</p>
                 </div>
                 <div>
@@ -521,7 +524,7 @@
                 <p>&copy; 2026 Ustowski.pl. Wszelkie prawa zastrzeżone.</p>
                 <a href="polityka-prywatnosci.html" class="hover:text-white/70 transition-colors">Polityka prywatności</a>
                 <div class="flex gap-4 mt-4 md:mt-0">
-                    <a href="#" class="hover:text-white transition">Polityka prywatności</a>
+                    
                 </div>
             </div>
         </div>
@@ -566,6 +569,8 @@
             }
         };
         if (menuBtn) menuBtn.addEventListener('click', toggleMenu);
+            const menuClose = document.getElementById('mobile-menu-close');
+            if (menuClose) menuClose.addEventListener('click', toggleMenu);
         mobileMenuLinks.forEach(link => link.addEventListener('click', toggleMenu));
 
         // GSAP Animations

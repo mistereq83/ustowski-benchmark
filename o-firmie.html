@@ -155,6 +155,9 @@
 
     <!-- Mobile Menu Overlay -->
     <div id="mobile-menu-overlay" class="fixed inset-0 bg-dark/95 backdrop-blur-lg z-[100] hidden flex-col items-center justify-center text-white text-center">
+        <button id="mobile-menu-close" class="absolute top-6 right-6 w-11 h-11 flex items-center justify-center rounded-full bg-white/10 z-[110]" aria-label="Zamknij menu">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+        </button>
         <nav class="flex flex-col gap-8 text-2xl font-medium font-heading">
             <a href="index.html#uslugi" class="mobile-menu-link hover:text-accent transition-colors">Usługi</a>
             <a href="o-firmie.html" class="mobile-menu-link hover:text-accent transition-colors">O firmie</a>
@@ -420,7 +423,7 @@
         <div class="max-w-7xl mx-auto">
             <div class="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-12 mb-8 md:mb-16">
                 <div>
-                    <img src="images/logo-ustowski.png" alt="Ustowski" class="h-10 mb-6 brightness-0 invert" onerror="this.style.opacity=0">
+                    <img src="images/logo-ustowski.png" alt="Ustowski" class="h-10 mb-6" onerror="this.style.opacity=0">
                     <p class="text-white/60 mb-6 max-w-sm">Specjalistyczne mycie dachów i elewacji. Pracujemy na terenie całego Pomorza. Szybko, czysto i bezpiecznie.</p>
                 </div>
                 <div>
@@ -454,7 +457,7 @@
                 <p>&copy; 2026 Ustowski.pl. Wszelkie prawa zastrzeżone.</p>
                 <a href="polityka-prywatnosci.html" class="hover:text-white/70 transition-colors">Polityka prywatności</a>
                 <div class="flex gap-4 mt-4 md:mt-0">
-                    <a href="#" class="hover:text-white transition">Polityka prywatności</a>
+                    
                 </div>
             </div>
         </div>
@@ -499,6 +502,8 @@
             }
         };
         if (menuBtn) menuBtn.addEventListener('click', toggleMenu);
+            const menuClose = document.getElementById('mobile-menu-close');
+            if (menuClose) menuClose.addEventListener('click', toggleMenu);
         mobileMenuLinks.forEach(link => link.addEventListener('click', toggleMenu));
 
         // GSAP Animations
