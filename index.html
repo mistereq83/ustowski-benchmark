@@ -135,7 +135,10 @@
             position: absolute;
             top: 0; bottom: 0;
             left: 50%;
-            width: 2px;
+            width: 4px;
+            padding: 0 18px;
+            margin-left: -18px;
+            background-clip: content-box;
             background: #F06820;
             z-index: 3;
             transform: translateX(-50%);
@@ -184,6 +187,9 @@
             position: absolute;
             top: 0; bottom: 0;
             left: 50%;
+            padding: 0 16px;
+            margin-left: -16px;
+            background-clip: content-box;
             width: 2px;
             background: #F06820;
             z-index: 3;
@@ -893,8 +899,14 @@
                     handle.style.left = `${pos}%`;
                 };
 
-                heroSlider.addEventListener('mousedown', (e) => { isDown = true; moveSlider(e); });
-                heroSlider.addEventListener('touchstart', (e) => { isDown = true; moveSlider(e); });
+                const isNearHandle = (e) => {
+                    const rect = heroSlider.getBoundingClientRect();
+                    const handleLeft = handle.getBoundingClientRect().left + handle.getBoundingClientRect().width / 2;
+                    let clientX = e.type.includes('touch') ? e.touches[0].clientX : e.clientX;
+                    return Math.abs(clientX - handleLeft) < 40;
+                };
+                heroSlider.addEventListener('mousedown', (e) => { if (isNearHandle(e)) { isDown = true; moveSlider(e); } });
+                heroSlider.addEventListener('touchstart', (e) => { if (isNearHandle(e)) { isDown = true; moveSlider(e); } }, {passive: true});
                 window.addEventListener('mouseup', () => isDown = false);
                 window.addEventListener('touchend', () => isDown = false);
                 window.addEventListener('mousemove', moveSlider);
@@ -924,8 +936,13 @@
                     handle.style.left = `${pos}%`;
                 };
 
-                slider.addEventListener('mousedown', (e) => { isDown = true; moveSlider(e); });
-                slider.addEventListener('touchstart', (e) => { isDown = true; moveSlider(e); });
+                const isNearHandle = (e) => {
+                    const handleLeft = handle.getBoundingClientRect().left + handle.getBoundingClientRect().width / 2;
+                    let clientX = e.type.includes('touch') ? e.touches[0].clientX : e.clientX;
+                    return Math.abs(clientX - handleLeft) < 40;
+                };
+                slider.addEventListener('mousedown', (e) => { if (isNearHandle(e)) { isDown = true; moveSlider(e); } });
+                slider.addEventListener('touchstart', (e) => { if (isNearHandle(e)) { isDown = true; moveSlider(e); } }, {passive: true});
                 slider.addEventListener('mousemove', moveSlider);
                 slider.addEventListener('touchmove', moveSlider, {passive: false});
                 
