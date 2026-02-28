@@ -1,0 +1,68 @@
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Form Validation (works on any page with #wycena-form)
+            const form = document.getElementById('wycena-form');
+            if (form) {
+                const submitBtn = document.getElementById('submit-btn');
+                const inputs = form.querySelectorAll('input[required], select[required]');
+                inputs.forEach(input => {
+                    input.addEventListener('blur', () => validateField(input));
+                    input.addEventListener('input', () => { if (input.classList.contains('border-red-500')) validateField(input); });
+                });
+                function validateField(field) {
+                    const parent = field.closest('.space-y-2');
+                    let existing = parent ? parent.querySelector('.error-msg') : null;
+                    if (existing) existing.remove();
+                    let error = '';
+                    if (field.name === 'name' && field.value.trim().length < 2) error = 'Wpisz imię i nazwisko (min. 2 znaki)';
+                    else if (field.name === 'phone') { if (field.value.replace(/[^0-9]/g, '').length < 9) error = 'Wpisz poprawny numer telefonu (min. 9 cyfr)'; }
+                    else if (field.name === 'service' && !field.value) error = 'Wybierz rodzaj usługi';
+                    if (error) {
+                        field.classList.add('border-red-500'); field.classList.remove('border-white/10');
+                        if (parent) { const msg = document.createElement('p'); msg.className = 'error-msg text-red-400 text-xs mt-1'; msg.textContent = error; parent.appendChild(msg); }
+                        return false;
+                    } else { field.classList.remove('border-red-500'); field.classList.add('border-white/10'); return true; }
+                }
+                form.addEventListener('submit', (e) => {
+                    let valid = true;
+                    inputs.forEach(input => { if (!validateField(input)) valid = false; });
+                    const rodo = document.getElementById('rodo');
+                    if (rodo && !rodo.checked) { valid = false; alert('Zaakceptuj zgodę na przetwarzanie danych osobowych.'); }
+                    if (!valid) { e.preventDefault(); return; }
+                    submitBtn.innerHTML = '<span class="relative z-10">Wysyłam...</span>'; submitBtn.disabled = true;
+                });
+                if (window.location.search.includes('sent=1')) {
+                    const formSection = document.getElementById('wycena') || document.getElementById('formularz');
+                    if (formSection) {
+                        const msg = document.createElement('div');
+                        msg.className = 'bg-green-500/20 border border-green-500/50 rounded-2xl p-6 text-center text-green-400 mb-6';
+                        msg.innerHTML = '<p class="text-lg font-bold">✅ Dziękujemy!</p><p>Twoje zapytanie zostało wysłane. Odezwiemy się w ciągu 24h.</p>';
+                        form.parentNode.insertBefore(msg, form); form.style.display = 'none';
+                    }
+                }
+            }
+
+            // Mobile Menu Toggle
+            const menuBtn = document.getElementById('mobile-menu-btn');
+            const menuOverlay = document.getElementById('mobile-menu-overlay');
+            const menuIconOpen = document.getElementById('menu-icon-open');
+            const menuIconClose = document.getElementById('menu-icon-close');
+            const mobileMenuLinks = document.querySelectorAll('.mobile-menu-link');
+            const toggleMenu = () => {
+                const isOpen = menuOverlay.classList.contains('flex');
+                if (isOpen) {
+                    menuOverlay.classList.remove('flex'); menuOverlay.classList.add('hidden');
+                    menuIconOpen.classList.remove('hidden'); menuIconClose.classList.add('hidden');
+                    document.body.style.overflow = '';
+                } else {
+                    menuOverlay.classList.remove('hidden'); menuOverlay.classList.add('flex');
+                    menuIconOpen.classList.add('hidden'); menuIconClose.classList.remove('hidden');
+                    document.body.style.overflow = 'hidden';
+                }
+            };
+            if (menuBtn) menuBtn.addEventListener('click', toggleMenu);
+            const menuClose = document.getElementById('mobile-menu-close');
+            if (menuClose) menuClose.addEventListener('click', toggleMenu);
+            mobileMenuLinks.forEach(link => link.addEventListener('click', toggleMenu));
+        });
+    </script>

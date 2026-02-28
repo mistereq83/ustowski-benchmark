@@ -1,0 +1,68 @@
+    <meta charset="UTF-8">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- GTM / Analytics — dodaj tutaj, pojawi się na wszystkich stronach -->
+    <!-- {{GTM_HEAD}} -->
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Outfit:wght@100..900&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        accent: '#F06820',
+                        primary: '#2B2B2B',
+                        dark: '#1A1A1A',
+                        bg: '#FAFAFA',
+                        secondary: '#EDEDED'
+                    },
+                    fontFamily: {
+                        heading: ['Outfit', 'sans-serif'],
+                        body: ['DM Sans', 'sans-serif'],
+                        mono: ['Space Mono', 'monospace'],
+                    },
+                    borderRadius: {
+                        '4xl': '2rem',
+                        '5xl': '3rem',
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- GSAP -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    
+    <style>
+        body {
+            background-color: #FAFAFA;
+            color: #2B2B2B;
+            font-family: 'DM Sans', sans-serif;
+            overflow-x: hidden;
+        }
+        h1, h2, h3, h4, h5, h6 { font-family: 'Outfit', sans-serif; }
+        .noise-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; pointer-events: none; z-index: 9999; opacity: 0.05; }
+        .btn-magnetic { display: inline-flex; align-items: center; justify-content: center; position: relative; overflow: hidden; transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
+        .btn-magnetic:hover { transform: scale(1.03); }
+        .link-lift { transition: transform 0.2s ease, color 0.2s ease; }
+        .link-lift:hover { transform: translateY(-1px); color: #F06820; }
+        .glass-nav { background: rgba(250, 250, 250, 0.7); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border: 1px solid rgba(255,255,255,0.2); transition: background 0.3s ease, backdrop-filter 0.3s ease; }
+        .text-balance { text-wrap: balance; }
+        .reveal-word { opacity: 0.2; }
+        .service-card { filter: grayscale(100%); transition: filter 0.5s ease, transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
+        .service-card:hover { filter: grayscale(0%); transform: scale(1.02); }
+        .service-card-desc { display: none; }
+        @media (max-width: 767px) {
+            .service-card { filter: grayscale(0%) !important; }
+            .service-card img { opacity: 0.7 !important; }
+            .service-card-desc { display: none !important; }
+        }
+    </style>

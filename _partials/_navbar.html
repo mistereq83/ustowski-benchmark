@@ -1,0 +1,25 @@
+    <header class="fixed top-0 left-0 w-full z-50 transition-all duration-300 px-4 pt-4" id="navbar">
+        <div class="glass-nav max-w-7xl mx-auto rounded-[2rem] px-6 py-4 flex items-center justify-between">
+            <a href="index.html" class="flex-shrink-0 relative z-10 block">
+                <img src="images/logo-v3.png" alt="Ustowski" class="h-7 md:h-12 w-auto object-contain" onerror="this.style.opacity=0">
+            </a>
+            
+            <nav class="hidden lg:flex items-center gap-8 font-medium">
+                <a href="index.html#uslugi" class="hover:text-accent transition-colors">Usługi</a>
+                <a href="o-firmie.html" class="hover:text-accent transition-colors">O firmie</a>
+                <a href="kontakt.html" class="hover:text-accent transition-colors">Kontakt</a>
+            </nav>
+
+            <div class="flex items-center gap-3 md:gap-6">
+                <a href="tel:+48663719372" class="font-mono font-medium hover:text-accent transition-colors hidden md:block">+48 663 719 372</a>
+                <a href="kontakt.html#formularz" class="btn-magnetic bg-accent text-white px-4 py-2 md:px-6 md:py-3 rounded-full font-medium text-sm">
+                    <span class="btn-content">Bezpłatna wycena</span>
+                </a>
+            </div>
+            
+            <button id="mobile-menu-btn" class="lg:hidden w-11 h-11 flex items-center justify-center bg-secondary rounded-full z-[101]" aria-label="Menu">
+                <svg id="menu-icon-open" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+                <svg id="menu-icon-close" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="hidden"><path d="M18 6L6 18M6 6l12 12"/></svg>
+            </button>
+        </div>
+    </header>
