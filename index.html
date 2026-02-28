@@ -233,11 +233,15 @@
                 opacity: 0.7 !important;
             }
             .service-card-desc {
-                max-height: 80px !important;
+                max-height: none !important;
                 opacity: 1 !important;
                 margin-top: 0.25rem !important;
-                font-size: 0.75rem !important;
-                line-height: 1.3 !important;
+                font-size: 0.7rem !important;
+                line-height: 1.25 !important;
+                display: -webkit-box !important;
+                -webkit-line-clamp: 2 !important;
+                -webkit-box-orient: vertical !important;
+                overflow: hidden !important;
             }
         }
 
@@ -367,42 +371,42 @@
             
             <div class="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-6">
                 <!-- Karta 1 -->
-                <a href="mycie-elewacji.html" class="service-card relative rounded-4xl overflow-hidden h-[180px] md:h-[320px] bg-dark group cursor-pointer gsap-card block">
+                <a href="mycie-elewacji.html" class="service-card relative rounded-4xl overflow-hidden aspect-square md:h-[320px] md:aspect-auto bg-dark group cursor-pointer gsap-card block">
                     <img src="images/usluga-mycie-elewacji.webp" class="absolute inset-0 w-full h-full object-cover object-center opacity-60 group-hover:opacity-80 transition-opacity" alt="Mycie elewacji" onerror="this.style.display='none'" loading="lazy">
                     <div class="absolute inset-0 bg-gradient-to-t from-dark/90 via-dark/40 to-transparent p-4 md:p-8 flex flex-col justify-end">
                         <h3 class="font-heading font-bold text-base md:text-2xl text-white">Mycie elewacji</h3>
                         <p class="text-white/80 service-card-desc text-sm">Usuwamy glony, grzyby, smog i brud. Przywracamy oryginalny kolor tynku.</p>
                     </div></a>
                 <!-- Karta 2 -->
-                <a href="mycie-dachu.html" class="service-card relative rounded-4xl overflow-hidden h-[180px] md:h-[320px] bg-dark group cursor-pointer gsap-card block">
+                <a href="mycie-dachu.html" class="service-card relative rounded-4xl overflow-hidden aspect-square md:h-[320px] md:aspect-auto bg-dark group cursor-pointer gsap-card block">
                     <img src="images/usluga-mycie-dachu.webp" class="absolute inset-0 w-full h-full object-cover object-center opacity-60 group-hover:opacity-80 transition-opacity" alt="Mycie dachu" onerror="this.style.display='none'" loading="lazy">
                     <div class="absolute inset-0 bg-gradient-to-t from-dark/90 via-dark/40 to-transparent p-4 md:p-8 flex flex-col justify-end">
                         <h3 class="font-heading font-bold text-base md:text-2xl text-white">Mycie dachu</h3>
                         <p class="text-white/80 service-card-desc text-sm">Bezpieczne czyszczenie dachówek z mchu. Poprawa estetyki i żywotności.</p>
                     </div></a>
                 <!-- Karta 3 -->
-                <a href="malowanie-elewacji.html" class="service-card relative rounded-4xl overflow-hidden h-[180px] md:h-[320px] bg-dark group cursor-pointer gsap-card block">
+                <a href="malowanie-elewacji.html" class="service-card relative rounded-4xl overflow-hidden aspect-square md:h-[320px] md:aspect-auto bg-dark group cursor-pointer gsap-card block">
                     <img src="images/usluga-malowanie-elewacji.webp" class="absolute inset-0 w-full h-full object-cover object-center opacity-60 group-hover:opacity-80 transition-opacity" alt="Malowanie elewacji" onerror="this.style.display='none'" loading="lazy">
                     <div class="absolute inset-0 bg-gradient-to-t from-dark/90 via-dark/40 to-transparent p-4 md:p-8 flex flex-col justify-end">
                         <h3 class="font-heading font-bold text-base md:text-2xl text-white">Malowanie elewacji</h3>
                         <p class="text-white/80 service-card-desc text-sm">Trwałe farby fasadowe odporne na warunki atmosferyczne.</p>
                     </div></a>
                 <!-- Karta 4 -->
-                <a href="malowanie-dachu.html" class="service-card relative rounded-4xl overflow-hidden h-[180px] md:h-[320px] bg-dark group cursor-pointer gsap-card block">
+                <a href="malowanie-dachu.html" class="service-card relative rounded-4xl overflow-hidden aspect-square md:h-[320px] md:aspect-auto bg-dark group cursor-pointer gsap-card block">
                     <img src="images/usluga-malowanie-dachu.webp" class="absolute inset-0 w-full h-full object-cover object-center opacity-60 group-hover:opacity-80 transition-opacity" alt="Malowanie dachu" onerror="this.style.display='none'" loading="lazy">
                     <div class="absolute inset-0 bg-gradient-to-t from-dark/90 via-dark/40 to-transparent p-4 md:p-8 flex flex-col justify-end">
                         <h3 class="font-heading font-bold text-base md:text-2xl text-white">Malowanie dachu</h3>
                         <p class="text-white/80 service-card-desc text-sm">Antykorozyjne powłoki chroniące i odnawiające wygląd.</p>
                     </div></a>
                 <!-- Karta 5 -->
-                <a href="impregnacja.html" class="service-card relative rounded-4xl overflow-hidden h-[180px] md:h-[320px] bg-dark group cursor-pointer gsap-card block">
+                <a href="impregnacja.html" class="service-card relative rounded-4xl overflow-hidden aspect-square md:h-[320px] md:aspect-auto bg-dark group cursor-pointer gsap-card block">
                     <img src="images/usluga-impregnacja.webp" class="absolute inset-0 w-full h-full object-cover object-center opacity-60 group-hover:opacity-80 transition-opacity" alt="Impregnacja" onerror="this.style.display='none'" loading="lazy">
                     <div class="absolute inset-0 bg-gradient-to-t from-dark/90 via-dark/40 to-transparent p-4 md:p-8 flex flex-col justify-end">
                         <h3 class="font-heading font-bold text-base md:text-2xl text-white">Impregnacja</h3>
                         <p class="text-white/80 service-card-desc text-sm">Zabezpieczenie przed ponownym wnikaniem brudu i wilgoci.</p>
                     </div></a>
                 <!-- Karta 6 -->
-                <a href="mycie-paneli-pv.html" class="service-card relative rounded-4xl overflow-hidden h-[180px] md:h-[320px] bg-dark group cursor-pointer gsap-card block">
+                <a href="mycie-paneli-pv.html" class="service-card relative rounded-4xl overflow-hidden aspect-square md:h-[320px] md:aspect-auto bg-dark group cursor-pointer gsap-card block">
                     <img src="images/usluga-panele-pv.webp" class="absolute inset-0 w-full h-full object-cover object-center opacity-60 group-hover:opacity-80 transition-opacity" alt="Mycie paneli PV" onerror="this.style.display='none'" loading="lazy">
                     <div class="absolute inset-0 bg-gradient-to-t from-dark/90 via-dark/40 to-transparent p-4 md:p-8 flex flex-col justify-end">
                         <h3 class="font-heading font-bold text-base md:text-2xl text-white">Mycie paneli PV</h3>
