@@ -6,7 +6,6 @@
   <url><loc>https://ustowski.pl/cennik.html</loc><priority>0.8</priority><changefreq>monthly</changefreq></url>
   <url><loc>https://ustowski.pl/o-firmie.html</loc><priority>0.7</priority><changefreq>monthly</changefreq></url>
   <url><loc>https://ustowski.pl/kontakt.html</loc><priority>0.8</priority><changefreq>monthly</changefreq></url>
-  
   <!-- Service hub pages -->
   <url><loc>https://ustowski.pl/mycie-elewacji.html</loc><priority>0.9</priority><changefreq>monthly</changefreq></url>
   <url><loc>https://ustowski.pl/mycie-dachu.html</loc><priority>0.9</priority><changefreq>monthly</changefreq></url>
@@ -14,70 +13,95 @@
   <url><loc>https://ustowski.pl/malowanie-dachu.html</loc><priority>0.9</priority><changefreq>monthly</changefreq></url>
   <url><loc>https://ustowski.pl/impregnacja.html</loc><priority>0.9</priority><changefreq>monthly</changefreq></url>
   <url><loc>https://ustowski.pl/mycie-paneli-pv.html</loc><priority>0.8</priority><changefreq>monthly</changefreq></url>
-  
-  <!-- City pages: Gdańsk -->
+  <!-- Gdańsk -->
   <url><loc>https://ustowski.pl/mycie-elewacji-gdansk.html</loc><priority>0.8</priority><changefreq>monthly</changefreq></url>
   <url><loc>https://ustowski.pl/mycie-dachu-gdansk.html</loc><priority>0.8</priority><changefreq>monthly</changefreq></url>
   <url><loc>https://ustowski.pl/malowanie-elewacji-gdansk.html</loc><priority>0.8</priority><changefreq>monthly</changefreq></url>
   <url><loc>https://ustowski.pl/malowanie-dachu-gdansk.html</loc><priority>0.8</priority><changefreq>monthly</changefreq></url>
   <url><loc>https://ustowski.pl/impregnacja-gdansk.html</loc><priority>0.8</priority><changefreq>monthly</changefreq></url>
-  
-  <!-- City pages: Gdynia -->
+  <!-- Gdynia -->
   <url><loc>https://ustowski.pl/mycie-elewacji-gdynia.html</loc><priority>0.8</priority><changefreq>monthly</changefreq></url>
   <url><loc>https://ustowski.pl/mycie-dachu-gdynia.html</loc><priority>0.8</priority><changefreq>monthly</changefreq></url>
   <url><loc>https://ustowski.pl/malowanie-elewacji-gdynia.html</loc><priority>0.8</priority><changefreq>monthly</changefreq></url>
   <url><loc>https://ustowski.pl/malowanie-dachu-gdynia.html</loc><priority>0.8</priority><changefreq>monthly</changefreq></url>
   <url><loc>https://ustowski.pl/impregnacja-gdynia.html</loc><priority>0.8</priority><changefreq>monthly</changefreq></url>
-  
-  <!-- City pages: Sopot -->
+  <!-- Sopot -->
   <url><loc>https://ustowski.pl/mycie-elewacji-sopot.html</loc><priority>0.8</priority><changefreq>monthly</changefreq></url>
   <url><loc>https://ustowski.pl/mycie-dachu-sopot.html</loc><priority>0.8</priority><changefreq>monthly</changefreq></url>
   <url><loc>https://ustowski.pl/malowanie-elewacji-sopot.html</loc><priority>0.8</priority><changefreq>monthly</changefreq></url>
   <url><loc>https://ustowski.pl/malowanie-dachu-sopot.html</loc><priority>0.8</priority><changefreq>monthly</changefreq></url>
   <url><loc>https://ustowski.pl/impregnacja-sopot.html</loc><priority>0.8</priority><changefreq>monthly</changefreq></url>
-  
-  <!-- City pages: Wejherowo -->
+  <!-- Wejherowo -->
   <url><loc>https://ustowski.pl/mycie-elewacji-wejherowo.html</loc><priority>0.8</priority><changefreq>monthly</changefreq></url>
   <url><loc>https://ustowski.pl/mycie-dachu-wejherowo.html</loc><priority>0.8</priority><changefreq>monthly</changefreq></url>
   <url><loc>https://ustowski.pl/malowanie-elewacji-wejherowo.html</loc><priority>0.8</priority><changefreq>monthly</changefreq></url>
   <url><loc>https://ustowski.pl/malowanie-dachu-wejherowo.html</loc><priority>0.8</priority><changefreq>monthly</changefreq></url>
   <url><loc>https://ustowski.pl/impregnacja-wejherowo.html</loc><priority>0.8</priority><changefreq>monthly</changefreq></url>
-  
-  <!-- City pages: Rumia -->
+  <!-- Rumia -->
   <url><loc>https://ustowski.pl/mycie-elewacji-rumia.html</loc><priority>0.8</priority><changefreq>monthly</changefreq></url>
   <url><loc>https://ustowski.pl/mycie-dachu-rumia.html</loc><priority>0.8</priority><changefreq>monthly</changefreq></url>
   <url><loc>https://ustowski.pl/malowanie-elewacji-rumia.html</loc><priority>0.8</priority><changefreq>monthly</changefreq></url>
   <url><loc>https://ustowski.pl/malowanie-dachu-rumia.html</loc><priority>0.8</priority><changefreq>monthly</changefreq></url>
   <url><loc>https://ustowski.pl/impregnacja-rumia.html</loc><priority>0.8</priority><changefreq>monthly</changefreq></url>
-  
-  <!-- City pages: Reda -->
+  <!-- Reda -->
   <url><loc>https://ustowski.pl/mycie-elewacji-reda.html</loc><priority>0.8</priority><changefreq>monthly</changefreq></url>
   <url><loc>https://ustowski.pl/mycie-dachu-reda.html</loc><priority>0.8</priority><changefreq>monthly</changefreq></url>
   <url><loc>https://ustowski.pl/malowanie-elewacji-reda.html</loc><priority>0.8</priority><changefreq>monthly</changefreq></url>
   <url><loc>https://ustowski.pl/malowanie-dachu-reda.html</loc><priority>0.8</priority><changefreq>monthly</changefreq></url>
   <url><loc>https://ustowski.pl/impregnacja-reda.html</loc><priority>0.8</priority><changefreq>monthly</changefreq></url>
-  
-  <!-- City pages: Tczew -->
+  <!-- Tczew -->
   <url><loc>https://ustowski.pl/mycie-elewacji-tczew.html</loc><priority>0.8</priority><changefreq>monthly</changefreq></url>
   <url><loc>https://ustowski.pl/mycie-dachu-tczew.html</loc><priority>0.8</priority><changefreq>monthly</changefreq></url>
   <url><loc>https://ustowski.pl/malowanie-elewacji-tczew.html</loc><priority>0.8</priority><changefreq>monthly</changefreq></url>
   <url><loc>https://ustowski.pl/malowanie-dachu-tczew.html</loc><priority>0.8</priority><changefreq>monthly</changefreq></url>
   <url><loc>https://ustowski.pl/impregnacja-tczew.html</loc><priority>0.8</priority><changefreq>monthly</changefreq></url>
-  
-  <!-- City pages: Starogard Gdański -->
+  <!-- Starogard Gdański -->
   <url><loc>https://ustowski.pl/mycie-elewacji-starogard-gdanski.html</loc><priority>0.8</priority><changefreq>monthly</changefreq></url>
   <url><loc>https://ustowski.pl/mycie-dachu-starogard-gdanski.html</loc><priority>0.8</priority><changefreq>monthly</changefreq></url>
   <url><loc>https://ustowski.pl/malowanie-elewacji-starogard-gdanski.html</loc><priority>0.8</priority><changefreq>monthly</changefreq></url>
   <url><loc>https://ustowski.pl/malowanie-dachu-starogard-gdanski.html</loc><priority>0.8</priority><changefreq>monthly</changefreq></url>
   <url><loc>https://ustowski.pl/impregnacja-starogard-gdanski.html</loc><priority>0.8</priority><changefreq>monthly</changefreq></url>
-  
-  <!-- City pages: Pruszcz Gdański -->
+  <!-- Pruszcz Gdański -->
   <url><loc>https://ustowski.pl/mycie-elewacji-pruszcz-gdanski.html</loc><priority>0.8</priority><changefreq>monthly</changefreq></url>
   <url><loc>https://ustowski.pl/mycie-dachu-pruszcz-gdanski.html</loc><priority>0.8</priority><changefreq>monthly</changefreq></url>
   <url><loc>https://ustowski.pl/malowanie-elewacji-pruszcz-gdanski.html</loc><priority>0.8</priority><changefreq>monthly</changefreq></url>
   <url><loc>https://ustowski.pl/malowanie-dachu-pruszcz-gdanski.html</loc><priority>0.8</priority><changefreq>monthly</changefreq></url>
   <url><loc>https://ustowski.pl/impregnacja-pruszcz-gdanski.html</loc><priority>0.8</priority><changefreq>monthly</changefreq></url>
-  
-  <!-- Legal -->
+  <!-- Kartuzy -->
+  <url><loc>https://ustowski.pl/mycie-elewacji-kartuzy.html</loc><priority>0.8</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://ustowski.pl/mycie-dachu-kartuzy.html</loc><priority>0.8</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://ustowski.pl/malowanie-elewacji-kartuzy.html</loc><priority>0.8</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://ustowski.pl/malowanie-dachu-kartuzy.html</loc><priority>0.8</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://ustowski.pl/impregnacja-kartuzy.html</loc><priority>0.8</priority><changefreq>monthly</changefreq></url>
+  <!-- Żukowo -->
+  <url><loc>https://ustowski.pl/mycie-elewacji-zukowo.html</loc><priority>0.8</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://ustowski.pl/mycie-dachu-zukowo.html</loc><priority>0.8</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://ustowski.pl/malowanie-elewacji-zukowo.html</loc><priority>0.8</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://ustowski.pl/malowanie-dachu-zukowo.html</loc><priority>0.8</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://ustowski.pl/impregnacja-zukowo.html</loc><priority>0.8</priority><changefreq>monthly</changefreq></url>
+  <!-- Kościerzyna -->
+  <url><loc>https://ustowski.pl/mycie-elewacji-koscierzyna.html</loc><priority>0.8</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://ustowski.pl/mycie-dachu-koscierzyna.html</loc><priority>0.8</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://ustowski.pl/malowanie-elewacji-koscierzyna.html</loc><priority>0.8</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://ustowski.pl/malowanie-dachu-koscierzyna.html</loc><priority>0.8</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://ustowski.pl/impregnacja-koscierzyna.html</loc><priority>0.8</priority><changefreq>monthly</changefreq></url>
+  <!-- Bytów -->
+  <url><loc>https://ustowski.pl/mycie-elewacji-bytow.html</loc><priority>0.8</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://ustowski.pl/mycie-dachu-bytow.html</loc><priority>0.8</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://ustowski.pl/malowanie-elewacji-bytow.html</loc><priority>0.8</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://ustowski.pl/malowanie-dachu-bytow.html</loc><priority>0.8</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://ustowski.pl/impregnacja-bytow.html</loc><priority>0.8</priority><changefreq>monthly</changefreq></url>
+  <!-- Lębork -->
+  <url><loc>https://ustowski.pl/mycie-elewacji-lebork.html</loc><priority>0.8</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://ustowski.pl/mycie-dachu-lebork.html</loc><priority>0.8</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://ustowski.pl/malowanie-elewacji-lebork.html</loc><priority>0.8</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://ustowski.pl/malowanie-dachu-lebork.html</loc><priority>0.8</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://ustowski.pl/impregnacja-lebork.html</loc><priority>0.8</priority><changefreq>monthly</changefreq></url>
+  <!-- Goręczyno -->
+  <url><loc>https://ustowski.pl/mycie-elewacji-goreczyno.html</loc><priority>0.8</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://ustowski.pl/mycie-dachu-goreczyno.html</loc><priority>0.8</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://ustowski.pl/malowanie-elewacji-goreczyno.html</loc><priority>0.8</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://ustowski.pl/malowanie-dachu-goreczyno.html</loc><priority>0.8</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://ustowski.pl/impregnacja-goreczyno.html</loc><priority>0.8</priority><changefreq>monthly</changefreq></url>
   <url><loc>https://ustowski.pl/polityka-prywatnosci.html</loc><priority>0.3</priority><changefreq>yearly</changefreq></url>
 </urlset>
