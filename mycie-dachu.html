@@ -214,8 +214,8 @@
 
     <!-- Mobile Menu Overlay -->
     <div id="mobile-menu-overlay" class="fixed inset-0 bg-dark/95 backdrop-blur-lg z-[100] hidden flex-col items-center justify-center text-white text-center">
-        <button id="mobile-menu-close" class="absolute top-6 right-6 w-11 h-11 flex items-center justify-center rounded-full bg-white/10 z-[110]" aria-label="Zamknij menu">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+        <button id="mobile-menu-close" class="absolute top-8 right-8 w-14 h-14 flex items-center justify-center rounded-full bg-white/20 border-2 border-white/40 z-[110]" aria-label="Zamknij menu">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"><path d="M18 6L6 18M6 6l12 12"/></svg>
         </button>
         <nav class="flex flex-col gap-8 text-2xl font-medium font-heading">
             <a href="index.html#uslugi" class="mobile-menu-link hover:text-accent transition-colors">Usługi</a>
@@ -229,7 +229,7 @@
 
 
     <!-- 1. HERO -->
-    <section class="relative h-[50vh] min-h-[220px] md:h-[400px] flex items-end pb-16 pt-32 px-4">
+    <section class="relative min-h-[50vh] md:h-[400px] flex items-end pb-12 pt-28 px-4">
         <div class="absolute inset-0 z-0">
             <img src="images/usluga-mycie-dachu.webp" alt="Mycie dachu" class="w-full h-full object-cover" onerror="this.src='data:image/svg+xml;utf8,%3Csvg xmlns=\'http://www.w3.org/2000/svg\'/%3E'; this.style.background='#2B2B2B'" loading="lazy">
             <div class="absolute inset-0 bg-gradient-to-t from-dark/90 via-dark/50 to-transparent"></div>
@@ -266,38 +266,38 @@
     <!-- 3. CO OBEJMUJE USŁUGA -->
     <section class="py-12 md:py-24 px-4 bg-secondary rounded-[3rem] mx-2 md:mx-4">
         <div class="max-w-7xl mx-auto">
-            <h2 class="font-heading text-2xl md:text-4xl font-bold mb-16 text-center gs-reveal">Co obejmuje usługa</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <h2 class="font-heading text-2xl md:text-4xl font-bold mb-6 md:mb-16 text-center gs-reveal">Co obejmuje usługa</h2>
+            <div class="grid grid-cols-2 lg:grid-cols-3 gap-3 md:gap-6">
                 <!-- Items -->
-                <div class="bg-bg p-8 rounded-[2rem] gs-card">
-                    <div class="w-12 h-12 bg-accent/10 text-accent rounded-full flex items-center justify-center mb-6">
+                <div class="bg-bg p-4 md:p-8 rounded-xl md:rounded-[2rem] gs-card">
+                    <div class="w-8 h-8 md:w-12 md:h-12 bg-accent/10 text-accent rounded-full flex items-center justify-center mb-2 md:mb-6">
                         <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
                     </div>
-                    <p class="font-medium text-lg">Ocenę rodzaju pokrycia dachowego i stopnia zabrudzenia</p>
+                    <p class="font-medium text-xs md:text-lg">Ocenę rodzaju pokrycia dachowego i stopnia zabrudzenia</p>
                 </div>
-                <div class="bg-bg p-8 rounded-[2rem] gs-card">
-                    <div class="w-12 h-12 bg-accent/10 text-accent rounded-full flex items-center justify-center mb-6">
+                <div class="bg-bg p-4 md:p-8 rounded-xl md:rounded-[2rem] gs-card">
+                    <div class="w-8 h-8 md:w-12 md:h-12 bg-accent/10 text-accent rounded-full flex items-center justify-center mb-2 md:mb-6">
                         <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
                     </div>
-                    <p class="font-medium text-lg">Usunięcie mchu, glonów, osadów i zabrudzeń</p>
+                    <p class="font-medium text-xs md:text-lg">Usunięcie mchu, glonów, osadów i zabrudzeń</p>
                 </div>
-                <div class="bg-bg p-8 rounded-[2rem] gs-card">
-                    <div class="w-12 h-12 bg-accent/10 text-accent rounded-full flex items-center justify-center mb-6">
+                <div class="bg-bg p-4 md:p-8 rounded-xl md:rounded-[2rem] gs-card">
+                    <div class="w-8 h-8 md:w-12 md:h-12 bg-accent/10 text-accent rounded-full flex items-center justify-center mb-2 md:mb-6">
                         <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
                     </div>
-                    <p class="font-medium text-lg">Dobór metody mycia do rodzaju dachu</p>
+                    <p class="font-medium text-xs md:text-lg">Dobór metody mycia do rodzaju dachu</p>
                 </div>
-                <div class="bg-bg p-8 rounded-[2rem] gs-card">
-                    <div class="w-12 h-12 bg-accent/10 text-accent rounded-full flex items-center justify-center mb-6">
+                <div class="bg-bg p-4 md:p-8 rounded-xl md:rounded-[2rem] gs-card">
+                    <div class="w-8 h-8 md:w-12 md:h-12 bg-accent/10 text-accent rounded-full flex items-center justify-center mb-2 md:mb-6">
                         <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
                     </div>
-                    <p class="font-medium text-lg">Zabezpieczenie otoczenia budynku</p>
+                    <p class="font-medium text-xs md:text-lg">Zabezpieczenie otoczenia budynku</p>
                 </div>
                 <div class="bg-bg p-8 rounded-[2rem] gs-card lg:col-span-2">
-                    <div class="w-12 h-12 bg-accent/10 text-accent rounded-full flex items-center justify-center mb-6">
+                    <div class="w-8 h-8 md:w-12 md:h-12 bg-accent/10 text-accent rounded-full flex items-center justify-center mb-2 md:mb-6">
                         <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
                     </div>
-                    <p class="font-medium text-lg">Uporządkowanie terenu po zakończeniu prac</p>
+                    <p class="font-medium text-xs md:text-lg">Uporządkowanie terenu po zakończeniu prac</p>
                 </div>
             </div>
         </div>
@@ -341,7 +341,7 @@
     <section class="py-12 md:py-24 px-4 bg-dark text-white rounded-[3rem] mx-2 md:mx-4">
         <div class="max-w-7xl mx-auto">
             <h2 class="font-heading text-2xl md:text-4xl font-bold mb-16 text-center gs-reveal">Proces krok po kroku</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div class="grid grid-cols-2 lg:grid-cols-3 gap-3 md:gap-6">
                 
                 <div class="bg-white/5 p-8 rounded-[2rem] border border-white/10 gs-step">
                     <div class="font-mono text-4xl text-accent font-bold mb-6">01</div>

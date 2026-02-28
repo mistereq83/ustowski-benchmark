@@ -233,15 +233,7 @@
                 opacity: 0.7 !important;
             }
             .service-card-desc {
-                max-height: none !important;
-                opacity: 1 !important;
-                margin-top: 0.25rem !important;
-                font-size: 0.7rem !important;
-                line-height: 1.25 !important;
-                display: -webkit-box !important;
-                -webkit-line-clamp: 2 !important;
-                -webkit-box-orient: vertical !important;
-                overflow: hidden !important;
+                display: none !important;
             }
         }
 
@@ -290,8 +282,8 @@
 
     <!-- Mobile Menu Overlay -->
     <div id="mobile-menu-overlay" class="fixed inset-0 bg-dark/95 backdrop-blur-lg z-[100] hidden flex-col items-center justify-center text-white text-center">
-        <button id="mobile-menu-close" class="absolute top-6 right-6 w-11 h-11 flex items-center justify-center rounded-full bg-white/10 z-[110]" aria-label="Zamknij menu">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+        <button id="mobile-menu-close" class="absolute top-8 right-8 w-14 h-14 flex items-center justify-center rounded-full bg-white/20 border-2 border-white/40 z-[110]" aria-label="Zamknij menu">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"><path d="M18 6L6 18M6 6l12 12"/></svg>
         </button>
         <nav class="flex flex-col gap-8 text-2xl font-medium font-heading">
             <a href="index.html#uslugi" class="mobile-menu-link hover:text-accent transition-colors">Usługi</a>
@@ -332,7 +324,7 @@
     </section>
 
     <!-- Podtytuły -->
-    <section class="py-8 md:py-24 bg-bg px-4">
+    <section class="py-2 md:py-24 bg-bg px-4">
         <div class="max-w-4xl mx-auto text-center space-y-4 md:space-y-8">
             <p class="text-2xl md:text-3xl font-heading font-medium text-primary text-balance gsap-fade-up">
                 Elewacja i dach bez zacieków i mchu — szybka realizacja w Trójmieście i na Kaszubach (całe Pomorskie).
