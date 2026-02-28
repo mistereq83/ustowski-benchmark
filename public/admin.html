@@ -342,7 +342,10 @@ function renderProjects() {
       <div class="p-4">
         <div class="flex items-center justify-between mb-2">
           <span class="font-medium">${SERVICE_NAMES[p.service] || p.service}</span>
-          <button onclick="deleteProject(${i})" class="text-red-400 hover:text-red-600 text-sm">🗑️ Usuń</button>
+          <div class="flex gap-2">
+            <button onclick="editProject(${i})" class="text-accent hover:text-orange-600 text-sm">✏️ Edytuj</button>
+            <button onclick="deleteProject(${i})" class="text-red-400 hover:text-red-600 text-sm">🗑️ Usuń</button>
+          </div>
         </div>
         <div class="text-sm text-gray-500">${cityName(p.city)}${p.district ? ', ' + p.district : ''} · ${p.area || '?'}m² · ${p.date || ''}</div>
         <p class="text-sm text-gray-600 mt-1">${p.description || ''}</p>
@@ -352,13 +355,56 @@ function renderProjects() {
   `).join('');
 }
 
+let editingProjectIndex = -1;
+
 function addProject() {
+  editingProjectIndex = -1;
+  document.getElementById('projService').value = 'mycie-elewacji';
+  document.getElementById('projCity').value = 'gdansk';
+  document.getElementById('projDistrict').value = '';
+  document.getElementById('projArea').value = '';
   document.getElementById('projDate').value = new Date().toISOString().substring(0, 7);
+  document.getElementById('projDesc').value = '';
+  document.getElementById('fileBefore').value = '';
+  document.getElementById('fileAfter').value = '';
+  document.querySelectorAll('#projPages input').forEach(cb => cb.checked = false);
+  resetDrop('dropBefore');
+  resetDrop('dropAfter');
+  document.querySelector('#projectModal h3').textContent = 'Nowa realizacja';
+  document.getElementById('projectModal').classList.remove('hidden');
+}
+
+function editProject(index) {
+  editingProjectIndex = index;
+  const p = content.projects[index];
+  document.getElementById('projService').value = p.service || 'mycie-elewacji';
+  document.getElementById('projCity').value = p.city || 'gdansk';
+  document.getElementById('projDistrict').value = p.district || '';
+  document.getElementById('projArea').value = p.area || '';
+  document.getElementById('projDate').value = p.date || '';
+  document.getElementById('projDesc').value = p.description || '';
+  document.getElementById('fileBefore').value = '';
+  document.getElementById('fileAfter').value = '';
+  // Show existing images in drop zones
+  if (p.imageBefore) {
+    document.getElementById('dropBefore').innerHTML = `<img src="${p.imageBefore}" class="w-full h-full object-cover rounded-lg">`;
+  } else { resetDrop('dropBefore'); }
+  if (p.imageAfter) {
+    document.getElementById('dropAfter').innerHTML = `<img src="${p.imageAfter}" class="w-full h-full object-cover rounded-lg">`;
+  } else { resetDrop('dropAfter'); }
+  // Set page checkboxes
+  document.querySelectorAll('#projPages input').forEach(cb => {
+    cb.checked = (p.pages || []).includes(cb.value);
+  });
+  document.querySelector('#projectModal h3').textContent = 'Edytuj realizację';
   document.getElementById('projectModal').classList.remove('hidden');
 }
 
 async function saveProject() {
-  const id = `proj-${Date.now()}`;
+  const isEditing = editingProjectIndex >= 0;
+  const existing = isEditing ? content.projects[editingProjectIndex] : null;
+  const id = isEditing ? existing.id : `proj-${Date.now()}`;
+  
   const project = {
     id,
     service: document.getElementById('projService').value,
@@ -367,13 +413,13 @@ async function saveProject() {
     area: parseInt(document.getElementById('projArea').value) || null,
     date: document.getElementById('projDate').value,
     description: document.getElementById('projDesc').value,
-    imageBefore: '',
-    imageAfter: '',
+    imageBefore: isEditing ? existing.imageBefore : '',
+    imageAfter: isEditing ? existing.imageAfter : '',
     pages: Array.from(document.querySelectorAll('#projPages input:checked')).map(cb => cb.value),
     featured: true
   };
 
-  // Upload images
+  // Upload new images (only if user selected new files)
   const fileBefore = document.getElementById('fileBefore').files[0];
   const fileAfter = document.getElementById('fileAfter').files[0];
   
@@ -388,18 +434,16 @@ async function saveProject() {
     if (url) project.imageAfter = url;
   }
 
-  content.projects.unshift(project);
+  if (isEditing) {
+    content.projects[editingProjectIndex] = project;
+  } else {
+    content.projects.unshift(project);
+  }
+  
+  editingProjectIndex = -1;
   closeModal('projectModal');
   renderProjects();
   await saveAll();
-  
-  // Reset form
-  document.getElementById('projDistrict').value = '';
-  document.getElementById('projArea').value = '';
-  document.getElementById('projDesc').value = '';
-  document.getElementById('fileBefore').value = '';
-  document.getElementById('fileAfter').value = '';
-  document.querySelectorAll('#projPages input').forEach(cb => cb.checked = false);
   resetDrop('dropBefore');
   resetDrop('dropAfter');
 }
