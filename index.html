@@ -729,48 +729,51 @@
             </div>
             
             <div class="lg:col-span-3 bg-primary rounded-4xl p-8 md:p-10 border border-white/5">
-                <form class="space-y-4 md:space-y-6">
+                <form id="wycena-form" action="https://formsubmit.co/kontakt@ustowski.pl" method="POST" class="space-y-4 md:space-y-6">
+                    <input type="hidden" name="_subject" value="Nowe zapytanie ze strony ustowski.pl">
+                    <input type="hidden" name="_captcha" value="false">
+                    <input type="hidden" name="_next" value="https://ustowski.pl/index.html?sent=1">
+                    <input type="hidden" name="_template" value="table">
+                    <input type="text" name="_honey" style="display:none">
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div class="space-y-2">
                             <label class="text-sm font-medium text-white/70">Imię i nazwisko</label>
-                            <input type="text" class="w-full bg-white/5 border border-white/10 rounded-2xl px-4 py-3 text-white focus:outline-none focus:border-accent transition-colors" placeholder="Jan Kowalski">
+                            <input type="text" class="w-full bg-white/5 border border-white/10 rounded-2xl px-4 py-3 text-white focus:outline-none focus:border-accent transition-colors" placeholder="Jan Kowalski" name="name" required minlength="2">
                         </div>
                         <div class="space-y-2">
                             <label class="text-sm font-medium text-white/70">Telefon</label>
-                            <input type="tel" class="w-full bg-white/5 border border-white/10 rounded-2xl px-4 py-3 text-white focus:outline-none focus:border-accent transition-colors" placeholder="+48 --- --- ---">
+                            <input type="tel" class="w-full bg-white/5 border border-white/10 rounded-2xl px-4 py-3 text-white focus:outline-none focus:border-accent transition-colors" placeholder="+48 --- --- ---" name="phone" required pattern="[0-9+\s]{9,15}">
                         </div>
                     </div>
                     
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div class="space-y-2">
                             <label class="text-sm font-medium text-white/70">Rodzaj usługi</label>
-                            <select class="w-full bg-white/5 border border-white/10 rounded-2xl px-4 py-3 text-white focus:outline-none focus:border-accent transition-colors appearance-none">
+                            <select class="w-full bg-white/5 border border-white/10 rounded-2xl px-4 py-3 text-white focus:outline-none focus:border-accent transition-colors appearance-none" name="service" required">
                                 <option value="" disabled selected class="text-black">Wybierz usługę...</option>
                                 <option value="elewacja-mycie" class="text-black">Mycie elewacji</option>
                                 <option value="elewacja-malowanie" class="text-black">Malowanie elewacji</option>
                                 <option value="dach-mycie" class="text-black">Mycie dachu</option>
                                 <option value="dach-malowanie" class="text-black">Malowanie dachu</option>
+                                <option value="impregnacja" class="text-black">Impregnacja</option>
+                                <option value="mycie-paneli-pv" class="text-black">Mycie paneli PV</option>
                                 <option value="inne" class="text-black">Inne / Kompleksowo</option>
                             </select>
                         </div>
                         <div class="space-y-2">
                             <label class="text-sm font-medium text-white/70">Orientacyjna powierzchnia (m²)</label>
-                            <input type="number" class="w-full bg-white/5 border border-white/10 rounded-2xl px-4 py-3 text-white focus:outline-none focus:border-accent transition-colors" placeholder="np. 150">
+                            <input type="number" class="w-full bg-white/5 border border-white/10 rounded-2xl px-4 py-3 text-white focus:outline-none focus:border-accent transition-colors" placeholder="np. 150" name="area">
                         </div>
                     </div>
                     
                     <div class="space-y-2">
                         <label class="text-sm font-medium text-white/70">Wiadomość (opcjonalnie)</label>
-                        <textarea rows="3" class="w-full bg-white/5 border border-white/10 rounded-2xl px-4 py-3 text-white focus:outline-none focus:border-accent transition-colors resize-none" placeholder="Opisz krótko stan, dostęp, np. 'dom piętrowy, wąski wjazd'"></textarea>
+                        <textarea rows="3" class="w-full bg-white/5 border border-white/10 rounded-2xl px-4 py-3 text-white focus:outline-none focus:border-accent transition-colors resize-none" placeholder="Opisz krótko stan, dostęp, np. 'dom piętrowy, wąski wjazd'" name="message"></textarea>
                     </div>
 
                     <div class="space-y-2">
-                        <label class="text-sm font-medium text-white/70">Dodaj zdjęcie (przyspieszy wycenę)</label>
-                        <div class="w-full border border-dashed border-white/20 rounded-2xl p-6 text-center cursor-pointer hover:bg-white/5 transition-colors">
-                            <svg class="w-8 h-8 text-white/40 mx-auto mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"></path></svg>
-                            <p class="text-sm text-white/60">Kliknij lub przeciągnij plik tutaj</p>
-                            <input type="file" class="hidden" accept="image/*" multiple>
-                        </div>
+                        <label class="text-sm font-medium text-white/70">Email (opcjonalnie)</label>
+                        <input type="email" class="w-full bg-white/5 border border-white/10 rounded-2xl px-4 py-3 text-white focus:outline-none focus:border-accent transition-colors" placeholder="jan@email.pl" name="email">
                     </div>
                     
                     <div class="flex items-start gap-3">
@@ -780,7 +783,7 @@
                         </label>
                     </div>
                     
-                    <button type="button" class="btn-magnetic w-full bg-accent text-white px-8 py-4 rounded-full font-bold text-lg mt-4">
+                    <button type="submit" id="submit-btn" class="btn-magnetic w-full bg-accent text-white px-8 py-4 rounded-full font-bold text-lg mt-4">
                         <span class="btn-bg-slide rounded-full"></span>
                         <span class="relative z-10">Wyślij zapytanie</span>
                     </button>
@@ -849,6 +852,88 @@
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             
+
+
+            // Form Validation
+            const form = document.getElementById('wycena-form');
+            if (form) {
+                const submitBtn = document.getElementById('submit-btn');
+                const inputs = form.querySelectorAll('input[required], select[required]');
+                
+                // Inline validation on blur
+                inputs.forEach(input => {
+                    input.addEventListener('blur', () => validateField(input));
+                    input.addEventListener('input', () => {
+                        if (input.classList.contains('border-red-500')) validateField(input);
+                    });
+                });
+                
+                function validateField(field) {
+                    const parent = field.closest('.space-y-2');
+                    let existing = parent ? parent.querySelector('.error-msg') : null;
+                    if (existing) existing.remove();
+                    
+                    let error = '';
+                    if (field.name === 'name' && field.value.trim().length < 2) {
+                        error = 'Wpisz imię i nazwisko (min. 2 znaki)';
+                    } else if (field.name === 'phone') {
+                        const digits = field.value.replace(/[^0-9]/g, '');
+                        if (digits.length < 9) error = 'Wpisz poprawny numer telefonu (min. 9 cyfr)';
+                    } else if (field.name === 'service' && !field.value) {
+                        error = 'Wybierz rodzaj usługi';
+                    }
+                    
+                    if (error) {
+                        field.classList.add('border-red-500');
+                        field.classList.remove('border-white/10');
+                        if (parent) {
+                            const msg = document.createElement('p');
+                            msg.className = 'error-msg text-red-400 text-xs mt-1';
+                            msg.textContent = error;
+                            parent.appendChild(msg);
+                        }
+                        return false;
+                    } else {
+                        field.classList.remove('border-red-500');
+                        field.classList.add('border-white/10');
+                        return true;
+                    }
+                }
+                
+                form.addEventListener('submit', (e) => {
+                    let valid = true;
+                    inputs.forEach(input => {
+                        if (!validateField(input)) valid = false;
+                    });
+                    
+                    const rodo = document.getElementById('rodo');
+                    if (rodo && !rodo.checked) {
+                        valid = false;
+                        alert('Zaakceptuj zgodę na przetwarzanie danych osobowych.');
+                    }
+                    
+                    if (!valid) {
+                        e.preventDefault();
+                        return;
+                    }
+                    
+                    // Show sending state
+                    submitBtn.innerHTML = '<span class="relative z-10">Wysyłam...</span>';
+                    submitBtn.disabled = true;
+                });
+                
+                // Success message after redirect back
+                if (window.location.search.includes('sent=1')) {
+                    const formSection = document.getElementById('wycena');
+                    if (formSection) {
+                        const msg = document.createElement('div');
+                        msg.className = 'bg-green-500/20 border border-green-500/50 rounded-2xl p-6 text-center text-green-400 mb-6';
+                        msg.innerHTML = '<p class="text-lg font-bold">✅ Dziękujemy!</p><p>Twoje zapytanie zostało wysłane. Odezwiemy się w ciągu 24h.</p>';
+                        form.parentNode.insertBefore(msg, form);
+                        form.style.display = 'none';
+                    }
+                }
+            }
 
             // Mobile Menu Toggle
             const menuBtn = document.getElementById('mobile-menu-btn');
